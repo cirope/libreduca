@@ -1,0 +1,20 @@
+@import "mixins";
+
+.public_form_container {
+  background: #fff;
+  margin-top: 3em;
+  border: 2px dotted red;
+  padding: 1em 0em;
+  border: 1px solid #aaa;
+  @include border-radius(8px);
+  @include box-shadow(0, 0, 6px, #999);
+
+  a, h2, input.btn, p {
+    margin-left: 150px;
+    margin-right: 100px;
+  }
+
+  h2 {
+    margin-bottom: 1em;
+  }
+}

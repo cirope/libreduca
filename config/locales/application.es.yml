@@ -1,0 +1,61 @@
+'es':
+  app_name: 'X0Y0'
+  
+  attributes:
+    created_at: 'Creación'
+    updated_at: 'Actualización'
+    
+  activerecord:
+    models:
+      user: 'Usuario'
+      
+    attributes:
+      user:
+        name: 'Nombre'
+        lastname: 'Apellido'
+        email: 'Correo'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación'
+        roles: 'Perfiles'
+        remember_me: 'Recordarme'
+        
+  errors:
+    title: 'Error'
+    access_denied: 'No tiene permisos para acceder al contenido'
+        
+  label:
+    'yes': 'Si'
+    'no': 'No'
+    close: 'Cerrar'
+    delete: 'Eliminar'
+    edit: 'Editar'
+    list: 'Listado'
+    new: 'Nuevo'
+    show: 'Ver'
+    
+  menu:
+    actions:
+      logout:
+        link: 'Salir'
+        title: 'Salir de la aplicación'
+    users: 'Usuarios'
+    
+  messages:
+    confirmation: '¿Está seguro?'
+    
+  view:
+    users:
+      index_title: 'Listado de usuarios'
+      show_title: 'Detalle de usuario'
+      new_title: 'Nuevo usuario'
+      edit_title: 'Modificar usuario'
+      correctly_created: 'Usuario agregado correctamente.'
+      correctly_updated: 'Usuario actualizado correctamente.'
+      stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
+      update_profile: 'Actualizar datos'
+      update_password: 'Actualizar contraseña'
+      profile_correctly_updated: 'Actualizaste tus datos correctamente.'
+      edit_profile: 'Editar perfil'
+      roles:
+        admin: 'Administrador'
+        regular: 'Normal'

@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="public_form_container span8 offset4">
+    <h2>Editar <%= resource_name.to_s.humanize %></h2>
+
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, wrapper: :inline) do |f| %>
+      <%= f.input :email, input_html: { autofocus: true } %>
+      <%= f.input :password, hint: 'dejar en blanco para no cambiar' %>
+      <%= f.input :password_confirmation %>
+      <%= f.input :current_password, hint: 'necesitamos tu contraseña actual para confirmar los cambios' %>
+
+      <%= f.button :submit, 'Actualizar', class: 'primary' %>
+    <% end %>
+
+    <h3>Borrar mi cuenta</h3>
+
+    <p>¿Triste? <%= link_to 'Cancelar mi cuenta', registration_path(resource_name), confirm: '¿Está seguro?', method: :delete %>.</p>
+
+    <%= link_to 'Volver', :back %>
+  </div>
+</div>

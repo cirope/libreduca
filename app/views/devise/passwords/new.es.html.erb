@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="public_form_container span10 offset3">
+    <h2>¿Olvidaste tu contraseña?</h2>
+    
+    <p>
+      Ingresa debajo tu dirección de correo y te enviaremos instrucciones para
+      restablecerla
+    </p>
+
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, wrapper: :inline) do |f| %>
+      <%= f.input :email, input_html: { autofocus: true } %>
+
+      <%= f.button :submit, 'Enviarme las instrucciones', class: 'primary' %>
+    <% end %>
+
+    <%= render partial: 'devise/shared/links' %>
+  </div>
+</div>
