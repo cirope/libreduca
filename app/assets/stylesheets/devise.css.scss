@@ -4,17 +4,30 @@
   background: #fff;
   margin-top: 3em;
   border: 2px dotted red;
-  padding: 1em 0em;
+  padding-top: 1em;
   border: 1px solid #aaa;
   @include border-radius(8px);
   @include box-shadow(0, 0, 6px, #999);
 
-  a, h2, input.btn, p {
+  form {
+    margin-bottom: 0em;
+  }
+
+  h2, p {
     margin-left: 150px;
     margin-right: 100px;
   }
 
   h2 {
     margin-bottom: 1em;
+  }
+
+  .actions {
+     margin-bottom: 0em;
+
+     nav {
+      display: inline;
+      margin-left: 1em;
+    }
   }
 }

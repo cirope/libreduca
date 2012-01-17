@@ -15,13 +15,14 @@
         <td><%= link_to user.lastname, user, title: t('label.show') %></td>
         <td><%= mail_to user.email %></td>
         <td><%= link_to_edit edit_user_path(user) %></td>
-        <td><%= link_to_delete user %></td>
+        <td><%= link_to_destroy user %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<nav class="links">
-  <%= pagination_links(@users) %>
-  <%= link_to t('label.new'), new_user_path %>
+<%= pagination_links(@users) %>
+
+<nav class="actions">
+  <%= link_to t('label.new'), new_user_path, class: 'btn primary' %>
 </nav>

@@ -1,16 +1,22 @@
 <%= simple_form_for(@user, url: update_profile_user_path(@user), wrapper: :stacked, html: { class: 'form-stacked' }) do |f| %>
-  <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
-  <%= f.input :lastname, input_html: { maxlength: 255 } %>
-  <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
+  <div class="inputs">
+    <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+    <%= f.input :lastname, input_html: { maxlength: 255 } %>
+    <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
+  </div>
   
   <%= f.input :lock_version, as: :hidden %>
   <%= f.button :submit, t('view.users.update_profile'), class: 'primary' %>
 <% end %>
 
 <%= simple_form_for(@user, url: update_profile_user_path(@user), wrapper: :stacked, html: { class: 'form-stacked', id: "edit_password_#{@user.to_param}" }) do |f| %>
-  <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
-  <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
+  <div class="inputs">
+    <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
+    <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
+  </div>
 
   <%= f.input :lock_version, as: :hidden, input_html: { id: "user_lock_version_password_#{@user.to_param}" } %>
   <%= f.button :submit, t('view.users.update_password') %>
 <% end %>
+
+<br />

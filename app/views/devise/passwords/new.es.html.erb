@@ -8,11 +8,14 @@
     </p>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, wrapper: :inline) do |f| %>
-      <%= f.input :email, input_html: { autofocus: true } %>
-
-      <%= f.button :submit, 'Enviarme las instrucciones', class: 'primary' %>
+      <div class="inputs">
+        <%= f.input :email, input_html: { autofocus: true } %>
+      </div>
+      
+      <div class="actions">
+        <%= f.button :submit, 'Enviarme las instrucciones', class: 'primary' %>
+        <%= render partial: 'devise/shared/links' %>
+      </div>
     <% end %>
-
-    <%= render partial: 'devise/shared/links' %>
   </div>
 </div>

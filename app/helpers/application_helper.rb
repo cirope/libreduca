@@ -40,7 +40,7 @@ module ApplicationHelper
     link_to '&#x270e;'.html_safe, *args, options
   end
   
-  def link_to_delete(*args)
+  def link_to_destroy(*args)
     options = args.extract_options!
     
     options['class'] ||= 'iconic'

@@ -6,10 +6,10 @@
       <%= f.input :email, input_html: { autofocus: true } %>
       <%= f.input :password %>
       <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-      
-      <%= f.button :submit, 'Ingresar', class: 'primary' %>
+      <div class="actions">
+        <%= f.button :submit, 'Ingresar', class: 'primary' %>
+        <%= render partial: 'devise/shared/links' %>
+      </div>
     <% end %>
-
-    <%= render partial: 'devise/shared/links' %>
   </div>
 </div>

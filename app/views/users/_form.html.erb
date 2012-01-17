@@ -1,17 +1,22 @@
 <%= simple_form_for(@user, wrapper: :stacked, html: { class: 'form-stacked' }) do |f| %>
-  <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
-  <%= f.input :lastname, input_html: { maxlength: 255 } %>
-  <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
+  <div class="inputs">
+    <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+    <%= f.input :lastname, input_html: { maxlength: 255 } %>
+    <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
 
-  <% if ['new', 'create'].include?(action_name) %>
-    <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
-    <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
-  <% end %>
+    <% if ['new', 'create'].include?(action_name) %>
+      <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
+      <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
+    <% end %>
+
+    <% if can? :assign_roles, @user %>
+      <%= show_user_roles_options(f) %>
+    <% end %>
+  </div>
   
-  <% if can? :assign_roles, @user %>
-    <%= show_user_roles_options(f) %>
-  <% end %>
-  
-  <%= f.input :lock_version, as: :hidden %>
-  <%= f.button :submit, class: 'primary' %>
+  <div class="actions">
+    <%= f.input :lock_version, as: :hidden %>
+    <%= f.button :submit, class: 'primary' %>
+    <div class="secondary-action"><%= yield :form_actions %></div>
+  </div>
 <% end %>

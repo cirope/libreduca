@@ -1,19 +1,23 @@
-<h2 class="title"><%= @user %></h2>
+<div class="readonly_data">
+  <h2><%= @user %></h2>
 
-<p>
-  <%= mail_to @user.email %>
-</p>
+  <p>
+    <%= mail_to @user.email %>
+  </p>
 
-<% unless @user.roles.empty? %>
-  <h3><%= User.human_attribute_name 'roles' %></h3>
-  <ul>
-    <% @user.roles.each do |role| %>
-      <li><%= t("view.users.roles.#{role}") %></li>
-    <% end %>
-  </ul>
-<% end %>
+  <% unless @user.roles.empty? %>
+    <h3><%= User.human_attribute_name 'roles' %></h3>
+    <ul>
+      <% @user.roles.each do |role| %>
+        <li><%= t("view.users.roles.#{role}") %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 
-<nav class="links">
-  <%= link_to t('label.edit'), edit_user_path(@user) %> |
-  <%= link_to t('label.list'), users_path %>
+<nav class="actions">
+  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn primary' %>
+  <div class="secondary-action">
+    <%= link_to t('label.list'), users_path %>
+  </div>
 </nav>
