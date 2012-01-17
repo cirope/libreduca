@@ -2,12 +2,12 @@
 
 @font-face {
   font-family: 'IconicStroke';
-    src: url(<%= image_path 'fonts/iconic_stroke.eot' %>);
-    src: url(<%= image_path 'fonts/iconic_stroke.eot?#iefix' %>) format('embedded-opentype'),
-         local('☺'), /* Paul Irish Method */
-         url(<%= image_path 'fonts/iconic_stroke.ttf' %>) format('truetype'),
-         url(<%= image_path 'fonts/iconic_stroke.svg#iconic' %>) format('svg'),
-         url(<%= image_path 'fonts/iconic_stroke.otf' %>) format('opentype');
+    src: url('<%= image_path 'fonts/iconic_stroke.eot?' %>') format('embedded-opentype');
+    src: local('☺'), /* Paul Irish Method */
+         url('<%= image_path 'fonts/iconic_stroke.ttf' %>') format('truetype'),
+         url('<%= image_path 'fonts/iconic_stroke.svg#iconic' %>') format('svg'),
+         url('<%= image_path 'fonts/iconic_stroke.otf' %>') format('opentype');
+         
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,14 @@ table.resource-list {
   a.iconic {
     text-decoration: none;
   }
+}
+
+#logout {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  font-size: 1.25em;
 }
 
 .alert-message {

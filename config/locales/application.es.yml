@@ -35,9 +35,7 @@
     
   menu:
     actions:
-      logout:
-        link: 'Salir'
-        title: 'Salir de la aplicación'
+      logout: 'Salir de la aplicación'
     users: 'Usuarios'
     
   messages:

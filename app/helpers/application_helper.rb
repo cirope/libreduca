@@ -31,23 +31,23 @@ module ApplicationHelper
   end
   
   def link_to_edit(*args)
-    options = {
-      'class' => 'iconic',
-      'title' => t('label.edit'),
-      'data-twipsy' => true
-    }.merge(args.extract_options!)
+    options = args.extract_options!
+    
+    options['class'] ||= 'iconic'
+    options['title'] ||= t('label.edit')
+    options['data-twipsy'] ||= true
     
     link_to '&#x270e;'.html_safe, *args, options
   end
   
   def link_to_delete(*args)
-    options = {
-      'class' => 'iconic',
-      'confirm' => t('messages.confirmation'),
-      'title' => t('label.delete'),
-      'method' => :delete,
-      'data-twipsy' => true
-    }.merge(args.extract_options!)
+    options = args.extract_options!
+    
+    options['class'] ||= 'iconic'
+    options['title'] ||= t('label.delete')
+    options['confirm'] ||= t('messages.confirmation')
+    options['method'] ||= :delete
+    options['data-twipsy'] ||= true
     
     link_to '&#x2714;'.html_safe, *args, options
   end

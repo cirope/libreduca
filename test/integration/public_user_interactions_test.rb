@@ -69,7 +69,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
       assert page.has_content?(I18n.t('devise.sessions.signed_in'))
     end
     
-    click_link I18n.t('menu.actions.logout.link')
+    click_link 'logout'
     
     assert_equal new_user_session_path, current_path
     
