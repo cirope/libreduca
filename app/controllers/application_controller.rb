@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  after_filter -> { expires_now if current_user }
+  after_filter -> { expires_now if user_signed_in? }
   
   rescue_from Exception do |exception|
     begin
