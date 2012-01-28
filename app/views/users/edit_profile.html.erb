@@ -1,4 +1,4 @@
-<%= simple_form_for(@user, url: update_profile_user_path(@user), wrapper: :stacked, html: { class: 'form-stacked' }) do |f| %>
+<%= simple_form_for(@user, url: update_profile_user_path(@user), html: { class: 'form-stacked' }) do |f| %>
   <div class="inputs">
     <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
     <%= f.input :lastname, input_html: { maxlength: 255 } %>
@@ -9,7 +9,7 @@
   <%= f.button :submit, t('view.users.update_profile'), class: 'primary' %>
 <% end %>
 
-<%= simple_form_for(@user, url: update_profile_user_path(@user), wrapper: :stacked, html: { class: 'form-stacked', id: "edit_password_#{@user.to_param}" }) do |f| %>
+<%= simple_form_for(@user, url: update_profile_user_path(@user), html: { class: 'form-stacked', id: "edit_password_#{@user.to_param}" }) do |f| %>
   <div class="inputs">
     <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
     <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>

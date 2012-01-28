@@ -2,7 +2,7 @@
   <div class="public_form_container span10 offset3">
     <h2>Cambio de contraseña</h2>
 
-    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, wrapper: :inline) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
       <%= f.input :reset_password_token, as: :hidden %>
 
       <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true } %>

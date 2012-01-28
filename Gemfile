@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.0'
+gem 'rails', git: 'git://github.com/rails/rails', branch: '3-2-stable'
 
 gem 'pg'
 gem 'jquery-rails'
 gem 'will_paginate'
 gem 'simple_form', git: 'git://github.com/plataformatec/simple_form.git'
-gem 'devise', '2.0.0.rc'
+gem 'devise'
 gem 'cancan'
 gem 'role_model'
 gem 'capistrano'

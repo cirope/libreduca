@@ -2,7 +2,7 @@
   <div class="public_form_container span8 offset4">
     <h2>Registrarse</h2>
 
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), wrapper: :inline) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= f.input :email, input_html: { autofocus: true } %>
       <%= f.input :password %>
       <%= f.input :password_confirmation %>

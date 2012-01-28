@@ -34,7 +34,9 @@
       confirmed: 'Su cuenta ha sido confirmada. Ya ha accedido a su cuenta.'
     registrations:
       signed_up: '¡Bienvenido! Se ha registrado correctamente.'
-      inactive_signed_up: 'Se ha registrado correctamente. Sin embargo, no está conectado todavía porque su cuenta está %{reason}.'
+      signed_up_but_unconfirmed: 'Se ha enviado un mensaje con un enlace de confirmación a su correo. Por favor abra ese enlace para activar su cuenta.'
+      signed_up_but_inactive: 'Se ha registrado correctamente. Sin embargo, no está conectado todavía porque su cuenta no está activada.'
+      signed_up_but_locked: 'Se ha registrado correctamente. Sin embargo, no está conectado todavía porque su cuenta está bloqueada.'
       updated: 'Ha actualizado su cuenta correctamente.'
       destroyed: '¡Hasta luego! Su cuenta ha sido cancelada. Esperamos verle pronto.'
     unlocks:

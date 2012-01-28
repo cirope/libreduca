@@ -1,53 +1,98 @@
- # Use this setup block to configure all options available in SimpleForm.
+# Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  # Wrappers are used by the form builder to generate a complete input.
-  # You can remove any component from the wrapper, change the order or even
-  # add your own to the stack. The options given to the wrappers method
-  # are used to wrap the whole input.
+  # Wrappers are used by the form builder to generate a
+  # complete input. You can remove any component from the
+  # wrapper, change the order or even add your own to the
+  # stack. The options given below are used to wrap the
+  # whole input.
+  config.wrappers :default, class: :input, hint_class: :field_with_hint,
+      error_class: :field_with_errors do |b|
+    ## Extensions enabled by default
+    # Any of these extensions can be disabled for a
+    # given input by passing: `f.input EXTENSION_NAME => false`.
+    # You can make any of these extensions optional by
+    # renaming `b.use` to `b.optional`.
 
-  config.wrappers :inline, class: 'clearfix', error_class: :error do |b|
+    # Determines whether to use HTML5 (:email, :url, ...)
+    # and required attributes
+    b.use :html5
+
+    # Calculates placeholders automatically from I18n
+    # You can also pass a string as f.input placeholder: "Placeholder"
+    b.use :placeholder
+
+    ## Optional extensions
+    # They are disabled unless you pass `f.input EXTENSION_NAME => :lookup`
+    # to the input. If so, they will retrieve the values from the model
+    # if any exists. If you want to enable the lookup for any of those
+    # extensions by default, you can change `b.optional` to `b.use`.
+
+    # Calculates maxlength from length validations for string inputs
+    b.optional :maxlength
+
+    # Calculates pattern from format validations for string inputs
+    b.optional :pattern
+
+    # Calculates min and max from length validations for numeric inputs
+    b.optional :min_max
+
+    # Calculates readonly automatically from readonly attributes
+    b.optional :readonly
+
+    ## Inputs
+    b.use :label_input
+    b.use :hint,  tag: :span, class: :hint
+    b.use :error, tag: :span, class: :error
+  end
+
+  config.wrappers :bootstrap, tag: 'fieldset', class: 'clearfix', error_class: 'error' do |b|
     b.use :placeholder
     b.use :label
     b.use tag: 'div', class: 'input' do |ba|
       ba.use :input
-      ba.use :error, tag: :span, class: 'help-inline'
-      ba.use :hint,  tag: :span, class: 'help-block'
+      ba.use :error, tag: 'span', class: 'help-inline'
+      ba.use :hint,  tag: 'p', class: 'help-block'
     end
   end
 
-  config.wrappers :stacked, class: 'clearfix', error_class: :error do |b|
+  config.wrappers :prepend, tag: 'fieldset', class: 'clearfix', error_class: 'error' do |b|
     b.use :placeholder
     b.use :label
-    b.use :hint,  tag: :span, class: 'help-block'
-    b.use tag: 'div', class: 'input' do |input|
-      input.use :input
-      input.use :error, tag: :span, class: 'help-inline'
-    end
-  end
-
-  config.wrappers :prepend, class: 'clearfix', error_class: :error do |b|
-    b.use :placeholder
-    b.use :label
-    b.use :hint,  tag: :span, class: 'help-block'
+    b.use :hint,  tag: 'span', class: 'help-block'
     b.use tag: 'div', class: 'input' do |input|
       input.use tag: 'div', class: 'input-prepend' do |prepend|
         prepend.use :input
       end
-      input.use :error, tag: :span, class: 'help-inline'
+      input.use :error, tag: 'span', class: 'help-inline'
     end
   end
 
-  config.wrappers :append, class: 'clearfix', error_class: :error do |b|
+  config.wrappers :append, tag: 'fieldset', class: 'clearfix', error_class: 'error' do |b|
     b.use :placeholder
     b.use :label
-    b.use :hint,  tag: :span, class: 'help-block'
+    b.use :hint,  tag: 'span', class: 'help-block'
     b.use tag: 'div', class: 'input' do |input|
       input.use tag: 'div', class: 'input-append' do |append|
         append.use :input
       end
-      input.use :error, tag: :span, class: 'help-inline'
+      input.use :error, tag: 'span', class: 'help-inline'
     end
   end
+
+  # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
+  # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
+  # to learn about the different styles for forms and inputs,
+  # buttons and other elements.
+  config.default_wrapper = :bootstrap
+
+  # Define the way to render check boxes / radio buttons with labels.
+  # Defaults to :nested for bootstrap config.
+  #   inline: input + label
+  #   nested: label > input
+  config.boolean_style = :nested
+
+  # Default class for buttons
+  config.button_class = 'btn'
 
   # Method used to tidy up errors.
   # config.error_method = :first
@@ -117,7 +162,4 @@ SimpleForm.setup do |config|
 
   # Cache simple form inputs discovery
   # config.cache_discovery = !Rails.env.development?
-
-  # Default class for buttons
-  config.button_class = 'btn'
 end
