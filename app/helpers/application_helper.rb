@@ -5,7 +5,8 @@ module ApplicationHelper
   
   def pagination_links(objects, params = nil)
     result = will_paginate objects, inner_window: 1, outer_window: 1,
-      params: params, renderer: BootstrapPaginationHelper::LinkRenderer
+      params: params, renderer: BootstrapPaginationHelper::LinkRenderer,
+      class: 'pagination pagination-right'
     
     unless result
       previous_tag = content_tag(
@@ -23,7 +24,7 @@ module ApplicationHelper
       result = content_tag(
         :div,
         content_tag(:ul, previous_tag + current_tag + next_tag),
-        class: 'pagination'
+        class: 'pagination pagination-right'
       )
     end
 
@@ -35,7 +36,7 @@ module ApplicationHelper
     
     options['class'] ||= 'iconic'
     options['title'] ||= t('label.edit')
-    options['data-twipsy'] ||= true
+    options['data-show-tooltip'] ||= true
     
     link_to '&#x270e;'.html_safe, *args, options
   end
@@ -47,7 +48,7 @@ module ApplicationHelper
     options['title'] ||= t('label.delete')
     options['confirm'] ||= t('messages.confirmation')
     options['method'] ||= :delete
-    options['data-twipsy'] ||= true
+    options['data-show-tooltip'] ||= true
     
     link_to '&#x2714;'.html_safe, *args, options
   end

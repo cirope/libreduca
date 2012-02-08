@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="public_form_container span10 offset3">
-    <h2>¿Olvidaste tu contraseña?</h2>
+  <div class="public_form_container span6 offset3">
+    <h3>¿Olvidaste tu contraseña?</h3>
     
     <p>
       Ingresa debajo tu dirección de correo y te enviaremos instrucciones para
@@ -9,11 +9,11 @@
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <div class="inputs">
-        <%= f.input :email, input_html: { autofocus: true } %>
+        <%= f.input :email, input_html: { autofocus: true, class: 'span4' } %>
       </div>
       
-      <div class="actions">
-        <%= f.button :submit, 'Enviarme las instrucciones', class: 'primary' %>
+      <div class="form-actions">
+        <%= f.button :submit, 'Enviarme las instrucciones', class: 'btn btn-primary' %>
         <%= render partial: 'devise/shared/links' %>
       </div>
     <% end %>

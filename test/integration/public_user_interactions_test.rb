@@ -13,9 +13,9 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_equal new_user_session_path, current_path
     
     assert_page_has_no_errors!
-    assert page.has_css?('.alert-message')
+    assert page.has_css?('.alert')
     
-    within '.alert-message' do
+    within '.alert' do
       assert page.has_content?(I18n.t('devise.failure.unauthenticated'))
     end
   end
@@ -35,15 +35,15 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: user.email
     
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      find('input.btn.primary').click
+      find('input.btn.btn-primary').click
     end
     
     assert_equal new_user_session_path, current_path
     
     assert_page_has_no_errors!
-    assert page.has_css?('.alert-message')
+    assert page.has_css?('.alert')
     
-    within '.alert-message' do
+    within '.alert' do
       assert page.has_content?(I18n.t('devise.passwords.send_instructions'))
     end
   end
@@ -58,14 +58,14 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: '123456'
     
-    find('input.btn.primary').click
+    find('input.btn.btn-primary').click
     
     assert_equal root_path, current_path
     
     assert_page_has_no_errors!
-    assert page.has_css?('.alert-message')
+    assert page.has_css?('.alert')
     
-    within '.alert-message' do
+    within '.alert' do
       assert page.has_content?(I18n.t('devise.sessions.signed_in'))
     end
     
@@ -74,9 +74,9 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_equal new_user_session_path, current_path
     
     assert_page_has_no_errors!
-    assert page.has_css?('.alert-message')
+    assert page.has_css?('.alert')
     
-    within '.alert-message' do
+    within '.alert' do
       assert page.has_content?(I18n.t('devise.sessions.signed_out'))
     end
   end

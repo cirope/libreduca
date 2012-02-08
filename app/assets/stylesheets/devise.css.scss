@@ -11,23 +11,40 @@
 
   form {
     margin-bottom: 0em;
-  }
 
-  h2, p {
-    margin-left: 150px;
-    margin-right: 100px;
-  }
+    .inputs {
+      padding: 17px 20px 6px;
 
-  h2 {
-    margin-bottom: 1em;
-  }
+      /* TODO: Erase this excesive amount of CSS for control de checkbox position */
+      label.boolean {
+        display: inline;
+      }
 
-  .actions {
-     margin-bottom: 0em;
+      .control-group.boolean {
+        label, .controls {
+          display: inline;
+        }
 
-     nav {
-      display: inline;
-      margin-left: 1em;
+        label {
+          input.boolean {
+            margin: 0px 6px 0px 0px;
+          }
+        }
+      }
+      /* ENDTODO (if something like this exists...) */
     }
+
+    .form-actions {
+       margin-bottom: 0px;
+
+       nav {
+        display: inline;
+        margin-left: 1em;
+      }
+    }
+  }
+
+  h3, p {
+    padding: 0px 20px;
   }
 }

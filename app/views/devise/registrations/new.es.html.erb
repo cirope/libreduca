@@ -1,13 +1,17 @@
 <div class="row">
-  <div class="public_form_container span8 offset4">
-    <h2>Registrarse</h2>
+  <div class="public_form_container span4 offset4">
+    <h3>Registrarse</h3>
 
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= f.input :email, input_html: { autofocus: true } %>
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
+      <div class="inputs">
+        <%= f.input :email, input_html: { autofocus: true } %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+      </div>
 
-      <%= f.button :submit, 'Registrarse', class: 'primary' %>
+      <div class="form-actions">
+        <%= f.button :submit, 'Registrarse', class: 'btn btn-primary' %>
+      </div>
     <% end %>
 
     <%= render partial: 'devise/shared/links' %>

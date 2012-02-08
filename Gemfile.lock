@@ -1,14 +1,14 @@
 GIT
   remote: git://github.com/plataformatec/simple_form.git
-  revision: 10bd50dcf89fd5001e70369ec281c5887d335548
+  revision: b36a9d2c53012b5da5d00195869906250d790f06
   specs:
-    simple_form (2.0.0.dev)
+    simple_form (2.0.0.rc)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
 
 GIT
   remote: git://github.com/rails/rails
-  revision: f78cb5583f77952aa35e063a660a11aad5f8de7f
+  revision: d3d807a173d0a7bc0c2235837151ff610799cb16
   branch: 3-2-stable
   specs:
     actionmailer (3.2.1)
@@ -57,7 +57,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    ansi (1.4.1)
+    ansi (1.4.2)
     archive-tar-minitar (0.5.2)
     arel (3.0.0)
     bcrypt-ruby (3.0.1)
@@ -76,7 +76,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    childprocess (0.3.0)
+    childprocess (0.3.1)
       ffi (~> 1.0.6)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -117,7 +117,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
-    minitest (2.11.0)
+    minitest (2.11.1)
     mongrel (1.2.0.pre2)
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
@@ -155,7 +155,7 @@ GEM
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.5)
-    sass (3.1.12)
+    sass (3.1.14)
     sass-rails (3.2.4)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -176,15 +176,16 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    turn (0.8.3)
+    turn (0.9.1)
       ansi
+      minitest
     tzinfo (0.3.31)
-    uglifier (1.2.2)
+    uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     warden (1.1.0)
       rack (>= 1.0)
-    will_paginate (3.0.2)
+    will_paginate (3.0.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 

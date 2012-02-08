@@ -17,7 +17,7 @@ html, body {
 }
 
 body {
-  padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+  padding-top: 40px; /* 40px to make the container go all the way to the bottom of the navbar */
 }
 
 table.resource-list {
@@ -26,15 +26,7 @@ table.resource-list {
   }
 }
 
-#logout {
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-  font-size: 1.25em;
-}
-
-.alert-message {
+.alert {
   position: fixed;
   bottom: 0em;
   left: 4em;
@@ -53,22 +45,20 @@ table.resource-list {
     @include border-radius(0 0 6px 6px);
     @include box-shadow(0, 1px, 2px, rgba(0,0,0,.15));
   }
+  
+  .inputs {
+    padding: 6px 20px 18px;
+  }
 }
 
 .logged_in[data-action="index"] {
-  .actions {
-    margin-top: 72px;
-  }
-  
   .pagination {
-    float: right;
-    margin-top: 0px;
     margin-right: 20px;
   }
 }
 
 .logged_in[data-action="index"], .logged_in[data-action="show"] {
-  .actions {
+  .form-actions {
     padding-left: 20px;
   }
   

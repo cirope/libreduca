@@ -1,14 +1,18 @@
 <div class="row">
-  <div class="public_form_container span10 offset3">
-    <h2>Cambio de contraseña</h2>
+  <div class="public_form_container span6 offset3">
+    <h3>Cambio de contraseña</h3>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-      <%= f.input :reset_password_token, as: :hidden %>
+      <div class="inputs">
+        <%= f.input :reset_password_token, as: :hidden %>
 
-      <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true } %>
-      <%= f.input :password_confirmation, label: 'Confirmar contraseña' %>
+        <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true } %>
+        <%= f.input :password_confirmation, label: 'Confirmar contraseña' %>
+      </div>
 
-      <%= f.button :submit, 'Cambiar mi contraseña', class: 'primary' %>
+      <div class="form-actions">
+        <%= f.button :submit, 'Cambiar mi contraseña', class: 'btn btn-primary' %>
+      </div>
     <% end %>
 
     <%= render partial: 'devise/shared/links' %>

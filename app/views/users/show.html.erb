@@ -15,9 +15,9 @@
   <% end %>
 </div>
 
-<nav class="actions">
-  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn primary' %>
-  <div class="secondary-action">
+<nav class="form-actions">
+  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn btn-primary' %>
+  <div class="pull-right">
     <%= link_to t('label.list'), users_path %>
   </div>
 </nav>

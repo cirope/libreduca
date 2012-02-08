@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require vendor/twitter/bootstrap
+ *= require vendor/twitter/bootstrap-responsive
  *= require vendor/jquery/ui-custom
  *= require common
  *= require devise

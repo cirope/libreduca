@@ -14,8 +14,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require vendor/jquery/jquery.ui.datepicker-es
-//= require vendor/twitter/bootstrap-alerts
-//= require vendor/twitter/bootstrap-twipsy
-//= require vendor/twitter/bootstrap-popover
+//= require vendor/twitter/bootstrap
 //= require common
 //= require users

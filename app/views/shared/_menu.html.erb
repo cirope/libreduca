@@ -1,30 +1,37 @@
-<div class="topbar">
-  <div class="fill">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
     <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="iconic">&#xe055;</span>
+      </a>
+      
       <%= link_to t('app_name'), root_path, class: 'brand' %>
-      <ul class="nav">
-        <%= content_tag(
-          :li, link_to(t('menu.users'), users_path),
-          class: ('active' if controller_name == 'users')
-        ) %>
-      </ul>
-      <ul class="nav secondary-nav">
-        <li>
-          <%= link_to(
-            current_user.email, edit_profile_user_path(current_user),
-            'title' => t('view.users.edit_profile'), 'data-twipsy' => true,
-            'data-placement' => 'below'
+      
+      <div class="nav-collapse">
+        <ul class="nav">
+          <%= content_tag(
+            :li, link_to(t('menu.users'), users_path),
+            class: ('active' if controller_name == 'users')
           ) %>
-        </li>
-        <li>
-          <%= link_to(
-            '&#xe042;'.html_safe, destroy_user_session_path,
-            'title' => t('menu.actions.logout'), 'class' => 'iconic',
-            'id' => 'logout', 'data-twipsy' => true,
-            'data-placement' => 'below', 'method' => :delete
-          ) %>
-        </li>
-      </ul>
+        </ul>
+        <ul class="nav pull-right">
+          <li>
+            <%= link_to(
+              current_user.email, edit_profile_user_path(current_user),
+              'title' => t('view.users.edit_profile'),
+              'data-show-tooltip' => true, 'data-placement' => 'bottom'
+            ) %>
+          </li>
+          <li>
+            <%= link_to(
+              '&#x2192;'.html_safe, destroy_user_session_path,
+              'title' => t('menu.actions.logout'), 'class' => 'iconic',
+              'id' => 'logout', 'data-show-tooltip' => true,
+              'data-placement' => 'bottom', 'method' => :delete
+            ) %>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
