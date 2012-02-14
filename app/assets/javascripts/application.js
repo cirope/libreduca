@@ -16,4 +16,5 @@
 //= require vendor/jquery/jquery.ui.datepicker-es
 //= require vendor/twitter/bootstrap
 //= require common
+//= require mobile
 //= require users
