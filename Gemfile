@@ -9,6 +9,7 @@ gem 'simple_form', git: 'git://github.com/plataformatec/simple_form.git'
 gem 'devise'
 gem 'cancan'
 gem 'role_model'
+gem 'paper_trail'
 gem 'capistrano'
 
 group :assets do

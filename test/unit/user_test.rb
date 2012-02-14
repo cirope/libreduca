@@ -6,21 +6,25 @@ class UserTest < ActiveSupport::TestCase
   end
   
   test 'create' do
-    assert_difference 'User.count' do
+    assert_difference ['User.count', 'Version.count'] do
       @user = User.create(Fabricate.attributes_for(:user))
     end
   end
   
   test 'update' do
-    assert_no_difference 'User.count' do
-      assert @user.update_attributes(name: 'Updated')
+    assert_difference 'Version.count' do
+      assert_no_difference 'User.count' do
+        assert @user.update_attributes(name: 'Updated')
+      end
     end
     
     assert_equal 'Updated', @user.reload.name
   end
   
   test 'destroy' do
-    assert_difference('User.count', -1) { @user.destroy }
+    assert_difference 'Version.count' do
+      assert_difference('User.count', -1) { @user.destroy }
+    end
   end
   
   test 'validates blank attributes' do

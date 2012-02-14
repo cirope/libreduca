@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def user_for_paper_trail
+    current_user.try(:id)
+  end
+  
   private
   
   # Overwriting the sign_out redirect path method
