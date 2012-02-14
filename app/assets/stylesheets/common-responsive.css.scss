@@ -1,0 +1,41 @@
+@media (max-width: 480px) {
+
+}
+
+@media (max-width: 768px) {
+  .disposable {
+    display: none;
+  }
+
+  .page-entries {
+    display: block;
+  }
+
+  .pagination {
+    li {
+      display: none;
+    }
+
+    li.previous_page, li.next {
+      display: inline;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 980px) {  
+}
+
+@media (max-width: 980px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+@media (min-width: 980px) {
+  .page-entries {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+}

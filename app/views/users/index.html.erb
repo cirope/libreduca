@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="span10 offset1">
+  <div class="span12">
     <table class="table resource-list">
       <thead>
         <tr>
           <th><%= User.human_attribute_name 'name' %></th>
           <th><%= User.human_attribute_name 'lastname' %></th>
-          <th><%= User.human_attribute_name 'email' %></th>
+          <th class="disposable"><%= User.human_attribute_name 'email' %></th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -15,7 +15,7 @@
           <tr>
             <td><%= link_to user.name, user, title: t('label.show') %></td>
             <td><%= link_to user.lastname, user, title: t('label.show') %></td>
-            <td><%= mail_to user.email %></td>
+            <td class="disposable"><%= mail_to user.email %></td>
             <td><%= link_to_edit edit_user_path(user) %></td>
             <td><%= link_to_destroy user %></td>
           </tr>

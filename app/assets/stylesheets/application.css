@@ -13,6 +13,7 @@
  *= require vendor/twitter/bootstrap-responsive
  *= require vendor/jquery/ui-custom
  *= require common
+ *= require common-responsive
  *= require devise
  *= require users
 */
