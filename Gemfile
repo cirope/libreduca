@@ -5,7 +5,7 @@ gem 'rails', git: 'git://github.com/rails/rails', branch: '3-2-stable'
 gem 'pg'
 gem 'jquery-rails'
 gem 'will_paginate'
-gem 'simple_form', git: 'git://github.com/plataformatec/simple_form.git'
+gem 'simple_form'
 gem 'devise'
 gem 'cancan'
 gem 'role_model'
@@ -21,7 +21,7 @@ end
 
 group :development do
   gem 'ruby-debug19', require: 'ruby-debug'
-  gem 'mongrel', '1.2.0.pre2'
+  gem 'thin'
 end
 
 group :test do

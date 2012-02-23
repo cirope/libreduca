@@ -41,41 +41,41 @@ SimpleForm.setup do |config|
 
     ## Inputs
     b.use :label_input
-    b.use :hint,  tag: :span, class: :hint
-    b.use :error, tag: :span, class: :error
+    b.use :hint,  wrap_with: { tag: :span, class: :hint }
+    b.use :error, wrap_with: { tag: :span, class: :error }
   end
 
   config.wrappers :bootstrap, tag: 'div', class: 'control-group', error_class: 'error' do |b|
     b.use :placeholder
-    b.use :label, class: 'control-label'
-    b.use tag: 'div', class: 'controls' do |ba|
+    b.use :label
+    b.wrapper tag: 'div', class: 'controls' do |ba|
       ba.use :input
-      ba.use :error, tag: 'span', class: 'help-inline'
-      ba.use :hint,  tag: 'p', class: 'help-block'
+      ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
+      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
     end
   end
 
-  config.wrappers :prepend, tag: 'div', class: 'control-group', error_class: 'error' do |b|
+  config.wrappers :prepend, tag: 'div', class: "control-group", error_class: 'error' do |b|
     b.use :placeholder
-    b.use :label, class: 'control-label'
-    b.use :hint,  tag: 'span', class: 'help-block'
-    b.use tag: 'div', class: 'controls' do |input|
-      input.use tag: 'div', class: 'input-prepend' do |prepend|
+    b.use :label
+    b.wrapper tag: 'div', class: 'controls' do |input|
+      input.wrapper tag: 'div', class: 'input-prepend' do |prepend|
         prepend.use :input
       end
-      input.use :error, tag: 'span', class: 'help-inline'
+      input.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
+      input.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
     end
   end
 
-  config.wrappers :append, tag: 'div', class: 'control-group', error_class: 'error' do |b|
+  config.wrappers :append, tag: 'div', class: "control-group", error_class: 'error' do |b|
     b.use :placeholder
-    b.use :label, class: 'control-label'
-    b.use :hint,  tag: 'span', class: 'help-block'
-    b.use tag: 'div', class: 'controls' do |input|
-      input.use tag: 'div', class: 'input-append' do |append|
+    b.use :label
+    b.wrapper tag: 'div', class: 'controls' do |input|
+      input.wrapper tag: 'div', class: 'input-append' do |append|
         append.use :input
       end
-      input.use :error, tag: 'span', class: 'help-inline'
+      input.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
+      input.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
     end
   end
 
@@ -127,13 +127,16 @@ SimpleForm.setup do |config|
   # config.item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
-  # config.label_text = ->(label, required) { "#{label} #{required}" }
+  # config.label_text = lambda { |label, required| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
-  # config.label_class = nil
+  config.label_class = 'control-label'
 
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form
+
+  # You can define which elements should obtain additional classes
+  # config.generate_additional_classes_for = [:wrapper, :label, :input]
 
   # Whether attributes are required by default (or not). Default is true.
   # config.required_by_default = true
@@ -165,6 +168,6 @@ SimpleForm.setup do |config|
   # Automatically discover new inputs in Rails' autoload path.
   # config.inputs_discovery = true
 
-  # Cache simple form inputs discovery
+  # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
 end
