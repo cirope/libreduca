@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/rails
-  revision: 419040f203f5c7864fa692459aa3284368c48d50
+  revision: 72ae0b4b07ed053007460bab81d710a29624a9a7
   branch: 3-2-stable
   specs:
     actionmailer (3.2.1)
@@ -157,7 +157,7 @@ GEM
       ffi (~> 1.0.9)
       json_pure
       rubyzip
-    simple_form (2.0.0)
+    simple_form (2.0.1)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     sprockets (2.1.2)

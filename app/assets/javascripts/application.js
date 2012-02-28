@@ -13,8 +13,8 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require vendor/jquery/jquery.ui.datepicker-es
-//= require vendor/twitter/bootstrap
+//= require jquery/jquery.ui.datepicker-es
+//= require twitter/bootstrap
 //= require common
 //= require mobile
 //= require users
