@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationModel
   include RoleModel
   
   roles :admin, :regular
@@ -7,9 +7,6 @@ class User < ActiveRecord::Base
   
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
     :validatable
-  
-  # Scopes
-  scope :ordered_list, order('lastname ASC')
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
@@ -28,5 +25,18 @@ class User < ActiveRecord::Base
   
   def roles
     self.old_roles.map(&:to_sym)
+  end
+  
+  def self.magick_columns
+    [
+      {field: 'lastname', operator: :like, mask: '%%%{t}%%', condition: %r{.*}},
+      {field: 'name', operator: :like, mask: '%%%{t}%%', condition: %r{.*}},
+      {field: 'email', operator: :like, mask: '%%%{t}%%', condition: %r{.+@.+}}
+    ]
+  end
+  
+  def self.filtered_list(query)
+    query.present? ?
+      magick_search(query).order('lastname ASC') : order('lastname ASC')
   end
 end

@@ -14,6 +14,7 @@
             class: ('active' if controller_name == 'users')
           ) %>
         </ul>
+        <%= render partial: 'shared/nav_search' if @searchable %>
         <ul class="nav pull-right">
           <li>
             <%= link_to(

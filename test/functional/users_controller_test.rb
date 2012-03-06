@@ -14,6 +14,21 @@ class UsersControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'users/index'
   end
+  
+  test 'should get filtered index' do
+    sign_in @user
+    
+    3.times { Fabricate(:user, lastname: 'in_filtered_index') }
+    
+    get :index, q: 'filtered_index'
+    assert_response :success
+    assert_not_nil assigns(:users)
+    assert_equal 3, assigns(:users).size
+    assert assigns(:users).all? { |u| u.to_s =~ /filtered_index/ }
+    assert_not_equal assigns(:users).size, User.count
+    assert_select '#unexpected_error', false
+    assert_template 'users/index'
+  end
 
   test 'should get new' do
     sign_in @user

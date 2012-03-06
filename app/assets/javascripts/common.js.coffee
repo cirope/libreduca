@@ -3,6 +3,10 @@ jQuery ($)->
   $('*[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
   
   $('*[data-show-tooltip]').tooltip()
+  
+  $('form').submit ->
+    $(this).find('input[type="submit"], input[name="utf8"]')
+    .attr 'disabled', true
 
   if $('.alert[data-close-after]').length > 0
     $('.alert[data-close-after]').each (i, a)->

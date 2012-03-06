@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @title = t 'view.users.index_title'
-    @users = @users.ordered_list.paginate(
+    @searchable = true
+    @users = @users.filtered_list(params[:q]).paginate(
       page: params[:page], per_page: LINES_PER_PAGE
     )
 

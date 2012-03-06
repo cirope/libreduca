@@ -33,6 +33,7 @@
     edit: 'Editar'
     list: 'Listado'
     new: 'Nuevo'
+    search: 'Buscar...'
     show: 'Ver'
     
   menu:
@@ -42,6 +43,10 @@
     
   messages:
     confirmation: '¿Está seguro?'
+    
+  query:
+    and: 'y'
+    or: 'o'
     
   view:
     users:
