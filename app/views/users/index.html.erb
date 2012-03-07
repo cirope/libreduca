@@ -16,8 +16,8 @@
             <td><%= link_to user.name, user, title: t('label.show') %></td>
             <td><%= link_to user.lastname, user, title: t('label.show') %></td>
             <td class="disposable"><%= mail_to user.email %></td>
-            <td><%= link_to_edit edit_user_path(user) if can? :update, User %></td>
-            <td><%= link_to_destroy user if can? :destroy, User %></td>
+            <td><%= link_to_edit edit_user_path(user) if can? :update, user %></td>
+            <td><%= link_to_destroy user if can? :destroy, user %></td>
           </tr>
         <% end %>
       </tbody>
