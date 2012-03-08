@@ -3,6 +3,20 @@ module ApplicationHelper
     render 'shared/error_messages', model: model unless model.errors.empty?
   end
   
+  def show_button_dropdown(main_action, extra_actions = [], options = {})
+    if extra_actions.blank?
+      main_action
+    else
+      out = ''.html_safe
+      
+      out << render(
+        partial: 'shared/button_dropdown', locals: {
+          main_action: main_action, extra_actions: extra_actions
+        }
+      )
+    end
+  end
+  
   def pagination_links(objects, params = nil)
     result = will_paginate objects,
       inner_window: 1, outer_window: 1, params: params,

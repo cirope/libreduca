@@ -2,8 +2,7 @@
 
 .public_form_container {
   background: #fff;
-  margin-top: 3em;
-  border: 2px dotted red;
+  margin-top: 2em !important;
   padding-top: 1em;
   border: 1px solid #aaa;
   @include border-radius(8px);
@@ -13,7 +12,7 @@
     margin-bottom: 0em;
 
     .inputs {
-      padding: 17px 20px 6px;
+      padding: 6px 20px;
 
       /* TODO: Erase this excesive amount of CSS for control de checkbox position */
       label.boolean {
@@ -36,12 +35,12 @@
 
     .form-actions {
        margin-bottom: 0px;
-
-       nav {
-        display: inline;
-        margin-left: 1em;
-      }
     }
+  }
+
+  h3 {
+    text-align: center;
+    margin-bottom: 18px;
   }
 
   h3, p {

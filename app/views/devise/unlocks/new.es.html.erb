@@ -1,17 +1,18 @@
 <div class="row">
   <div class="public_form_container span6 offset3">
-    <h2>Reenviar instrucciones de desbloqueo</h3>
+    <h3>Reenviar instrucciones de desbloqueo</h3>
 
     <%= simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
       <div class="inputs">
-        <%= f.input :email, input_html: { autofocus: true } %>
+        <%= f.input :email, input_html: { autofocus: true, class: 'span4' } %>
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, 'Reenviar instrucciones', class: 'btn btn-primary' %>
+        <%= show_button_dropdown(
+          f.button(:submit, 'Reenviar instrucciones', class: 'btn btn-primary'),
+          devise_links_es
+        ) %>
       </div>
     <% end %>
-
-    <%= render partial: 'devise/shared/links' %>
   </div>
 </div>

@@ -10,9 +10,22 @@
       </div>
     
       <div class="form-actions">
-        <%= f.button :submit, 'Ingresar', class: 'btn btn-primary' %>
-        <%= render partial: 'devise/shared/links' %>
+        <%= show_button_dropdown(
+          f.button(:submit, 'Ingresar', class: 'btn btn-primary'),
+          devise_links_es
+        ) %>
       </div>
     <% end %>
   </div>
 </div>
+<% if devise_mapping.recoverable? %>
+  <div class="row">
+    <div class="span4 offset4">
+      <br />
+      <p>
+        <strong>Ayuda</strong>:
+        <%= link_to('¿Olvidaste tu contraseña?', new_password_path(resource_name)) %>
+      </p>
+    </div>
+  </div>
+<% end %>

@@ -4,12 +4,15 @@
 
     <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
       <div class="inputs">
-        <%= f.input :email, input_html: { autofocus: true } %>
+        <%= f.input :email, input_html: { autofocus: true, class: 'span4' } %>
       </div>
 
-      <%= f.button :submit, 'Reenviar instrucciones', class: 'btn btn-primary' %>
+      <div class="form-actions">
+        <%= show_button_dropdown(
+          f.button(:submit, 'Reenviar instrucciones', class: 'btn btn-primary'),
+          devise_links_es
+        ) %>
+      </div>
     <% end %>
-
-    <%= render partial: 'devise/shared/links' %>
   </div>
 </div>
