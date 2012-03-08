@@ -8,8 +8,9 @@
       </div>
 
       <div class="form-actions">
+        <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
         <%= show_button_dropdown(
-          f.button(:submit, 'Reenviar instrucciones', class: 'btn btn-primary'),
+          link_to('Reenviar instrucciones', '#', class: 'btn btn-primary submit'),
           devise_links_es
         ) %>
       </div>
