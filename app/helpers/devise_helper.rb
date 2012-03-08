@@ -22,8 +22,7 @@ module DeviseHelper
 
     if devise_mapping.confirmable? && controller_name != 'confirmations'
       links << link_to(
-        '¿No recibiste las instrucciones de confirmación?',
-        new_confirmation_path(resource_name)
+        '¿Querés confirmar tu cuenta?', new_confirmation_path(resource_name)
       )
     end
 
@@ -31,8 +30,7 @@ module DeviseHelper
         resource_class.unlock_strategy_enabled?(:email) &&
         controller_name != 'unlocks'
       links << link_to(
-        '¿No recibiste instrucciones para desbloquear tu cuenta?',
-        new_unlock_path(resource_name)
+        '¿Querés desbloquear tu cuenta?', new_unlock_path(resource_name)
       )
     end
 
