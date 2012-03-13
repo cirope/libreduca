@@ -10,6 +10,7 @@ gem 'devise'
 gem 'cancan'
 gem 'role_model'
 gem 'paper_trail'
+gem 'magick_columns'
 gem 'capistrano'
 
 group :assets do

@@ -119,7 +119,7 @@ class UserTest < ActiveSupport::TestCase
     assert users.all? { |u| u.to_s =~ /magick_name magick_lastname/ }
     
     users = User.magick_search(
-      "magick_name #{I18n.t('query.or')} magick_lastname"
+      "magick_name #{I18n.t('magick_columns.or')} magick_lastname"
     )
     
     assert_equal 9, users.count

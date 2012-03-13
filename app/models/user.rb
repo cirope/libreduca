@@ -1,9 +1,11 @@
-class User < ApplicationModel
+class User < ActiveRecord::Base
   include RoleModel
   
   roles :admin, :regular
   
   has_paper_trail
+  
+  has_magick_columns name: :string, lastname: :string, email: :email
   
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
     :validatable
@@ -25,14 +27,6 @@ class User < ApplicationModel
   
   def roles
     self.old_roles.map(&:to_sym)
-  end
-  
-  def self.magick_columns
-    [
-      {field: 'lastname', operator: :like, mask: '%%%{t}%%', condition: %r{.*}},
-      {field: 'name', operator: :like, mask: '%%%{t}%%', condition: %r{.*}},
-      {field: 'email', operator: :like, mask: '%%%{t}%%', condition: %r{.+@.+}}
-    ]
   end
   
   def self.filtered_list(query)

@@ -44,10 +44,6 @@
   messages:
     confirmation: '¿Está seguro?'
     
-  query:
-    and: 'y'
-    or: 'o'
-    
   view:
     users:
       index_title: 'Listado de usuarios'

@@ -1,0 +1,4 @@
+'es':
+  magick_columns:
+    and: 'y'
+    or: 'o'
