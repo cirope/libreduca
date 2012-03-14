@@ -23,7 +23,12 @@ module ApplicationHelper
       renderer: BootstrapPaginationHelper::LinkRenderer,
       class: 'pagination pagination-right'
     page_entries = content_tag(
-      :blockquote, content_tag(:small, page_entries_info(objects), class: 'page-entries pull-right')
+      :blockquote,
+      content_tag(
+        :small,
+        page_entries_info(objects),
+        class: 'page-entries hidden-desktop pull-right'
+      )
     )
     
     unless result
