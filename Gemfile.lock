@@ -86,7 +86,7 @@ GEM
     magick_columns (0.0.1)
       rails (~> 3.2)
       timeliness (~> 0.3)
-    mail (2.4.3)
+    mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)

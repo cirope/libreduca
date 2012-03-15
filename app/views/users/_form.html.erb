@@ -16,8 +16,8 @@
   </div>
   
   <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
     <%= f.button :submit, class: 'btn-primary' %>
-    <div class="pull-right"><%= yield :form_actions %></div>
   </div>
 <% end %>
