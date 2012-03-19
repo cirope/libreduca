@@ -1,4 +1,13 @@
 'es':
   magick_columns:
-    and: 'y'
-    or: 'o'
+    and:
+      - y
+    or:
+      - o
+    from:
+      - desde
+    until:
+      - hasta
+    today:
+      - hoy
+      - ahora

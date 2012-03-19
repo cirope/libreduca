@@ -83,7 +83,7 @@ GEM
     libv8 (3.3.10.4)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
-    magick_columns (0.0.1)
+    magick_columns (0.0.3)
       rails (~> 3.2)
       timeliness (~> 0.3)
     mail (2.4.4)
@@ -144,7 +144,7 @@ GEM
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.6.1)
     sass (3.1.15)
-    sass-rails (3.2.4)
+    sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
@@ -172,7 +172,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    turn (0.9.3)
+    turn (0.9.4)
       ansi
     tzinfo (0.3.32)
     uglifier (1.2.3)
