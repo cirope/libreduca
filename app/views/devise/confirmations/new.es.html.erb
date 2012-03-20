@@ -3,7 +3,7 @@
     <h3>Reenviar instrucciones de confirmación</h3>
 
     <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-      <div class="inputs">
+      <div class="form-inputs">
         <%= f.input :email, input_html: { autofocus: true, class: 'span4' } %>
       </div>
 
