@@ -15,20 +15,25 @@ class Ability
   
   def admin_rules
     can :manage, :all
-    can :assign_roles, User
-    can :edit_profile, User
-    can :update_profile, User
   end
   
-  def regular_rules
-    can :create, :all
-    can :update, :all
-    can :destroy, :all
-    can :edit_profile, User
-    can :update_profile, User
+  def coordinator_rules
+  end
+  
+  def headmaster_rules
+  end
+  
+  def teacher_rules
+  end
+  
+  def parent_rules
+  end
+  
+  def student_rules
   end
   
   def default_rules
-    can :read, :all
+    can :edit_profile, User
+    can :update_profile, User
   end
 end

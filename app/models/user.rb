@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include RoleModel
   
-  roles :admin, :regular
+  roles :admin, :coordinator, :headmaster, :teacher, :parent, :student
   
   has_paper_trail
   
