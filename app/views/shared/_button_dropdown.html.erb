@@ -1,0 +1,11 @@
+<div class="btn-group">
+  <%= main_action %>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <% extra_actions.each do |action| %>
+      <li><%= action %></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,22 @@
+<section id="unexpected_error">
+  <header>
+    <h1>¡Ups! Se produjo un error inesperado</h1>
+  </header>
+
+  <p>Si el problema persiste, llámenos...</p>
+</section>
+
+<% unless Rails.env.production? %>
+  <br />
+  <section id="error_details">
+    <header>
+      <h2><%= error.message %></h2>
+    </header>
+    
+    <p><strong>Trace</strong>:</p>
+    <pre><%= error.backtrace.join("\n") %></pre>
+
+    <p><strong>Parámetros</strong>:</p>
+    <pre><%= params.try(:inspect) %></pre>
+  </section>
+<% end %>

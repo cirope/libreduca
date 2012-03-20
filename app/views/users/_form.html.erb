@@ -1,0 +1,23 @@
+<%= simple_form_for(@user) do |f| %>
+  <div class="inputs">
+    <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+    <%= f.input :lastname, input_html: { maxlength: 255 } %>
+    <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
+
+    <% if ['new', 'create'].include?(action_name) %>
+      <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
+      <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
+    <% end %>
+
+    <% if can? :assign_roles, @user %>
+      <label><%= User.human_attribute_name 'roles' %></label>
+      <%= show_user_roles_options(f) %>
+    <% end %>
+  </div>
+  
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

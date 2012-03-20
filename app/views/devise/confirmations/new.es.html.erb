@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="public_form_container span6 offset3">
+    <h3>Reenviar instrucciones de confirmación</h3>
+
+    <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <div class="inputs">
+        <%= f.input :email, input_html: { autofocus: true, class: 'span4' } %>
+      </div>
+
+      <div class="form-actions">
+        <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
+        <%= show_button_dropdown(
+          link_to('Reenviar instrucciones', '#', class: 'btn btn-primary submit'),
+          devise_links_es
+        ) %>
+      </div>
+    <% end %>
+  </div>
+</div>
