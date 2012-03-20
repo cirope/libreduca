@@ -1,13 +1,11 @@
 === Edook
 
-Skeleton project, empty but with all the stuff I need to begin with =)
-
-All you have to do for start using it is change all the Edook (and edook) strings
-with the name of your application...
+Web gradebook for share notes, grades and comments between an education
+community
 
 === (The MIT License)
 
-Copyright (c) 2012 Franco Catena
+Copyright (c) 2012 Franco Catena, Raúl Moralejo
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
