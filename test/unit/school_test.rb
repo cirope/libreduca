@@ -76,7 +76,7 @@ class SchoolTest < ActiveSupport::TestCase
     assert_equal 9, schools.count
     assert schools.all? { |s| s.to_s =~ /magick_name|magick_identification/ }
     
-    schools = School.magick_search('nobody')
+    schools = School.magick_search('noschool')
     
     assert schools.empty?
   end

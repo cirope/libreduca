@@ -7,6 +7,9 @@
     
   activerecord:
     models:
+      regions:
+        one: 'Región'
+        other: 'Regiones'
       school:
         one: 'Escuela'
         other: 'Escuelas'
@@ -15,6 +18,8 @@
         other: 'Usuarios'
       
     attributes:
+      region:
+        name: 'Nombre'
       school:
         name: 'Nombre'
         identification: 'Identificación'
@@ -45,6 +50,7 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    regions: 'Regiones'
     schools: 'Escuelas'
     users: 'Usuarios'
     
@@ -52,6 +58,14 @@
     confirmation: '¿Está seguro?'
     
   view:
+    regions:
+      index_title: 'Listado de regiones'
+      show_title: 'Detalle de región'
+      new_title: 'Nueva región'
+      edit_title: 'Modificar región'
+      correctly_created: 'Región agregada correctamente.'
+      correctly_updated: 'Región actualizada correctamente.'
+      stale_object_error: 'La región no pudo ser actualizada, intente nuevamente.'
     schools:
       index_title: 'Listado de escuelas'
       show_title: 'Detalle de escuela'

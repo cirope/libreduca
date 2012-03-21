@@ -1,4 +1,6 @@
 Edook::Application.routes.draw do
+  resources :regions
+
   resources :schools
 
   devise_for :users

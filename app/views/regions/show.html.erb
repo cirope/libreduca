@@ -1,0 +1,10 @@
+<div class="readonly_data">
+  <h2><%= @region %></h2>
+</div>
+
+<nav class="form-actions">
+  <%= link_to t('label.edit'), edit_region_path(@region), class: 'btn btn-primary' %>
+  <div class="pull-right">
+    <%= link_to t('label.list'), regions_path %>
+  </div>
+</nav>
