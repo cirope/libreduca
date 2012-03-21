@@ -7,11 +7,17 @@
     
   activerecord:
     models:
+      school:
+        one: 'Escuela'
+        other: 'Escuelas'
       user:
         one: 'Usuario'
         other: 'Usuarios'
       
     attributes:
+      school:
+        name: 'Nombre'
+        identification: 'Identificación'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -39,12 +45,21 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    schools: 'Escuelas'
     users: 'Usuarios'
     
   messages:
     confirmation: '¿Está seguro?'
     
   view:
+    schools:
+      index_title: 'Listado de escuelas'
+      show_title: 'Detalle de escuela'
+      new_title: 'Nueva escuela'
+      edit_title: 'Modificar escuela'
+      correctly_created: 'Escuela agregada correctamente.'
+      correctly_updated: 'Escuela actualizada correctamente.'
+      stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

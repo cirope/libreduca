@@ -1,0 +1,15 @@
+<div class="readonly_data">
+  <h2><%= @school %></h2>
+
+  <p>
+    <b>Identification:</b>
+    <%= @school.identification %>
+  </p>
+</div>
+
+<nav class="form-actions">
+  <%= link_to t('label.edit'), edit_school_path(@school), class: 'btn btn-primary' %>
+  <div class="pull-right">
+    <%= link_to t('label.list'), schools_path %>
+  </div>
+</nav>

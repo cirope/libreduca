@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="span12">
+    <table class="table resource-list">
+      <thead>
+        <tr>
+          <th><%= School.human_attribute_name 'name' %></th>
+          <th><%= School.human_attribute_name 'identification' %></th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @schools.each do |school| %>
+          <tr>
+            <td><%= link_to school.name, school, title: t('label.show') %></td>
+            <td><%= school.identification %></td>
+            <td><%= link_to_edit edit_school_path(school) if can? :update, school %></td>
+            <td><%= link_to_destroy school if can? :destroy, school %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= pagination_links(@schools) %>
+
+<nav class="form-actions">
+  <%= link_to t('label.new'), new_school_path, class: 'btn btn-primary' if can? :create, School %>
+</nav>

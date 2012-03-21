@@ -16,5 +16,6 @@
  *= require common
  *= require common-responsive
  *= require devise
+ *= require schools
  *= require users
 */

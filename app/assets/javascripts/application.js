@@ -17,4 +17,5 @@
 //= require twitter/bootstrap
 //= require common
 //= require mobile
+//= require schools
 //= require users

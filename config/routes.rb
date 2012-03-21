@@ -1,4 +1,6 @@
 Edook::Application.routes.draw do
+  resources :schools
+
   devise_for :users
   
   resources :users do
@@ -8,5 +10,5 @@ Edook::Application.routes.draw do
     end
   end
   
-  root to: 'users#index'
+  root to: 'schools#index'
 end
