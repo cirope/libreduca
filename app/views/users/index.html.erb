@@ -32,5 +32,9 @@
 <% end %>
 
 <nav class="form-actions">
-  <%= link_to t('label.new'), new_user_path, class: 'btn btn-primary' if can? :create, User %>
+  <%= link_to(
+    t('users.new', default: :'label.new'),
+    new_user_path, class: 'btn btn-primary'
+    ) if can? :create, User
+  %>
 </nav>
