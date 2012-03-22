@@ -45,6 +45,11 @@
     confirmation: '¿Está seguro?'
     
   view:
+    generic:
+      empty_index: 'No hay ningún elemento por el momento'
+      empty_search:
+        title:
+          html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
@@ -53,6 +58,7 @@
       correctly_created: 'Usuario agregado correctamente.'
       correctly_updated: 'Usuario actualizado correctamente.'
       stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
+      empty_index: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón "Nuevo"'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
