@@ -71,8 +71,8 @@
       correctly_created: 'Región agregada correctamente.'
       correctly_updated: 'Región actualizada correctamente.'
       stale_object_error: 'La región no pudo ser actualizada, intente nuevamente.'
-      empty_index: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón "Nueva"'
-      new: 'Nueva'
+      empty_index: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón "Nueva región"'
+      new: 'Nueva región'
     schools:
       index_title: 'Listado de escuelas'
       show_title: 'Detalle de escuela'
@@ -81,8 +81,8 @@
       correctly_created: 'Escuela agregada correctamente.'
       correctly_updated: 'Escuela actualizada correctamente.'
       stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
-      empty_index: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón "Nueva"'
-      new: 'Nueva'
+      empty_index: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón "Nueva escuela"'
+      new: 'Nueva escuela'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

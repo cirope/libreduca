@@ -27,5 +27,9 @@
 <% end %>
 
 <nav class="form-actions">
-  <%= link_to t('label.new'), new_region_path, class: 'btn btn-primary' if can? :create, Region %>
+  <%= link_to(
+    t('view.regions.new', default: :'label.new'),
+    new_region_path, class: 'btn btn-primary'
+    ) if can? :create, Region
+  %>
 </nav>
