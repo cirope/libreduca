@@ -58,6 +58,11 @@
     confirmation: '¿Está seguro?'
     
   view:
+    generic:
+      empty_index: 'No hay ningún elemento por el momento'
+      empty_search:
+        title:
+          html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'
@@ -66,6 +71,8 @@
       correctly_created: 'Región agregada correctamente.'
       correctly_updated: 'Región actualizada correctamente.'
       stale_object_error: 'La región no pudo ser actualizada, intente nuevamente.'
+      empty_index: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón "Nueva"'
+      new: 'Nueva'
     schools:
       index_title: 'Listado de escuelas'
       show_title: 'Detalle de escuela'
@@ -74,6 +81,8 @@
       correctly_created: 'Escuela agregada correctamente.'
       correctly_updated: 'Escuela actualizada correctamente.'
       stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
+      empty_index: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón "Nueva"'
+      new: 'Nueva'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
@@ -82,6 +91,7 @@
       correctly_created: 'Usuario agregado correctamente.'
       correctly_updated: 'Usuario actualizado correctamente.'
       stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
+      empty_index: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón "Nuevo"'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'

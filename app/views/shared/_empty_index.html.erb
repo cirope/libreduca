@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="span10 offset1">
+    <div class="alert">
+      <% if params[:q].blank? %>
+        <%= t("view.#{controller_name}.empty_index", default: :'view.generic.empty_index') %>
+      <% else %>
+        <h4 class="alert-heading">
+          <%= t('view.generic.empty_search.title.html', search: h(params[:q])) %>
+        </h4>
+        <%= render 'shared/empty_search_suggestions' %>
+      <% end %>
+    </div>
+  </div>
+</div>
