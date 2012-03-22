@@ -15,7 +15,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
     
-    within '.alert' do
+    within 'footer.alert' do
       assert page.has_content?(I18n.t('devise.failure.unauthenticated'))
     end
   end
@@ -43,7 +43,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
     
-    within '.alert' do
+    within 'footer.alert' do
       assert page.has_content?(I18n.t('devise.passwords.send_instructions'))
     end
   end
@@ -65,7 +65,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
     
-    within '.alert' do
+    within 'footer.alert' do
       assert page.has_content?(I18n.t('devise.sessions.signed_in'))
     end
     
@@ -76,7 +76,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
     
-    within '.alert' do
+    within 'footer.alert' do
       assert page.has_content?(I18n.t('devise.sessions.signed_out'))
     end
   end
