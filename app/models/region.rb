@@ -9,6 +9,8 @@ class Region < ActiveRecord::Base
   # Validations
   validates :name, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true
+  validates :name, uniqueness: { case_sensitive: false }, allow_nil: true,
+    allow_blank: true
   
   # Relations
   has_many :districts, dependent: :destroy

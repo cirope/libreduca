@@ -36,6 +36,16 @@ class RegionTest < ActiveSupport::TestCase
       @region.errors[:name]
   end
   
+  test 'validates unique attributes' do
+    new_region = Fabricate(:region)
+    @region.name = new_region.name
+    
+    assert @region.invalid?
+    assert_equal 1, @region.errors.size
+    assert_equal [error_message_from_model(@region, :name, :taken)],
+      @region.errors[:name]
+  end
+  
   test 'validates length of _long_ attributes' do
     @region.name = 'abcde' * 52
     
