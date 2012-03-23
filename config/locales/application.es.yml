@@ -7,7 +7,10 @@
     
   activerecord:
     models:
-      regions:
+      district:
+        one: 'Distrito'
+        other: 'Distritos'
+      region:
         one: 'Región'
         other: 'Regiones'
       school:
@@ -18,8 +21,12 @@
         other: 'Usuarios'
       
     attributes:
+      district:
+        name: 'Nombre'
       region:
         name: 'Nombre'
+      region/district:
+        name: 'Nombre (distrito)'
       school:
         name: 'Nombre'
         identification: 'Identificación'
