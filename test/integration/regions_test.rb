@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'test_helper'
 
 class RegionsTest < ActionDispatch::IntegrationTest
@@ -35,5 +37,19 @@ class RegionsTest < ActionDispatch::IntegrationTest
     within 'footer.alert' do
       assert page.has_content?(I18n.t('view.regions.correctly_created'))
     end
+  end
+  
+  test 'should delete all districts inputs' do
+    login
+    
+    visit new_region_path
+    
+    assert page.has_css?('tr.district')
+    
+    within 'tr.district' do
+      click_link '✔' # Destroy link
+    end
+    
+    assert page.has_no_css?('tr.district')
   end
 end
