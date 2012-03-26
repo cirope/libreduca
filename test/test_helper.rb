@@ -26,6 +26,10 @@ class ActionDispatch::IntegrationTest
 
   # Stop ActiveRecord from wrapping tests in transactions
   self.use_transactional_fixtures = false
+  
+  setup do
+    Capybara.default_driver = :selenium
+  end
 
   teardown do
     # Truncate the database

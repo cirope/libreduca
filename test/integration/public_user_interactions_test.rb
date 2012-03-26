@@ -3,10 +3,6 @@
 require 'test_helper'
 
 class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
-  setup do
-    Capybara.current_driver = Capybara.javascript_driver
-  end
-  
   test 'should ask for login' do
     visit root_path
     
