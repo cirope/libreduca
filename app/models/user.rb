@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
     :roles, :remember_me, :lock_version
   
+  # Defaul order
+  default_scope order('lastname ASC')
+  
   # Validations
   validates :name, presence: true
   validates :name, :lastname, :email, length: { maximum: 255 }, allow_nil: true,
@@ -30,7 +33,6 @@ class User < ActiveRecord::Base
   end
   
   def self.filtered_list(query)
-    query.present? ?
-      magick_search(query).order('lastname ASC') : order('lastname ASC')
+    query.present? ? magick_search(query) : scoped
   end
 end
