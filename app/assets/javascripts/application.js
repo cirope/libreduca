@@ -16,6 +16,8 @@
 //= require jquery/jquery.ui.datepicker-es
 //= require twitter/bootstrap
 //= require common
+//= require dynamic_form
+//= require effect_helper
 //= require mobile
 //= require regions
 //= require schools

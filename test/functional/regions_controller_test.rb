@@ -47,6 +47,18 @@ class RegionsControllerTest < ActionController::TestCase
 
     assert_redirected_to region_url(assigns(:region))
   end
+  
+  test 'should create region and district' do
+    assert_difference ['Region.count', 'District.count'] do
+      post :create, region: Fabricate.attributes_for(:region).merge(
+        districts_attributes: {
+          new_1: Fabricate.attributes_for(:district, region_id: nil)
+        }
+      )
+    end
+
+    assert_redirected_to region_url(assigns(:region))
+  end
 
   test 'should show region' do
     get :show, id: @region

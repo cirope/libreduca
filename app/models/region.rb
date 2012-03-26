@@ -4,7 +4,10 @@ class Region < ActiveRecord::Base
   has_magick_columns name: :string
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :lock_version
+  attr_accessible :name, :districts_attributes, :lock_version
+  
+  # Default order
+  default_scope order('name ASC')
   
   # Validations
   validates :name, presence: true
@@ -15,11 +18,14 @@ class Region < ActiveRecord::Base
   # Relations
   has_many :districts, dependent: :destroy
   
+  accepts_nested_attributes_for :districts, allow_destroy: true,
+    reject_if: ->(attributes) { attributes['name'].blank? }
+  
   def to_s
     self.name
   end
   
   def self.filtered_list(query)
-    query.present? ? magick_search(query).order('name ASC') : order('name ASC')
+    query.present? ? magick_search(query) : scoped
   end
 end

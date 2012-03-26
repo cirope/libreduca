@@ -11,6 +11,20 @@ class RegionTest < ActiveSupport::TestCase
     end
   end
   
+  test 'create with districts' do
+    assert_difference ['Region.count', 'District.count'] do
+      assert_difference 'Version.count', 2 do
+        @region = Region.create(
+          Fabricate.attributes_for(:region).merge(
+            districts_attributes: {
+              new_1: Fabricate.attributes_for(:district, region_id: nil)
+            }
+          )
+        )
+      end
+    end
+  end
+  
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'Region.count' do

@@ -6,6 +6,9 @@ class School < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :identification, :lock_version
   
+  # Default order
+  default_scope order('name ASC')
+  
   # Validations
   validates :name, presence: true
   validates :name, :identification, length: { maximum: 255 }, allow_nil: true,
@@ -18,6 +21,6 @@ class School < ActiveRecord::Base
   end
   
   def self.filtered_list(query)
-    query.present? ? magick_search(query).order('name ASC') : order('name ASC')
+    query.present? ? magick_search(query) : scoped
   end
 end

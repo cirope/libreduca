@@ -1,5 +1,17 @@
 <div class="readonly_data">
   <h2><%= @region %></h2>
+  
+  <% unless @region.districts.empty? %>
+    <div class="page-header">
+      <h6><%= District.model_name.human(count: @region.districts.size) %></h6>
+    </div>
+    
+    <ul>
+      <% @region.districts.each do |district| %>
+        <li><%= district %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <nav class="form-actions">

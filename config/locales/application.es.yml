@@ -80,6 +80,7 @@
       stale_object_error: 'La región no pudo ser actualizada, intente nuevamente.'
       empty_index: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón "Nueva región"'
       new: 'Nueva región'
+      new_district: 'Agregar nuevo distrito'
     schools:
       index_title: 'Listado de escuelas'
       show_title: 'Detalle de escuela'

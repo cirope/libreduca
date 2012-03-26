@@ -1,0 +1,10 @@
+<tr class="district">
+  <td>
+    <%= f.input :name, input_html: { autofocus: true, maxlength: 255, class: 'span3' }, label: false %>
+  </td>
+  <td>
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= link_to_remove_nested_item(f) %>
+  </td>
+</tr>
