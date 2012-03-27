@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120326184712) do
+ActiveRecord::Schema.define(:version => 20120327125208) do
 
   create_table "districts", :force => true do |t|
     t.string   "name",                        :null => false
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20120326184712) do
 
   add_index "districts", ["name"], :name => "index_districts_on_name"
   add_index "districts", ["region_id"], :name => "index_districts_on_region_id"
+
+  create_table "grades", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "school_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "grades", ["school_id"], :name => "index_grades_on_school_id"
 
   create_table "regions", :force => true do |t|
     t.string   "name",                        :null => false

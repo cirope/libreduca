@@ -10,6 +10,9 @@
       district:
         one: 'Distrito'
         other: 'Distritos'
+      grade:
+        one: 'Grado'
+        other: 'Grados'
       region:
         one: 'Región'
         other: 'Regiones'
@@ -22,6 +25,8 @@
       
     attributes:
       district:
+        name: 'Nombre'
+      grade:
         name: 'Nombre'
       region:
         name: 'Nombre'
@@ -71,6 +76,20 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    grades:
+      index_title: 'Listado de grados'
+      show_title: 'Detalle de grado'
+      new_title: 'Nuevo grado'
+      edit_title: 'Modificar grado'
+      correctly_created: 'Grado agregado correctamente.'
+      correctly_updated: 'Grado actualizado correctamente.'
+      stale_object_error: 'El grado no pudo ser actualizado, intente nuevamente.'
+      empty_index: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón "Nuevo grado"'
+      new: 'Nuevo grado'
+      from_school:
+        html:
+          one: 'Grado de la escuela %{school}'
+          other: 'Grados de la escuela %{school}'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'
@@ -92,6 +111,9 @@
       stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
       empty_index: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón "Nueva escuela"'
       new: 'Nueva escuela'
+      show_grades:
+        one: 'Un grado'
+        other: '%{count} grados'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

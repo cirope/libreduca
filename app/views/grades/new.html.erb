@@ -1,0 +1,7 @@
+<%= render 'breadcrumb' %>
+
+<%= content_for :form_actions do %>
+  <%= link_to t('label.list'), school_grades_path(@school) %>
+<% end %>
+
+<%= render 'form' %>

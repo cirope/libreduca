@@ -16,6 +16,7 @@ class School < ActiveRecord::Base
   
   # Relations
   belongs_to :district
+  has_many :grades, dependent: :destroy
   
   def to_s
     [

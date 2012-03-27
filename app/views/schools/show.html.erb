@@ -4,6 +4,21 @@
     <b><%= School.human_attribute_name 'district_id' %></b>:
     <%= @school.district %>
   </p>
+  
+  <% unless @school.grades.empty? %>
+    <div class="page-header">
+      <h5>
+        <%= link_to Grade.model_name.human(count: @school.grades.size), school_grades_path(@school) %>
+        <small>(<%= link_to t('view.grades.new'), new_school_grade_path(@school) %>)</small>
+      </h5>
+    </div>
+    
+    <ul>
+      <% @school.grades.each do |grade| %>
+        <li><%= link_to grade.to_s, [@school, grade] %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <nav class="form-actions">

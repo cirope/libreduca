@@ -1,0 +1,46 @@
+<% if @grades.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <caption>
+          <h4>
+            <%= t(
+              'view.grades.from_school.html',
+              count: @school.grades.count,
+              school: link_to(@school.to_s, @school)
+            ) %></h4>
+          <br />
+        </caption>
+        
+        <thead>
+          <tr>
+            <th><%= Grade.human_attribute_name 'name' %></th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @grades.each do |grade| %>
+            <tr>
+              <td><%= link_to grade.name, [@school, grade] %></td>
+              <td><%= link_to_edit edit_school_grade_path(@school, grade) %></td>
+              <td><%= link_to_destroy [@school, grade] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@grades) %>
+<% end %>
+
+<nav class="form-actions">
+  <%= link_to(
+    t('view.grades.new', default: :'label.new'),
+    new_school_grade_path(@school), class: 'btn btn-primary'
+    ) if can? :create, Grade
+  %>
+</nav>
