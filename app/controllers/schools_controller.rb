@@ -1,5 +1,6 @@
 class SchoolsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :load_regions, only: [:new, :create, :edit, :update]
   
   check_authorization
   load_and_authorize_resource
@@ -89,5 +90,11 @@ class SchoolsController < ApplicationController
       format.html { redirect_to schools_url }
       format.json { head :no_content }
     end
+  end
+  
+  private
+  
+  def load_regions
+    @regions = Region.includes(:districts)
   end
 end

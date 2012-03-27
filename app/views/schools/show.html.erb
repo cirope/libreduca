@@ -1,5 +1,9 @@
 <div class="readonly_data">
   <h2><%= @school %></h2>
+  <p>
+    <b><%= School.human_attribute_name 'district_id' %></b>:
+    <%= @school.district %>
+  </p>
 </div>
 
 <nav class="form-actions">

@@ -30,6 +30,7 @@
       school:
         name: 'Nombre'
         identification: 'Identificación'
+        district_id: 'Distrito'
       user:
         name: 'Nombre'
         lastname: 'Apellido'

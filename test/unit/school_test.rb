@@ -6,7 +6,7 @@ class SchoolTest < ActiveSupport::TestCase
   end
   
   test 'create' do
-    assert_difference ['School.count', 'Version.count'] do
+    assert_difference 'School.count' do
       @school = School.create(Fabricate.attributes_for(:school))
     end
   end
@@ -29,11 +29,14 @@ class SchoolTest < ActiveSupport::TestCase
   
   test 'validates blank attributes' do
     @school.name = ''
+    @school.district_id = nil
     
     assert @school.invalid?
-    assert_equal 1, @school.errors.size
+    assert_equal 2, @school.errors.size
     assert_equal [error_message_from_model(@school, :name, :blank)],
       @school.errors[:name]
+    assert_equal [error_message_from_model(@school, :district_id, :blank)],
+      @school.errors[:district_id]
   end
   
   test 'validates length of _long_ attributes' do

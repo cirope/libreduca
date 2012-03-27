@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120323134225) do
+ActiveRecord::Schema.define(:version => 20120326184712) do
 
   create_table "districts", :force => true do |t|
     t.string   "name",                        :null => false
@@ -39,8 +39,10 @@ ActiveRecord::Schema.define(:version => 20120323134225) do
     t.integer  "lock_version",   :default => 0, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.integer  "district_id"
   end
 
+  add_index "schools", ["district_id"], :name => "index_schools_on_district_id"
   add_index "schools", ["identification"], :name => "index_schools_on_identification"
   add_index "schools", ["name"], :name => "index_schools_on_name"
 
