@@ -30,11 +30,14 @@ class GradeTest < ActiveSupport::TestCase
   
   test 'validates blank attributes' do
     @grade.name = ''
+    @grade.school_id = nil
     
     assert @grade.invalid?
-    assert_equal 1, @grade.errors.size
+    assert_equal 2, @grade.errors.size
     assert_equal [error_message_from_model(@grade, :name, :blank)],
       @grade.errors[:name]
+    assert_equal [error_message_from_model(@grade, :school_id, :blank)],
+      @grade.errors[:school_id]
   end
   
   test 'validates unique attributes' do

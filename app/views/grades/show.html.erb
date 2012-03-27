@@ -2,6 +2,24 @@
 
 <div class="readonly_data">
   <h2><%= @grade %></h2>
+  
+  <% if @grade.courses.empty? %>
+    <%= link_to t('view.courses.new'), new_grade_course_path(@grade), class: 'btn btn-mini btn-inverse' %>
+  <% else %>
+    <div class="page-header">
+      <h5>
+        <%= link_to Course.model_name.human(count: @grade.courses.size), grade_courses_path(@grade) %>
+        <span class="divider">|</span>
+        <%= link_to t('view.courses.new'), new_grade_course_path(@grade), class: 'btn btn-mini' %>
+      </h5>
+    </div>
+    
+    <ul>
+      <% @grade.courses.each do |course| %>
+        <li><%= link_to course.to_s, [@grade, course] %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <nav class="form-actions">

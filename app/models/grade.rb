@@ -10,13 +10,14 @@ class Grade < ActiveRecord::Base
   default_scope order('name ASC')
   
   # Validations
-  validates :name, presence: true
+  validates :name, :school_id, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true
   validates :name, uniqueness: { scope: :school_id, case_sensitive: false },
     allow_nil: true, allow_blank: true
   
   # Relations
   belongs_to :school
+  has_many :courses, dependent: :destroy
   
   def to_s
     self.name

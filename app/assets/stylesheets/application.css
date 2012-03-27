@@ -16,6 +16,7 @@
  *= require common
  *= require common-responsive
  *= require devise
+ *= require courses
  *= require grades
  *= require regions
  *= require schools

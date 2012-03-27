@@ -1,5 +1,7 @@
 Edook::Application.routes.draw do
-  resources :grades
+  resources :grades, only: [] do
+    resources :courses
+  end
 
   resources :regions
 

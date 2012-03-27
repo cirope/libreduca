@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327125208) do
+ActiveRecord::Schema.define(:version => 20120327164521) do
+
+  create_table "courses", :force => true do |t|
+    t.string   "name"
+    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "grade_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "courses", ["grade_id"], :name => "index_courses_on_grade_id"
 
   create_table "districts", :force => true do |t|
     t.string   "name",                        :null => false

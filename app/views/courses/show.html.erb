@@ -1,0 +1,12 @@
+<%= render 'breadcrumb' %>
+
+<div class="readonly_data">
+  <h2><%= @course %></h2>
+</div>
+
+<nav class="form-actions">
+  <%= link_to t('label.edit'), edit_grade_course_path(@grade, @course), class: 'btn btn-primary' %>
+  <div class="pull-right">
+    <%= link_to t('label.list'), grade_courses_path(@grade) %>
+  </div>
+</nav>

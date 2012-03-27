@@ -7,6 +7,9 @@
     
   activerecord:
     models:
+      course:
+        one: 'Curso'
+        other: 'Cursos'
       district:
         one: 'Distrito'
         other: 'Distritos'
@@ -24,6 +27,8 @@
         other: 'Usuarios'
       
     attributes:
+      course:
+        name: 'Nombre'
       district:
         name: 'Nombre'
       grade:
@@ -76,6 +81,20 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    courses:
+      index_title: 'Listado de cursos'
+      show_title: 'Detalle de curso'
+      new_title: 'Nuevo curso'
+      edit_title: 'Modificar curso'
+      correctly_created: 'Curso agregado correctamente.'
+      correctly_updated: 'Curso actualizado correctamente.'
+      stale_object_error: 'El curso no pudo ser actualizado, intente nuevamente.'
+      empty_index: 'No se ha creado ningun curso para este grado hasta el momento, si quiere puede hacerlo desde el botón "Nuevo curso"'
+      new: 'Nuevo curso'
+      from_grade:
+        html:
+          one: 'Curso de %{grade} | %{school}'
+          other: 'Cursos de %{grade} | %{school}'
     grades:
       index_title: 'Listado de grados'
       show_title: 'Detalle de grado'
@@ -86,6 +105,9 @@
       stale_object_error: 'El grado no pudo ser actualizado, intente nuevamente.'
       empty_index: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón "Nuevo grado"'
       new: 'Nuevo grado'
+      show_courses:
+        one: 'Un curso'
+        other: '%{count} cursos'
       from_school:
         html:
           one: 'Grado de la escuela %{school}'

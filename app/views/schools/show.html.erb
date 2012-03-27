@@ -5,11 +5,14 @@
     <%= @school.district %>
   </p>
   
-  <% unless @school.grades.empty? %>
+  <% if @school.grades.empty? %>
+    <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini btn-inverse' %>
+  <% else %>
     <div class="page-header">
       <h5>
         <%= link_to Grade.model_name.human(count: @school.grades.size), school_grades_path(@school) %>
-        <small>(<%= link_to t('view.grades.new'), new_school_grade_path(@school) %>)</small>
+        <span class="divider">|</span>
+        <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini' %>
       </h5>
     </div>
     

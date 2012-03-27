@@ -19,7 +19,7 @@
           ) if can? :read, Region %>
           <%= content_tag(
             :li, link_to(t('menu.schools'), schools_path),
-            class: ('active' if ['schools', 'grades'].include?(controller_name))
+            class: ('active' if ['schools', 'grades', 'courses'].include?(controller_name))
           ) if can? :read, School %>
         </ul>
         <%= render partial: 'shared/nav_search' if @searchable %>

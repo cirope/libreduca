@@ -1,0 +1,11 @@
+<%= simple_form_for([@grade, @course]) do |f| %>
+  <div class="form-inputs">
+    <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+  </div>
+
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

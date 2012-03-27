@@ -17,6 +17,7 @@
         <thead>
           <tr>
             <th><%= Grade.human_attribute_name 'name' %></th>
+            <th><%= Course.model_name.human(count: 0) %></th>
             <th colspan="2"></th>
           </tr>
         </thead>
@@ -25,6 +26,7 @@
           <% @grades.each do |grade| %>
             <tr>
               <td><%= link_to grade.name, [@school, grade] %></td>
+              <td><%= link_to_grade_courses(grade) %></td>
               <td><%= link_to_edit edit_school_grade_path(@school, grade) %></td>
               <td><%= link_to_destroy [@school, grade] %></td>
             </tr>

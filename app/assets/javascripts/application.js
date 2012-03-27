@@ -19,6 +19,7 @@
 //= require dynamic_form
 //= require effect_helper
 //= require mobile
+//= require courses
 //= require grades
 //= require regions
 //= require schools
