@@ -17,19 +17,7 @@ class Ability
     can :manage, :all
   end
   
-  def coordinator_rules
-  end
-  
-  def headmaster_rules
-  end
-  
-  def teacher_rules
-  end
-  
-  def parent_rules
-  end
-  
-  def student_rules
+  def regular_rules
   end
   
   def default_rules

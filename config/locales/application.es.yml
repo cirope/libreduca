@@ -155,8 +155,4 @@
       edit_profile: 'Editar perfil'
       roles:
         admin: 'Administrador'
-        coordinator: 'Coordinador'
-        headmaster: 'Director'
-        teacher: 'Maestro'
-        parent: 'Padre'
-        student: 'Alumno'
+        regular: 'Normal'
