@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20120327164521) do
   end
 
   add_index "schools", ["district_id"], :name => "index_schools_on_district_id"
-  add_index "schools", ["identification"], :name => "index_schools_on_identification"
+  add_index "schools", ["identification"], :name => "index_schools_on_identification", :unique => true
   add_index "schools", ["name"], :name => "index_schools_on_name"
 
   create_table "users", :force => true do |t|

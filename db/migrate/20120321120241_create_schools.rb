@@ -9,6 +9,6 @@ class CreateSchools < ActiveRecord::Migration
     end
     
     add_index :schools, :name
-    add_index :schools, :identification
+    add_index :schools, :identification, unique: true
   end
 end
