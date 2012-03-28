@@ -8,8 +8,8 @@
   activerecord:
     models:
       course:
-        one: 'Curso'
-        other: 'Cursos'
+        one: 'Asignatura'
+        other: 'Asignaturas'
       district:
         one: 'Distrito'
         other: 'Distritos'
@@ -82,19 +82,19 @@
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
     courses:
-      index_title: 'Listado de cursos'
-      show_title: 'Detalle de curso'
-      new_title: 'Nuevo curso'
-      edit_title: 'Modificar curso'
-      correctly_created: 'Curso agregado correctamente.'
-      correctly_updated: 'Curso actualizado correctamente.'
-      stale_object_error: 'El curso no pudo ser actualizado, intente nuevamente.'
-      empty_index: 'No se ha creado ningun curso para este grado hasta el momento, si quiere puede hacerlo desde el botón "Nuevo curso"'
-      new: 'Nuevo curso'
+      index_title: 'Listado de asignaturas'
+      show_title: 'Detalle de asignatura'
+      new_title: 'Nueva asignatura'
+      edit_title: 'Modificar asignatura'
+      correctly_created: 'Asignatura agregada correctamente.'
+      correctly_updated: 'Asignatura actualizada correctamente.'
+      stale_object_error: 'La asignatura no pudo ser actualizada, intente nuevamente.'
+      empty_index: 'No se ha creado ninguna asignatura para este grado hasta el momento, si quiere puede hacerlo desde el botón "Nueva asignatura"'
+      new: 'Nueva asignatura'
       from_grade:
         html:
-          one: 'Curso de %{grade} | %{school}'
-          other: 'Cursos de %{grade} | %{school}'
+          one: 'Asignatura de %{grade} | %{school}'
+          other: 'Asignaturas de %{grade} | %{school}'
     grades:
       index_title: 'Listado de grados'
       show_title: 'Detalle de grado'
@@ -106,8 +106,8 @@
       empty_index: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón "Nuevo grado"'
       new: 'Nuevo grado'
       show_courses:
-        one: 'Un curso'
-        other: '%{count} cursos'
+        one: 'Una asignatura'
+        other: '%{count} asignaturas'
       from_school:
         html:
           one: 'Grado de la escuela %{school}'
