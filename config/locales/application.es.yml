@@ -133,6 +133,9 @@
       stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
       empty_index: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón "Nueva escuela"'
       new: 'Nueva escuela'
+      hints:
+        identification:
+          html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
       show_grades:
         one: 'Un grado'
         other: '%{count} grados'
