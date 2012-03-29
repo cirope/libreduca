@@ -1,0 +1,30 @@
+<div class="row-fluid job">
+  <div class="span5">
+    <% field_classes = ['autocomplete_field'] %>
+    <%= f.input :auto_school_name, label: false,
+      placeholder: Job.human_attribute_name('school_id'),
+      input_html: {
+        id: 'auto_school_NEW_RECORD',
+        class: field_classes.join(' '), value: f.object.school.try(:label),
+        data: {
+          'autocomplete-url' => schools_path(format: :json),
+          'autocomplete-id-target' => '#auto_school_id_NEW_RECORD'
+        }
+      }
+    %>
+    <%= f.input :school_id, as: :hidden,
+      input_html: {
+        class: 'autocomplete_id', id: 'auto_school_id_NEW_RECORD'
+      }
+    %>
+  </div>
+  <div class="span5">
+    <%= show_user_job_options(f) %>
+  </div>
+  <div class="span2">
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= link_to_remove_nested_item(f) %>
+    <br />
+  </div>
+</div>

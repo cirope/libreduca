@@ -16,6 +16,9 @@
       grade:
         one: 'Grado'
         other: 'Grados'
+      job:
+        one: 'Trabajo'
+        other: 'Trabajos'
       region:
         one: 'Región'
         other: 'Regiones'
@@ -33,6 +36,10 @@
         name: 'Nombre'
       grade:
         name: 'Nombre'
+      job:
+        job: 'Trabajo'
+        school_id: 'Escuela'
+        user_id: 'Usuario'
       region:
         name: 'Nombre'
       region/district:
@@ -47,8 +54,13 @@
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
-        roles: 'Perfiles'
         remember_me: 'Recordarme'
+        jobs:
+          one: 'Trabajo'
+          other: 'Trabajos'
+        roles:
+          one: 'Perfil'
+          other: 'Perfiles'
         
   errors:
     title: 'Error'
@@ -112,6 +124,12 @@
         html:
           one: 'Grado de la escuela %{school}'
           other: 'Grados de la escuela %{school}'
+    jobs:
+      types:
+        headmaster: 'Director'
+        teacher: 'Profesor'
+        janitor: 'Bedel'
+        student: 'Alumno'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'
@@ -136,9 +154,6 @@
       hints:
         identification:
           html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
-      show_grades:
-        one: 'Un grado'
-        other: '%{count} grados'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
@@ -149,10 +164,13 @@
       stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
       empty_index: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón "Nuevo usuario"'
       new: 'Nuevo usuario'
+      new_job: 'Agregar nuevo trabajo'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
       edit_profile: 'Editar perfil'
+      job_role:
+        html: '<em>%{role}</em> en %{school}'
       roles:
         admin: 'Administrador'
         regular: 'Normal'

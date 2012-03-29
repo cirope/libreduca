@@ -11,6 +11,18 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  test 'create with jobs' do
+    assert_difference ['User.count', 'Job.count'] do
+      @user = User.create(
+        Fabricate.attributes_for(:user).merge(
+          jobs_attributes: {
+            new_1: Fabricate.attributes_for(:job, user_id: nil)
+          }
+        )
+      )
+    end
+  end
+  
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'User.count' do

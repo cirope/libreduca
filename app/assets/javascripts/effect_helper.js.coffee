@@ -6,4 +6,4 @@ window.EffectHelper =
       $(this).remove()
       callback() if jQuery.isFunction(callback)
 
-  show: (e, callback)-> $(e).stop().fadeIn(200, callback)
+  show: (e, callback)-> $(e).stop().fadeIn(1000, callback)

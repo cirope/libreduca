@@ -1,18 +1,52 @@
 <%= simple_form_for(@user) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
-    <%= f.input :lastname, input_html: { maxlength: 255 } %>
-    <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
+  <%= content_for :js_extra do %>
+    <%= raw "var job='#{generate_template(f, :jobs)}';" %>
+  <% end %>
+  <div class="row">
+    <div class="span6">
+      <div class="form-inputs">
+        <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+        <%= f.input :lastname, input_html: { maxlength: 255 } %>
+        <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
 
-    <% if ['new', 'create'].include?(action_name) %>
-      <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
-      <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
-    <% end %>
+        <% if ['new', 'create'].include?(action_name) %>
+          <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
+          <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
+        <% end %>
 
-    <% if can? :assign_roles, @user %>
-      <label><%= User.human_attribute_name 'roles' %></label>
-      <%= show_user_roles_options(f) %>
-    <% end %>
+        <% if can? :assign_roles, @user %>
+          <label><%= User.human_attribute_name 'roles', count: 0 %></label>
+          <%= show_user_roles_options(f) %>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="span6">
+      <div class="row-fluid form-inputs">
+        <div class="span12">
+          <h5><%= User.human_attribute_name 'jobs', count: 0 %></h5>
+        </div>
+
+        <div class="row-fluid">
+          <div class="span12" id="jobs">
+            <% @user.jobs.build %>
+            <%= f.simple_fields_for :jobs do |j_f| %>
+              <%= render partial: 'job', locals: { f: j_f } %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="pull-left">
+          <%= link_to t('view.users.new_job'), '#',
+            data: {
+              'dynamic-form-event' => 'addNestedItem',
+              'dynamic-template' => 'job',
+              'dynamic-container' => '#jobs',
+              'show-tooltip' => true
+            }, class: 'btn btn-small', title: t('view.users.new_job') %>
+        </div>
+      </div>
+    </div>
   </div>
   
   <div class="form-actions">

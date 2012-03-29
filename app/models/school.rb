@@ -6,6 +6,9 @@ class School < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :identification, :district_id, :lock_version
   
+  alias_attribute :label, :name
+  alias_attribute :informal, :identification
+  
   # Default order
   default_scope order('name ASC')
   
@@ -21,11 +24,21 @@ class School < ActiveRecord::Base
   # Relations
   belongs_to :district
   has_many :grades, dependent: :destroy
+  has_many :workers, dependent: :destroy, class_name: 'Job'
   
   def to_s
     [
       ("[#{self.identification}]" if self.identification.present?), self.name
     ].compact.join(' ')
+  end
+  
+  def as_json(options = nil)
+    default_options = {
+      only: [:id],
+      methods: [:label, :informal]
+    }
+    
+    super(default_options.merge(options || {}))
   end
   
   def self.filtered_list(query)

@@ -6,10 +6,25 @@
   </p>
 
   <% unless @user.roles.empty? %>
-    <h3><%= User.human_attribute_name 'roles' %></h3>
+    <h3><%= User.human_attribute_name 'roles', count: @user.roles.size %></h3>
     <ul>
       <% @user.roles.each do |role| %>
         <li><%= t("view.users.roles.#{role}") %></li>
+      <% end %>
+    </ul>
+  <% end %>
+    
+  <% unless @user.jobs.empty? %>
+    <h3><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h3>
+    <ul>
+      <% @user.jobs.each do |job| %>
+        <li>
+          <%= t(
+            'view.users.job_role.html',
+            school: job.school.name,
+            role: show_human_job_type(job.job)
+          ) %>
+        </li>
       <% end %>
     </ul>
   <% end %>

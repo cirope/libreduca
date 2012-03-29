@@ -16,6 +16,7 @@
 //= require jquery/jquery.ui.datepicker-es
 //= require twitter/bootstrap
 //= require common
+//= require autocomplete
 //= require dynamic_form
 //= require effect_helper
 //= require mobile

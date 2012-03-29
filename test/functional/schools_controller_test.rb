@@ -27,6 +27,25 @@ class SchoolsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'schools/index'
   end
+  
+  test 'should get filtered index in json' do
+    3.times { Fabricate(:school, name: 'in_filtered_index') }
+    
+    get :index, q: 'filtered_index', format: 'json'
+    assert_response :success
+    
+    schools = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 3, schools.size
+    assert schools.all? { |s| s['label'].match /filtered_index/i }
+    
+    get :index, q: 'no_school', format: 'json'
+    assert_response :success
+    
+    schools = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 0, schools.size
+  end
 
   test 'should get new' do
     get :new

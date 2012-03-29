@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327164521) do
+ActiveRecord::Schema.define(:version => 20120328134513) do
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(:version => 20120327164521) do
   end
 
   add_index "grades", ["school_id"], :name => "index_grades_on_school_id"
+
+  create_table "jobs", :force => true do |t|
+    t.string   "job",                         :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "user_id"
+    t.integer  "school_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "jobs", ["school_id"], :name => "index_jobs_on_school_id"
+  add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
 
   create_table "regions", :force => true do |t|
     t.string   "name",                        :null => false
