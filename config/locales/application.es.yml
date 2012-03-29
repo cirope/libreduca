@@ -48,6 +48,7 @@
         name: 'Nombre'
         identification: 'Identificación'
         district_id: 'Distrito'
+        workers: 'Personal'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -151,6 +152,8 @@
       stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
       empty_index: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón "Nueva escuela"'
       new: 'Nueva escuela'
+      worker_role:
+        html: '%{worker} es %{role}'
       hints:
         identification:
           html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
@@ -170,7 +173,7 @@
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
       edit_profile: 'Editar perfil'
       job_role:
-        html: '<em>%{role}</em> en %{school}'
+        html: '%{role} en %{school}'
       roles:
         admin: 'Administrador'
         regular: 'Normal'

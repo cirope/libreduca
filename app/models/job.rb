@@ -3,6 +3,9 @@ class Job < ActiveRecord::Base
   
   TYPES = ['headmaster', 'teacher', 'janitor', 'student']
   
+  # Scopes
+  scope :exclude_studens, where('job <> ?', 'student')
+  
   # Setup accessible (or protected) attributes for your model
   attr_accessible :job, :user_id, :school_id, :auto_school_name, :lock_version
   

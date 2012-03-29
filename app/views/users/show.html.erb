@@ -21,7 +21,7 @@
         <li>
           <%= t(
             'view.users.job_role.html',
-            school: job.school.name,
+            school: link_to(job.school.name, job.school),
             role: show_human_job_type(job.job)
           ) %>
         </li>

@@ -8,17 +8,33 @@
   <% if @school.grades.empty? %>
     <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini btn-inverse' %>
   <% else %>
-    <div class="page-header">
-      <h5>
-        <%= link_to Grade.model_name.human(count: @school.grades.size), school_grades_path(@school) %>
-        <span class="divider">|</span>
-        <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini' %>
-      </h5>
-    </div>
+    <h3>
+      <%= link_to Grade.model_name.human(count: @school.grades.size), school_grades_path(@school) %>
+      <span class="divider">|</span>
+      <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini' %>
+    </h3>
     
     <ul>
       <% @school.grades.each do |grade| %>
         <li><%= link_to grade.to_s, [@school, grade] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <% unless @school.workers.exclude_studens.empty? %>
+    <h3>
+      <%= School.human_attribute_name('workers', count: @school.workers.exclude_studens.size) %>
+    </h3>
+    
+    <ul>
+      <% @school.workers.exclude_studens.each do |worker| %>
+        <li>
+          <%= t(
+            'view.schools.worker_role.html',
+            worker: link_to(worker.user.to_s, worker.user),
+            role: show_human_job_type(worker.job)
+          )%>
+        </li>
       <% end %>
     </ul>
   <% end %>
