@@ -26,7 +26,9 @@ class User < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   
   accepts_nested_attributes_for :jobs, allow_destroy: true,
-    reject_if: ->(attributes) { attributes['job'].blank? }
+    reject_if: ->(attributes) {
+      attributes['job'].blank? && attributes['school_id'].blank?
+    }
   
   def to_s
     [self.name, self.lastname].compact.join(' ')

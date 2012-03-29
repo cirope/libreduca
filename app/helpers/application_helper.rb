@@ -84,4 +84,10 @@ module ApplicationHelper
     
     link_to '&#x2714;'.html_safe, *args, options
   end
+  
+  def copy_attribute_errors(from, to, form_builder)
+    form_builder.object.errors[from].each do |message|
+      form_builder.object.errors.add(to, message)
+    end
+  end
 end

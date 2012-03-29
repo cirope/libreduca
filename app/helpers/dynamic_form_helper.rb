@@ -37,4 +37,8 @@ module DynamicFormHelper
 
     raw out
   end
+  
+  def dynamic_object_id(prefix, form_builder)
+    "#{prefix}_#{form_builder.object_name.to_s.gsub(/[_\]\[]+/, '_')}"
+  end
 end

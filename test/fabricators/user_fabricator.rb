@@ -5,4 +5,5 @@ Fabricator(:user) do
   password { Faker::Lorem.sentence }
   password_confirmation { |p| p.password }
   roles User.valid_roles.map(&:to_s)
+  jobs
 end

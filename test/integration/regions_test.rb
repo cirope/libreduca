@@ -3,10 +3,6 @@
 require 'test_helper'
 
 class RegionsTest < ActionDispatch::IntegrationTest
-  setup do
-    Capybara.current_driver = Capybara.javascript_driver
-  end
-  
   test 'should add districts to region' do
     login
     
@@ -16,9 +12,11 @@ class RegionsTest < ActionDispatch::IntegrationTest
     fill_in 'region_districts_attributes_0_name',
       with: Fabricate.attributes_for(:district)['name']
     
+    assert page.has_no_css?('tbody > tr:nth-child(2)')
+    
     click_link I18n.t('view.regions.new_district')
     
-    page.has_css?('tbody > tr:nth-child(2)')
+    assert page.has_css?('tbody > tr:nth-child(2)')
     
     within 'tbody > tr:nth-child(2)' do
       fill_in find('input[name$="[name]"]')[:id],
