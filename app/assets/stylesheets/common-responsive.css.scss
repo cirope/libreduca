@@ -6,6 +6,11 @@
     font-size: 1.25em;
     margin-bottom: .25em;
   }
+
+  .nested-actions {
+    text-align: right;
+    margin: -1.5em 2em 0em 0em !important;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 979px) {  

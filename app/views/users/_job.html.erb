@@ -1,7 +1,7 @@
 <% id = dynamic_object_id('job', f) %>
 <div class="row-fluid job">
   <div class="span5">
-    <% field_classes = ['autocomplete_field'] %>
+    <% field_classes = ['autocomplete_field', 'span10'] %>
     <% copy_attribute_errors(:school_id, :auto_school_name, f) %>
     <%= f.input :auto_school_name, label: false,
       placeholder: Job.human_attribute_name('school_id'),
@@ -22,10 +22,9 @@
   <div class="span5">
     <%= show_user_job_options(f) %>
   </div>
-  <div class="span2">
+  <div class="span2 nested-actions">
     <%= f.input :id, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>
     <%= link_to_remove_nested_item(f) %>
-    <br />
   </div>
 </div>

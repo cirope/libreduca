@@ -9,7 +9,9 @@ module UsersHelper
   def show_user_job_options(form)
     jobs = Job::TYPES.map { |t| [show_human_job_type(t), t] }.sort
     
-    form.input :job, label: false, collection: jobs, prompt: true
+    form.input :job, label: false, collection: jobs, prompt: true, input_html: {
+      class: 'span10'
+    }
   end
   
   def show_human_job_type(job)
