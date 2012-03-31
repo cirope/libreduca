@@ -17,33 +17,42 @@
  * limitations under the License.
  * ========================================================== */
 
-!function( $ ) {
+
+!function ( $ ) {
 
   $(function () {
 
     "use strict"
 
-    /* CSS TRANSITION SUPPORT (https://gist.github.com/373874)
+    /* CSS TRANSITION SUPPORT (http://www.modernizr.com/)
      * ======================================================= */
 
     $.support.transition = (function () {
-      var thisBody = document.body || document.documentElement
-        , thisStyle = thisBody.style
-        , support = thisStyle.transition !== undefined || thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.MsTransition !== undefined || thisStyle.OTransition !== undefined
 
-      return support && {
-        end: (function () {
-          var transitionEnd = "TransitionEnd"
-          if ( $.browser.webkit ) {
-          	transitionEnd = "webkitTransitionEnd"
-          } else if ( $.browser.mozilla ) {
-          	transitionEnd = "transitionend"
-          } else if ( $.browser.opera ) {
-          	transitionEnd = "oTransitionEnd"
+      var transitionEnd = (function () {
+
+        var el = document.createElement('bootstrap')
+          , transEndEventNames = {
+               'WebkitTransition' : 'webkitTransitionEnd'
+            ,  'MozTransition'    : 'transitionend'
+            ,  'OTransition'      : 'oTransitionEnd'
+            ,  'msTransition'     : 'MSTransitionEnd'
+            ,  'transition'       : 'transitionend'
+            }
+          , name
+
+        for (name in transEndEventNames){
+          if (el.style[name] !== undefined) {
+            return transEndEventNames[name]
           }
-          return transitionEnd
-        }())
+        }
+
+      }())
+
+      return transitionEnd && {
+        end: transitionEnd
       }
+
     })()
 
   })
@@ -68,7 +77,7 @@
  * ========================================================== */
 
 
-!function( $ ){
+!function ( $ ) {
 
   "use strict"
 
@@ -95,15 +104,16 @@
       }
 
       $parent = $(selector)
-      $parent.trigger('close')
 
       e && e.preventDefault()
 
       $parent.length || ($parent = $this.hasClass('alert') ? $this : $this.parent())
 
-      $parent
-        .trigger('close')
-        .removeClass('in')
+      $parent.trigger(e = $.Event('close'))
+
+      if (e.isDefaultPrevented()) return
+
+      $parent.removeClass('in')
 
       function removeElement() {
         $parent
@@ -160,7 +170,8 @@
  * limitations under the License.
  * ============================================================ */
 
-!function( $ ){
+
+!function ( $ ) {
 
   "use strict"
 
@@ -260,7 +271,7 @@
  * ========================================================== */
 
 
-!function( $ ){
+!function ( $ ) {
 
   "use strict"
 
@@ -269,7 +280,7 @@
 
   var Carousel = function (element, options) {
     this.$element = $(element)
-    this.options = $.extend({}, $.fn.carousel.defaults, options)
+    this.options = options
     this.options.slide && this.slide(this.options.slide)
     this.options.pause == 'hover' && this.$element
       .on('mouseenter', $.proxy(this.pause, this))
@@ -279,7 +290,8 @@
   Carousel.prototype = {
 
     cycle: function () {
-      this.interval = setInterval($.proxy(this.next, this), this.options.interval)
+      this.options.interval
+        && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
       return this
     }
 
@@ -327,6 +339,7 @@
         , direction = type == 'next' ? 'left' : 'right'
         , fallback  = type == 'next' ? 'first' : 'last'
         , that = this
+        , e = $.Event('slide')
 
       this.sliding = true
 
@@ -336,24 +349,26 @@
 
       if ($next.hasClass('active')) return
 
-      if (!$.support.transition && this.$element.hasClass('slide')) {
-        this.$element.trigger('slide')
-        $active.removeClass('active')
-        $next.addClass('active')
-        this.sliding = false
-        this.$element.trigger('slid')
-      } else {
+      if ($.support.transition && this.$element.hasClass('slide')) {
+        this.$element.trigger(e)
+        if (e.isDefaultPrevented()) return
         $next.addClass(type)
         $next[0].offsetWidth // force reflow
         $active.addClass(direction)
         $next.addClass(direction)
-        this.$element.trigger('slide')
         this.$element.one($.support.transition.end, function () {
           $next.removeClass([type, direction].join(' ')).addClass('active')
           $active.removeClass(['active', direction].join(' '))
           that.sliding = false
           setTimeout(function () { that.$element.trigger('slid') }, 0)
         })
+      } else {
+        this.$element.trigger(e)
+        if (e.isDefaultPrevented()) return
+        $active.removeClass('active')
+        $next.addClass('active')
+        this.sliding = false
+        this.$element.trigger('slid')
       }
 
       isCycling && this.cycle()
@@ -371,11 +386,11 @@
     return this.each(function () {
       var $this = $(this)
         , data = $this.data('carousel')
-        , options = typeof option == 'object' && option
+        , options = $.extend({}, $.fn.carousel.defaults, typeof option == 'object' && option)
       if (!data) $this.data('carousel', (data = new Carousel(this, options)))
       if (typeof option == 'number') data.to(option)
       else if (typeof option == 'string' || (option = options.slide)) data[option]()
-      else data.cycle()
+      else if (options.interval) data.cycle()
     })
   }
 
@@ -419,7 +434,8 @@
  * limitations under the License.
  * ============================================================ */
 
-!function( $ ){
+
+!function ( $ ) {
 
   "use strict"
 
@@ -444,10 +460,17 @@
     }
 
   , show: function () {
-      var dimension = this.dimension()
-        , scroll = $.camelCase(['scroll', dimension].join('-'))
-        , actives = this.$parent && this.$parent.find('.in')
+      var dimension
+        , scroll
+        , actives
         , hasData
+
+      if (this.transitioning) return
+
+      dimension = this.dimension()
+      scroll = $.camelCase(['scroll', dimension].join('-'))
+      actives = this.$parent && this.$parent.find('> .accordion-group > .in')
+      hasData
 
       if (actives && actives.length) {
         hasData = actives.data('collapse')
@@ -456,15 +479,16 @@
       }
 
       this.$element[dimension](0)
-      this.transition('addClass', 'show', 'shown')
+      this.transition('addClass', $.Event('show'), 'shown')
       this.$element[dimension](this.$element[0][scroll])
-
     }
 
   , hide: function () {
-      var dimension = this.dimension()
+      var dimension
+      if (this.transitioning) return
+      dimension = this.dimension()
       this.reset(this.$element[dimension]())
-      this.transition('removeClass', 'hide', 'hidden')
+      this.transition('removeClass', $.Event('hide'), 'hidden')
       this.$element[dimension](0)
     }
 
@@ -476,7 +500,7 @@
         [dimension](size || 'auto')
         [0].offsetWidth
 
-      this.$element[size ? 'addClass' : 'removeClass']('collapse')
+      this.$element[size != null ? 'addClass' : 'removeClass']('collapse')
 
       return this
     }
@@ -485,12 +509,17 @@
       var that = this
         , complete = function () {
             if (startEvent == 'show') that.reset()
+            that.transitioning = 0
             that.$element.trigger(completeEvent)
           }
 
-      this.$element
-        .trigger(startEvent)
-        [method]('in')
+      this.$element.trigger(startEvent)
+
+      if (startEvent.isDefaultPrevented()) return
+
+      this.transitioning = 1
+
+      this.$element[method]('in')
 
       $.support.transition && this.$element.hasClass('collapse') ?
         this.$element.one($.support.transition.end, complete) :
@@ -557,7 +586,7 @@
  * ============================================================ */
 
 
-!function( $ ){
+!function ( $ ) {
 
   "use strict"
 
@@ -625,7 +654,9 @@
 
   $(function () {
     $('html').on('click.dropdown.data-api', clearMenus)
-    $('body').on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+    $('body')
+      .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
+      .on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
   })
 
 }( window.jQuery );/* =========================================================
@@ -648,7 +679,7 @@
  * ========================================================= */
 
 
-!function( $ ){
+!function ( $ ) {
 
   "use strict"
 
@@ -671,13 +702,15 @@
 
     , show: function () {
         var that = this
+          , e = $.Event('show')
 
-        if (this.isShown) return
+        this.$element.trigger(e)
+
+        if (this.isShown || e.isDefaultPrevented()) return
 
         $('body').addClass('modal-open')
 
         this.isShown = true
-        this.$element.trigger('show')
 
         escape.call(this)
         backdrop.call(this, function () {
@@ -704,18 +737,21 @@
     , hide: function ( e ) {
         e && e.preventDefault()
 
-        if (!this.isShown) return
-
         var that = this
+
+        e = $.Event('hide')
+
+        this.$element.trigger(e)
+
+        if (!this.isShown || e.isDefaultPrevented()) return
+
         this.isShown = false
 
         $('body').removeClass('modal-open')
 
         escape.call(this)
 
-        this.$element
-          .trigger('hide')
-          .removeClass('in')
+        this.$element.removeClass('in')
 
         $.support.transition && this.$element.hasClass('fade') ?
           hideWithTransition.call(this) :
@@ -857,7 +893,8 @@
  * limitations under the License.
  * ========================================================== */
 
-!function( $ ) {
+
+!function ( $ ) {
 
   "use strict"
 
@@ -912,8 +949,9 @@
       if (!self.options.delay || !self.options.delay.show) {
         self.show()
       } else {
+        clearTimeout(this.timeout)
         self.hoverState = 'in'
-        setTimeout(function() {
+        this.timeout = setTimeout(function() {
           if (self.hoverState == 'in') {
             self.show()
           }
@@ -927,8 +965,9 @@
       if (!self.options.delay || !self.options.delay.hide) {
         self.hide()
       } else {
+        clearTimeout(this.timeout)
         self.hoverState = 'out'
-        setTimeout(function() {
+        this.timeout = setTimeout(function() {
           if (self.hoverState == 'out') {
             self.hide()
           }
@@ -1045,8 +1084,6 @@
       title = $e.attr('data-original-title')
         || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
 
-      title = (title || '').toString().replace(/(^\s*|\s*$)/, "")
-
       return title
     }
 
@@ -1126,7 +1163,7 @@
  * =========================================================== */
 
 
-!function( $ ) {
+!function ( $ ) {
 
  "use strict"
 
@@ -1146,8 +1183,8 @@
         , title = this.getTitle()
         , content = this.getContent()
 
-      $tip.find('.popover-title')[ $.type(title) == 'object' ? 'append' : 'html' ](title)
-      $tip.find('.popover-content > *')[ $.type(content) == 'object' ? 'append' : 'html' ](content)
+      $tip.find('.popover-title').html(title)
+      $tip.find('.popover-content > *').html(content)
 
       $tip.removeClass('fade top bottom left right in')
     }
@@ -1163,8 +1200,6 @@
 
       content = $e.attr('data-content')
         || (typeof o.content == 'function' ? o.content.call($e[0]) :  o.content)
-
-      content = content.toString().replace(/(^\s*|\s*$)/, "")
 
       return content
     }
@@ -1219,6 +1254,7 @@
  * limitations under the License.
  * ============================================================== */
 
+
 !function ( $ ) {
 
   "use strict"
@@ -1245,24 +1281,41 @@
       constructor: ScrollSpy
 
     , refresh: function () {
-        this.targets = this.$body
+        var self = this
+          , $targets
+
+        this.offsets = $([])
+        this.targets = $([])
+
+        $targets = this.$body
           .find(this.selector)
           .map(function () {
             var href = $(this).attr('href')
-            return /^#\w/.test(href) && $(href).length ? href : null
+              , $href = /^#\w/.test(href) && $(href)
+            return ( $href
+              && href.length
+              && [[ $href.position().top, href ]] ) || null
           })
-
-        this.offsets = $.map(this.targets, function (id) {
-          return $(id).position().top
-        })
+          .sort(function (a, b) { return a[0] - b[0] })
+          .each(function () {
+            self.offsets.push(this[0])
+            self.targets.push(this[1])
+          })
       }
 
     , process: function () {
         var scrollTop = this.$scrollElement.scrollTop() + this.options.offset
+          , scrollHeight = this.$scrollElement[0].scrollHeight || this.$body[0].scrollHeight
+          , maxScroll = scrollHeight - this.$scrollElement.height()
           , offsets = this.offsets
           , targets = this.targets
           , activeTarget = this.activeTarget
           , i
+
+        if (scrollTop >= maxScroll) {
+          return activeTarget != (i = targets.last()[0])
+            && this.activate ( i )
+        }
 
         for (i = offsets.length; i--;) {
           activeTarget != targets[i]
@@ -1287,8 +1340,10 @@
           .addClass('active')
 
         if ( active.parent('.dropdown-menu') )  {
-          active.closest('li.dropdown').addClass('active')
+          active = active.closest('li.dropdown').addClass('active')
         }
+
+        active.trigger('activate')
       }
 
   }
@@ -1344,7 +1399,7 @@
  * ======================================================== */
 
 
-!function( $ ){
+!function ( $ ) {
 
   "use strict"
 
@@ -1365,6 +1420,7 @@
         , selector = $this.attr('data-target')
         , previous
         , $target
+        , e
 
       if (!selector) {
         selector = $this.attr('href')
@@ -1375,10 +1431,13 @@
 
       previous = $ul.find('.active a').last()[0]
 
-      $this.trigger({
-        type: 'show'
-      , relatedTarget: previous
+      e = $.Event('show', {
+        relatedTarget: previous
       })
+
+      $this.trigger(e)
+
+      if (e.isDefaultPrevented()) return
 
       $target = $(selector)
 
@@ -1472,6 +1531,7 @@
  * limitations under the License.
  * ============================================================ */
 
+
 !function( $ ){
 
   "use strict"
@@ -1494,8 +1554,9 @@
 
   , select: function () {
       var val = this.$menu.find('.active').attr('data-value')
-      this.$element.val(val)
-      this.$element.change();
+      this.$element
+        .val(val)
+        .change()
       return this.hide()
     }
 
@@ -1532,7 +1593,7 @@
       }
 
       items = $.grep(this.source, function (item) {
-        if (that.matcher(item)) return item
+        return that.matcher(item)
       })
 
       items = this.sorter(items)
@@ -1564,7 +1625,8 @@
     }
 
   , highlighter: function (item) {
-      return item.replace(new RegExp('(' + this.query + ')', 'ig'), function ($1, match) {
+      var query = this.query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+      return item.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
         return '<strong>' + match + '</strong>'
       })
     }
