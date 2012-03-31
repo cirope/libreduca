@@ -98,24 +98,24 @@ class SchoolTest < ActiveSupport::TestCase
     schools = School.magick_search('magick')
     
     assert_equal 9, schools.count
-    assert schools.all? { |s| s.to_s =~ /magick/ }
+    assert schools.all? { |s| s.inspect =~ /magick/ }
     
     schools = School.magick_search('magick_name')
     
     assert_equal 6, schools.count
-    assert schools.all? { |s| s.to_s =~ /magick_name/ }
+    assert schools.all? { |s| s.inspect =~ /magick_name/ }
     
     schools = School.magick_search('magick_name magick-identification')
     
     assert_equal 1, schools.count
-    assert schools.all? { |s| s.to_s =~ /magick-identification.*magick_name/ }
+    assert schools.all? { |s| s.inspect =~ /magick-identification.*magick_name/ }
     
     schools = School.magick_search(
       "magick_name #{I18n.t('magick_columns.or').first} magick-identification"
     )
     
     assert_equal 9, schools.count
-    assert schools.all? { |s| s.to_s =~ /magick_name|magick-identification/ }
+    assert schools.all? { |s| s.inspect =~ /magick_name|magick-identification/ }
     
     schools = School.magick_search('noschool')
     

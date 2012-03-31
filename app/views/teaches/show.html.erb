@@ -1,0 +1,22 @@
+<%= render 'breadcrumb' %>
+
+<div class="readonly_data">
+  <h2><%= @course %></h2>
+  
+  <p>
+    <strong><%= Teach.human_attribute_name 'start' %></strong>:
+    <%= l @teach.start, format: :long %>
+  </p>
+  
+  <p>
+    <strong><%= Teach.human_attribute_name 'finish' %></strong>:
+    <%= l @teach.finish, format: :long %>
+  </p>
+</div>
+
+<nav class="form-actions">
+  <%= link_to t('label.edit'), edit_course_teach_path(@course, @teach), class: 'btn btn-primary' %>
+  <div class="pull-right">
+    <%= link_to t('label.list'), course_teaches_path(@course) %>
+  </div>
+</nav>

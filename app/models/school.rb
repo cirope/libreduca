@@ -27,6 +27,10 @@ class School < ActiveRecord::Base
   has_many :workers, dependent: :destroy, class_name: 'Job'
   
   def to_s
+    self.name
+  end
+  
+  def inspect
     [
       ("[#{self.identification}]" if self.identification.present?), self.name
     ].compact.join(' ')

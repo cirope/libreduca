@@ -25,6 +25,9 @@
       school:
         one: 'Escuela'
         other: 'Escuelas'
+      teach:
+        one: 'Dictado'
+        other: 'Dictados'
       user:
         one: 'Usuario'
         other: 'Usuarios'
@@ -49,6 +52,10 @@
         identification: 'Identificación'
         district_id: 'Distrito'
         workers: 'Personal'
+      teach:
+        start: 'Inicio'
+        finish: 'Finalización'
+        course_id: 'Curso'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -157,6 +164,20 @@
       hints:
         identification:
           html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
+    teaches:
+      index_title: 'Listado de dictados'
+      show_title: 'Detalle de dictado'
+      new_title: 'Nuevo dictado'
+      edit_title: 'Modificar dictado'
+      correctly_created: 'Dictado agregado correctamente.'
+      correctly_updated: 'Dictado actualizado correctamente.'
+      stale_object_error: 'El dictado no pudo ser actualizado, intente nuevamente.'
+      empty_index: 'No se ha creado ningún dictado para este curso hasta el momento, si quiere puede hacerlo desde el botón "Nuevo dictado"'
+      new: 'Nuevo dictado'
+      from_course:
+        html:
+          one: 'Asignatura de %{course} | %{grade} | %{school}'
+          other: 'Asignaturas de %{course} | %{grade} | %{school}'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

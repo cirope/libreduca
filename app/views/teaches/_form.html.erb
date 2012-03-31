@@ -1,0 +1,12 @@
+<%= simple_form_for([@course, @teach]) do |f| %>
+  <div class="form-inputs">
+    <%= f.input :start, as: :date_picker, input_html: { autofocus: true } %>
+    <%= f.input :finish, as: :date_picker %>
+  </div>
+
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

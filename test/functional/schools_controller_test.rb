@@ -22,7 +22,7 @@ class SchoolsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:schools)
     assert_equal 3, assigns(:schools).size
-    assert assigns(:schools).all? { |s| s.to_s =~ /filtered_index/ }
+    assert assigns(:schools).all? { |s| s.inspect =~ /filtered_index/ }
     assert_not_equal assigns(:schools).size, School.count
     assert_select '#unexpected_error', false
     assert_template 'schools/index'

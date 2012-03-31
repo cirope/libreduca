@@ -1,0 +1,51 @@
+<% if @teaches.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <caption>
+          <h4>
+            <% grade = @course.grade %>
+            <%= t(
+              'view.teaches.from_course.html',
+              count: @course.teaches.count,
+              course: link_to(@course.to_s, [@course.grade, @course]),
+              grade: link_to(grade.to_s, [grade.school, grade]),
+              school: link_to(grade.school.to_s, grade.school)
+            ) %></h4>
+          <br />
+        </caption>
+        <thead>
+          <tr>
+            <th><%= Teach.human_attribute_name 'start' %></th>
+            <th><%= Teach.human_attribute_name 'finish' %></th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% @teaches.each do |teach| %>
+            <tr>
+              <td><%= l teach.start %></td>
+              <td><%= l teach.finish %></td>
+              <td><%= link_to_show [@course, teach] %></td>
+              <td><%= link_to_edit edit_course_teach_path(@course, teach) %></td>
+              <td><%= link_to_destroy [@course, teach] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@teaches) %>
+<% end %>
+
+<nav class="form-actions">
+  <%= link_to(
+    t('view.teaches.new', default: :'label.new'),
+    new_course_teach_path(@course), class: 'btn btn-primary'
+    ) if can? :create, Teach
+  %>
+</nav>
