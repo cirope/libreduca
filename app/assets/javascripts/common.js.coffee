@@ -12,6 +12,10 @@ jQuery ($)->
       onSelect: -> $(this).datepicker('hide')
     .removeAttr('data-date-picker').focus()
   
+  $('#loading_caption').bind
+    ajaxStart: `function() { $(this).stop(true, true).fadeIn(100) }`
+    ajaxStop: `function() { $(this).stop(true, true).fadeOut(100) }`
+  
   $('form').submit ->
     $(this).find('input[type="submit"], input[name="utf8"]')
     .attr 'disabled', true

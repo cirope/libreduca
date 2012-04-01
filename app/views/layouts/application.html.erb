@@ -19,6 +19,9 @@
 </head>
 <body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged_in"' if user_signed_in? %>>
   <%= render 'shared/menu' if user_signed_in? %>
+  <div id="loading_caption" class="alert" style="display: none;">
+    <strong><%= t('label.loading') %></strong>
+  </div>
   <div class="container">
     <div class="content"><%= yield %></div>
   </div>
