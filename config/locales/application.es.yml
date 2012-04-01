@@ -13,6 +13,9 @@
       district:
         one: 'Distrito'
         other: 'Distritos'
+      enrollment:
+        one: 'Inscripción'
+        other: 'Inscripciones'
       grade:
         one: 'Grado'
         other: 'Grados'
@@ -37,6 +40,8 @@
         name: 'Nombre'
       district:
         name: 'Nombre'
+      enrollment:
+        user_id: 'Usuario'
       grade:
         name: 'Nombre'
       job:
@@ -56,6 +61,9 @@
         start: 'Inicio'
         finish: 'Finalización'
         course_id: 'Curso'
+        enrollments:
+          one: 'Inscripción'
+          other: 'Inscripciones'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -174,6 +182,11 @@
       stale_object_error: 'El dictado no pudo ser actualizado, intente nuevamente.'
       empty_index: 'No se ha creado ningún dictado para este curso hasta el momento, si quiere puede hacerlo desde el botón "Nuevo dictado"'
       new: 'Nuevo dictado'
+      new_enrollment: 'Agregar nueva inscripción'
+      between:
+        html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
+      enrollment_info:
+        html: '%{user} inscripto el <em>%{date}</em>'
       from_course:
         html:
           one: 'Asignatura de %{course} | %{grade} | %{school}'
@@ -194,7 +207,7 @@
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
       edit_profile: 'Editar perfil'
       job_role:
-        html: '%{role} en %{school}'
+        html: '%{role} de %{school}'
       roles:
         admin: 'Administrador'
         regular: 'Normal'

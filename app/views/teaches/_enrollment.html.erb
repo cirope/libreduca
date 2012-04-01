@@ -1,0 +1,27 @@
+<% id = dynamic_object_id('enrollment', f) %>
+<div class="row-fluid enrollment">
+  <div class="span5">
+    <% field_classes = ['autocomplete_field', 'span10'] %>
+    <% copy_attribute_errors(:user_id, :auto_user_name, f) %>
+    <%= f.input :auto_user_name, label: false,
+      placeholder: Enrollment.human_attribute_name('user_id'),
+      input_html: {
+        id: "auto_user_#{id}",
+        class: field_classes.join(' '),
+        value: f.object.user.try(:label),
+        data: {
+          'autocomplete-url' => users_path(format: :json),
+          'autocomplete-id-target' => "#auto_user_id_#{id}"
+        }
+      }
+    %>
+    <%= f.input :user_id, as: :hidden,
+      input_html: { class: 'autocomplete_id', id: "auto_user_id_#{id}" }
+    %>
+  </div>
+  <div class="span2 nested-actions">
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= link_to_remove_nested_item(f) %>
+  </div>
+</div>

@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   
   # Relations
   has_many :jobs, dependent: :destroy
+  has_many :enrollments, dependent: :destroy
   
   accepts_nested_attributes_for :jobs, allow_destroy: true,
     reject_if: ->(attributes) {
@@ -32,6 +33,17 @@ class User < ActiveRecord::Base
   
   def to_s
     [self.name, self.lastname].compact.join(' ')
+  end
+  
+  alias_method :label, :to_s
+  
+  def as_json(options = nil)
+    default_options = {
+      only: [:id],
+      methods: [:label]
+    }
+    
+    super(default_options.merge(options || {}))
   end
   
   alias_method :old_roles, :roles

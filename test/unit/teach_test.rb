@@ -11,6 +11,18 @@ class TeachTest < ActiveSupport::TestCase
     end
   end
   
+  test 'create with enrollments' do
+    assert_difference ['Teach.count', 'Enrollment.count'] do
+      @teach = Teach.create(
+        Fabricate.attributes_for(:teach).merge(
+          enrollments_attributes: {
+            new_1: Fabricate.attributes_for(:enrollment, teach_id: nil)
+          }
+        )
+      )
+    end
+  end
+  
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'Teach.count' do
@@ -66,5 +78,33 @@ class TeachTest < ActiveSupport::TestCase
     assert_equal [
       I18n.t('errors.messages.after', restriction: I18n.l(@teach.start))
     ], @teach.errors[:finish]
+  end
+  
+  test 'current' do
+    @teach.start = Date.yesterday
+    
+    assert @teach.valid?
+    assert @teach.current?
+    assert !@teach.next?
+    assert !@teach.past?
+  end
+  
+  test 'next' do
+    @teach.start = Date.tomorrow
+    
+    assert @teach.valid?
+    assert !@teach.current?
+    assert @teach.next?
+    assert !@teach.past?
+  end
+  
+  test 'past' do
+    @teach.start = 2.months.ago.to_date
+    @teach.finish = Date.yesterday
+    
+    assert @teach.valid?
+    assert !@teach.current?
+    assert !@teach.next?
+    assert @teach.past?
   end
 end

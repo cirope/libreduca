@@ -4,14 +4,27 @@
   <h2><%= @course %></h2>
   
   <p>
-    <strong><%= Teach.human_attribute_name 'start' %></strong>:
-    <%= l @teach.start, format: :long %>
+    <%= t(
+      'view.teaches.between.html',
+      start: l(@teach.start, format: :long),
+      finish: l(@teach.finish, format: :long)
+    ) %>
   </p>
   
-  <p>
-    <strong><%= Teach.human_attribute_name 'finish' %></strong>:
-    <%= l @teach.finish, format: :long %>
-  </p>
+  <% unless @teach.enrollments.empty? %>
+    <h3><%= Teach.human_attribute_name 'enrollments', count: @teach.enrollments.size %></h3>
+    <ul>
+      <% @teach.enrollments.each do |enrollment| %>
+        <li>
+          <%= t(
+            'view.teaches.enrollment_info.html',
+            user: link_to(enrollment.user.to_s, enrollment.user),
+            date: l(enrollment.created_at, format: :long)
+          ) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <nav class="form-actions">
