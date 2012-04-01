@@ -32,8 +32,9 @@
     delete: 'Eliminar'
     edit: 'Editar'
     list: 'Listado'
+    loading: 'Cargando...'
     new: 'Nuevo'
-    search: 'Buscar...'
+    search: 'Buscar'
     show: 'Ver'
     
   menu:
