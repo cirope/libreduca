@@ -17,6 +17,8 @@ class Teach < ActiveRecord::Base
   
   # Relations
   belongs_to :course
+  has_one :grade, through: :course
+  has_one :school, through: :grade
   has_many :enrollments, dependent: :destroy
   
   accepts_nested_attributes_for :enrollments, allow_destroy: true,

@@ -142,4 +142,77 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_equal 'Upd', another_user.reload.name
     assert_equal 'Upd', @user.reload.name
   end
+  
+  test 'should get within school index' do
+    sign_in @user
+    
+    school = Fabricate(:school)
+    
+    3.times do
+      Fabricate(:user).tap do |user|
+        Fabricate(:job, user_id: user.id, school_id: school.id)
+      end
+    end
+    
+    get :within_school, school_id: school.id
+    assert_response :success
+    assert_not_nil assigns(:users)
+    assert_equal 3, assigns(:users).size
+    assert assigns(:users).all? { |u| u.schools.include?(school) }
+    assert_select '#unexpected_error', false
+    assert_template 'users/index'
+  end
+  
+  test 'should get within school filtered index' do
+    sign_in @user
+    
+    school = Fabricate(:school)
+    
+    Fabricate(:user, lastname: 'in_filtered_index') # No match, outside school
+    
+    3.times do
+      Fabricate(:user, lastname: 'in_filtered_index').tap do |user|
+        Fabricate(:job, user_id: user.id, school_id: school.id)
+      end
+    end
+    
+    get :within_school, school_id: school.id, q: 'filtered_index'
+    assert_response :success
+    assert_not_nil assigns(:users)
+    assert_equal 3, assigns(:users).size
+    assert assigns(:users).all? { |u| u.to_s =~ /filtered_index/ }
+    assert assigns(:users).all? { |u| u.schools.include?(school) }
+    assert_not_equal assigns(:users).size, User.count
+    assert_select '#unexpected_error', false
+    assert_template 'users/index'
+  end
+  
+  test 'should get within school filtered index in json' do
+    sign_in @user
+    
+    school = Fabricate(:school)
+    
+    Fabricate(:user, lastname: 'in_filtered_index') # No match, outside school
+    
+    3.times do
+      Fabricate(:user, lastname: 'in_filtered_index').tap do |user|
+        Fabricate(:job, user_id: user.id, school_id: school.id)
+      end
+    end
+    
+    get :within_school, school_id: school.id, q: 'filtered_index', format: 'json'
+    assert_response :success
+    
+    users = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 3, users.size
+    assert users.all? { |s| s['label'].match /filtered_index/i }
+    
+    get :within_school, school_id: school.id, q: 'no_user', format: 'json'
+    assert_response :success
+    
+    users = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 0, users.size
+  end
 end

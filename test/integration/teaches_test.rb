@@ -28,7 +28,9 @@ class TeachesTest < ActionDispatch::IntegrationTest
       find('a.ui-state-default').click
     end
     
-    user = Fabricate(:user)
+    user = Fabricate(:user, lastname: 'in_filtered_index').tap do |u|
+      Fabricate(:job, user_id: u.id, school_id: course.school.id)
+    end
     
     within '.enrollment' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name
@@ -45,7 +47,9 @@ class TeachesTest < ActionDispatch::IntegrationTest
     # Must be removed before the next search, forcing the new "creation"
     page.execute_script("$('.ui-autocomplete').remove()")
     
-    user = Fabricate(:user)
+    user = Fabricate(:user, lastname: 'in_filtered_index').tap do |u|
+      Fabricate(:job, user_id: u.id, school_id: course.school.id)
+    end
     
     within '.enrollment:nth-child(2)' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name

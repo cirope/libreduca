@@ -11,6 +11,10 @@ Edook::Application.routes.draw do
 
   resources :schools do
     resources :grades
+    
+    resources :users, only: [] do
+      get :within_school, on: :collection
+    end
   end
 
   devise_for :users

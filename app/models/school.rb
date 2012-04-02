@@ -25,6 +25,7 @@ class School < ActiveRecord::Base
   belongs_to :district
   has_many :grades, dependent: :destroy
   has_many :workers, dependent: :destroy, class_name: 'Job'
+  has_many :users, through: :workers
   
   def to_s
     self.name

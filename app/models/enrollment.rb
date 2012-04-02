@@ -12,6 +12,9 @@ class Enrollment < ActiveRecord::Base
     allow_nil: true
   
   # Relations
-  belongs_to :teach
   belongs_to :user
+  belongs_to :teach
+  has_one :course, through: :teach
+  has_one :grade, through: :course
+  has_one :school, through: :grade
 end

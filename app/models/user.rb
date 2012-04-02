@@ -23,8 +23,9 @@ class User < ActiveRecord::Base
     allow_blank: true
   
   # Relations
-  has_many :jobs, dependent: :destroy
   has_many :enrollments, dependent: :destroy
+  has_many :jobs, dependent: :destroy
+  has_many :schools, through: :jobs
   
   accepts_nested_attributes_for :jobs, allow_destroy: true,
     reject_if: ->(attributes) {

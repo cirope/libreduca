@@ -187,7 +187,7 @@
       between:
         html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
       enrollment_info:
-        html: '%{user} inscripto el <em>%{date}</em>'
+        html: '%{user} el <em>%{date}</em>'
       from_course:
         html:
           one: 'Asignatura de %{course} | %{grade} | %{school}'

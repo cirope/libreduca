@@ -1,23 +1,21 @@
-<% @course.grade.tap do |grade| %>
-  <ul class="breadcrumb">
-    <li>
-      <%= link_to grade.school.to_s, grade.school %>
+<ul class="breadcrumb">
+  <li>
+    <%= link_to @course.school.to_s, @course.school %>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to @course.grade.to_s, [@course.school, @course.grade] %>
+    <% unless @course.new_record? %>
       <span class="divider">/</span>
-    </li>
-    <li>
-      <%= link_to grade.to_s, [grade.school, grade] %>
-      <% unless @course.new_record? %>
-        <span class="divider">/</span>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to @course.to_s, [grade, @course] %>
-      <% unless @teach.new_record? %>
-        <span class="divider">/</span>
-      <% end %>
-    </li>
-    <% unless @teach.new_record? %>
-      <li class="active"><%= @teach %></li>
     <% end %>
-  </ul>
-<% end %>
+  </li>
+  <li>
+    <%= link_to @course.to_s, [@teach.grade, @course] %>
+    <% unless @teach.new_record? %>
+      <span class="divider">/</span>
+    <% end %>
+  </li>
+  <% unless @teach.new_record? %>
+    <li class="active"><%= @teach %></li>
+  <% end %>
+</ul>

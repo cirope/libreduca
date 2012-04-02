@@ -17,6 +17,7 @@ class Course < ActiveRecord::Base
   
   # Relations
   belongs_to :grade
+  has_one :school, through: :grade
   has_many :teaches, dependent: :destroy
   
   def to_s
