@@ -32,6 +32,12 @@ class User < ActiveRecord::Base
       attributes['job'].blank? && attributes['school_id'].blank?
     }
   
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
+    
+    self.roles = self.class.valid_roles.reject { |r| r == :admin }
+  end
+  
   def to_s
     [self.name, self.lastname].compact.join(' ')
   end
