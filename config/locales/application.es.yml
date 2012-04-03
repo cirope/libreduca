@@ -187,7 +187,20 @@
       between:
         html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
       enrollment_info:
-        html: '%{user} el <em>%{date}</em>'
+        html: '%{user} inscripto desde el %{date}'
+      enrollment_types:
+        headmaster:
+          one: 'Director'
+          other: 'Directores'
+        teacher:
+          one: 'Profesor'
+          other: 'Profesores'
+        janitor:
+          one: 'Bedel'
+          other: 'Bedeles'
+        student:
+          one: 'Alumno'
+          other: 'Alumnos'
       from_course:
         html:
           one: 'Asignatura de %{course} | %{grade} | %{school}'

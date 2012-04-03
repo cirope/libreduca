@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Comparable
   include RoleModel
   
   roles :admin, :regular
@@ -43,6 +44,16 @@ class User < ActiveRecord::Base
   end
   
   alias_method :label, :to_s
+  
+  def <=>(other)
+    self_s = [self.lastname, self.name].join(' ')
+    
+    if other.kind_of?(User)
+      self_s <=> [other.lastname, other.name].join(' ')
+    else
+      self_s <=> other.to_s
+    end
+  end
   
   def as_json(options = nil)
     default_options = {

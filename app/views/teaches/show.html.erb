@@ -12,18 +12,20 @@
   </p>
   
   <% unless @teach.enrollments.empty? %>
-    <h3><%= Teach.human_attribute_name 'enrollments', count: @teach.enrollments.size %></h3>
-    <ul>
-      <% @teach.enrollments.each do |enrollment| %>
-        <li>
-          <%= t(
-            'view.teaches.enrollment_info.html',
-            user: link_to(enrollment.user.to_s, enrollment.user),
-            date: l(enrollment.created_at, format: :long)
-          ) %>
-        </li>
-      <% end %>
-    </ul>
+    <% teach_splited_enrollments(@teach).each do |type, enrollments| %>
+      <h4><%= type %></h4>
+      <ul>
+        <% enrollments.each do |enrollment| %>
+          <li>
+            <%= t(
+              'view.teaches.enrollment_info.html',
+              user: link_to(enrollment.user.to_s, enrollment.user),
+              date: l(enrollment.created_at, format: :long)
+            ) %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
   <% end %>
 </div>
 

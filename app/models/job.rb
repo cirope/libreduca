@@ -19,4 +19,8 @@ class Job < ActiveRecord::Base
   # Relations
   belongs_to :user
   belongs_to :school
+  
+  def self.in_school(school)
+    where(school_id: school.id)
+  end
 end

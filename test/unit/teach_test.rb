@@ -12,11 +12,18 @@ class TeachTest < ActiveSupport::TestCase
   end
   
   test 'create with enrollments' do
+    course = Fabricate(:course)
+    user = Fabricate(:user).tap do |u|
+      Fabricate(:job, user_id: u.id, school_id: course.school.id)
+    end
+    
     assert_difference ['Teach.count', 'Enrollment.count'] do
       @teach = Teach.create(
-        Fabricate.attributes_for(:teach).merge(
+        Fabricate.attributes_for(:teach, course_id: course.id).merge(
           enrollments_attributes: {
-            new_1: Fabricate.attributes_for(:enrollment, teach_id: nil)
+            new_1: Fabricate.attributes_for(
+              :enrollment, user_id: user.id, teach_id: nil
+            )
           }
         )
       )

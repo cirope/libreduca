@@ -3,6 +3,7 @@ class CreateEnrollments < ActiveRecord::Migration
     create_table :enrollments do |t|
       t.references :teach, null: false
       t.references :user, null: false
+      t.string :job, null: false
       t.integer :lock_version, null: false, default: 0
 
       t.timestamps

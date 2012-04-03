@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20120331235355) do
   create_table "enrollments", :force => true do |t|
     t.integer  "teach_id",                    :null => false
     t.integer  "user_id",                     :null => false
+    t.string   "job",                         :null => false
     t.integer  "lock_version", :default => 0, :null => false
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false

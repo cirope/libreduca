@@ -19,13 +19,17 @@ class Teach < ActiveRecord::Base
   belongs_to :course
   has_one :grade, through: :course
   has_one :school, through: :grade
-  has_many :enrollments, dependent: :destroy
+  has_many :enrollments, dependent: :destroy, after_add: :set_teach
   
   accepts_nested_attributes_for :enrollments, allow_destroy: true,
     reject_if: ->(attributes) { attributes['user_id'].blank? }
   
   def to_s
     "#{self.course} ( #{I18n.l(self.start)} -> #{I18n.l(self.finish)} )"
+  end
+  
+  def set_teach(enrollment)
+    enrollment.teach = self
   end
   
   def current?
