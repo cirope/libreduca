@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   
   # Relations
   has_many :enrollments, dependent: :destroy
+  has_many :scores, dependent: :destroy
   has_many :jobs, dependent: :destroy
   has_many :schools, through: :jobs
   

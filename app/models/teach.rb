@@ -3,7 +3,7 @@ class Teach < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :start, :finish, :course_id, :enrollments_attributes,
-    :lock_version
+    :scores_attributes, :lock_version
   
   # Default order
   default_scope order('start DESC')
@@ -20,9 +20,12 @@ class Teach < ActiveRecord::Base
   has_one :grade, through: :course
   has_one :school, through: :grade
   has_many :enrollments, dependent: :destroy, after_add: :set_teach
+  has_many :scores, dependent: :destroy
   
   accepts_nested_attributes_for :enrollments, allow_destroy: true,
     reject_if: ->(attributes) { attributes['user_id'].blank? }
+  accepts_nested_attributes_for :scores, allow_destroy: true,
+    reject_if: ->(attributes) { attributes['score'].blank? }
   
   def to_s
     "#{self.course} ( #{I18n.l(self.start)} -> #{I18n.l(self.finish)} )"

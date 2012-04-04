@@ -1,6 +1,9 @@
 class Enrollment < ActiveRecord::Base
   has_paper_trail
   
+  # Scopes
+  scope :only_students, where(job: 'student')
+  
   # Setup accessible (or protected) attributes for your model
   attr_accessible :teach_id, :user_id, :job, :auto_user_name, :lock_version
   

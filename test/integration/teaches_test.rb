@@ -32,6 +32,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
       Fabricate(:job, user_id: u.id, school_id: course.school.id)
     end
     
+    click_link Teach.human_attribute_name('enrollments', count: 0)
+    
     within '.enrollment' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name
     end
@@ -71,6 +73,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     visit new_course_teach_path(course)
     
+    click_link Teach.human_attribute_name('enrollments', count: 0)
+    
     assert page.has_css?('.enrollment')
     
     within '.enrollment' do
@@ -87,6 +91,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     visit edit_course_teach_path(teach.course, teach)
     
+    click_link Teach.human_attribute_name('enrollments', count: 0)
+    
     assert page.has_css?('.enrollment')
     
     within '.enrollment' do
@@ -95,6 +101,43 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     assert_no_difference 'Teach.count' do
       assert_difference 'Enrollment.count', -1 do
+        find('.btn.btn-primary').click
+      end
+    end
+  end
+  
+  test 'should add a score' do
+    login
+    
+    course = Fabricate(:course)
+    
+    user = Fabricate(:user).tap do |u|
+      Fabricate :job, job: 'student', user_id: u.id, school_id: course.school.id
+    end
+    
+    teach = Fabricate(:teach, course_id: course.id).tap do |t|
+      Fabricate :enrollment, teach_id: t.id, user_id: user.id, job: 'student'
+    end
+    
+    visit edit_course_teach_path(course, teach)
+    
+    assert page.has_css?('.score')
+    
+    within '.score' do
+      score_attributes = Fabricate.attributes_for(
+        :score, teach_id: teach.id, user_id: user.id
+      )
+      
+      fill_in find('input[name$="[score]"]')[:id],
+        with: score_attributes['score']
+      fill_in find('input[name$="[multiplier]"]')[:id],
+        with: score_attributes['multiplier']
+      fill_in find('input[name$="[description]"]')[:id],
+        with: score_attributes['description']
+    end
+    
+    assert_no_difference 'Teach.count' do
+      assert_difference 'Score.count' do
         find('.btn.btn-primary').click
       end
     end

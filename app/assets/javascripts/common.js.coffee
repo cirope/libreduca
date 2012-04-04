@@ -4,6 +4,8 @@ jQuery ($)->
   
   $('*[data-show-tooltip]').tooltip()
   
+  $('*[data-show-popover]').popover()
+  
   $('a.submit').click -> $('form').submit(); return false
   
   $(document).on 'focus keydown click', 'input[data-date-picker]', ->

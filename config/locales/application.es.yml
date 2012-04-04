@@ -4,6 +4,7 @@
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'
+    whodunnit: 'Autor'
     
   activerecord:
     models:
@@ -28,6 +29,9 @@
       school:
         one: 'Escuela'
         other: 'Escuelas'
+      score:
+        one: 'Calificación'
+        other: 'Calificaciones'
       teach:
         one: 'Dictado'
         other: 'Dictados'
@@ -57,6 +61,11 @@
         identification: 'Identificación'
         district_id: 'Distrito'
         workers: 'Personal'
+      score:
+        score: 'Calificación'
+        multiplier: 'Multiplicador'
+        description: 'Descripción'
+        user_id: 'Alumno'
       teach:
         start: 'Inicio'
         finish: 'Finalización'
@@ -64,6 +73,9 @@
         enrollments:
           one: 'Inscripción'
           other: 'Inscripciones'
+        scores:
+          one: 'Calificación'
+          other: 'Calificaciones'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -184,6 +196,7 @@
       empty_index: 'No se ha creado ningún dictado para este curso hasta el momento, si quiere puede hacerlo desde el botón "Nuevo dictado"'
       new: 'Nuevo dictado'
       new_enrollment: 'Agregar nueva inscripción'
+      enter_scores: 'Cargar calificaciones'
       between:
         html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
       enrollment_info:
@@ -205,6 +218,12 @@
         html:
           one: 'Asignatura de %{course} | %{grade} | %{school}'
           other: 'Asignaturas de %{course} | %{grade} | %{school}'
+      without_entollments_in_edit:
+        html: 'Sin inscripciones, para enrolar alumnos vaya a la solapa <span class="label">Inscripciones</span>'
+      without_entollments_in_show:
+        html: 'Sin inscripciones, para enrolar alumnos seleccione <span class="label label-info">Editar</span> y vaya a la solapa <span class="label">Inscripciones</span>'
+      without_scores:
+        html: 'Sin calificaciones, para cargar nuevas seleccione <span class="label label-info">Editar</span>'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
