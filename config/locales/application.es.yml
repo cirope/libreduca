@@ -118,7 +118,8 @@
     
   view:
     generic:
-      empty_index: 'No hay ningún elemento por el momento'
+      empty_index:
+        html: 'No hay ningún elemento por el momento'
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
@@ -232,7 +233,8 @@
       correctly_created: 'Usuario agregado correctamente.'
       correctly_updated: 'Usuario actualizado correctamente.'
       stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
-      empty_index: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón "Nuevo usuario"'
+      empty_index:
+        html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
       new: 'Nuevo usuario'
       new_job: 'Agregar nuevo trabajo'
       update_profile: 'Actualizar datos'
