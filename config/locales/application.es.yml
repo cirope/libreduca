@@ -131,7 +131,8 @@
       correctly_created: 'Asignatura agregada correctamente.'
       correctly_updated: 'Asignatura actualizada correctamente.'
       stale_object_error: 'La asignatura no pudo ser actualizada, intente nuevamente.'
-      empty_index: 'No se ha creado ninguna asignatura para este grado hasta el momento, si quiere puede hacerlo desde el botón "Nueva asignatura"'
+      empty_index:
+        html: 'No se ha creado ninguna asignatura para este grado hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva asignatura</span>'
       new: 'Nueva asignatura'
       from_grade:
         html:
@@ -145,7 +146,8 @@
       correctly_created: 'Grado agregado correctamente.'
       correctly_updated: 'Grado actualizado correctamente.'
       stale_object_error: 'El grado no pudo ser actualizado, intente nuevamente.'
-      empty_index: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón "Nuevo grado"'
+      empty_index:
+        html: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
       new: 'Nuevo grado'
       show_courses:
         one: 'Una asignatura'
@@ -168,7 +170,8 @@
       correctly_created: 'Región agregada correctamente.'
       correctly_updated: 'Región actualizada correctamente.'
       stale_object_error: 'La región no pudo ser actualizada, intente nuevamente.'
-      empty_index: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón "Nueva región"'
+      empty_index:
+        html: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva región</span>'
       new: 'Nueva región'
       new_district: 'Agregar nuevo distrito'
     schools:
@@ -179,7 +182,8 @@
       correctly_created: 'Escuela agregada correctamente.'
       correctly_updated: 'Escuela actualizada correctamente.'
       stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
-      empty_index: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón "Nueva escuela"'
+      empty_index:
+        html: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva escuela</span>'
       new: 'Nueva escuela'
       worker_role:
         html: '%{worker} es %{role}'
@@ -194,7 +198,8 @@
       correctly_created: 'Dictado agregado correctamente.'
       correctly_updated: 'Dictado actualizado correctamente.'
       stale_object_error: 'El dictado no pudo ser actualizado, intente nuevamente.'
-      empty_index: 'No se ha creado ningún dictado para este curso hasta el momento, si quiere puede hacerlo desde el botón "Nuevo dictado"'
+      empty_index:
+        html: 'No se ha creado ningún dictado para este curso hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo dictado</span>'
       new: 'Nuevo dictado'
       new_enrollment: 'Agregar nueva inscripción'
       enter_scores: 'Cargar calificaciones'
