@@ -22,6 +22,12 @@ class User < ActiveRecord::Base
   validates :name, :lastname, :email, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
   
+  def initialize(attributes = nil, options = {})
+    super(attributes, options)
+    
+    self.roles = self.class.valid_roles.reject { |r| r == :admin }
+  end
+  
   def to_s
     [self.name, self.lastname].compact.join(' ')
   end
