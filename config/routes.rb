@@ -1,4 +1,4 @@
-Edook::Application.routes.draw do
+Libreduca::Application.routes.draw do
   resources :courses, only: [] do
     resources :teaches
   end

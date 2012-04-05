@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   def initialize(attributes = nil, options = {})
     super(attributes, options)
     
-    self.roles = self.class.valid_roles.reject { |r| r == :admin }
+    self.roles ||= self.class.valid_roles.reject { |r| r == :admin }
   end
   
   def to_s

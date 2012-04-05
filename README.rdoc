@@ -1,4 +1,4 @@
-=== Edook
+=== Libreduca
 
 Web gradebook for share notes, grades and comments between an education
 community
