@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  
+  before_filter :set_current_school
   after_filter -> { expires_now if user_signed_in? }
+  
+  helper_method :current_school
   
   rescue_from Exception do |exception|
     begin
@@ -26,10 +30,18 @@ class ApplicationController < ActionController::Base
     current_user.try(:id)
   end
   
+  def current_school
+    @current_school
+  end
+  
   private
   
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource_or_scope)
     new_user_session_path
+  end
+  
+  def set_current_school
+    @current_school = School.find_by_identification(request.subdomains.first)
   end
 end

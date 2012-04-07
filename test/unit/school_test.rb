@@ -67,6 +67,16 @@ class SchoolTest < ActiveSupport::TestCase
       @school.errors[:identification]
   end
   
+  test 'validates excluded attributes' do
+    @school.identification = RESERVED_SUBDOMAINS.first
+    
+    assert @school.invalid?
+    assert_equal 1, @school.errors.size
+    assert_equal [
+      error_message_from_model(@school, :identification, :exclusion)
+    ], @school.errors[:identification]
+  end
+  
   test 'validates length of _long_ attributes' do
     @school.name = 'abcde' * 52
     @school.identification = 'abcde' * 52

@@ -74,4 +74,26 @@ class User < ActiveRecord::Base
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
   end
+  
+  def self.find_by_email_and_subdomain(email, subdomain)
+    joins(:schools).where(
+      [
+        "#{table_name}.email ILIKE :email",
+        "#{School.table_name}.identification = :subdomain"
+      ].join(' AND '),
+      email: email, subdomain: subdomain
+    ).readonly(false).first
+  end
+  
+  def self.find_for_authentication(conditions = {})
+    subdomains = conditions.delete(:subdomains)
+    
+    if subdomains.blank? || RESERVED_SUBDOMAINS.include?(subdomains.first)
+      user_by_email = where(email: conditions[:email]).first
+      
+      user_by_email.try(:is?, :admin) ? user_by_email : nil
+    else
+      find_by_email_and_subdomain(conditions[:email], subdomains.first)
+    end
+  end
 end

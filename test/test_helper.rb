@@ -29,6 +29,8 @@ class ActionDispatch::IntegrationTest
   
   setup do
     Capybara.default_driver = :selenium
+    Capybara.server_port = '54163'
+    Capybara.app_host = 'http://admin.lvh.me:54163'
   end
 
   teardown do
@@ -40,15 +42,15 @@ class ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
   
-  def login
-    user = Fabricate(:user, password: '123456')
+  def login(user = nil, clean_password = '123456')
+    user ||= Fabricate(:user, password: clean_password)
     
     visit new_user_session_path
     
     assert_page_has_no_errors!
     
     fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: '123456'
+    fill_in 'user_password', with: clean_password
     
     find('.btn.btn-primary').click
     

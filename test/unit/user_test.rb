@@ -141,4 +141,40 @@ class UserTest < ActiveSupport::TestCase
     
     assert users.empty?
   end
+  
+  test 'self find by email and subdomain' do
+    @user = Fabricate(:job).user
+    school = @user.schools.first
+    located = User.find_by_email_and_subdomain(
+      @user.email, school.identification
+    )
+    
+    assert_equal @user, located
+    assert_nil User.find_by_email_and_subdomain(@user.email, 'no-school')
+  end
+  
+  test 'self find for authentication' do
+    @user = Fabricate(:job).user
+    school = @user.schools.first
+    located = User.find_for_authentication(
+      email: @user.email, subdomains: [school.identification]
+    )
+    
+    assert_equal @user, located
+    
+    located = User.find_for_authentication(
+      email: @user.email, subdomains: ['admin']
+    )
+    
+    assert_equal @user, located
+    assert_nil User.find_for_authentication(
+      email: @user.email, subdomains: ['no-school']
+    )
+    
+    @user.update_attributes(roles: User.valid_roles - [:admin])
+    # No longer admin...
+    assert_nil User.find_for_authentication(
+      email: @user.email, subdomains: ['admin']
+    )
+  end
 end

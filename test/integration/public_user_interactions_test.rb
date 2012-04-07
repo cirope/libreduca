@@ -43,19 +43,4 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
       assert page.has_content?(I18n.t('devise.passwords.send_instructions'))
     end
   end
-  
-  test 'should be able to login and logout' do
-    login
-    
-    click_link 'logout'
-    
-    assert_equal new_user_session_path, current_path
-    
-    assert_page_has_no_errors!
-    assert page.has_css?('.alert')
-    
-    within 'footer.alert' do
-      assert page.has_content?(I18n.t('devise.sessions.signed_out'))
-    end
-  end
 end

@@ -20,6 +20,8 @@ class School < ActiveRecord::Base
     allow_nil: true, allow_blank: true
   validates :identification, uniqueness: { case_sensitive: false },
     allow_nil: true, allow_blank: true
+  validates :identification, exclusion: { in: RESERVED_SUBDOMAINS },
+    allow_nil: true, allow_blank: true
   
   # Relations
   belongs_to :district
