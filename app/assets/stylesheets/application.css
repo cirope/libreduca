@@ -17,6 +17,7 @@
  *= require common-responsive
  *= require devise
  *= require courses
+ *= require dashboard
  *= require grades
  *= require regions
  *= require schools

@@ -28,7 +28,11 @@ class Teach < ActiveRecord::Base
     reject_if: ->(attributes) { attributes['score'].blank? }
   
   def to_s
-    "#{self.course} ( #{I18n.l(self.start)} -> #{I18n.l(self.finish)} )"
+    "#{self.course} ( #{self.date_range_s} )"
+  end
+  
+  def date_range_s
+    "#{I18n.l(self.start)} -> #{I18n.l(self.finish)}"
   end
   
   def set_teach(enrollment)

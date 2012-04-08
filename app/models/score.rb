@@ -5,6 +5,9 @@ class Score < ActiveRecord::Base
   attr_accessible :score, :multiplier, :description, :user_id, :teach_id,
     :lock_version
   
+  # Default order
+  default_scope order('created_at ASC')
+  
   # Validations
   validates :score, :multiplier, presence: true
   validates :score, numericality: {

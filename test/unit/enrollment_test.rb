@@ -82,4 +82,38 @@ class EnrollmentTest < ActiveSupport::TestCase
     assert_not_nil @enrollment.job
     assert_equal enrollment_attributes['job'], @enrollment.job
   end
+  
+  test 'score average' do
+    common_attributes = { teach_id: @teach.id, user_id: @enrollment.user_id }
+    
+    Fabricate(:score, common_attributes.merge(score: '90', multiplier: '40'))
+    Fabricate(:score, common_attributes.merge(score: '80', multiplier: '60'))
+    
+    assert_equal '84.00', '%.2f' % @enrollment.reload.score_average
+  end
+  
+  test 'self in school' do
+    Enrollment.in_school(@teach.school).map(&:id).tap do |enrollment_ids|
+      assert enrollment_ids.include?(@enrollment.id)
+    end
+    
+    Fabricate(:school).tap do |new_school|
+      assert Enrollment.in_school(new_school).map(&:id).exclude?(@enrollment.id)
+    end
+  end
+  
+  test 'self in current teach' do
+    assert @enrollment.teach.start <= Date.today
+    assert @enrollment.teach.finish >= Date.today
+    
+    Enrollment.in_current_teach.map(&:id).tap do |enrollment_ids|
+      assert enrollment_ids.include?(@enrollment.id)
+    end
+    
+    assert @enrollment.teach.update_attributes(start: Date.tomorrow)
+    
+    Enrollment.in_current_teach.map(&:id).tap do |enrollment_ids|
+      assert enrollment_ids.exclude?(@enrollment.id)
+    end
+  end
 end

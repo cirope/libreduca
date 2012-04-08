@@ -26,6 +26,7 @@ class Enrollment < ActiveRecord::Base
   has_one :course, through: :teach
   has_one :grade, through: :course
   has_one :school, through: :grade
+  has_many :scores, through: :teach
   
   def set_job
     if self.user && self.teach
@@ -33,5 +34,29 @@ class Enrollment < ActiveRecord::Base
       
       self.job = self.user.jobs.in_school(school).first.try(:job)
     end
+  end
+  
+  def score_average
+    multipliers_sum = self.scores.sum(&:multiplier)
+    
+    if multipliers_sum > 0
+      self.scores.map { |s| s.score * s.multiplier }.sum / multipliers_sum
+    else
+      0.0
+    end
+  end
+  
+  def self.in_school(school)
+    joins(:school).where("#{School.table_name}.id = ?", school.id)
+  end
+  
+  def self.in_current_teach
+    joins(:teach).where(
+      [
+        "#{Teach.table_name}.start <= :today",
+        "#{Teach.table_name}.finish >= :today"
+      ].join(' AND '),
+      today: Date.today
+    )
   end
 end

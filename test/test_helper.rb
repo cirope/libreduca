@@ -42,8 +42,10 @@ class ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
   
-  def login(user = nil, clean_password = '123456')
-    user ||= Fabricate(:user, password: clean_password)
+  def login(options = {})
+    clean_password = options[:clean_password] || '123456'
+    user = options[:user] || Fabricate(:user, password: clean_password)
+    expected_path = options[:expected_path] || root_path
     
     visit new_user_session_path
     
@@ -54,7 +56,7 @@ class ActionDispatch::IntegrationTest
     
     find('.btn.btn-primary').click
     
-    assert_equal root_path, current_path
+    assert_equal expected_path, current_path
     
     assert_page_has_no_errors!
     assert page.has_css?('.alert')

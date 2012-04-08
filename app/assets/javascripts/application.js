@@ -21,6 +21,7 @@
 //= require effect_helper
 //= require mobile
 //= require courses
+//= require dashboard
 //= require grades
 //= require regions
 //= require schools

@@ -59,6 +59,12 @@ module TeachesHelper
         :ul, [
           content_tag(
             :li, [
+              content_tag(:strong, Score.human_attribute_name('multiplier')),
+              number_with_precision(score.multiplier)
+            ].join(' ').html_safe
+          ),
+          content_tag(
+            :li, [
               content_tag(:strong, Score.human_attribute_name('created_at')),
               l(score.created_at, format: :long)
             ].join(' ').html_safe
@@ -73,7 +79,7 @@ module TeachesHelper
       )
       
       content_tag(
-        :abbr, '%.2f' % score.score, title: score.description,
+        :abbr, number_with_precision(score.score), title: score.description,
         data: { 'show-popover' => true, 'content' => raw(content) }
       )
     else

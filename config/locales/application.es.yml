@@ -138,6 +138,16 @@
         html:
           one: 'Asignatura de %{grade} | %{school}'
           other: 'Asignaturas de %{grade} | %{school}'
+    dashboard:
+      generic_title: 'Tablero'
+      empty_enrollments:
+        html: 'No estás inscripto en cursos que se estén dictando actualmente'
+      empty_scores:
+        html: 'No hay notas cargadas para <strong>%{course}</strong>'
+      greetings:
+        html: 'Hola %{user}<small>, este es tu resumen educativo en <strong>%{school}</strong></small>'
+      score_average:
+        html: 'La nota <strong>promedio</strong> de %{course} hasta el momento es %{average}'
     grades:
       index_title: 'Listado de grados'
       show_title: 'Detalle de grado'

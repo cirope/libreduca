@@ -31,6 +31,13 @@ Libreduca::Application.routes.draw do
   end
   
   constraints(SchoolSubdomain) do
+    match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
+    
+    Job::TYPES.each do |job_type|
+      match "/dashboard/#{job_type}(.:format)" => "dashboard##{job_type}",
+        as: "#{job_type}_dashboard", via: :get
+    end
+    
     devise_for :users
     
     resources :users, only: [] do
@@ -40,6 +47,6 @@ Libreduca::Application.routes.draw do
       end
     end
     
-    root to: 'users#edit_profile'
+    root to: 'dashboard#index'
   end
 end

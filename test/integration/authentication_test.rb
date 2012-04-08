@@ -24,10 +24,12 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     Capybara.app_host = "http://#{@school.identification}.lvh.me:54163"
     
     user = Fabricate(:user, password: '123456', roles: [:normal])
+    job = Fabricate(:job, user_id: user.id, school_id: @school.id)
+    expected_path = url_for(
+      controller: 'dashboard', action: job.job, only_path: true
+    )
     
-    Fabricate(:job, user_id: user.id, school_id: @school.id)
-    
-    login user, '123456'
+    login user: user, clean_password: '123456', expected_path: expected_path
   end
   
   test 'should not be able to login as no related to school' do
@@ -35,7 +37,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     
     user = Fabricate(:user, password: '123456', roles: [:normal])
     
-    invalid_login user, '123456'
+    invalid_login user: user, clean_password: '123456'
   end
   
   test 'should not be able to login as normal user in admin page' do
@@ -43,13 +45,14 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     
     Fabricate(:job, user_id: user.id, school_id: @school.id)
     
-    invalid_login user, '123456'
+    invalid_login user: user, clean_password: '123456'
   end
   
   private
   
-  def invalid_login(user = nil, clean_password = '123456')
-    user ||= Fabricate(:user, password: clean_password)
+  def invalid_login(options = {})
+    clean_password = options[:clean_password] || '123456'
+    user = options[:user] || Fabricate(:user, password: clean_password)
     
     visit new_user_session_path
     
