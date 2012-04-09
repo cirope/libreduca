@@ -88,6 +88,7 @@ class EnrollmentTest < ActiveSupport::TestCase
     
     Fabricate(:score, common_attributes.merge(score: '90', multiplier: '40'))
     Fabricate(:score, common_attributes.merge(score: '80', multiplier: '60'))
+    Fabricate(:score, common_attributes.except(:user_id)) # Not involved
     
     assert_equal '84.00', '%.2f' % @enrollment.reload.score_average
   end

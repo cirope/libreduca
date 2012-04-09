@@ -92,4 +92,21 @@ class ScoreTest < ActiveSupport::TestCase
       error_message_from_model(@score, :description, :too_long, count: 255)
     ], @score.errors[:description]
   end
+  
+  test 'of user' do
+    Fabricate(:score, user_id: @score.user_id)
+    Fabricate(:score)
+    
+    assert_equal 2, Score.of_user(@score.user).count
+    assert Score.of_user(@score.user).all? { |s| s.user_id == @score.user_id }
+  end
+  
+  test 'weighted average' do
+    Score.destroy_all
+    
+    Fabricate(:score, score: '90', multiplier: '40')
+    Fabricate(:score, score: '80', multiplier: '60')
+    
+    assert_equal '84.00', '%.2f' % Score.weighted_average
+  end
 end

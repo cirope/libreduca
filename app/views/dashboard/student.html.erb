@@ -8,6 +8,7 @@
         <%= t('view.dashboard.empty_enrollments.html') %>
       </h4>
     </div>
+    <br />
   <% else %>
     <% @enrollments.each_slice(2) do |enrollments| %>
       <div class="row-fluid">

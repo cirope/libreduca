@@ -31,6 +31,12 @@ class DashboardController < ApplicationController
   
   def teacher
     @title = t 'view.dashboard.generic_title'
+    @enrollments = current_user.enrollments.in_school(current_school).in_current_teach
+    
+    respond_to do |format|
+      format.html # student.html.erb
+      format.json { render json: @enrollments }
+    end
   end
   
   private

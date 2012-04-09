@@ -1,6 +1,38 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
+<div class="readonly_data">
+  <div class="page-header">
+    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, school: current_school.name) %></h1>
+  </div>
+  <% if @enrollments.empty? %>
+    <div class="alert">
+      <h4 class="alert-heading">
+        <%= t('view.dashboard.empty_enrollments.html') %>
+      </h4>
+    </div>
+    <br />
+  <% else %>
+    <% @enrollments.each_slice(2) do |enrollments| %>
+      <div class="row-fluid">
+        <% enrollments.each do |enrollment| %>
+          <div class="span6">
+            <h3><%= show_teach_info enrollment.teach %></h3>
+            <br />
 
-<%= "_teacher.html" %>
+            <% if enrollment.teach.scores.empty? %>
+              <div class="alert">
+                <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>
+              </div>
+            <% else %>
+              <p>
+                <%= t(
+                  'view.dashboard.score_average.html',
+                  average: show_dashboard_score(enrollment.teach.scores.weighted_average),
+                  course: enrollment.course
+                ) %>
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

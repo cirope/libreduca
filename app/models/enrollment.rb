@@ -26,7 +26,6 @@ class Enrollment < ActiveRecord::Base
   has_one :course, through: :teach
   has_one :grade, through: :course
   has_one :school, through: :grade
-  has_many :scores, through: :teach
   
   def set_job
     if self.user && self.teach
@@ -37,13 +36,11 @@ class Enrollment < ActiveRecord::Base
   end
   
   def score_average
-    multipliers_sum = self.scores.sum(&:multiplier)
-    
-    if multipliers_sum > 0
-      self.scores.map { |s| s.score * s.multiplier }.sum / multipliers_sum
-    else
-      0.0
-    end
+    self.scores.weighted_average
+  end
+  
+  def scores
+    self.teach.scores.of_user(self.user)
   end
   
   def self.in_school(school)

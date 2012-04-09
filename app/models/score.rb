@@ -22,4 +22,18 @@ class Score < ActiveRecord::Base
   # Relations
   belongs_to :teach
   belongs_to :user
+  
+  def self.of_user(user)
+    where(user_id: user.id)
+  end
+  
+  def self.weighted_average
+    multipliers_sum = all.sum(&:multiplier)
+    
+    if multipliers_sum > 0
+      all.map { |s| s.score * s.multiplier }.sum / multipliers_sum
+    else
+      0.0
+    end
+  end
 end
