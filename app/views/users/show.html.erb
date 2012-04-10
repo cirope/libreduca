@@ -21,7 +21,7 @@
         <li>
           <%= t(
             'view.users.job_role.html',
-            school: link_to(job.school.name, job.school),
+            school: link_to_if(can?(:read, job.school), job.school.name, job.school),
             role: show_human_job_type(job.job)
           ) %>
         </li>
@@ -36,7 +36,7 @@
         <li>
           <%= t(
             'view.users.kinship.html',
-            relative: link_to(kinship.relative.to_s, kinship.relative),
+            relative: link_to_if(can?(:read, kinship.relative), kinship.relative.to_s, kinship.relative),
             kin: show_human_kinship_type(kinship.kin)
           ) %>
         </li>
@@ -55,7 +55,7 @@
         <li>
           <%= t(
             'view.users.inverse_kinship.html',
-            user: link_to(inverse_kinship.user.to_s, inverse_kinship.user),
+            user: link_to_if(can?(:read, inverse_kinship.user), inverse_kinship.user.to_s, inverse_kinship.user),
             kin: show_human_kinship_type(inverse_kinship.kin)
           ) %>
         </li>
@@ -65,8 +65,10 @@
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn btn-primary' %>
-  <div class="pull-right">
-    <%= link_to t('label.list'), users_path %>
-  </div>
+  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn btn-primary' if can? :edit, @user %>
+  <% if can? :read, User %>
+    <div class="pull-right">
+      <%= link_to t('label.list'), users_path %>
+    </div>
+  <% end %>
 </nav>

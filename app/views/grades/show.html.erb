@@ -4,27 +4,29 @@
   <h2><%= @grade %></h2>
   
   <% if @grade.courses.empty? %>
-    <%= link_to t('view.courses.new'), new_grade_course_path(@grade), class: 'btn btn-mini btn-inverse' %>
+    <%= link_to t('view.courses.new'), new_grade_course_path(@grade), class: 'btn btn-mini btn-inverse' if can? :create, Course %>
   <% else %>
     <div class="page-header">
       <h5>
-        <%= link_to Course.model_name.human(count: @grade.courses.size), grade_courses_path(@grade) %>
-        <span class="divider">|</span>
-        <%= link_to t('view.courses.new'), new_grade_course_path(@grade), class: 'btn btn-mini' %>
+        <%= link_to_if can?(:read, Course), Course.model_name.human(count: @grade.courses.size), grade_courses_path(@grade) %>
+        <% if can? :create, Course %>
+          <span class="divider">|</span>
+          <%= link_to t('view.courses.new'), new_grade_course_path(@grade), class: 'btn btn-mini' %>
+        <% end %>
       </h5>
     </div>
     
     <ul>
       <% @grade.courses.each do |course| %>
-        <li><%= link_to course.to_s, [@grade, course] %></li>
+        <li><%= link_to_if can?(:read, course), course.to_s, [@grade, course] %></li>
       <% end %>
     </ul>
   <% end %>
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_school_grade_path(@school, @grade), class: 'btn btn-primary' %>
+  <%= link_to t('label.edit'), edit_school_grade_path(@school, @grade), class: 'btn btn-primary' if can? :edit, @grade %>
   <div class="pull-right">
-    <%= link_to t('label.list'), school_grades_path(@school) %>
+    <%= link_to t('label.list'), school_grades_path(@school) if can? :read, Grade %>
   </div>
 </nav>

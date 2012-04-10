@@ -1,10 +1,10 @@
 <ul class="breadcrumb">
   <li>
-    <%= link_to @grade.school.to_s, @grade.school %>
+    <%= link_to_if can?(:read, @grade.school), @grade.school.to_s, @grade.school %>
     <span class="divider">/</span>
   </li>
   <li>
-    <%= link_to @grade.to_s, [@grade.school, @grade] %>
+    <%= link_to_if can?(:read, @grade), @grade.to_s, [@grade.school, @grade] %>
     <% unless @course.new_record? %>
       <span class="divider">/</span>
     <% end %>

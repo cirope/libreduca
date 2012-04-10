@@ -10,6 +10,10 @@
       <div class="nav-collapse">
         <ul class="nav">
           <%= content_tag(
+            :li, link_to(t('menu.dashboard'), dashboard_path),
+            class: ('active' if controller_name == 'dashboard')
+          ) if current_school %>
+          <%= content_tag(
             :li, link_to(t('menu.users'), users_path),
             class: ('active' if controller_name == 'users')
           ) if can? :read, User %>

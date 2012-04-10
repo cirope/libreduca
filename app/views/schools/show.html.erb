@@ -6,17 +6,19 @@
   </p>
   
   <% if @school.grades.empty? %>
-    <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini btn-inverse' %>
+    <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini btn-inverse' if can? :create, Grade %>
   <% else %>
     <h3>
-      <%= link_to Grade.model_name.human(count: @school.grades.size), school_grades_path(@school) %>
-      <span class="divider">|</span>
-      <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini' %>
+      <%= link_to_if can?(:read, Grade), Grade.model_name.human(count: @school.grades.size), school_grades_path(@school) %>
+      <% if can? :create, Grade %>
+        <span class="divider">|</span>
+        <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini' %>
+      <% end %>
     </h3>
     
     <ul>
       <% @school.grades.each do |grade| %>
-        <li><%= link_to grade.to_s, [@school, grade] %></li>
+        <li><%= link_to_if can?(:read, grade), grade.to_s, [@school, grade] %></li>
       <% end %>
     </ul>
   <% end %>
@@ -31,7 +33,7 @@
         <li>
           <%= t(
             'view.schools.worker_role.html',
-            worker: link_to(worker.user.to_s, worker.user),
+            worker: link_to_if(can?(:read, worker.user), worker.user.to_s, worker.user),
             role: show_human_job_type(worker.job)
           )%>
         </li>
@@ -41,8 +43,10 @@
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_school_path(@school), class: 'btn btn-primary' %>
-  <div class="pull-right">
-    <%= link_to t('label.list'), schools_path %>
-  </div>
+  <%= link_to t('label.edit'), edit_school_path(@school), class: 'btn btn-primary' if can? :update, @school %>
+  <% if can? :read, School %>
+    <div class="pull-right">
+      <%= link_to t('label.list'), schools_path %>
+    </div>
+  <% end %>
 </nav>

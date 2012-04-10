@@ -25,10 +25,10 @@
         <tbody>
           <% @grades.each do |grade| %>
             <tr>
-              <td><%= link_to grade.name, [@school, grade] %></td>
-              <td><%= link_to_grade_courses(grade) %></td>
-              <td><%= link_to_edit edit_school_grade_path(@school, grade) %></td>
-              <td><%= link_to_destroy [@school, grade] %></td>
+              <td><%= link_to grade.name, [@school, grade] if can? :read, grade %></td>
+              <td><%= link_to_grade_courses(grade) if can? :read, Course %></td>
+              <td><%= link_to_edit edit_school_grade_path(@school, grade) if can? :update, grade %></td>
+              <td><%= link_to_destroy [@school, grade] if can? :destroy, grade %></td>
             </tr>
           <% end %>
         </tbody>

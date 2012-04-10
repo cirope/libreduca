@@ -1,7 +1,9 @@
 <%= render 'breadcrumb' %>
 
-<%= content_for :form_actions do %>
-  <%= link_to t('label.list'), grade_courses_path(@grade) %>
+<% if can? :read, Grade %>
+  <%= content_for :form_actions do %>
+    <%= link_to t('label.list'), grade_courses_path(@grade) %>
+  <% end %>
 <% end %>
 
 <%= render 'form' %>

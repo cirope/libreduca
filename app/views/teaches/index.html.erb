@@ -10,9 +10,9 @@
             <%= t(
               'view.teaches.from_course.html',
               count: @course.teaches.count,
-              course: link_to(@course.to_s, [@course.grade, @course]),
-              grade: link_to(grade.to_s, [grade.school, grade]),
-              school: link_to(grade.school.to_s, grade.school)
+              course: link_to_if(can?(:read, @course), @course.to_s, [@course.grade, @course]),
+              grade: link_to_if(can?(:read, grade), grade.to_s, [grade.school, grade]),
+              school: link_to_if(can?(:read, grade.school), grade.school.to_s, grade.school)
             ) %></h4>
           <br />
         </caption>
@@ -29,9 +29,9 @@
             <tr>
               <td><%= l teach.start %></td>
               <td><%= l teach.finish %></td>
-              <td><%= link_to_show [@course, teach] %></td>
-              <td><%= link_to_edit edit_course_teach_path(@course, teach) %></td>
-              <td><%= link_to_destroy [@course, teach] %></td>
+              <td><%= link_to_show [@course, teach] if can? :read, teach %></td>
+              <td><%= link_to_edit edit_course_teach_path(@course, teach) if can? :update, teach %></td>
+              <td><%= link_to_destroy [@course, teach] if can? :destroy, teach %></td>
             </tr>
           <% end %>
         </tbody>

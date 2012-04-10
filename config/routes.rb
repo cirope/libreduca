@@ -31,6 +31,22 @@ Libreduca::Application.routes.draw do
   end
   
   constraints(SchoolSubdomain) do
+    resources :courses, only: [] do
+      resources :teaches
+    end
+
+    resources :grades, only: [] do
+      resources :courses
+    end
+
+    resources :schools do
+      resources :grades
+
+      resources :users, only: [] do
+        get :within_school, on: :collection
+      end
+    end
+    
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
     
     Job::TYPES.each do |job_type|

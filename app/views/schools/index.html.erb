@@ -14,7 +14,7 @@
         <tbody>
           <% @schools.each do |school| %>
             <tr>
-              <td><%= link_to school.name, school, title: t('label.show') %></td>
+              <td><%= link_to_if can?(:read, school), school.name, school, title: t('label.show') %></td>
               <td class="visible-desktop"><%= school.identification %></td>
               <td><%= link_to_edit edit_school_path(school) if can? :update, school %></td>
               <td><%= link_to_destroy school if can? :destroy, school %></td>

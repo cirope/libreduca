@@ -1,6 +1,10 @@
 <%= content_for :form_actions do %>
-  <%= link_to t('label.show'), @school %> |
-  <%= link_to t('label.list'), schools_path %>
+  <% if can? :read, @school %>
+    <%= link_to t('label.show'), @school %> |
+  <% end %>
+  <% if can? :read, School %>
+    <%= link_to t('label.list'), schools_path %>
+  <% end %>
 <% end %>
 
 <%= render 'form' %>

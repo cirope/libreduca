@@ -15,8 +15,10 @@
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_region_path(@region), class: 'btn btn-primary' %>
-  <div class="pull-right">
-    <%= link_to t('label.list'), regions_path %>
-  </div>
+  <%= link_to t('label.edit'), edit_region_path(@region), class: 'btn btn-primary' if can? :update, @region %>
+  <% if can? :read, Region %>
+    <div class="pull-right">
+      <%= link_to t('label.list'), regions_path %>
+    </div>
+  <% end %>
 </nav>

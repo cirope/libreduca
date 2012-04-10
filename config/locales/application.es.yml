@@ -122,6 +122,7 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    dashboard: 'Tablero'
     regions: 'Regiones'
     schools: 'Escuelas'
     users: 'Usuarios'
