@@ -1,6 +1,7 @@
 <%= simple_form_for(@user) do |f| %>
   <%= content_for :js_extra do %>
     <%= raw "var job='#{generate_template(f, :jobs)}';" %>
+    <%= raw "var kinship='#{generate_template(f, :kinships)}';" %>
   <% end %>
   <div class="row">
     <div class="span6">
@@ -44,6 +45,31 @@
               'dynamic-container' => '#jobs',
               'show-tooltip' => true
             }, class: 'btn btn-small', title: t('view.users.new_job') %>
+        </div>
+      </div>
+      
+      <div class="row-fluid form-inputs">
+        <div class="span12">
+          <h5><%= User.human_attribute_name 'kinships', count: 0 %></h5>
+        </div>
+
+        <div class="row-fluid">
+          <div class="span12" id="kinships">
+            <% @user.kinships.build %>
+            <%= f.simple_fields_for :kinships do |j_f| %>
+              <%= render partial: 'kinship', locals: { f: j_f } %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="pull-left">
+          <%= link_to t('view.users.new_kinship'), '#',
+            data: {
+              'dynamic-form-event' => 'addNestedItem',
+              'dynamic-template' => 'kinship',
+              'dynamic-container' => '#kinships',
+              'show-tooltip' => true
+            }, class: 'btn btn-small', title: t('view.users.new_kinship') %>
         </div>
       </div>
     </div>

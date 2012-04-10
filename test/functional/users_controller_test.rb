@@ -29,6 +29,27 @@ class UsersControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'users/index'
   end
+  
+  test 'should get filtered index in json' do
+    sign_in @user
+    
+    3.times { Fabricate(:user, name: 'in_filtered_index') }
+    
+    get :index, q: 'filtered_index', format: 'json'
+    assert_response :success
+    
+    users = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 3, users.size
+    assert users.all? { |u| u['label'].match /filtered_index/i }
+    
+    get :index, q: 'no_user', format: 'json'
+    assert_response :success
+    
+    users = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 0, users.size
+  end
 
   test 'should get new' do
     sign_in @user

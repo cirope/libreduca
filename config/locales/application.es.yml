@@ -23,6 +23,9 @@
       job:
         one: 'Trabajo'
         other: 'Trabajos'
+      kinship:
+        one: 'Parentesco'
+        other: 'Parentescos'
       region:
         one: 'Región'
         other: 'Regiones'
@@ -52,6 +55,10 @@
         job: 'Trabajo'
         school_id: 'Escuela'
         user_id: 'Usuario'
+      kinship:
+        kin: 'Parentesco'
+        user_id: 'Usuario'
+        relative_id: 'Pariente'
       region:
         name: 'Nombre'
       region/district:
@@ -86,6 +93,12 @@
         jobs:
           one: 'Trabajo'
           other: 'Trabajos'
+        kinships:
+          one: 'Parentesco'
+          other: 'Parentescos'
+        inverse_kinships:
+          one: 'Otro parentesco'
+          other: 'Otros parentescos'
         roles:
           one: 'Perfil'
           other: 'Perfiles'
@@ -172,6 +185,12 @@
         teacher: 'Profesor'
         janitor: 'Bedel'
         student: 'Alumno'
+    kinships:
+      types:
+        father: 'Padre'
+        mother: 'Madre'
+        tutor: 'Tutor'
+        other: 'Otro'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'
@@ -252,12 +271,17 @@
         html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
       new: 'Nuevo usuario'
       new_job: 'Agregar nuevo trabajo'
+      new_kinship: 'Agregar nuevo parentesco'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
       edit_profile: 'Editar perfil'
       job_role:
         html: '%{role} de %{school}'
+      kinship:
+        html: 'Su %{kin} es %{relative}'
+      inverse_kinship:
+        html: 'Es %{kin} de %{user}'
       roles:
         admin: 'Administrador'
         regular: 'Normal'

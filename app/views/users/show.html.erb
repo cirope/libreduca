@@ -28,6 +28,40 @@
       <% end %>
     </ul>
   <% end %>
+  
+  <% unless @user.kinships.empty? %>
+    <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size %></h3>
+    <ul>
+      <% @user.kinships.each do |kinship| %>
+        <li>
+          <%= t(
+            'view.users.kinship.html',
+            relative: link_to(kinship.relative.to_s, kinship.relative),
+            kin: show_human_kinship_type(kinship.kin)
+          ) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <% unless @user.inverse_kinships.empty? %>
+    <h3>
+      <%= User.human_attribute_name(
+        'inverse_kinships', count: @user.inverse_kinships.size
+      ) %>
+    </h3>
+    <ul>
+      <% @user.inverse_kinships.each do |inverse_kinship| %>
+        <li>
+          <%= t(
+            'view.users.inverse_kinship.html',
+            user: link_to(inverse_kinship.user.to_s, inverse_kinship.user),
+            kin: show_human_kinship_type(inverse_kinship.kin)
+          ) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <nav class="form-actions">

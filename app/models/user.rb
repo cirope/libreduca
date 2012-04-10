@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
-    :roles, :remember_me, :jobs_attributes, :lock_version
+    :roles, :remember_me, :kinships_attributes, :jobs_attributes, :lock_version
   
   # Defaul order
   default_scope order('lastname ASC')
@@ -26,9 +26,18 @@ class User < ActiveRecord::Base
   # Relations
   has_many :enrollments, dependent: :destroy
   has_many :scores, dependent: :destroy
+  has_many :kinships, dependent: :destroy
+  has_many :inverse_kinships, class_name: 'Kinship', foreign_key: 'relative_id'
+  has_many :relatives, through: :kinships
+  has_many :dependents, through: :inverse_kinships, source: :user
   has_many :jobs, dependent: :destroy
   has_many :schools, through: :jobs
   
+  accepts_nested_attributes_for :kinships, allow_destroy: true,
+    reject_if: ->(attributes) {
+      attributes['kin'].blank? && attributes['user_id'].blank?
+    }
+    
   accepts_nested_attributes_for :jobs, allow_destroy: true,
     reject_if: ->(attributes) {
       attributes['job'].blank? && attributes['school_id'].blank?

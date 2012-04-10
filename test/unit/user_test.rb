@@ -23,6 +23,22 @@ class UserTest < ActiveSupport::TestCase
     end
   end
   
+  test 'create with kinships' do
+    relative = Fabricate(:user)
+    
+    assert_difference ['User.count', 'Kinship.count'] do
+      @user = User.create(
+        Fabricate.attributes_for(:user).merge(
+          kinships_attributes: {
+            new_1: Fabricate.attributes_for(
+              :kinship, user_id: nil, relative_id: relative.id
+            )
+          }
+        )
+      )
+    end
+  end
+  
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'User.count' do
@@ -176,5 +192,14 @@ class UserTest < ActiveSupport::TestCase
     assert_nil User.find_for_authentication(
       email: @user.email, subdomains: ['admin']
     )
+  end
+  
+  test 'kin relations' do
+    Fabricate(:kinship, user_id: @user.id)
+    
+    assert_equal 1, @user.kinships.count
+    assert_equal 1, @user.relatives.first.dependents.count
+    assert_not_equal @user, @user.relatives.first
+    assert_equal @user, @user.relatives.first.dependents.first
   end
 end
