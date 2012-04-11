@@ -16,11 +16,13 @@
       </h5>
     </div>
     
-    <ul>
-      <% @grade.courses.each do |course| %>
-        <li><%= link_to_if can?(:read, course), course.to_s, [@grade, course] %></li>
-      <% end %>
-    </ul>
+    <% unless @grade.courses.empty? %>
+      <ul>
+        <% @grade.courses.each do |course| %>
+          <li><%= link_to_if can?(:read, course), course.to_s, [@grade, course] %></li>
+        <% end %>
+      </ul>
+    <% end %>
   <% end %>
 </div>
 

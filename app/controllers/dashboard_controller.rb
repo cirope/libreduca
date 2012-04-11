@@ -13,6 +13,12 @@ class DashboardController < ApplicationController
   
   def headmaster
     @title = t 'view.dashboard.generic_title'
+    @grades = current_school.grades
+    
+    respond_to do |format|
+      format.html # janitor.html.erb
+      format.json { render json: @grades }
+    end
   end
   
   def janitor

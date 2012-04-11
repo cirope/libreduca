@@ -15,6 +15,25 @@
         <% grades.each do |grade| %>
           <div class="span6">
             <h3><%= link_to grade.to_s, [grade.school, grade] %></h3>
+            
+            <div class="page-header">
+              <h5>
+                <%= link_to_if can?(:read, Course), Course.model_name.human(count: grade.courses.size), grade_courses_path(grade) %>
+                <% if can? :create, Course %>
+                  <span class="divider">|</span>
+                  <%= link_to t('view.courses.new'), new_grade_course_path(grade), class: 'btn btn-mini' %>
+                <% end %>
+              </h5>
+            </div>
+
+            <% unless grade.courses.empty? %>
+              <ul>
+                <% grade.courses.each do |course| %>
+                  <li><%= link_to_if can?(:read, course), course.to_s, [grade, course] %></li>
+                <% end %>
+              </ul>
+            <% end %>
+            
             <div class="form-actions">
               <% if can? :update, grade %>
                 <%= link_to(

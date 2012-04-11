@@ -38,6 +38,16 @@ class Ability
     can :manage, Course, grade: jobs_restricionts
     can :manage, Teach, course: { grade: jobs_restricionts }
     can :read, School, workers: { user_id: user.id, job: 'janitor' }
+    
+    # Headmasters
+    jobs_restricionts = {
+      school: { workers: { user_id: user.id, job: 'headmaster' } }
+    }
+    
+    can :read, Grade, jobs_restricionts
+    can :read, Course, grade: jobs_restricionts
+    can :read, Teach, course: { grade: jobs_restricionts }
+    can :read, School, workers: { user_id: user.id, job: 'headmaster' }
   end
   
   def default_rules

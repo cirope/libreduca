@@ -1,6 +1,57 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
+<div class="readonly_data">
+  <div class="page-header">
+    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, school: current_school.name) %></h1>
+  </div>
+  <% if @grades.empty? %>
+    <div class="alert">
+      <h4 class="alert-heading">
+        <%= t('view.dashboard.empty_grades.html') %>
+      </h4>
+    </div>
+    <br />
+  <% else %>
+    <% @grades.each_slice(2) do |grades| %>
+      <div class="row-fluid">
+        <% grades.each do |grade| %>
+          <div class="span6">
+            <h3><%= link_to grade.to_s, [grade.school, grade] %></h3>
+            
+            <div class="page-header">
+              <h5>
+                <%= link_to_if can?(:read, Course), Course.model_name.human(count: grade.courses.size), grade_courses_path(grade) %>
+                <% if can? :create, Course %>
+                  <span class="divider">|</span>
+                  <%= link_to t('view.courses.new'), new_grade_course_path(grade), class: 'btn btn-mini' %>
+                <% end %>
+              </h5>
+            </div>
 
-<%= "_headmaster.html" %>
+            <% unless grade.courses.empty? %>
+              <ul>
+                <% grade.courses.each do |course| %>
+                  <li><%= link_to_if can?(:read, course), course.to_s, [grade, course] %></li>
+                <% end %>
+              </ul>
+            <% end %>
+            
+            <div class="form-actions">
+              <% if can? :update, grade %>
+                <%= link_to(
+                  t('view.dashboard.janitor.edit_grade'),
+                  edit_school_grade_path(grade.school, grade),
+                  class: 'btn btn-info'
+                ) %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="form-actions">
+  <% if can? :create, Grade %>
+    <%= link_to t('view.grades.new'), new_school_grade_path(current_school), class: 'btn btn-primary' %>
+  <% end %>
+</div>
