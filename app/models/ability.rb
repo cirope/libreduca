@@ -18,8 +18,9 @@ class Ability
   end
   
   def regular_rules(user)
+    # Teachers
     enrollments_restricionts = {
-      enrollments: { user_id: user.id, job: ['teacher', 'janitor'] }
+      enrollments: { user_id: user.id, job: 'teacher' }
     }
     
     can :read, Teach, enrollments_restricionts
@@ -27,6 +28,16 @@ class Ability
     can :read, Course, teaches: enrollments_restricionts
     can :read, Grade, courses: { teaches: enrollments_restricionts }
     can :read, School, users: { id: user.id }
+    
+    # Janitors
+    jobs_restricionts = {
+      school: { workers: { user_id: user.id, job: 'janitor' } }
+    }
+    
+    can :manage, Grade, jobs_restricionts
+    can :manage, Course, grade: jobs_restricionts
+    can :manage, Teach, course: { grade: jobs_restricionts }
+    can :read, School, workers: { user_id: user.id, job: 'janitor' }
   end
   
   def default_rules

@@ -8,7 +8,7 @@ class Score < ActiveRecord::Base
   before_validation :replace_coma_with_period_in_scores
   
   # Default order
-  default_scope order('created_at ASC')
+  default_scope order("#{table_name}.created_at ASC")
   
   # Validations
   validates :score, :multiplier, presence: true

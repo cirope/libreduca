@@ -156,12 +156,16 @@
       generic_title: 'Tablero'
       empty_enrollments:
         html: 'No estás inscripto en cursos que se estén dictando actualmente'
+      empty_grades:
+        html: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
       empty_scores:
         html: 'No hay notas cargadas para <strong>%{course}</strong>'
       greetings:
         html: 'Hola %{user}<small>, este es tu resumen educativo en <strong>%{school}</strong></small>'
       score_average:
         html: 'La nota <strong>promedio</strong> de %{course} hasta el momento es %{average}'
+      janitor:
+        edit_grade: 'Editar grado'
       teacher:
         edit_teach: 'Cargar notas'
     grades:

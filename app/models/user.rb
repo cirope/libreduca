@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     :role, :remember_me, :kinships_attributes, :jobs_attributes, :lock_version
   
   # Defaul order
-  default_scope order('lastname ASC')
+  default_scope order("#{table_name}.lastname ASC")
   
   # Validations
   validates :name, presence: true

@@ -9,7 +9,7 @@ class TeachesController < ApplicationController
   # GET /teaches.json
   def index
     @title = t 'view.teaches.index_title'
-    @teaches = @teaches.page(params[:page])
+    @teaches = @teaches.page(params[:page]).uniq('id')
 
     respond_to do |format|
       format.html # index.html.erb

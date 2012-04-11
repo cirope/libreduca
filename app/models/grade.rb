@@ -7,7 +7,7 @@ class Grade < ActiveRecord::Base
   attr_accessible :name, :school_id, :lock_version
   
   # Default order
-  default_scope order('name ASC')
+  default_scope order("#{table_name}.name ASC")
   
   # Validations
   validates :name, :school_id, presence: true

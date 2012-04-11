@@ -29,11 +29,13 @@
               </div>
             <% end %>
             <div class="form-actions">
-              <%= link_to(
-                t('view.dashboard.teacher.edit_teach'),
-                edit_course_teach_path(enrollment.teach.course, enrollment.teach),
-                class: 'btn btn-info'
-              ) %>
+              <% if can? :edit, enrollment.teach %>
+                <%= link_to(
+                  t('view.dashboard.teacher.edit_teach'),
+                  edit_course_teach_path(enrollment.teach.course, enrollment.teach),
+                  class: 'btn btn-info'
+                ) %>
+              <% end %>
             </div>
           </div>
         <% end %>

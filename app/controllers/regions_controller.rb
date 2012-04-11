@@ -9,7 +9,7 @@ class RegionsController < ApplicationController
   def index
     @title = t 'view.regions.index_title'
     @searchable = true
-    @regions = @regions.filtered_list(params[:q]).page(params[:page])
+    @regions = @regions.filtered_list(params[:q]).page(params[:page]).uniq('id')
 
     respond_to do |format|
       format.html # index.html.erb

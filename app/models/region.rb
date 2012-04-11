@@ -7,7 +7,7 @@ class Region < ActiveRecord::Base
   attr_accessible :name, :districts_attributes, :lock_version
   
   # Default order
-  default_scope order('name ASC')
+  default_scope order("#{table_name}.name ASC")
   
   # Validations
   validates :name, presence: true

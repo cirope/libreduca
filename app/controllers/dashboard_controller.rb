@@ -17,6 +17,12 @@ class DashboardController < ApplicationController
   
   def janitor
     @title = t 'view.dashboard.generic_title'
+    @grades = current_school.grades
+    
+    respond_to do |format|
+      format.html # janitor.html.erb
+      format.json { render json: @grades }
+    end
   end
   
   def student
@@ -34,7 +40,7 @@ class DashboardController < ApplicationController
     @enrollments = current_user.enrollments.in_school(current_school).in_current_teach
     
     respond_to do |format|
-      format.html # student.html.erb
+      format.html # teacher.html.erb
       format.json { render json: @enrollments }
     end
   end

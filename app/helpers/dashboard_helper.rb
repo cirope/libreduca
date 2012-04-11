@@ -18,7 +18,8 @@ module DashboardHelper
     )
     
     content_tag(
-      :span, link_to(teach.course.to_s, [teach.course, teach]),
+      :span,
+      link_to_if(can?(:read, teach), teach.course.to_s, [teach.course, teach]),
       title: Teach.model_name.human,
       data: {
         'show-popover' => true, 'content' => raw(content), 'placement' => 'right'

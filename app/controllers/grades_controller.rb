@@ -10,7 +10,7 @@ class GradesController < ApplicationController
   def index
     @title = t 'view.grades.index_title'
     @searchable = true
-    @grades = @grades.filtered_list(params[:q]).page(params[:page])
+    @grades = @grades.filtered_list(params[:q]).page(params[:page]).uniq('id')
 
     respond_to do |format|
       format.html # index.html.erb

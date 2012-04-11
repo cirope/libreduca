@@ -6,7 +6,7 @@ class Teach < ActiveRecord::Base
     :scores_attributes, :lock_version
   
   # Default order
-  default_scope order('start DESC')
+  default_scope order("#{table_name}.start DESC")
   
   # Validations
   validates :start, :finish, :course_id, presence: true

@@ -10,7 +10,7 @@ class School < ActiveRecord::Base
   alias_attribute :informal, :identification
   
   # Default order
-  default_scope order('name ASC')
+  default_scope order("#{table_name}.name ASC")
   
   # Validations
   validates :name, :identification, :district_id, presence: true
@@ -25,9 +25,11 @@ class School < ActiveRecord::Base
   
   # Relations
   belongs_to :district
-  has_many :grades, dependent: :destroy
   has_many :workers, dependent: :destroy, class_name: 'Job'
   has_many :users, through: :workers
+  has_many :grades, dependent: :destroy
+  has_many :courses, through: :grades
+  has_many :teaches, through: :courses
   
   def to_s
     self.name
