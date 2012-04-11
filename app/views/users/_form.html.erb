@@ -16,7 +16,7 @@
         <% end %>
 
         <% if can? :assign_roles, @user %>
-          <label><%= User.human_attribute_name 'roles', count: 0 %></label>
+          <label><%= User.human_attribute_name 'roles', count: 1 %></label>
           <%= show_user_roles_options(f) %>
         <% end %>
       </div>

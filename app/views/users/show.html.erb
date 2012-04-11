@@ -5,13 +5,11 @@
     <%= mail_to @user.email %>
   </p>
 
-  <% unless @user.roles.empty? %>
-    <h3><%= User.human_attribute_name 'roles', count: @user.roles.size %></h3>
-    <ul>
-      <% @user.roles.each do |role| %>
-        <li><%= t("view.users.roles.#{role}") %></li>
-      <% end %>
-    </ul>
+  <% if @user.role %>
+    <p>
+      <%= User.human_attribute_name 'roles', count: 1 %>:
+      <strong><%= t("view.users.roles.#{@user.role}") %></strong>
+    </p>
   <% end %>
     
   <% unless @user.jobs.empty? %>

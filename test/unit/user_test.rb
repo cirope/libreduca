@@ -187,7 +187,7 @@ class UserTest < ActiveSupport::TestCase
       email: @user.email, subdomains: ['no-school']
     )
     
-    @user.update_attributes(roles: User.valid_roles - [:admin])
+    @user.update_attributes(role: :normal)
     # No longer admin...
     assert_nil User.find_for_authentication(
       email: @user.email, subdomains: ['admin']

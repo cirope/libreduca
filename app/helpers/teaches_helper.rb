@@ -16,16 +16,23 @@ module TeachesHelper
     end.compact
   end
   
-  def build_teach_blank_scores(teach)
+  def build_blank_teach_scores(teach)
     to_build = []
     
     teach.enrollments.only_students.each do |e|
-      unless teach.scores.detect { |s| s.new_record? && s.user_id = e.user_id }
+      unless teach.scores.detect { |s| s.new_record? && s.user_id == e.user_id }
         to_build << e.user_id
       end
     end
     
     teach.scores.build(to_build.map { |u_id| { user_id: u_id } })
+  end
+  
+  def build_new_teach_scores(teach)
+    existing_scores = teach.scores.select(&:new_record?)
+    blank_scores = build_blank_teach_scores teach
+    
+    (existing_scores + blank_scores).sort { |s1, s2| s1.user <=> s2.user }
   end
   
   def teach_scores_grouped_by_student(teach)

@@ -1,7 +1,6 @@
 <%= simple_form_for([@course, @teach]) do |f| %>
   <%= content_for :js_extra do %>
     <%= raw "var enrollment='#{generate_template(f, :enrollments)}';" %>
-    <%= raw "var score='#{generate_template(f, :scores)}';" %>
   <% end %>
 
   <div class="form-inputs">
@@ -29,8 +28,7 @@
           <div class="alert"><%= t('view.teaches.without_entollments_in_edit.html') %></div>
         <% else %>
           <div id="scores">
-            <% blank_scores = build_teach_blank_scores @teach %>
-            <%= f.simple_fields_for :scores, blank_scores, defaults: { input_html: { class: 'span10' } } do |j_f| %>
+            <%= f.simple_fields_for :scores, build_new_teach_scores(@teach), defaults: { input_html: { class: 'span10' } } do |j_f| %>
               <%= render partial: 'score', locals: { f: j_f } %>
             <% end %>
           </div>

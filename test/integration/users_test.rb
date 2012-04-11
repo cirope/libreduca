@@ -17,7 +17,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     fill_in 'user_password_confirmation',
       with: user_attributes['password_confirmation']
     
-    find('#user_roles_admin').click
+    find('#user_role_admin').click
     
     school = Fabricate(:school)
     
@@ -75,7 +75,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     fill_in 'user_password_confirmation',
       with: user_attributes['password_confirmation']
     
-    find('#user_roles_admin').click
+    find('#user_role_admin').click
     
     relative = Fabricate(:user)
     

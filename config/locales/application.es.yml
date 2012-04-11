@@ -162,6 +162,8 @@
         html: 'Hola %{user}<small>, este es tu resumen educativo en <strong>%{school}</strong></small>'
       score_average:
         html: 'La nota <strong>promedio</strong> de %{course} hasta el momento es %{average}'
+      teacher:
+        edit_teach: 'Cargar notas'
     grades:
       index_title: 'Listado de grados'
       show_title: 'Detalle de grado'

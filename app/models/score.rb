@@ -5,6 +5,8 @@ class Score < ActiveRecord::Base
   attr_accessible :score, :multiplier, :description, :user_id, :teach_id,
     :lock_version
   
+  before_validation :replace_coma_with_period_in_scores
+  
   # Default order
   default_scope order('created_at ASC')
   
@@ -22,6 +24,10 @@ class Score < ActiveRecord::Base
   # Relations
   belongs_to :teach
   belongs_to :user
+  
+  def replace_coma_with_period_in_scores
+    self.score = read_attribute_before_type_cast('score').to_s.gsub(',', '.')
+  end
   
   def self.of_user(user)
     where(user_id: user.id)

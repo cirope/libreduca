@@ -15,21 +15,26 @@
         <% enrollments.each do |enrollment| %>
           <div class="span6">
             <h3><%= show_teach_info enrollment.teach %></h3>
-            <br />
-
             <% if enrollment.teach.scores.empty? %>
               <div class="alert">
                 <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>
               </div>
             <% else %>
-              <p>
+              <div class="alert alert-info">
                 <%= t(
                   'view.dashboard.score_average.html',
                   average: show_dashboard_score(enrollment.teach.scores.weighted_average),
                   course: enrollment.course
                 ) %>
-              </p>
+              </div>
             <% end %>
+            <div class="form-actions">
+              <%= link_to(
+                t('view.dashboard.teacher.edit_teach'),
+                edit_course_teach_path(enrollment.teach.course, enrollment.teach),
+                class: 'btn btn-info'
+              ) %>
+            </div>
           </div>
         <% end %>
       </div>
