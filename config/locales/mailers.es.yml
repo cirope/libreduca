@@ -1,0 +1,16 @@
+'es':
+  notifier:
+    enrollment_status:
+      subject: 'Estado actual de %{user} en %{course}'
+      greeting:
+        html: 'Hola <strong>%{users}</strong>,'
+        text: 'Hola %{users},'
+      teach:
+        html: 'Estas son las notas de %{user} en %{course} hasta el momento:'
+        text: 'Estas son las notas de %{user} en %{course} hasta el momento:'
+      empty_scores:
+        html: 'No tiene calificaciones en %{course} hasta el momento'
+        text: 'No tiene calificaciones en %{course} hasta el momento'
+      score_average:
+        html: 'Su nota <strong>promedio</strong> en %{course} hasta el momento es <em>%{average}</em>'
+        text: 'Su nota promedio en %{course} hasta el momento es %{average}'

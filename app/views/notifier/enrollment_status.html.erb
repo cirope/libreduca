@@ -1,0 +1,53 @@
+<h2>
+  <%= t(
+    'notifier.enrollment_status.greeting.html',
+    users: @users.map(&:name).to_sentence
+  ) %>
+</h2>
+<h3>
+  <%= t(
+    'notifier.enrollment_status.teach.html',
+    course: @enrollment.course,
+    user: @enrollment.user.name
+  ) %>
+</h3>
+
+<% if @enrollment.scores.empty? %>
+  <p>
+    <%= t(
+      'notifier.enrollment_status.empty_scores.html',
+      course: @enrollment.course
+    ) %>
+  </p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th><%= Score.human_attribute_name 'description' %></th>
+        <th><%= Score.human_attribute_name 'score' %></th>
+        <th><%= Score.human_attribute_name 'multiplier' %></th>
+        <th><%= Score.human_attribute_name 'created_at' %></th>
+        <th><%= Score.human_attribute_name 'whodunnit' %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @enrollment.scores.each do |score| %>
+        <tr>
+          <td><%= score.description %></td>
+          <td><%= number_with_precision score.score %></td>
+          <td><%= number_with_precision score.multiplier %></td>
+          <td><%= l score.created_at, format: :short %></td>
+          <td><%= User.find(score.originator) rescue '-' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <p>
+    <%= t(
+      'notifier.enrollment_status.score_average.html',
+      average: number_with_precision(@enrollment.score_average),
+      course: @enrollment.course
+    ) %>
+  </p>
+<% end %>

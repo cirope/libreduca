@@ -12,6 +12,7 @@ gem 'role_model'
 gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
+gem 'roadie'
 gem 'capistrano'
 
 group :assets do

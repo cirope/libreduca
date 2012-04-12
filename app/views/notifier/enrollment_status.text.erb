@@ -1,0 +1,35 @@
+<%= t(
+  'notifier.enrollment_status.greeting.text',
+  users: @users.map(&:name).to_sentence
+) %>
+================================================================================
+
+<% if @enrollment.scores.empty? %>
+<%= t(
+  'notifier.enrollment_status.empty_scores.text',
+  course: @enrollment.course
+) %>
+<% else %>
+<%= t(
+  'notifier.enrollment_status.teach.text',
+  course: @enrollment.course,
+  user: @enrollment.user.name
+) %>
+
+  <% @enrollment.scores.each do |score| %>
+    <%= Score.human_attribute_name 'description' %>: <%= score.description %>
+    <%= Score.human_attribute_name 'score' %> : <%= number_with_precision score.score %>
+    <%= Score.human_attribute_name 'multiplier' %>: <%= number_with_precision score.multiplier %>
+    <%= Score.human_attribute_name 'created_at' %>: <%= l score.created_at, format: :short %>
+    <%= Score.human_attribute_name 'whodunnit' %>: <%= User.find(score.originator) rescue '-' %>
+    
+    ------------------------------------------------------------------------
+    
+  <% end %>
+  
+  <%= t(
+    'notifier.enrollment_status.score_average.text',
+    average: number_with_precision(@enrollment.score_average),
+    course: @enrollment.course
+  ) %>
+<% end %>
