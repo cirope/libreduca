@@ -72,6 +72,6 @@ module ApplicationHelper
     options['method'] ||= :delete
     options['data-show-tooltip'] ||= true
     
-    link_to '&#x2714;'.html_safe, *args, options
+    link_to '&#xe05a;'.html_safe, *args, options
   end
 end
