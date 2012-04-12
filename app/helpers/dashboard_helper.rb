@@ -64,7 +64,7 @@ module DashboardHelper
     content_tag(
       :span, '&#x2139;'.html_safe,
       title: score.description,
-      class: 'iconic label',
+      class: 'iconic small label',
       data: {
         'show-popover' => true, 'content' => raw(content), 'placement' => 'top'
       }
