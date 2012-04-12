@@ -142,4 +142,30 @@ class TeachesTest < ActionDispatch::IntegrationTest
       end
     end
   end
+  
+  test 'should complete fields with global values' do
+    login
+    
+    course = Fabricate(:course)
+    
+    teach = Fabricate(:teach, course_id: course.id).tap do |t|
+      5.times do
+        user = Fabricate(:user).tap do |u|
+          Fabricate(
+            :job, job: 'student', user_id: u.id, school_id: course.school.id
+          )
+        end
+        
+        Fabricate :enrollment, teach_id: t.id, user_id: user.id, job: 'student'
+      end
+    end
+    
+    visit edit_course_teach_path(course, teach)
+    
+    fill_in 'global_multiplier', with: '30'
+    fill_in 'global_description', with: 'Test'
+    
+    assert all('input.multiplier').all? { |m| m.value == '30' }
+    assert all('input.description').all? { |d| d.value == 'Test' }
+  end
 end

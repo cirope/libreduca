@@ -234,6 +234,8 @@
       correctly_created: 'Dictado agregado correctamente.'
       correctly_updated: 'Dictado actualizado correctamente.'
       stale_object_error: 'El dictado no pudo ser actualizado, intente nuevamente.'
+      global_description: 'Descripción global'
+      global_multiplier: 'Multiplicador global'
       empty_index:
         html: 'No se ha creado ningún dictado para este curso hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo dictado</span>'
       new: 'Nuevo dictado'

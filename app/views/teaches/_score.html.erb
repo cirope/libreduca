@@ -10,12 +10,14 @@
   </div>
   <div class="span2">
     <%= f.input :multiplier, label: false, input_html: {
-      min: 0, max: 999.99, placeholder: Score.human_attribute_name('multiplier')
+      min: 0, max: 999.99, class: 'multiplier span10',
+      placeholder: Score.human_attribute_name('multiplier')
     } %>
   </div>
   <div class="span4">
     <%= f.input :description, label: false, input_html: {
-      maxlength: 255, placeholder: Score.human_attribute_name('description')
+      maxlength: 255, class: 'description span10',
+      placeholder: Score.human_attribute_name('description')
     } %>
     <%= f.input :id, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>

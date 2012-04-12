@@ -25,4 +25,5 @@
 //= require grades
 //= require regions
 //= require schools
+//= require teaches
 //= require users
