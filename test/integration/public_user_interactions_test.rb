@@ -23,7 +23,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     
     assert_page_has_no_errors!
     
-    find("a[href='#{new_user_password_path}']").click
+    click_link '¿Olvidaste tu contraseña?'
     
     assert_equal new_user_password_path, current_path
     assert_page_has_no_errors!
