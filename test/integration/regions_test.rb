@@ -45,7 +45,7 @@ class RegionsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('.district')
     
     within '.district' do
-      click_link '✔' # Destroy link
+      click_link '✘' # Destroy link
     end
     
     assert page.has_no_css?('.district')

@@ -27,7 +27,7 @@ module DynamicFormHelper
     
     out << form.hidden_field(:_destroy, class: 'destroy', value: destroy) unless new_record
     out << link_to(
-      '&#x2714;'.html_safe, '#', title: t('label.delete'), class: 'iconic',
+      '&#x2718;'.html_safe, '#', title: t('label.delete'), class: 'iconic',
       data: {
         'dynamic-target' => ".#{class_to_remove || form.object.class.name.underscore}",
         'dynamic-form-event' => (new_record ? 'removeItem' : 'hideItem'),

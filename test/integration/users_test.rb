@@ -127,7 +127,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('.job')
     
     within '.job' do
-      click_link '✔' # Destroy link
+      click_link '✘' # Destroy link
     end
     
     assert page.has_no_css?('.job')
@@ -141,7 +141,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('.kinship')
     
     within '.kinship' do
-      click_link '✔' # Destroy link
+      click_link '✘' # Destroy link
     end
     
     assert page.has_no_css?('.kinship')
@@ -157,7 +157,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('.job')
     
     within '.job' do
-      click_link '✔' # Destroy link
+      click_link '✘' # Destroy link
     end
     
     assert_no_difference 'User.count' do
@@ -177,7 +177,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('.kinship')
     
     within '.kinship' do
-      click_link '✔' # Destroy link
+      click_link '✘' # Destroy link
     end
     
     assert_no_difference 'User.count' do

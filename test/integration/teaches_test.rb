@@ -78,7 +78,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert page.has_css?('.enrollment')
     
     within '.enrollment' do
-      click_link '✔' # Destroy link
+      click_link '✘' # Destroy link
     end
     
     assert page.has_no_css?('.enrollment')
@@ -96,7 +96,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert page.has_css?('.enrollment')
     
     within '.enrollment' do
-      click_link '✔' # Destroy link
+      click_link '✘' # Destroy link
     end
     
     assert_no_difference 'Teach.count' do

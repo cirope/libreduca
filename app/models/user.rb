@@ -46,9 +46,7 @@ class User < ActiveRecord::Base
   def initialize(attributes = {}, options = {})
     super(attributes, options)
     
-    if attributes[:roles].blank?
-      self.roles = self.class.valid_roles.reject { |r| r == :admin }
-    end
+    self.role ||= :regular
   end
   
   def to_s
