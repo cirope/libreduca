@@ -18,7 +18,9 @@
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
-        roles: 'Perfiles'
+        roles:
+          one: 'Perfil'
+          other: 'Perfiles'
         remember_me: 'Recordarme'
         
   errors:

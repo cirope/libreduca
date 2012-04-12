@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
-    :roles, :remember_me, :lock_version
+    :role, :remember_me, :lock_version
   
   # Defaul order
   default_scope order('lastname ASC')
@@ -25,17 +25,19 @@ class User < ActiveRecord::Base
   def initialize(attributes = nil, options = {})
     super(attributes, options)
     
-    self.roles = self.class.valid_roles.reject { |r| r == :admin }
+    self.role ||= :regular
   end
   
   def to_s
     [self.name, self.lastname].compact.join(' ')
   end
   
-  alias_method :old_roles, :roles
+  def role
+    self.roles.first.try(:to_sym)
+  end
   
-  def roles
-    self.old_roles.map(&:to_sym)
+  def role=(role)
+    self.roles = [role]
   end
   
   def self.filtered_list(query)
