@@ -102,6 +102,7 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    newrelic_rpm (3.3.3)
     nokogiri (1.5.2)
     orm_adapter (0.0.7)
     paper_trail (2.6.3)
@@ -200,6 +201,7 @@ DEPENDENCIES
   jquery-rails
   magick_columns
   minitest
+  newrelic_rpm
   paper_trail
   pg
   rails (= 3.2.3)

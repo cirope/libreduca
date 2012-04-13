@@ -14,6 +14,7 @@ gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie'
 gem 'capistrano'
+gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass-rails'
