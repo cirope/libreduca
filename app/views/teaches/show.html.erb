@@ -41,8 +41,19 @@
           </thead>
           <tbody>
             <% grouped_scores.each do |user, scores| %>
+              <%= content_for :modal_dialogs do %>
+                <%= render partial: 'email_score_dialog', locals: {
+                  user: user, enrollment: @teach.enrollment_for(user)
+                } %>
+              <% end %>
               <tr>
-                <td><%= user %></td>
+                <td>
+                  <%= link_to(
+                    '&#x2709;'.html_safe, "#email_modal_#{user.id}",
+                    class: 'iconic', data: { toggle: 'modal' }
+                  ) %>
+                  <%= user %>
+                </td>
                 <% scores.each do |score| %>
                   <td><%= show_teach_score_details score %></td>
                 <% end %>
@@ -84,3 +95,5 @@
     </div>
   <% end %>
 </nav>
+
+<%= yield :modal_dialogs %>

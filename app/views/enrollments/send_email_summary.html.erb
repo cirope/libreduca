@@ -1,0 +1,10 @@
+<% users = [@enrollment.user.to_s] + @enrollment.user.relatives.map(&:to_s) %>
+<div class="alert alert-success">
+  <p>
+    <%= t(
+      'view.enrollments.email_summary_sent.html',
+      user: @enrollment.user.name,
+      users: users.to_sentence
+    ) %>
+  </p>
+</div>

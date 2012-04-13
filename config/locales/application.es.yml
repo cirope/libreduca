@@ -117,6 +117,9 @@
     loading: 'Cargando...'
     new: 'Nuevo'
     search: 'Buscar'
+    send: 'Enviar'
+    sending: 'Enviando...'
+    sent: 'Enviado'
     show: 'Ver'
     
   menu:
@@ -168,6 +171,9 @@
         edit_grade: 'Editar grado'
       teacher:
         edit_teach: 'Cargar notas'
+    enrollments:
+      email_summary_sent:
+        html: 'Se envió un correo con las calificaciones de <strong>%{user}</strong> a <strong>%{users}</strong>'
     grades:
       index_title: 'Listado de grados'
       show_title: 'Detalle de grado'
@@ -243,6 +249,11 @@
       enter_scores: 'Cargar calificaciones'
       between:
         html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
+      email_scores:
+        header:
+          html: 'Enviar las calificaciones de %{user} por correo'
+        body:
+          html: 'Se enviarán las calificaciones de <strong>%{user}</strong> por correo a <strong>%{users}</strong>'
       enrollment_info:
         html: '%{user} inscripto desde el %{date}'
       enrollment_types:

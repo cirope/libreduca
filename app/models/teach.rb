@@ -50,4 +50,8 @@ class Teach < ActiveRecord::Base
   def past?
     !self.next? && !self.current?
   end
+  
+  def enrollment_for(user)
+    self.enrollments.for_user(user).first
+  end
 end

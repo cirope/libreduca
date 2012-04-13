@@ -8,6 +8,9 @@ jQuery ($)->
   
   $('a.submit').click -> $('form').submit(); return false
   
+  $(document).on 'click', 'a[data-remote][data-loading-text]', ->
+    $(this).button('loading')
+  
   $(document).on 'focus keydown click', 'input[data-date-picker]', ->
     $(this).datepicker
       showOn: 'both',

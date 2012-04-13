@@ -93,6 +93,16 @@ class EnrollmentTest < ActiveSupport::TestCase
     assert_equal '84.00', '%.2f' % @enrollment.reload.score_average
   end
   
+  test 'self for user' do
+    Enrollment.for_user(@enrollment.user).map(&:id).tap do |enrollment_ids|
+      assert enrollment_ids.include?(@enrollment.id)
+    end
+    
+    Fabricate(:user).tap do |new_user|
+      assert Enrollment.for_user(new_user).map(&:id).exclude?(@enrollment.id)
+    end
+  end
+  
   test 'self in school' do
     Enrollment.in_school(@teach.school).map(&:id).tap do |enrollment_ids|
       assert enrollment_ids.include?(@enrollment.id)

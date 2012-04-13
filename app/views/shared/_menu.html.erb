@@ -16,7 +16,7 @@
           <%= content_tag(
             :li, link_to(t('menu.users'), users_path),
             class: ('active' if controller_name == 'users')
-          ) if can? :read, User %>
+          ) if can?(:read, User) && current_user.is?(:admin) %>
           <%= content_tag(
             :li, link_to(t('menu.regions'), regions_path),
             class: ('active' if controller_name == 'regions')

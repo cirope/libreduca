@@ -55,7 +55,7 @@ module DashboardHelper
         content_tag(
           :li, [
             content_tag(:strong, Score.human_attribute_name('whodunnit')),
-            User.find(score.originator)
+            (User.find(score.originator) rescue '-')
           ].join(' ').html_safe
         )
       ].join('').html_safe

@@ -22,6 +22,7 @@
 //= require mobile
 //= require courses
 //= require dashboard
+//= require enrollments
 //= require grades
 //= require regions
 //= require schools

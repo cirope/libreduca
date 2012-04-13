@@ -168,4 +168,34 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert all('input.multiplier').all? { |m| m.value == '30' }
     assert all('input.description').all? { |d| d.value == 'Test' }
   end
+  
+  test 'send enrollment email' do
+    login
+    
+    course = Fabricate(:course)
+    
+    user = Fabricate(:user).tap do |u|
+      Fabricate :job, job: 'student', user_id: u.id, school_id: course.school.id
+    end
+    
+    teach = Fabricate(:teach, course_id: course.id).tap do |t|
+      Fabricate :enrollment, teach_id: t.id, user_id: user.id, job: 'student'
+    end
+    
+    2.times { Fabricate(:score, user_id: user.id, teach_id: teach.id) }
+    
+    visit course_teach_path(course, teach)
+    
+      click_link '✉'
+    
+    wait_until { find('.modal').visible? }
+    
+    assert_difference 'ActionMailer::Base.deliveries.size' do
+      assert page.has_no_css?('.modal .alert-success')
+      
+      click_link I18n.t('label.send')
+      
+      assert page.has_css?('.modal .alert-success')
+    end
+  end
 end

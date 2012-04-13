@@ -23,11 +23,13 @@ class Ability
       enrollments: { user_id: user.id, job: 'teacher' }
     }
     
+    can :read, Enrollment, teach: enrollments_restricionts
     can :read, Teach, enrollments_restricionts
     can :update, Teach, enrollments_restricionts
     can :read, Course, teaches: enrollments_restricionts
     can :read, Grade, courses: { teaches: enrollments_restricionts }
     can :read, School, users: { id: user.id }
+    can :read, User, enrollments: { teach: enrollments_restricionts }
     
     # Janitors
     jobs_restricionts = {

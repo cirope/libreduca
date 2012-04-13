@@ -114,4 +114,15 @@ class TeachTest < ActiveSupport::TestCase
     assert !@teach.next?
     assert @teach.past?
   end
+  
+  test 'enrollment for' do
+    user = Fabricate(:user)
+    
+    enrollment = Fabricate(:enrollment, teach_id: @teach.id, user_id: user.id)
+    user_2 = Fabricate(:enrollment, teach_id: @teach.id).user
+    
+    assert_not_nil @teach.enrollment_for(user)
+    assert_equal enrollment.id, @teach.enrollment_for(user).id
+    assert_not_equal enrollment.id, @teach.enrollment_for(user_2).id
+  end
 end

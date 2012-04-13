@@ -52,7 +52,7 @@ module TeachesHelper
       sorted_scores = scores.sort { |s1, s2| s1.created_at <=> s2.created_at } +
         (max - scores.size).times.map { nil }
       
-      [User.find(user_id), sorted_scores]
+      [(User.find(user_id) rescue '-'), sorted_scores]
     end
     
     grouped_scores.sort do |user_scores1, user_scores2|
@@ -79,7 +79,7 @@ module TeachesHelper
           content_tag(
             :li, [
               content_tag(:strong, Score.human_attribute_name('whodunnit')),
-              User.find(score.originator)
+              (User.find(score.originator) rescue '-')
             ].join(' ').html_safe
           )
         ].join('').html_safe

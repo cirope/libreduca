@@ -43,6 +43,10 @@ class Enrollment < ActiveRecord::Base
     self.teach.scores.of_user(self.user)
   end
   
+  def self.for_user(user)
+    where("#{table_name}.user_id = ?", user.id)
+  end
+  
   def self.in_school(school)
     joins(:school).where("#{School.table_name}.id = ?", school.id)
   end
