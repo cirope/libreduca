@@ -46,6 +46,6 @@
   <%= link_to(
     t('view.teaches.new', default: :'label.new'),
     new_course_teach_path(@course), class: 'btn btn-primary'
-    ) if can? :create, Teach
+    ) if can? :create, @course.teaches.build
   %>
 </nav>

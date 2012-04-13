@@ -186,7 +186,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     visit course_teach_path(course, teach)
     
-      click_link '✉'
+    click_link '✉'
     
     wait_until { find('.modal').visible? }
     

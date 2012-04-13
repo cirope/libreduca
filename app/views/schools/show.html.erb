@@ -6,18 +6,18 @@
   </p>
   
   <% if @school.grades.empty? %>
-    <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini btn-inverse' if can? :create, Grade %>
+    <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini btn-inverse' if can? :create, @school.grades.build %>
   <% else %>
     <h3>
       <%= link_to_if can?(:read, Grade), Grade.model_name.human(count: @school.grades.size), school_grades_path(@school) %>
-      <% if can? :create, Grade %>
+      <% if can? :create, @school.grades.build %>
         <span class="divider">|</span>
         <%= link_to t('view.grades.new'), new_school_grade_path(@school), class: 'btn btn-mini' %>
       <% end %>
     </h3>
     
     <ul>
-      <% @school.grades.each do |grade| %>
+      <% @school.grades.reject!(&:new_record?).each do |grade| %>
         <li><%= link_to_if can?(:read, grade), grade.to_s, [@school, grade] %></li>
       <% end %>
     </ul>

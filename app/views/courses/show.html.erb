@@ -4,18 +4,18 @@
   <h2><%= @course %></h2>
   
   <% if @course.teaches.empty? %>
-    <%= link_to t('view.teaches.new'), new_course_teach_path(@course), class: 'btn btn-mini btn-inverse' if can? :create, Teach %>
+    <%= link_to t('view.teaches.new'), new_course_teach_path(@course), class: 'btn btn-mini btn-inverse' if can? :create, @course.teaches.build %>
   <% else %>
     <h3>
       <%= link_to_if can?(:read, Teach), Teach.model_name.human(count: @course.teaches.size), course_teaches_path(@course) %>
-      <% if can? :create, Teach %>
+      <% if can? :create, @course.teaches.build %>
         <span class="divider">|</span>
         <%= link_to t('view.teaches.new'), new_course_teach_path(@course), class: 'btn btn-mini' %>
       <% end %>
     </h3>
     
     <ul>
-      <% @course.teaches.each do |teach| %>
+      <% @course.teaches.reject!(&:new_record?).each do |teach| %>
         <li><%= link_to_if can?(:read, teach), teach.to_s, [@course, teach] %></li>
       <% end %>
     </ul>
