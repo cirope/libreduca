@@ -59,6 +59,9 @@ module Libreduca
     # Enable IdentityMap
     config.active_record.identity_map = true
     
+    # Defaul devise emails layout
+    config.to_prepare { Devise::Mailer.layout 'notifier_mailer' }
+    
     # Fabrication configuration
     config.generators do |g|
       g.test_framework :test_unit, fixture_replacement: :fabrication
