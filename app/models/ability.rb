@@ -24,8 +24,10 @@ class Ability
     }
     
     can :read, Enrollment, teach: enrollments_restricionts
+    can :send_email_summary, Enrollment, teach: enrollments_restricionts
     can :read, Teach, enrollments_restricionts
     can :update, Teach, enrollments_restricionts
+    can :send_email_summary, Teach, enrollments_restricionts
     can :read, Course, teaches: enrollments_restricionts
     can :read, Grade, courses: { teaches: enrollments_restricionts }
     can :read, School, users: { id: user.id }

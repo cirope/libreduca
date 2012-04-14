@@ -54,4 +54,10 @@ class Teach < ActiveRecord::Base
   def enrollment_for(user)
     self.enrollments.for_user(user).first
   end
+  
+  def send_email_summary
+    self.enrollments.each do |enrollment|
+      Notifier.enrollment_status(enrollment).deliver
+    end
+  end
 end

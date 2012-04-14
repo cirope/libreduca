@@ -247,13 +247,22 @@
       new: 'Nuevo dictado'
       new_enrollment: 'Agregar nueva inscripción'
       enter_scores: 'Cargar calificaciones'
+      send_email_summary:
+        html: '<span class="iconic">&#x2709;</span> Enviar calificaciones'
       between:
         html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
-      email_scores:
+      email_enrollment_scores:
         header:
           html: 'Enviar las calificaciones de %{user} por correo'
         body:
           html: 'Se enviarán las calificaciones de <strong>%{user}</strong> por correo a <strong>%{users}</strong>'
+      email_scores:
+        header:
+          html: 'Enviar las calificaciones de todos los alumnos por correo'
+        body:
+          html: 'Se enviarán las calificaciones de <strong>%{course}</strong> por correo a <strong>todos</strong> los alumnos y sus parientes'
+      email_summary_sent:
+        html: 'Se envió un correo con las calificaciones de <strong>todos</strong> los alumnos a ellos y a sus parientes'
       enrollment_info:
         html: '%{user} inscripto desde el %{date}'
       enrollment_types:

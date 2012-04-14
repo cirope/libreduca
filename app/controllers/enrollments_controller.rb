@@ -4,16 +4,13 @@ class EnrollmentsController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_resource :user
-  load_resource :enrollment, through: :user
+  load_and_authorize_resource :user
+  load_and_authorize_resource :enrollment, through: :user
   
   # POST /users/1/enrollments/1/send_email_summary
   # POST /users/1/enrollments/1/send_email_summary.json
   def send_email_summary
-    authorize! :read, @user
-    authorize! :read, @enrollment
-    
-    Notifier.enrollment_status(@enrollment).deliver
+    @enrollment.send_email_summary
     
     respond_to do |format|
       format.html # send_email_summary.html.erb

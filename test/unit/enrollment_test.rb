@@ -93,6 +93,15 @@ class EnrollmentTest < ActiveSupport::TestCase
     assert_equal '84.00', '%.2f' % @enrollment.reload.score_average
   end
   
+  test 'send email summary' do
+    enrollment = Fabricate(:enrollment)
+    Fabricate(:kinship, user_id: enrollment.user_id)
+    
+    assert_difference 'ActionMailer::Base.deliveries.size' do
+      @enrollment.send_email_summary
+    end
+  end
+  
   test 'self for user' do
     Enrollment.for_user(@enrollment.user).map(&:id).tap do |enrollment_ids|
       assert enrollment_ids.include?(@enrollment.id)

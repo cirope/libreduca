@@ -1,4 +1,6 @@
 class TeachesController < ApplicationController
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+  
   before_filter :authenticate_user!
   
   check_authorization
@@ -88,6 +90,17 @@ class TeachesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to course_teaches_url(@course) }
       format.json { head :no_content }
+    end
+  end
+  
+  # POST /teaches/1/send_email_summary
+  # POST /teaches/1/send_email_summary.json
+  def send_email_summary
+    @teach.send_email_summary
+    
+    respond_to do |format|
+      format.html # send_email_summary.html.erb
+      format.json { render json: @enrollment }
     end
   end
 end

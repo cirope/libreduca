@@ -42,7 +42,7 @@
           <tbody>
             <% grouped_scores.each do |user, scores| %>
               <%= content_for :modal_dialogs do %>
-                <%= render partial: 'email_score_dialog', locals: {
+                <%= render partial: 'email_enrollment_score_dialog', locals: {
                   user: user, enrollment: @teach.enrollment_for(user)
                 } %>
               <% end %>
@@ -51,7 +51,7 @@
                   <%= link_to(
                     '&#x2709;'.html_safe, "#email_modal_#{user.id}",
                     class: 'iconic', data: { toggle: 'modal' }
-                  ) %>
+                  ) if can? :send_email_summary, @teach.enrollment_for(user) %>
                   <%= user %>
                 </td>
                 <% scores.each do |score| %>
@@ -89,6 +89,7 @@
 
 <nav class="form-actions">
   <%= link_to t('label.edit'), edit_course_teach_path(@course, @teach), class: 'btn btn-primary' if can? :update, @teach %>
+  <%= link_to t('view.teaches.send_email_summary.html'), '#email_modal', class: 'btn', data: { toggle: 'modal' } if can? :send_email_summary, @teach %>
   <% if can? :read, Teach %>
     <div class="pull-right">
       <%= link_to t('label.list'), course_teaches_path(@course) %>
@@ -97,3 +98,6 @@
 </nav>
 
 <%= yield :modal_dialogs %>
+<%= render partial: 'email_teach_score_dialog', locals: {
+  teach: @teach, course: @course
+} %>

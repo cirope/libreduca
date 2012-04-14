@@ -125,4 +125,16 @@ class TeachTest < ActiveSupport::TestCase
     assert_equal enrollment.id, @teach.enrollment_for(user).id
     assert_not_equal enrollment.id, @teach.enrollment_for(user_2).id
   end
+  
+  test 'send email summary' do
+    2.times do
+      Fabricate(:enrollment, teach_id: @teach.id).tap do |enrollment|
+        Fabricate(:kinship, user_id: enrollment.user_id)
+      end
+    end
+    
+    assert_difference 'ActionMailer::Base.deliveries.size', 2 do
+      @teach.send_email_summary
+    end
+  end
 end

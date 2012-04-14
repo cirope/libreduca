@@ -189,8 +189,43 @@ class TeachesTest < ActionDispatch::IntegrationTest
     click_link '✉'
     
     wait_until { find('.modal').visible? }
+    sleep 0.5 # For you Néstor... =) There is a bug in capybara and animations
     
     assert_difference 'ActionMailer::Base.deliveries.size' do
+      assert page.has_no_css?('.modal .alert-success')
+      
+      click_link I18n.t('label.send')
+      
+      assert page.has_css?('.modal .alert-success')
+    end
+  end
+  
+  test 'send email summary' do
+    login
+    
+    course = Fabricate(:course)
+    teach = Fabricate(:teach, course_id: course.id)
+    
+    2.times do
+      Fabricate(:user).tap do |u|
+        Fabricate(
+          :job, job: 'student', user_id: u.id, school_id: course.school.id
+        )
+        
+        Fabricate :enrollment, teach_id: teach.id, user_id: u.id, job: 'student'
+        
+        2.times { Fabricate(:score, user_id: u.id, teach_id: teach.id) }
+      end
+    end
+    
+    visit course_teach_path(course, teach)
+    
+    find('a[href="#email_modal"]').click
+    
+    wait_until { find('.modal').visible? }
+    sleep 0.5 # For you Néstor... =) There is a bug in capybara and animations
+    
+    assert_difference 'ActionMailer::Base.deliveries.size', 2 do
       assert page.has_no_css?('.modal .alert-success')
       
       click_link I18n.t('label.send')

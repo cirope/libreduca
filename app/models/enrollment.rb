@@ -43,6 +43,10 @@ class Enrollment < ActiveRecord::Base
     self.teach.scores.of_user(self.user)
   end
   
+  def send_email_summary
+    Notifier.enrollment_status(self).deliver
+  end
+  
   def self.for_user(user)
     where("#{table_name}.user_id = ?", user.id)
   end

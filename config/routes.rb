@@ -1,7 +1,9 @@
 Libreduca::Application.routes.draw do
   constraints(AdminSubdomain) do
     resources :courses, only: [] do
-      resources :teaches
+      resources :teaches do
+        post :send_email_summary, on: :member, as: 'send_email_summary'
+      end
     end
 
     resources :grades, only: [] do
@@ -36,7 +38,9 @@ Libreduca::Application.routes.draw do
   
   constraints(SchoolSubdomain) do
     resources :courses, only: [] do
-      resources :teaches
+      resources :teaches do
+        post :send_email_summary, on: :member, as: 'send_email_summary'
+      end
     end
 
     resources :grades, only: [] do

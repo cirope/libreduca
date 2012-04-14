@@ -66,4 +66,18 @@ class TeachesControllerTest < ActionController::TestCase
 
     assert_redirected_to course_teaches_url(@course)
   end
+  
+  test 'should send email summary' do
+    Fabricate(:enrollment, teach_id: @teach.id).tap do |enrollment|
+      Fabricate(:kinship, user_id: enrollment.user_id)
+    end
+    
+    assert_difference 'ActionMailer::Base.deliveries.size' do
+      xhr :post, :send_email_summary, course_id: @course.to_param, id: @teach
+    end
+    
+    assert_response :success
+    assert_select '#unexpected_error', false
+    assert_template 'teaches/send_email_summary'
+  end
 end
