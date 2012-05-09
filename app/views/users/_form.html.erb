@@ -1,5 +1,7 @@
 <%= simple_form_for(@user) do |f| %>
   <div class="form-inputs">
+    <%= f.error_notification %>
+    
     <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
     <%= f.input :lastname, input_html: { maxlength: 255 } %>
     <%= f.input :email, required: true, input_html: { maxlength: 255 } %>

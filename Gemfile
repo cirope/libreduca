@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 
@@ -11,6 +11,7 @@ gem 'cancan'
 gem 'role_model'
 gem 'paper_trail'
 gem 'magick_columns'
+gem 'validates_timeliness'
 gem 'capistrano'
 
 group :assets do

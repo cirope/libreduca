@@ -16,5 +16,6 @@
 //= require jquery/jquery.ui.datepicker-es
 //= require twitter/bootstrap
 //= require common
+//= require date_pickers
 //= require mobile
 //= require users
