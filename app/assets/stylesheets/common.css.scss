@@ -7,6 +7,12 @@ footer.alert {
   right: 4em;
 }
 
+form {
+  .alert {
+    margin: 0px 20px;
+  }
+}
+
 html, body {
   background-color: #eee;
 }
@@ -59,7 +65,11 @@ html, body {
     padding-left: 20px;
   }
   
-  .readonly_data {
-    margin-left: 20px;
+  .readonly-data {
+    margin: 0px 20px;
   }
+}
+
+.ui-datepicker-trigger {
+  display: none;
 }
