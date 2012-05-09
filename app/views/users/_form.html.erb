@@ -3,6 +3,9 @@
     <%= raw "var job='#{generate_template(f, :jobs)}';" %>
     <%= raw "var kinship='#{generate_template(f, :kinships)}';" %>
   <% end %>
+
+  <%= f.error_notification %>
+
   <div class="row">
     <div class="span6">
       <div class="form-inputs">

@@ -1,4 +1,4 @@
-en:
+'es':
   simple_form:
     "yes": 'Si'
     "no": 'No'
@@ -9,16 +9,18 @@ en:
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: "Se encontraron algunos errores, por favor revise:"
+      default_message: 'Se encontraron algunos problemas, por favor revise los datos...'
     # Labels and hints examples
     # labels:
-    #   password: 'Password'
+    #   defaults:
+    #     password: 'Password'
     #   user:
     #     new:
-    #       email: 'E-mail para efetuar o sign in.'
+    #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'
     # hints:
-    #   username: 'User name to sign in.'
-    #   password: 'No special characters, please.'
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
 

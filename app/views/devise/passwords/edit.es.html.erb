@@ -1,13 +1,13 @@
 <div class="row">
-  <div class="public_form_container span6 offset3">
+  <div class="public_form_container span4 offset4">
     <h3>Cambio de contraseña</h3>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
       <div class="form-inputs">
         <%= f.input :reset_password_token, as: :hidden %>
 
-        <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true } %>
-        <%= f.input :password_confirmation, label: 'Confirmar contraseña' %>
+        <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true, class: 'span3' } %>
+        <%= f.input :password_confirmation, label: 'Confirmar contraseña', input_html: { class: 'span3' } %>
       </div>
 
       <div class="form-actions">

@@ -19,6 +19,7 @@
 //= require autocomplete
 //= require dynamic_form
 //= require effect_helper
+//= require date_pickers
 //= require mobile
 //= require courses
 //= require dashboard

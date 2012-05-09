@@ -11,12 +11,6 @@ jQuery ($)->
   $(document).on 'click', 'a[data-remote][data-loading-text]', ->
     $(this).button('loading')
   
-  $(document).on 'focus keydown click', 'input[data-date-picker]', ->
-    $(this).datepicker
-      showOn: 'both',
-      onSelect: -> $(this).datepicker('hide')
-    .removeAttr('data-date-picker').focus()
-  
   $('#loading_caption').bind
     ajaxStart: `function() { $(this).stop(true, true).fadeIn(100) }`
     ajaxStop: `function() { $(this).stop(true, true).fadeOut(100) }`

@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 
@@ -32,6 +32,6 @@ group :test do
   gem 'minitest', require: false
   gem 'capybara', require: false
   gem 'database_cleaner' # For Capybara
-  gem 'fabrication'
+  gem 'fabrication', '1.3.2' # Remove when https://github.com/paulelliott/fabrication/issues/100 gets resolved
   gem 'faker'
 end
