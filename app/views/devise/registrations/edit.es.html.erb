@@ -17,7 +17,7 @@
 
     <h3>Borrar mi cuenta</h3>
 
-    <p>¿Triste? <%= link_to 'Cancelar mi cuenta', registration_path(resource_name), confirm: '¿Está seguro?', method: :delete %>.</p>
+    <p>¿Triste? <%= link_to 'Cancelar mi cuenta', registration_path(resource_name), data: { confirm: '¿Está seguro?' }, method: :delete %>.</p>
 
     <%= link_to 'Volver', :back %>
   </div>

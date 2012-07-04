@@ -27,6 +27,7 @@
     passwords:
       send_instructions: 'Recibirá un email con instrucciones para cambiar su contraseña en pocos minutos.'
       updated: 'Su contraseña ha sido modificada. Ya ha accedido a su cuenta.'
+      updated_not_active: 'Su contraseña fue cambiada'
       send_paranoid_instructions: 'Si su email ya existe en nuestra base de datos, recibirá un enlace para recuperar su contraseña en su correo'
     confirmations:
       send_instructions: 'Recibirá un email con instrucciones para confirmar su cuenta en pocos minutos.'
@@ -38,12 +39,13 @@
       signed_up_but_inactive: 'Se ha registrado correctamente. Sin embargo, no está conectado todavía porque su cuenta no está activada.'
       signed_up_but_locked: 'Se ha registrado correctamente. Sin embargo, no está conectado todavía porque su cuenta está bloqueada.'
       updated: 'Ha actualizado su cuenta correctamente.'
+      update_needs_confirmation: 'Actualizaste tus datos, pero necesitamos verificar tu dirección de correo. Por favor revisá tu correo y hacé clic en el enlace para confirmarla'
       destroyed: '¡Hasta luego! Su cuenta ha sido cancelada. Esperamos verle pronto.'
     unlocks:
       send_instructions: 'Recibirá un email con instrucciones para desbloquear su cuenta en pocos minutos.'
       unlocked: 'Su cuenta ha sido desbloqueada. Ya ha accedido a su cuenta.'
       send_paranoid_instructions: 'Si su cuenta existe, recibirá un email con instrucciones para desbloquear su cuenta en pocos minutos.'
-    oauth_callbacks:
+    omniauth_callbacks:
       success: 'Ha sido autorizado satisfactoriamente en la cuenta %{kind}.'
       failure: 'No ha sido autorizado en la cuenta %{kind} porque "%{reason}".'
     mailer:

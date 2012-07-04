@@ -1,8 +1,8 @@
 Fabricator(:school) do
   name { Faker::Company.name }
-  identification do |school|
+  identification do |attrs|
     [
-      school.name.gsub(/[^a-z\d\-]/i, '').downcase,
+      attrs[:name].gsub(/[^a-z\d\-]/i, '').downcase,
       sequence(:school_identification)
     ].join
   end
