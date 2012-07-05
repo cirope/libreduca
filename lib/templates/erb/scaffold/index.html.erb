@@ -1,30 +1,40 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <%- attributes.each do |attribute| -%>
-      <th><%%= <%= singular_table_name.camelize %>.human_attribute_name '<%= attribute.name %>' %></th>
-      <%- end -%>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%% if @<%= plural_table_name %>.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <thead>
+          <tr>
+            <%- attributes.each do |attribute| -%>
+            <th><%%= <%= singular_table_name.camelize %>.human_attribute_name '<%= attribute.name %>' %></th>
+            <%- end -%>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-      <tr>
-        <%- attributes.each do |attribute| -%>
-        <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
-        <%- end -%>
-        <td><%%= link_to_show <%= singular_table_name %> %></td>
-        <td><%%= link_to_edit edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
-        <td><%%= link_to_destroy <%= singular_table_name %> %></td>
-      </tr>
-    <%% end %>
-  </tbody>
-</table>
+        <tbody>
+          <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+            <tr>
+              <%- attributes.each do |attribute| -%>
+              <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+              <%- end -%>
+              <td><%%= link_to_show <%= singular_table_name %> %></td>
+              <td><%%= link_to_edit edit_<%= singular_table_name %>_path(<%= singular_table_name %>), if can? :update, <%= singular_table_name %> %></td>
+              <td><%%= link_to_destroy <%= singular_table_name %> if can? :destroy, <%= singular_table_name %> %></td>
+            </tr>
+          <%% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-<%%= pagination_links(@<%= singular_table_name %>) %>
+  <%%= pagination_links(@<%= singular_table_name %>) %>
+<% end %>
 
 <div class="form-actions">
-  <%%= link_to t('label.new'), new_<%= singular_table_name %>_path, 
-    class: 'btn btn-primary' %>
+  <%%= link_to(
+    t('view.<%= singular_table_name %>.new', default: :'label.new'),
+    new_<%= singular_table_name %>_path, class: 'btn btn-primary'
+  ) if can? :create, <%= singular_table_name.camelize %> %>
 </div>
