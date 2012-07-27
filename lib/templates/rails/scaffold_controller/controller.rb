@@ -39,7 +39,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET <%= route_url %>/1/edit
   def edit
-    @title = t('view.<%= plural_table_name %>.new_title')
+    @title = t('view.<%= plural_table_name %>.edit_title')
     @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
   end
 

@@ -1,6 +1,6 @@
 <%% if @<%= plural_table_name %>.empty? %>
-  <%= render 'shared/empty_index' %>
-<% else %>
+  <%%= render 'shared/empty_index' %>
+<%% else %>
   <div class="row">
     <div class="span12">
       <table class="table resource-list">
@@ -30,11 +30,11 @@
   </div>
 
   <%%= pagination_links(@<%= singular_table_name %>) %>
-<% end %>
+<%% end %>
 
 <div class="form-actions">
   <%%= link_to(
-    t('view.<%= singular_table_name %>.new', default: :'label.new'),
+    t('view.<%= plural_table_name %>.new', default: :'label.new'),
     new_<%= singular_table_name %>_path, class: 'btn btn-primary'
   ) if can? :create, <%= singular_table_name.camelize %> %>
 </div>
