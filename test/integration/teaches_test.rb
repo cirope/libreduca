@@ -16,7 +16,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
       find('a.ui-state-default.ui-state-highlight').click
     end
     
-    wait_until { !find('.ui-datepicker-calendar').visible? }
+    wait_until { find('.ui-datepicker-calendar').visible? }
     
     find('#teach_finish').click
     
@@ -87,7 +87,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
   test 'should hide and mark for destruction an enrollment' do
     login
     
-    teach = Fabricate(:teach) { enrollments! count: 1 }
+    teach = Fabricate(:teach) { enrollments { [Fabricate(:enrollment)] } }
     
     visit edit_course_teach_path(teach.course, teach)
     

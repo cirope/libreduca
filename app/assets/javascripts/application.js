@@ -24,6 +24,7 @@
 //= require courses
 //= require dashboard
 //= require enrollments
+//= require forums
 //= require grades
 //= require regions
 //= require schools

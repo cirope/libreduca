@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def markdown(text)
+    MARKDOWN_RENDERER.render(text).html_safe
+  end
+
   def show_error_messages_for(model)
     render 'shared/error_messages', model: model unless model.errors.empty?
   end

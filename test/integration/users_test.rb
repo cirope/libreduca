@@ -150,7 +150,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   test 'should hide and mark for destruction a job' do
     login
     
-    user = Fabricate(:user) { jobs! count: 1 }
+    user = Fabricate(:user) { jobs { [Fabricate(:job)] } }
     
     visit edit_user_path(user)
     
@@ -170,7 +170,7 @@ class UsersTest < ActionDispatch::IntegrationTest
   test 'should hide and mark for destruction a kinship' do
     login
     
-    user = Fabricate(:user) { kinships! count: 1 }
+    user = Fabricate(:user) { kinships { [Fabricate(:kinship)] } }
     
     visit edit_user_path(user)
     

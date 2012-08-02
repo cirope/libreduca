@@ -13,6 +13,7 @@ gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie'
+gem 'redcarpet'
 gem 'capistrano'
 gem 'newrelic_rpm'
 

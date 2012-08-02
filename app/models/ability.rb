@@ -32,26 +32,32 @@ class Ability
     can :read, Grade, courses: { teaches: enrollments_restricionts }
     can :read, School, users: { id: user.id }
     can :read, User, enrollments: { teach: enrollments_restricionts }
+    can :read, Forum, owner: { users: { id: user.id } }
+    can :update, Forum, owner: {
+      workers: enrollments_restricionts[:enrollments]
+    }
     
     # Janitors
-    jobs_restricionts = {
+    jobs_restrictions = {
       school: { workers: { user_id: user.id, job: 'janitor' } }
     }
     
-    can :manage, Grade, jobs_restricionts
-    can :manage, Course, grade: jobs_restricionts
-    can :manage, Teach, course: { grade: jobs_restricionts }
+    can :manage, Grade, jobs_restrictions
+    can :manage, Course, grade: jobs_restrictions
+    can :manage, Teach, course: { grade: jobs_restrictions }
     can :read, School, workers: { user_id: user.id, job: 'janitor' }
+    can :manage, Forum, owner: jobs_restrictions[:school]
     
     # Headmasters
-    jobs_restricionts = {
+    jobs_restrictions = {
       school: { workers: { user_id: user.id, job: 'headmaster' } }
     }
     
-    can :read, Grade, jobs_restricionts
-    can :read, Course, grade: jobs_restricionts
-    can :read, Teach, course: { grade: jobs_restricionts }
+    can :read, Grade, jobs_restrictions
+    can :read, Course, grade: jobs_restrictions
+    can :read, Teach, course: { grade: jobs_restrictions }
     can :read, School, workers: { user_id: user.id, job: 'headmaster' }
+    can :manage, Forum, owner: jobs_restrictions[:school]
   end
   
   def default_rules

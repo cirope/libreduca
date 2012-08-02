@@ -30,6 +30,7 @@ class School < ActiveRecord::Base
   has_many :grades, dependent: :destroy
   has_many :courses, through: :grades
   has_many :teaches, through: :courses
+  has_many :forums, dependent: :destroy, as: :owner
   
   def to_s
     self.name

@@ -17,6 +17,9 @@
       enrollment:
         one: 'Inscripción'
         other: 'Inscripciones'
+      forum:
+        one: 'Foro'
+        other: 'Foros'
       grade:
         one: 'Grado'
         other: 'Grados'
@@ -48,6 +51,10 @@
       district:
         name: 'Nombre'
       enrollment:
+        user_id: 'Usuario'
+      forum:
+        name: 'Nombre'
+        topic: 'Tema'
         user_id: 'Usuario'
       grade:
         name: 'Nombre'
@@ -160,7 +167,7 @@
       empty_enrollments:
         html: 'No estás inscripto en cursos que se estén dictando actualmente'
       empty_grades:
-        html: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
+        html: 'No se ha creado ningún grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
       empty_scores:
         html: 'No hay notas cargadas para <strong>%{course}</strong>'
       greetings:
@@ -174,6 +181,23 @@
     enrollments:
       email_summary_sent:
         html: 'Se envió un correo con las calificaciones de <strong>%{user}</strong> a <strong>%{users}</strong>'
+    forums:
+      index_title: 'Listado de foros'
+      show_title: 'Detalle de foro'
+      new_title: 'Nuevo foro'
+      edit_title: 'Modificar foro'
+      correctly_created: 'Foro agregado correctamente.'
+      correctly_updated: 'Foro actualizado correctamente.'
+      stale_object_error: 'El foro no pudo ser actualizado, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ningún foro para %{owner} hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo foro</span>'
+      new: 'Nuevo foro'
+      created_by:
+        html: 'Creado hace %{distance_time} por <strong>%{user}</strong>'
+      from_owner:
+        html:
+          one: 'Foro de %{owner}'
+          other: 'Foros de %{owner}'
     grades:
       index_title: 'Listado de grados'
       show_title: 'Detalle de grado'
@@ -183,7 +207,7 @@
       correctly_updated: 'Grado actualizado correctamente.'
       stale_object_error: 'El grado no pudo ser actualizado, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ningun grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
+        html: 'No se ha creado ningún grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
       new: 'Nuevo grado'
       show_courses:
         one: 'Una asignatura'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120409220400) do
+ActiveRecord::Schema.define(:version => 20120801131414) do
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -45,6 +45,21 @@ ActiveRecord::Schema.define(:version => 20120409220400) do
 
   add_index "enrollments", ["teach_id"], :name => "index_enrollments_on_teach_id"
   add_index "enrollments", ["user_id"], :name => "index_enrollments_on_user_id"
+
+  create_table "forums", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.text     "topic",                       :null => false
+    t.integer  "user_id",                     :null => false
+    t.integer  "owner_id",                    :null => false
+    t.string   "owner_type",                  :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "forums", ["name"], :name => "index_forums_on_name"
+  add_index "forums", ["owner_id"], :name => "index_forums_on_owner_id"
+  add_index "forums", ["user_id"], :name => "index_forums_on_user_id"
 
   create_table "grades", :force => true do |t|
     t.string   "name",                        :null => false

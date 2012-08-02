@@ -1,0 +1,50 @@
+<% if @forums.empty? %>
+  <% @empty_index_options = { owner: @school } %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <caption>
+          <h4>
+            <%= t(
+              'view.forums.from_owner.html',
+              count: @forums.size,
+              owner: link_to(@school.to_s, @school)
+            ) %>
+          </h4>
+          <br />
+        </caption>
+        
+        <thead>
+          <tr>
+            <th><%= Forum.human_attribute_name 'name' %></th>
+            <th><%= Forum.human_attribute_name 'user_id' %></th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @forums.each do |forum| %>
+            <tr>
+              <td><%= forum.name %></td>
+              <td><%= forum.user %></td>
+              <td><%= link_to_show [forum.owner, forum] %></td>
+              <td><%= link_to_edit edit_polymorphic_path([forum.owner, forum]) if can? :update, forum %></td>
+              <td><%= link_to_destroy [forum.owner, forum] if can? :destroy, forum %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@forums) %>
+<% end %>
+
+<div class="form-actions">
+  <%= link_to(
+    t('view.forums.new', default: :'label.new'),
+    new_polymorphic_path([@school, Forum]), class: 'btn btn-primary'
+  ) if can? :create, Forum %>
+</div>

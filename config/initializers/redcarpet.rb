@@ -1,0 +1,4 @@
+MARKDOWN_RENDERER = Redcarpet::Markdown.new(
+  Redcarpet::Render::HTML.new(hard_wrap: true, filter_html: true),
+  autolink: true, space_after_headers: true
+)

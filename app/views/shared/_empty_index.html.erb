@@ -4,7 +4,9 @@
       <% if params[:q].blank? %>
         <%= t(
           "view.#{controller_name}.empty_index.html",
-          default: :'view.generic.empty_index.html'
+          { default: :'view.generic.empty_index.html' }.merge(
+            @empty_index_options || {}
+          )
         ) %>
       <% else %>
         <h4 class="alert-heading">

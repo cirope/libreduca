@@ -13,6 +13,8 @@ Libreduca::Application.routes.draw do
     resources :regions
 
     resources :schools do
+      resources :forums
+
       resources :grades
 
       resources :users, only: [] do
@@ -48,6 +50,8 @@ Libreduca::Application.routes.draw do
     end
 
     resources :schools do
+      resources :forums
+
       resources :grades
 
       resources :users, only: [] do

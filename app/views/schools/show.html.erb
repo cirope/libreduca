@@ -40,6 +40,26 @@
       <% end %>
     </ul>
   <% end %>
+
+  <hr />
+
+  <% if @school.forums.empty? %>
+    <%= link_to t('view.forums.new'), new_school_forum_path(@school), class: 'btn btn-mini btn-inverse' if can? :create, @school.forums.build %>
+  <% else %>
+    <h3>
+      <%= link_to_if can?(:read, Forum), Forum.model_name.human(count: @school.forums.size), school_forums_path(@school) %>
+      <% if can? :create, @school.forums.build %>
+        <span class="divider">|</span>
+        <%= link_to t('view.forums.new'), new_school_forum_path(@school), class: 'btn btn-mini' %>
+      <% end %>
+    </h3>
+
+    <ul>
+      <% @school.forums.reject!(&:new_record?).each do |forum| %>
+        <li><%= link_to_if can?(:read, forum), forum.to_s, [@school, forum] %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <nav class="form-actions">
