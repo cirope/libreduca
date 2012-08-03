@@ -4,6 +4,8 @@ class ForumsController < ApplicationController
   check_authorization
   load_and_authorize_resource :school
   load_and_authorize_resource :forum, through: :school
+
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
   
   # GET /forums
   # GET /forums.json
@@ -88,6 +90,23 @@ class ForumsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to school_forums_url(@school) }
       format.json { head :ok }
+    end
+  end
+
+  # POST /forums/1/comments
+  # POST /forums/1/comments.json
+  def comments
+    @comment = @forum.comments.build(params[:comment])
+    @comment.user = current_user
+
+    respond_to do |format|
+      if @comment.save
+        format.html { render partial: 'comment', locals: { comment: @comment } }
+        format.json { render json: @comment, status: :created, location: [@school, @forum] }
+      else
+        format.html { render partial: 'new_comment', locals: { comment: @comment } }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
     end
   end
 end

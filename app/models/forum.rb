@@ -18,6 +18,7 @@ class Forum < ActiveRecord::Base
   # Relations
   belongs_to :user
   belongs_to :owner, polymorphic: true
+  has_many :comments, dependent: :destroy
 
   def to_s
     self.name

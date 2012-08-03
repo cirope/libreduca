@@ -15,6 +15,13 @@
   <blockquote>
     <%= markdown @forum.topic %>
   </blockquote>
+
+  <hr />
+  <h3><%= Comment.model_name.human(count: @forum.comments.size) %></h3>
+
+  <%= render partial: 'comment', collection: @forum.comments %>
+
+  <%= render partial: 'new_comment', locals: { comment: @forum.comments.build } %>
 </div>
 
 <div class="form-actions">

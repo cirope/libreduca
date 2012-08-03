@@ -13,7 +13,9 @@ Libreduca::Application.routes.draw do
     resources :regions
 
     resources :schools do
-      resources :forums
+      resources :forums do
+        post :comments, on: :member
+      end
 
       resources :grades
 
@@ -50,7 +52,9 @@ Libreduca::Application.routes.draw do
     end
 
     resources :schools do
-      resources :forums
+      resources :forums do
+        post :comments, on: :member
+      end
 
       resources :grades
 

@@ -8,6 +8,9 @@
     
   activerecord:
     models:
+      comment:
+        one: 'Comentario'
+        other: 'Comentarios'
       course:
         one: 'Asignatura'
         other: 'Asignaturas'
@@ -46,6 +49,8 @@
         other: 'Usuarios'
       
     attributes:
+      comment:
+        comment: 'Comentario'
       course:
         name: 'Nombre'
       district:
@@ -192,6 +197,7 @@
       empty_index:
         html: 'No se ha creado ningún foro para %{owner} hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo foro</span>'
       new: 'Nuevo foro'
+      invalid_comment: 'El comentario no se agregó, contenía errores'
       created_by:
         html: 'Creado hace %{distance_time} por <strong>%{user}</strong>'
       from_owner:

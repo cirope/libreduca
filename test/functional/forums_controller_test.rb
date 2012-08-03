@@ -88,4 +88,29 @@ class ForumsControllerTest < ActionController::TestCase
 
     assert_redirected_to school_forums_url(@owner)
   end
+
+  test 'should create a comment' do
+    assert_difference(['@forum.comments.count', '@user.comments.count']) do
+      xhr :post, :comments, id: @forum, school_id: @owner.to_param,
+        comment: Fabricate.attributes_for(:comment).slice(
+          *Comment.accessible_attributes
+        )
+    end
+    
+    assert_response :success
+    assert_template 'forums/_comment'
+  end
+
+  test 'should not create a comment' do
+    assert_no_difference(['@forum.comments.count', '@user.comments.count']) do
+      xhr :post, :comments, id: @forum, school_id: @owner.to_param,
+        comment: Fabricate.attributes_for(:comment).slice(
+          *Comment.accessible_attributes
+        ).merge(comment: '')
+    end
+    
+    assert_response :success
+    assert_template 'forums/_new_comment'
+  end
+
 end

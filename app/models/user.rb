@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :dependents, through: :inverse_kinships, source: :user
   has_many :jobs, dependent: :destroy
   has_many :schools, through: :jobs
+  has_many :comments, dependent: :destroy
   
   accepts_nested_attributes_for :kinships, allow_destroy: true,
     reject_if: ->(attributes) {
