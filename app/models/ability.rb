@@ -32,11 +32,6 @@ class Ability
     can :read, Grade, courses: { teaches: enrollments_restricionts }
     can :read, School, users: { id: user.id }
     can :read, User, enrollments: { teach: enrollments_restricionts }
-    # TODO: Check this... fix the polymorphic hassle...
-    can :read, Forum, owner: { users: { id: user.id } }
-    can :update, Forum, owner: {
-      workers: enrollments_restricionts[:enrollments]
-    }
     
     # Janitors
     jobs_restrictions = {
@@ -47,8 +42,6 @@ class Ability
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :read, School, workers: { user_id: user.id, job: 'janitor' }
-    # TODO: Check this... fix the polymorphic hassle...
-    can :manage, Forum, owner: jobs_restrictions[:school]
     
     # Headmasters
     jobs_restrictions = {
@@ -59,12 +52,12 @@ class Ability
     can :read, Course, grade: jobs_restrictions
     can :read, Teach, course: { grade: jobs_restrictions }
     can :read, School, workers: { user_id: user.id, job: 'headmaster' }
-    # TODO: Check this... fix the polymorphic hassle...
-    can :manage, Forum, owner: jobs_restrictions[:school]
   end
   
   def default_rules
     can :edit_profile, User
     can :update_profile, User
+    can :manage, Forum
+    can :manage, Comment
   end
 end
