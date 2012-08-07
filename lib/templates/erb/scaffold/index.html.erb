@@ -20,7 +20,7 @@
               <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
               <%- end -%>
               <td><%%= link_to_show <%= singular_table_name %> %></td>
-              <td><%%= link_to_edit edit_<%= singular_table_name %>_path(<%= singular_table_name %>), if can? :update, <%= singular_table_name %> %></td>
+              <td><%%= link_to_edit edit_<%= singular_table_name %>_path(<%= singular_table_name %>) if can? :update, <%= singular_table_name %> %></td>
               <td><%%= link_to_destroy <%= singular_table_name %> if can? :destroy, <%= singular_table_name %> %></td>
             </tr>
           <%% end %>
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <%%= pagination_links(@<%= singular_table_name %>) %>
+  <%%= pagination_links(@<%= plural_table_name %>) %>
 <%% end %>
 
 <div class="form-actions">
