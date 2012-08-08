@@ -46,5 +46,5 @@
   <%= link_to(
     t('view.forums.new', default: :'label.new'),
     new_polymorphic_path([@school, Forum]), class: 'btn btn-primary'
-  ) if can? :create, Forum %>
+  ) if can? :create, @school.forums.build %>
 </div>

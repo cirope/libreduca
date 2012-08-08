@@ -120,7 +120,9 @@ class TeachesTest < ActionDispatch::IntegrationTest
     end
     
     visit edit_course_teach_path(course, teach)
-    
+
+    click_link I18n.t('view.teaches.enter_scores')
+
     assert page.has_css?('.score')
     
     within '.score' do
@@ -161,6 +163,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
     end
     
     visit edit_course_teach_path(course, teach)
+
+    click_link I18n.t('view.teaches.enter_scores')
     
     fill_in 'global_multiplier', with: '30'
     fill_in 'global_description', with: 'Test'

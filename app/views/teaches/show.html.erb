@@ -14,6 +14,12 @@
   <ul class="nav nav-tabs">
     <li class="active">
       <%= link_to(
+        Teach.human_attribute_name('contents', count: 0),
+        '#contents_container', data: { toggle: 'tab' }
+      ) %>
+    </li>
+    <li>
+      <%= link_to(
         Teach.human_attribute_name('scores', count: 0),
         '#scores_container', data: { toggle: 'tab' }
       ) %>
@@ -27,7 +33,22 @@
   </ul>
   
   <div class="tab-content">
-    <div id="scores_container" class="tab-pane active">
+    <div id="contents_container" class="tab-pane active">
+      <% if @teach.contents.empty?  %>
+        <div class="alert"><%= t('view.teaches.without_contents.html') %></div>
+      <% else %>
+        <ul>
+          <% @teach.contents.each do |content| %>
+            <li>
+              <%= link_to_if(
+                can?(:read, content), content, [@teach, content]
+              ) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+    <div id="scores_container" class="tab-pane">
       <% if @teach.scores.empty? %>
         <div class="alert"><%= t('view.teaches.without_scores.html') %></div>
       <% else %>

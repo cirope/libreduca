@@ -8,7 +8,15 @@
     <%= f.input :finish, as: :date_picker %>
     
     <ul class="nav nav-tabs">
-      <li class="<%= @teach.new_record? ? '' : 'active' %>">
+      <% unless @teach.new_record? %>
+        <li class="active">
+          <%= link_to(
+            Teach.human_attribute_name('contents', count: 0),
+            '#contents_container', data: { toggle: 'tab' }
+          ) %>
+        </li>
+      <% end %>
+      <li>
         <%= link_to(
           t('view.teaches.enter_scores'),
           '#scores_container', data: { toggle: 'tab' }
@@ -23,7 +31,27 @@
     </ul>
     
     <div class="tab-content">
-      <div id="scores_container" class="tab-pane <%= @teach.new_record? ? '' : 'active' %>">
+      <% unless @teach.new_record? %>
+        <div id="contents_container" class="tab-pane active">
+          <% unless @teach.contents.empty? %>
+            <ul>
+              <% @teach.contents.each do |content| %>
+                <li>
+                  <%= link_to_if(
+                    can?(:read, content), content, [@teach, content]
+                  ) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <%= link_to(
+            t('view.teaches.new_content'), new_teach_content_path(@teach),
+            class: 'btn btn-small'
+          ) if can? :create, @teach.contents.build%>
+        </div>
+      <% end %>
+      <div id="scores_container" class="tab-pane">
         <% if @teach.enrollments.empty? %>
           <div class="alert"><%= t('view.teaches.without_entollments_in_edit.html') %></div>
         <% else %>

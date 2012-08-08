@@ -8,15 +8,8 @@
   <title><%= [t('app_name'), @title].compact.join(' | ') %></title>
   <meta name="viewport" content="width=device-width" />
   <%= stylesheet_link_tag 'application' %>
-  <%= javascript_include_tag 'application' %>
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <%= csrf_meta_tags %>
   <%= favicon_link_tag %>
-  <%= javascript_tag do %>
-    <%= yield :js_extra %>
-  <% end %>
 </head>
 <body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged_in"' if user_signed_in? %>>
   <%= render 'shared/menu' %>
@@ -29,5 +22,10 @@
   
   <%= render 'shared/notice' if flash.notice %>
   <%= render 'shared/alert' if flash.alert %>
+  <%= javascript_include_tag 'application' %>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= javascript_tag { yield :js_extra } %>
 </body>
 </html>

@@ -1,0 +1,8 @@
+<div class="readonly-data">
+  <h2><%= @content %></h2>
+</div>
+
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_teach_content_path(@teach, @content) if can? :update, @content %> |
+  <%= link_to t('label.list'), teach_contents_path(@teach) %>
+</div>
