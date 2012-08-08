@@ -1,4 +1,4 @@
-=== Libreduca
+= Libreduca
 
 Web gradebook for share notes, grades and comments between an education
 community
@@ -7,7 +7,7 @@ community
   
 == Dependency Status {<img src="https://gemnasium.com/francocatena/libreduca.png?travis"/>}[https://gemnasium.com/francocatena/libreduca]
 
-=== (The MIT License)
+== (The MIT License)
 
 Copyright (c) 2012 Franco Catena, Raúl Moralejo
 
