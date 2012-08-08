@@ -1,11 +1,15 @@
-=== X0Y0
+= X0Y0
 
 Skeleton project, empty but with all the stuff I need to begin with =)
 
 All you have to do for start using it is change all the X0Y0 (and x0y0) strings
 with the name of your application...
 
-=== (The MIT License)
+== Build Status {<img src="https://secure.travis-ci.org/francocatena/x0y0.png"/>}[http://travis-ci.org/francocatena/x0y0]
+
+== Dependency Status {<img src="https://gemnasium.com/francocatena/x0y0.png?travis"/>}[https://gemnasium.com/francocatena/x0y0]
+
+== (The MIT License)
 
 Copyright (c) 2012 Franco Catena
 

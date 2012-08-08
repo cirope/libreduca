@@ -24,6 +24,8 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_page_has_no_errors!
     
     click_link '¿Olvidaste tu contraseña?'
+
+    sleep 0.5
     
     assert_equal new_user_password_path, current_path
     assert_page_has_no_errors!

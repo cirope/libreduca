@@ -43,8 +43,8 @@ test:
   encoding: unicode
   database: x0y0_test
   pool: 5
-  username: x0y0
-  password: x0y0
+  username: <%= ENV['TRAVIS'] ? 'postgres' : 'x0y0' %>
+  password: <%= ENV['TRAVIS'] ? '' : 'x0y0' %>
 
 production:
   adapter: postgresql
