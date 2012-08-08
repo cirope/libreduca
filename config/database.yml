@@ -43,8 +43,8 @@ test:
   encoding: unicode
   database: libreduca_test
   pool: 5
-  username: libreduca
-  password: libreduca
+  username: <%= ENV['TRAVIS'] ? 'postgres' : 'libreduca' %>
+  password: <%= ENV['TRAVIS'] ? '' : 'libreduca' %>
 
 production:
   adapter: postgresql
@@ -53,8 +53,3 @@ production:
   pool: 5
   username: libreduca
   password: libreduca
-
-postgres:
-  adapter: postgresql
-  database: libreduca_test
-  username: postgres
