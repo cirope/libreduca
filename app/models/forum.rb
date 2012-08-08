@@ -4,7 +4,7 @@ class Forum < ActiveRecord::Base
   has_magick_columns name: :string
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :topic, :lock_version
+  attr_accessible :name, :topic, :info, :lock_version
   # Attributes only writables in creation
   attr_readonly :user_id
   

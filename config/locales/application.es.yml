@@ -54,6 +54,7 @@
     attributes:
       comment:
         comment: 'Comentario'
+        info: 'Información adicional'
       course:
         name: 'Nombre'
       content:
@@ -65,6 +66,7 @@
       forum:
         name: 'Nombre'
         topic: 'Tema'
+        info: 'Información adicional'
         user_id: 'Usuario'
       grade:
         name: 'Nombre'

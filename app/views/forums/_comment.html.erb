@@ -7,5 +7,9 @@
       user: comment.user.to_s,
       distance_time: distance_of_time_in_words_to_now(comment.created_at)
     ) %>
+
+    <% if comment.info.present? %>
+      | <%= comment.info %>
+    <% end %>
   </small>
 </blockquote>

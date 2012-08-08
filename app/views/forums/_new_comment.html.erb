@@ -1,5 +1,8 @@
 <%= simple_form_for comment, url: comments_school_forum_path(@school, @forum, comment, format: :html), remote: true do |f| %>
-  <%= f.input :comment, label: false, input_html: { rows: 5, class: 'span11' } %>
+  <%= f.input :comment, label: false, input_html: {
+    rows: 5, class: 'span11',
+    placeholder: Comment.human_attribute_name('comment')
+  } %>
 
   <%= f.button :submit %>
 <% end %>

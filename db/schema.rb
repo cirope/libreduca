@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807172323) do
+ActiveRecord::Schema.define(:version => 20120808183803) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment",                     :null => false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20120807172323) do
     t.integer  "lock_version", :default => 0, :null => false
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.text     "info"
   end
 
   add_index "comments", ["forum_id"], :name => "index_comments_on_forum_id"
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20120807172323) do
     t.integer  "lock_version", :default => 0, :null => false
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.text     "info"
   end
 
   add_index "forums", ["name"], :name => "index_forums_on_name"
