@@ -53,3 +53,8 @@ production:
   pool: 5
   username: libreduca
   password: libreduca
+
+postgres:
+  adapter: postgresql
+  database: libreduca_test
+  username: postgres
