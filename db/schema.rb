@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20120808183803) do
 
   create_table "contents", :force => true do |t|
     t.string   "title",                       :null => false
+    t.text     "content"
     t.integer  "teach_id",                    :null => false
     t.integer  "lock_version", :default => 0, :null => false
     t.datetime "created_at",                  :null => false

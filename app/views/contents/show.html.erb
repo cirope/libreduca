@@ -1,8 +1,19 @@
+<%= render 'breadcrumb' %>
+
 <div class="readonly-data">
-  <h2><%= @content %></h2>
+  <div class="page-header">
+    <h1><%= @content %></h1>
+  </div>
+
+  <%= markdown @content.content if @content.content.present? %>
 </div>
 
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_teach_content_path(@teach, @content) if can? :update, @content %> |
-  <%= link_to t('label.list'), teach_contents_path(@teach) %>
+  <%= link_to t('label.edit'), edit_teach_content_path(@teach, @content), class: 'btn btn-primary' if can? :update, @content %>
+
+  <% if can? :read, Content %>
+    <div class="pull-right">
+      <%= link_to t('label.list'), teach_contents_path(@teach) %>
+    </div>
+  <% end %>
 </div>

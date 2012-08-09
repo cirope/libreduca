@@ -4,6 +4,16 @@
   <div class="row">
     <div class="span12">
       <table class="table resource-list">
+        <caption>
+          <h4>
+            <%= t(
+              'view.contents.from_teach.html',
+              count: @teach.contents.count,
+              teach: link_to(@teach.to_s, [@teach.course, @teach])
+            ) %></h4>
+          <br />
+        </caption>
+
         <thead>
           <tr>
             <th><%= Content.human_attribute_name 'title' %></th>

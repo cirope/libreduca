@@ -55,10 +55,11 @@
       comment:
         comment: 'Comentario'
         info: 'Información adicional'
-      course:
-        name: 'Nombre'
       content:
         title: 'Título'
+        content: 'Contenido'
+      course:
+        name: 'Nombre'
       district:
         name: 'Nombre'
       enrollment:
@@ -170,9 +171,13 @@
       correctly_created: 'Contenido agregado correctamente.'
       correctly_updated: 'Contenido actualizado correctamente.'
       stale_object_error: 'El contenido no pudo ser actualizado, intente nuevamente.'
+      new: 'Nuevo contenido'
       empty_index:
         html: 'No se ha creado ningún contenido para este dictado, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo contenido</span>'
-      new: 'Nuevo contenido'
+      from_teach:
+        html:
+          one: 'Contenido de %{teach}'
+          other: 'Contenidos de %{teach}'
     courses:
       index_title: 'Listado de asignaturas'
       show_title: 'Detalle de asignatura'
