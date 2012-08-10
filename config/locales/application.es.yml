@@ -178,6 +178,7 @@
       correctly_updated: 'Contenido actualizado correctamente.'
       stale_object_error: 'El contenido no pudo ser actualizado, intente nuevamente.'
       new: 'Nuevo contenido'
+      new_document: 'Agregar documento'
       empty_index:
         html: 'No se ha creado ningún contenido para este dictado, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo contenido</span>'
       from_teach:

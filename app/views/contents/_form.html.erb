@@ -1,22 +1,30 @@
 <%= simple_form_for([@teach, @content], defaults: { input_html: { class: 'span11' } }) do |f| %>
+  <%= content_for :js_extra do %>
+    <%= raw "var doc='#{generate_template(f, :documents)}';" %>
+  <% end %>
+
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :title, input_html: { autofocus: true } %>
     <%= f.input :content, input_html: { rows: 10 } %>
-    
-    <% document = @content.documents.detect(&:new_record?) || @content.documents.build %>
-    <%= f.simple_fields_for :documents, document do |df| %>
-      <div class="row-fluid">
-        <div class="span6">
-          <%= df.input :name %>
-        </div>
-        <div class="span6">
-          <%= df.input :file, hint: document_file_identifier(df.object) %>
-          <%= df.input :file_cache, as: :hidden %>
-        </div>
-      </div>
-    <% end %>
+
+    <div id="documents">
+      <%  @content.documents.build unless @content.documents.detect(&:new_record?) %>
+      <%= f.simple_fields_for :documents do |df| %>
+        <%= render partial: 'document', locals: { f: df } %>
+      <% end %>
+    </div>
+
+    <div class="pull-left">
+      <%= link_to t('view.contents.new_document'), '#',
+        data: {
+          'dynamic-form-event' => 'addNestedItem',
+          'dynamic-template' => 'doc',
+          'dynamic-container' => '#documents',
+          'show-tooltip' => true
+        }, class: 'btn btn-small', title: t('view.contents.new_document') %>
+    </div>
   </div>
 
   <div class="form-actions">

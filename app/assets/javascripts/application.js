@@ -21,6 +21,7 @@
 //= require effect_helper
 //= require date_pickers
 //= require mobile
+//= require contents
 //= require courses
 //= require dashboard
 //= require enrollments

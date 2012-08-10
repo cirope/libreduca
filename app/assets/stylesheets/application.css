@@ -17,6 +17,7 @@
  *= require common
  *= require common-responsive
  *= require devise
+ *= require contents
  *= require courses
  *= require dashboard
  *= require enrollments

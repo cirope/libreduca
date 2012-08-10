@@ -1,0 +1,16 @@
+<% id = dynamic_object_id('document', f) %>
+<div class="row-fluid document">
+  <div class="span5">
+    <%= f.input :name, input_html: { autofocus: true, class: 'span11' } %>
+  </div>
+  <div class="span5">
+    <%= f.input :file, hint: document_file_identifier(f.object),
+      input_html: { class: 'span11' } %>
+    <%= f.input :file_cache, as: :hidden %>
+  </div>
+  <div class="span2 nested-actions">
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= link_to_remove_nested_item(f) %>
+  </div>
+</div>

@@ -91,7 +91,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should create a comment' do
     assert_difference(['@forum.comments.count', '@user.comments.count']) do
-      xhr :post, :comments, id: @forum, school_id: @owner.to_param,
+      xhr :post, :create_comment, id: @forum, school_id: @owner.to_param,
         comment: Fabricate.attributes_for(:comment).slice(
           *Comment.accessible_attributes
         )
@@ -103,7 +103,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should not create a comment' do
     assert_no_difference(['@forum.comments.count', '@user.comments.count']) do
-      xhr :post, :comments, id: @forum, school_id: @owner.to_param,
+      xhr :post, :create_comment, id: @forum, school_id: @owner.to_param,
         comment: Fabricate.attributes_for(:comment).slice(
           *Comment.accessible_attributes
         ).merge(comment: '')
@@ -113,4 +113,15 @@ class ForumsControllerTest < ActionController::TestCase
     assert_template 'forums/_new_comment'
   end
 
+  test 'should get comments' do
+    3.times { Fabricate(:comment, forum_id: @forum.id) }
+
+    get :comments, id: @forum, school_id: @owner.to_param, format: :json
+
+    assert_response :success
+    comments = ActiveSupport::JSON.decode(@response.body)
+
+    assert_equal 3, comments.size
+    assert comments.all? { |c| c['forum_id'].to_i == @forum.id }
+  end
 end

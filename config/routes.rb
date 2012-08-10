@@ -18,7 +18,10 @@ Libreduca::Application.routes.draw do
 
     resources :schools do
       resources :forums do
-        post :comments, on: :member
+        member do
+          get :comments
+          post :comments, action: 'create_comment'
+        end
       end
 
       resources :grades
@@ -64,7 +67,10 @@ Libreduca::Application.routes.draw do
 
     resources :schools do
       resources :forums do
-        post :comments, on: :member
+        member do
+          get :comments
+          post :comments, action: 'create_comment'
+        end
       end
 
       resources :grades

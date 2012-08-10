@@ -93,9 +93,19 @@ class ForumsController < ApplicationController
     end
   end
 
+  # GET /forums/1/comments
+  # GET /forums/1/comments.json
+  def comments
+    @comments = @forum.comments
+
+    respond_to do |format|
+      format.json { render json: @comments }
+    end
+  end
+
   # POST /forums/1/comments
   # POST /forums/1/comments.json
-  def comments
+  def create_comment
     @comment = @forum.comments.build(params[:comment])
     @comment.user = current_user
 
