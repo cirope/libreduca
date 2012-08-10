@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TeachTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @teach = Fabricate(:teach)
   end
   

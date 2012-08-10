@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ContentTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @content = Fabricate(:content)
     @teach = @content.teach
   end

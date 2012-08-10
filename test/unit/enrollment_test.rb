@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EnrollmentTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @enrollment = Fabricate(:enrollment)
     @teach = @enrollment.teach
   end

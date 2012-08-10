@@ -20,6 +20,9 @@
       district:
         one: 'Distrito'
         other: 'Distritos'
+      document:
+        one: 'Documento'
+        other: 'Documentos'
       enrollment:
         one: 'Inscripción'
         other: 'Inscripciones'
@@ -62,6 +65,9 @@
         name: 'Nombre'
       district:
         name: 'Nombre'
+      document:
+        name: 'Nombre'
+        file: 'Archivo'
       enrollment:
         user_id: 'Usuario'
       forum:
@@ -209,6 +215,8 @@
         edit_grade: 'Editar grado'
       teacher:
         edit_teach: 'Cargar notas'
+    documents:
+      non_existent: 'Archivo inexistente'
     enrollments:
       email_summary_sent:
         html: 'Se envió un correo con las calificaciones de <strong>%{user}</strong> a <strong>%{users}</strong>'

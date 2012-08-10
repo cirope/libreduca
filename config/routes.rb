@@ -41,6 +41,9 @@ Libreduca::Application.routes.draw do
       end
     end
 
+    match 'private/:path', to: 'files#download',
+      constraints: { path: /.+/ }, via: :get
+
     root to: 'schools#index'
   end
   
@@ -90,6 +93,9 @@ Libreduca::Application.routes.draw do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end
     end
+
+    match 'private/:path', to: 'files#download',
+      constraints: { path: /.+/ }, via: :get
     
     root to: 'dashboard#index'
   end

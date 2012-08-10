@@ -4,6 +4,7 @@
 /config/app_config.yml
 /doc/
 /log/
-/nbproject/private/
+/private/
 /public/assets/
 /tmp/
+/uploads/

@@ -6,6 +6,19 @@
   </div>
 
   <%= markdown @content.content if @content.content.present? %>
+
+  <% unless @content.documents.empty? %>
+    <h3><%= Document.model_name.human(count: @content.documents.size) %></h3>
+
+    <ul>
+      <% @content.documents.each do |document| %>
+        <li>
+          <%= link_to_if can?(:read, document), document, document.file_url %>
+          (<%= number_to_human_size document.file_size %>)
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <div class="form-actions">

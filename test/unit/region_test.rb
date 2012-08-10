@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RegionTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @region = Fabricate(:region)
   end
   

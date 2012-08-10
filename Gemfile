@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.8'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -14,6 +14,7 @@ gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie'
 gem 'redcarpet'
+gem 'carrierwave'
 gem 'capistrano'
 gem 'newrelic_rpm'
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @job = Fabricate(:job)
   end
   

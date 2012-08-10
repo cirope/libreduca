@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DistrictTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @district = Fabricate(:district)
   end
   

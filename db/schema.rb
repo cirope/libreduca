@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808183803) do
+ActiveRecord::Schema.define(:version => 20120809141711) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment",                     :null => false
@@ -58,6 +58,21 @@ ActiveRecord::Schema.define(:version => 20120808183803) do
   add_index "districts", ["name"], :name => "index_districts_on_name"
   add_index "districts", ["region_id"], :name => "index_districts_on_region_id"
 
+  create_table "documents", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.string   "file",                        :null => false
+    t.string   "content_type",                :null => false
+    t.string   "file_size",                   :null => false
+    t.integer  "owner_id",                    :null => false
+    t.string   "owner_type",                  :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "documents", ["created_at"], :name => "index_documents_on_created_at"
+  add_index "documents", ["owner_id", "owner_type"], :name => "index_documents_on_owner_id_and_owner_type"
+
   create_table "enrollments", :force => true do |t|
     t.integer  "teach_id",                    :null => false
     t.integer  "user_id",                     :null => false
@@ -83,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20120808183803) do
   end
 
   add_index "forums", ["name"], :name => "index_forums_on_name"
-  add_index "forums", ["owner_id"], :name => "index_forums_on_owner_id"
+  add_index "forums", ["owner_id", "owner_type"], :name => "index_forums_on_owner_id_and_owner_type"
   add_index "forums", ["user_id"], :name => "index_forums_on_user_id"
 
   create_table "grades", :force => true do |t|

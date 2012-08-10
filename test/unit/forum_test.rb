@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ForumTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @forum = Fabricate(:forum)
     @owner = @forum.owner
   end

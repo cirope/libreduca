@@ -43,10 +43,18 @@ class ContentsControllerTest < ActionController::TestCase
 
   test 'should create content' do
     assert_difference('Content.count') do
-      post :create, teach_id: @teach.to_param,
-        content: Fabricate.attributes_for(:content).slice(
-          *Content.accessible_attributes
-        )
+      assert_difference 'Document.count', 2 do
+        post :create, teach_id: @teach.to_param,
+          content: Fabricate.attributes_for(:content).slice(
+            *Content.accessible_attributes
+          ).merge(
+            documents_attributes: 2.times.map {
+              Fabricate.attributes_for(
+                :document, owner_id: nil, owner_type: nil
+              ).slice(*Document.accessible_attributes)
+            }
+          )
+      end
     end
 
     assert_redirected_to teach_content_url(@teach, assigns(:content))

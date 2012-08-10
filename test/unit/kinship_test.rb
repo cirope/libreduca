@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class KinshipTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @kinship = Fabricate(:kinship)
   end
   

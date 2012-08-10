@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ApplicationControllerTest < ActionController::TestCase
-  def setup
+  setup do
     @controller.send :reset_session
     @controller.send 'response=', @response
     @controller.send 'request=', @request

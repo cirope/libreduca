@@ -12,6 +12,6 @@ class CreateForums < ActiveRecord::Migration
 
     add_index :forums, :name
     add_index :forums, :user_id
-    add_index :forums, :owner_id
+    add_index :forums, [:owner_id, :owner_type]
   end
 end

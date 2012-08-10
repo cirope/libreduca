@@ -4,7 +4,7 @@ class Content < ActiveRecord::Base
   has_magick_columns title: :string
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :title, :content, :lock_version
+  attr_accessible :title, :content, :documents_attributes, :lock_version
 
   # Default order
   default_scope order("#{table_name}.title ASC")
@@ -15,6 +15,13 @@ class Content < ActiveRecord::Base
 
   # Relations
   belongs_to :teach
+  has_many :documents, as: :owner, dependent: :destroy
+  has_one :school, through: :teach
+
+  accepts_nested_attributes_for :documents, allow_destroy: true,
+    reject_if: ->(attrs) {
+      ['file', 'file_cache', 'name'].all? { |a| attrs[a].blank? }
+    }
 
   def to_s
     self.title

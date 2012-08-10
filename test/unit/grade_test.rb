@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class GradeTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @grade = Fabricate(:grade)
     @school = @grade.school
   end

@@ -30,6 +30,7 @@ class Ability
     can :manage, Comment
     can :read, Teach, enrollments: { user_id: user.id }
     can :read, Content
+    can :read, Document
   end
 
   def teacher_rules(user)

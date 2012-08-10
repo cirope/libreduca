@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @comment = Fabricate(:comment)
     @forum = @comment.forum
     @user = @comment.user
