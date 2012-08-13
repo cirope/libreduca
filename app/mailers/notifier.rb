@@ -20,11 +20,22 @@ class Notifier < ActionMailer::Base
 
   def new_forum(forum)
     @forum = forum
-    @users = forum.users
+    users = @forum.users
 
     mail(
       subject: t('notifier.new_forum.subject', forum: @forum),
-      bcc: @users.map(&:email)
+      bcc: users.map(&:email)
+    )
+  end
+
+  def new_comment(comment)
+    @comment = comment
+    @forum = @comment.forum
+    users = @forum.users
+
+    mail(
+      subject: t('notifier.new_comment.subject', forum: @forum),
+      bcc: users.map(&:email)
     )
   end
 end

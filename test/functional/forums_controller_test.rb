@@ -90,7 +90,12 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test 'should create a comment' do
-    assert_difference(['@forum.comments.count', '@user.comments.count']) do
+    counts = [
+      '@forum.comments.count', '@user.comments.count',
+      'ActionMailer::Base.deliveries.size'
+    ]
+
+    assert_difference counts do
       xhr :post, :create_comment, id: @forum, institution_id: @owner.to_param,
         comment: Fabricate.attributes_for(:comment).slice(
           *Comment.accessible_attributes

@@ -17,4 +17,8 @@ class Comment < ActiveRecord::Base
   def to_s
     self.comment
   end
+
+  def anchor
+    "comment-#{self.id}"
+  end
 end

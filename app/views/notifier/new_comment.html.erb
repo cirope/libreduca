@@ -1,0 +1,16 @@
+<h2>
+  <%= t('notifier.new_comment.greeting.html', forum: @forum) %>
+</h2>
+
+<p><%= t('notifier.new_comment.user_say.html', user: @comment.user) %></p>
+
+<blockquote>
+  <%= markdown @comment.comment %>
+</blockquote>
+
+<p>
+  <%= link_to(
+    t('notifier.new_comment.view'),
+    polymorphic_url([@forum.owner, @forum], anchor: @comment.anchor)
+  ) %>
+</p>

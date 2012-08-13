@@ -1,0 +1,11 @@
+<%= t('notifier.new_comment.greeting.text', forum: @forum) %>
+================================================================================
+
+<%= t('notifier.new_comment.user_say.text', user: @comment.user) %>
+--------------------------------------------------------------------------------
+
+<% @comment.comment.each_line do |l| %>
+  | <%= l.chomp %>
+<% end %>
+
+<%= t('notifier.new_comment.view') %>: <%= polymorphic_url([@forum.owner, @forum], anchor: @comment.anchor) %>

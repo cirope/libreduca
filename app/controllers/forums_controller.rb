@@ -112,6 +112,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        NewCommentNotifierWorker.perform_async(@comment.id)
         format.html { render partial: 'comment', locals: { comment: @comment } }
         format.json { render json: @comment, status: :created, location: [@institution, @forum] }
       else
