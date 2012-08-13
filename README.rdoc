@@ -3,13 +3,13 @@
 Web gradebook for share notes, grades and comments between an education
 community
 
-== Build Status {<img src="https://secure.travis-ci.org/francocatena/libreduca.png"/>}[http://travis-ci.org/francocatena/libreduca]
+=== Build Status {<img src="https://secure.travis-ci.org/francocatena/libreduca.png"/>}[http://travis-ci.org/francocatena/libreduca]
   
-== Dependency Status {<img src="https://gemnasium.com/francocatena/libreduca.png?travis"/>}[https://gemnasium.com/francocatena/libreduca]
+=== Dependency Status {<img src="https://gemnasium.com/francocatena/libreduca.png?travis"/>}[https://gemnasium.com/francocatena/libreduca]
 
 == (The MIT License)
 
-Copyright (c) 2012 Franco Catena, Raúl Moralejo
+Copyright (c) 2012 Cirope S.A.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

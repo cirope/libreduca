@@ -50,6 +50,6 @@ production:
   adapter: postgresql
   encoding: unicode
   database: libreduca_production
-  pool: 5
+  pool: 25
   username: libreduca
   password: libreduca

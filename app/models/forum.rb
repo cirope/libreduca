@@ -23,6 +23,10 @@ class Forum < ActiveRecord::Base
   def to_s
     self.name
   end
+
+  def users
+    self.owner.try(:users)
+  end
   
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped

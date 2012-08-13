@@ -15,6 +15,7 @@ gem 'validates_timeliness'
 gem 'roadie'
 gem 'redcarpet'
 gem 'carrierwave'
+gem 'sidekiq'
 gem 'capistrano'
 gem 'newrelic_rpm'
 

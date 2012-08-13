@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'sidekiq/capistrano'
 
 set :application, 'libreduca'
 set :repository,  'https://github.com/francocatena/libreduca.git'

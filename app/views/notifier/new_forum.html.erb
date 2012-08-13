@@ -1,0 +1,11 @@
+<h2>
+  <%= t('notifier.new_forum.greeting.html') %>
+</h2>
+
+<h3><%= @forum.name %></h3>
+
+<blockquote>
+  <%= markdown @forum.topic %>
+</blockquote>
+
+<p><%= link_to t('notifier.new_forum.view'), polymorphic_url([@forum.owner, @forum]) %></p>

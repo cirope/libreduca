@@ -14,3 +14,9 @@
       score_average:
         html: 'Su nota <strong>promedio</strong> en %{course} hasta el momento es <em>%{average}</em>'
         text: 'Su nota promedio en %{course} hasta el momento es %{average}'
+    new_forum:
+      subject: 'Se ha creado un nuevo foro "%{forum}"'
+      greeting:
+        html: 'Se ha creado un nuevo foro en el que puedes <strong>participar</strong>,'
+        text: 'Se ha creado un nuevo foro en el que puedes participar,'
+      view: 'Visitar el nuevo foro'

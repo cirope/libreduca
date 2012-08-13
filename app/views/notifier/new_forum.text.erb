@@ -1,0 +1,12 @@
+<%= t('notifier.new_forum.greeting.text') %>
+================================================================================
+
+<%= @forum.name %>
+--------------------------------------------------------------------------------
+
+<% @forum.topic.each_line do |l| %>
+  | <%= l.chomp %>
+<% end %>
+
+
+<%= t('notifier.new_forum.view') %>: <%= polymorphic_url [@forum.owner, @forum] %>

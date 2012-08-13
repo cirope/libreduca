@@ -55,6 +55,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
+        NewForumNotifierWorker.perform_async(@forum.id)
         format.html { redirect_to [@institution, @forum], notice: t('view.forums.correctly_created') }
         format.json { render json: @forum, status: :created, location: [@institution, @forum] }
       else

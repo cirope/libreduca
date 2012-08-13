@@ -42,7 +42,7 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test 'should create forum' do
-    assert_difference('Forum.count') do
+    assert_difference(['Forum.count', 'ActionMailer::Base.deliveries.size']) do
       post :create, institution_id: @owner.to_param,
         forum: Fabricate.attributes_for(:forum).slice(
           *Forum.accessible_attributes
