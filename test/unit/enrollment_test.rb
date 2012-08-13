@@ -112,13 +112,13 @@ class EnrollmentTest < ActiveSupport::TestCase
     end
   end
   
-  test 'self in school' do
-    Enrollment.in_school(@teach.school).map(&:id).tap do |enrollment_ids|
+  test 'self in institution' do
+    Enrollment.in_institution(@teach.institution).map(&:id).tap do |enrollment_ids|
       assert enrollment_ids.include?(@enrollment.id)
     end
     
-    Fabricate(:school).tap do |new_school|
-      assert Enrollment.in_school(new_school).map(&:id).exclude?(@enrollment.id)
+    Fabricate(:institution).tap do |new_institution|
+      assert Enrollment.in_institution(new_institution).map(&:id).exclude?(@enrollment.id)
     end
   end
   

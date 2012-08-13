@@ -18,7 +18,7 @@ class Teach < ActiveRecord::Base
   # Relations
   belongs_to :course
   has_one :grade, through: :course
-  has_one :school, through: :grade
+  has_one :institution, through: :grade
   has_many :enrollments, dependent: :destroy, after_add: :set_teach
   has_many :contents, dependent: :destroy
   has_many :scores, dependent: :destroy

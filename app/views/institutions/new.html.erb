@@ -1,0 +1,7 @@
+<% if can? :read, Institution %>
+  <%= content_for :form_actions do %>
+    <%= link_to t('label.list'), institutions_path %>
+  <% end %>
+<% end %>
+
+<%= render 'form' %>

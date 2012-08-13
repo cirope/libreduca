@@ -3,10 +3,10 @@ Fabricator(:enrollment) do
   user_id { Fabricate(:user).id }
   job do |attrs|
     teach = Teach.find_by_id attrs[:teach_id]
-    school = teach.try(:grade).try(:school)
+    institution = teach.try(:grade).try(:institution)
     
-    school ? Fabricate(
-      :job, user_id: attrs[:user_id], school_id: school.id
+    institution ? Fabricate(
+      :job, user_id: attrs[:user_id], institution_id: institution.id
     ).job : nil
   end
 end

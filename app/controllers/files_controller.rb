@@ -19,8 +19,8 @@ class FilesController < ApplicationController
   private
 
   def safe_file_path?(file)
-    allowed_root_path = current_school ?
-      PRIVATE_PATH + current_school.identification : PRIVATE_PATH
+    allowed_root_path = current_institution ?
+      PRIVATE_PATH + current_institution.identification : PRIVATE_PATH
 
     file.exist? && file.file? && file.to_s.start_with?(allowed_root_path.to_s)
   end

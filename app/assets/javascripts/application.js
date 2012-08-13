@@ -27,7 +27,7 @@
 //= require enrollments
 //= require forums
 //= require grades
+//= require institutions
 //= require regions
-//= require schools
 //= require teaches
 //= require users

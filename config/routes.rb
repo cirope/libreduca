@@ -16,7 +16,7 @@ Libreduca::Application.routes.draw do
 
     resources :regions
 
-    resources :schools do
+    resources :institutions do
       resources :forums do
         member do
           get :comments
@@ -27,7 +27,7 @@ Libreduca::Application.routes.draw do
       resources :grades
 
       resources :users, only: [] do
-        get :within_school, on: :collection
+        get :within_institution, on: :collection
       end
     end
 
@@ -47,7 +47,7 @@ Libreduca::Application.routes.draw do
     match 'private/:path', to: 'files#download',
       constraints: { path: /.+/ }, via: :get
 
-    root to: 'schools#index'
+    root to: 'institutions#index'
   end
   
   constraints(SchoolSubdomain) do
@@ -65,7 +65,7 @@ Libreduca::Application.routes.draw do
       resources :courses
     end
 
-    resources :schools do
+    resources :institutions do
       resources :forums do
         member do
           get :comments
@@ -76,7 +76,7 @@ Libreduca::Application.routes.draw do
       resources :grades
 
       resources :users, only: [] do
-        get :within_school, on: :collection
+        get :within_institution, on: :collection
       end
     end
     

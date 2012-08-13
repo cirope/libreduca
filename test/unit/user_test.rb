@@ -160,20 +160,20 @@ class UserTest < ActiveSupport::TestCase
   
   test 'self find by email and subdomain' do
     @user = Fabricate(:job).user
-    school = @user.schools.first
+    institution = @user.institutions.first
     located = User.find_by_email_and_subdomain(
-      @user.email, school.identification
+      @user.email, institution.identification
     )
     
     assert_equal @user, located
-    assert_nil User.find_by_email_and_subdomain(@user.email, 'no-school')
+    assert_nil User.find_by_email_and_subdomain(@user.email, 'no-institution')
   end
   
   test 'self find for authentication' do
     @user = Fabricate(:job).user
-    school = @user.schools.first
+    institution = @user.institutions.first
     located = User.find_for_authentication(
-      email: @user.email, subdomains: [school.identification]
+      email: @user.email, subdomains: [institution.identification]
     )
     
     assert_equal @user, located
@@ -184,7 +184,7 @@ class UserTest < ActiveSupport::TestCase
     
     assert_equal @user, located
     assert_nil User.find_for_authentication(
-      email: @user.email, subdomains: ['no-school']
+      email: @user.email, subdomains: ['no-institution']
     )
     
     @user.update_attributes(role: :normal)

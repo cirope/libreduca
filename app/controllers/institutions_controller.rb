@@ -1,0 +1,100 @@
+class InstitutionsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :load_regions, only: [:new, :create, :edit, :update]
+  
+  check_authorization
+  load_and_authorize_resource
+  
+  # GET /institutions
+  # GET /institutions.json
+  def index
+    @title = t 'view.institutions.index_title'
+    @searchable = true
+    @institutions = @institutions.filtered_list(params[:q]).page(params[:page]).uniq('id')
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @institutions }
+    end
+  end
+
+  # GET /institutions/1
+  # GET /institutions/1.json
+  def show
+    @title = t 'view.institutions.show_title'
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @institution }
+    end
+  end
+
+  # GET /institutions/new
+  # GET /institutions/new.json
+  def new
+    @title = t 'view.institutions.new_title'
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @institution }
+    end
+  end
+
+  # GET /institutions/1/edit
+  def edit
+    @title = t 'view.institutions.edit_title'
+  end
+
+  # POST /institutions
+  # POST /institutions.json
+  def create
+    @title = t 'view.institutions.new_title'
+
+    respond_to do |format|
+      if @institution.save
+        format.html { redirect_to @institution, notice: t('view.institutions.correctly_created') }
+        format.json { render json: @institution, status: :created, location: @institution }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @institution.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /institutions/1
+  # PUT /institutions/1.json
+  def update
+    @title = t 'view.institutions.edit_title'
+
+    respond_to do |format|
+      if @institution.update_attributes(params[:institution])
+        format.html { redirect_to @institution, notice: t('view.institutions.correctly_updated') }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @institution.errors, status: :unprocessable_entity }
+      end
+    end
+    
+  rescue ActiveRecord::StaleObjectError
+    flash.alert = t 'view.institutions.stale_object_error'
+    redirect_to edit_user_url(@user)
+  end
+
+  # DELETE /institutions/1
+  # DELETE /institutions/1.json
+  def destroy
+    @institution.destroy
+
+    respond_to do |format|
+      format.html { redirect_to institutions_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  private
+  
+  def load_regions
+    @regions = Region.includes(:districts)
+  end
+end

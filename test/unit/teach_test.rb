@@ -14,7 +14,7 @@ class TeachTest < ActiveSupport::TestCase
   test 'create with enrollments' do
     course = Fabricate(:course)
     user = Fabricate(:user).tap do |u|
-      Fabricate(:job, user_id: u.id, school_id: course.school.id)
+      Fabricate(:job, user_id: u.id, institution_id: course.institution.id)
     end
     
     assert_difference ['Teach.count', 'Enrollment.count'] do

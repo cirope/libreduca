@@ -1,0 +1,37 @@
+<% if @institutions.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <thead>
+          <tr>
+            <th><%= Institution.human_attribute_name 'name' %></th>
+            <th class="visible-desktop"><%= Institution.human_attribute_name 'identification' %></th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @institutions.each do |institution| %>
+            <tr>
+              <td><%= link_to_if can?(:read, institution), institution.name, institution, title: t('label.show') %></td>
+              <td class="visible-desktop"><%= institution.identification %></td>
+              <td><%= link_to_edit edit_institution_path(institution) if can? :update, institution %></td>
+              <td><%= link_to_destroy institution if can? :destroy, institution %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@institutions) %>
+<% end %>
+
+<nav class="form-actions">
+  <%= link_to(
+    t('view.institutions.new', default: :'label.new'),
+    new_institution_path, class: 'btn btn-primary'
+    ) if can? :create, Institution
+  %>
+</nav>

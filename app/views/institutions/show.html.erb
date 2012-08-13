@@ -1,0 +1,72 @@
+<div class="readonly-data">
+  <h2><%= @institution %></h2>
+  <p>
+    <b><%= Institution.human_attribute_name 'district_id' %></b>:
+    <%= @institution.district %>
+  </p>
+  
+  <% if @institution.grades.empty? %>
+    <%= link_to t('view.grades.new'), new_institution_grade_path(@institution), class: 'btn btn-mini btn-inverse' if can? :create, @institution.grades.build %>
+  <% else %>
+    <h3>
+      <%= link_to_if can?(:read, Grade), Grade.model_name.human(count: @institution.grades.size), institution_grades_path(@institution) %>
+      <% if can? :create, @institution.grades.build %>
+        <span class="divider">|</span>
+        <%= link_to t('view.grades.new'), new_institution_grade_path(@institution), class: 'btn btn-mini' %>
+      <% end %>
+    </h3>
+    
+    <ul>
+      <% @institution.grades.reject!(&:new_record?).each do |grade| %>
+        <li><%= link_to_if can?(:read, grade), grade.to_s, [@institution, grade] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <% unless @institution.workers.exclude_studens.empty? %>
+    <h3>
+      <%= Institution.human_attribute_name('workers', count: @institution.workers.exclude_studens.size) %>
+    </h3>
+    
+    <ul>
+      <% @institution.workers.exclude_studens.each do |worker| %>
+        <li>
+          <%= t(
+            'view.institutions.worker_role.html',
+            worker: link_to_if(can?(:read, worker.user), worker.user.to_s, worker.user),
+            role: show_human_job_type(worker.job)
+          )%>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <hr />
+
+  <% if @institution.forums.empty? %>
+    <%= link_to t('view.forums.new'), new_institution_forum_path(@institution), class: 'btn btn-mini btn-inverse' if can? :create, @institution.forums.build %>
+  <% else %>
+    <h3>
+      <%= link_to_if can?(:read, Forum), Forum.model_name.human(count: @institution.forums.size), institution_forums_path(@institution) %>
+      <% if can? :create, @institution.forums.build %>
+        <span class="divider">|</span>
+        <%= link_to t('view.forums.new'), new_institution_forum_path(@institution), class: 'btn btn-mini' %>
+      <% end %>
+    </h3>
+
+    <ul>
+      <% @institution.forums.reject!(&:new_record?).each do |forum| %>
+        <li><%= link_to_if can?(:read, forum), forum.to_s, [@institution, forum] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<nav class="form-actions">
+  <%= link_to t('label.edit'), edit_institution_path(@institution), class: 'btn btn-primary' if can? :update, @institution %>
+  <% if can? :read, Institution %>
+    <div class="pull-right">
+      <%= link_to t('label.list'), institutions_path %>
+    </div>
+  <% end %>
+</nav>

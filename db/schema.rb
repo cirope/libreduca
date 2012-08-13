@@ -102,25 +102,38 @@ ActiveRecord::Schema.define(:version => 20120809141711) do
   add_index "forums", ["user_id"], :name => "index_forums_on_user_id"
 
   create_table "grades", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.integer  "school_id"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.string   "name",                          :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.integer  "institution_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
-  add_index "grades", ["school_id"], :name => "index_grades_on_school_id"
+  add_index "grades", ["institution_id"], :name => "index_grades_on_institution_id"
+
+  create_table "institutions", :force => true do |t|
+    t.string   "name",                          :null => false
+    t.string   "identification"
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "district_id"
+  end
+
+  add_index "institutions", ["district_id"], :name => "index_institutions_on_district_id"
+  add_index "institutions", ["identification"], :name => "index_institutions_on_identification", :unique => true
+  add_index "institutions", ["name"], :name => "index_institutions_on_name"
 
   create_table "jobs", :force => true do |t|
-    t.string   "job",                         :null => false
-    t.integer  "lock_version", :default => 0, :null => false
+    t.string   "job",                           :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
     t.integer  "user_id"
-    t.integer  "school_id"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.integer  "institution_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
-  add_index "jobs", ["school_id"], :name => "index_jobs_on_school_id"
+  add_index "jobs", ["institution_id"], :name => "index_jobs_on_institution_id"
   add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
 
   create_table "kinships", :force => true do |t|
@@ -143,19 +156,6 @@ ActiveRecord::Schema.define(:version => 20120809141711) do
   end
 
   add_index "regions", ["name"], :name => "index_regions_on_name", :unique => true
-
-  create_table "schools", :force => true do |t|
-    t.string   "name",                          :null => false
-    t.string   "identification"
-    t.integer  "lock_version",   :default => 0, :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.integer  "district_id"
-  end
-
-  add_index "schools", ["district_id"], :name => "index_schools_on_district_id"
-  add_index "schools", ["identification"], :name => "index_schools_on_identification", :unique => true
-  add_index "schools", ["name"], :name => "index_schools_on_name"
 
   create_table "scores", :force => true do |t|
     t.decimal  "score",        :precision => 5, :scale => 2

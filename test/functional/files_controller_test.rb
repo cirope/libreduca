@@ -5,9 +5,9 @@ class FilesControllerTest < ActionController::TestCase
     @document = Fabricate(
       :document, file: fixture_file_upload('files/test.txt', 'text/plain')
     )
-    job = Fabricate(:job, school_id: @document.school.id)
+    job = Fabricate(:job, institution_id: @document.institution.id)
     user = job.user
-    @school = @document.school
+    @institution = @document.institution
 
     sign_in user
   end
@@ -27,8 +27,8 @@ class FilesControllerTest < ActionController::TestCase
     assert_equal I18n.t('view.documents.non_existent'), flash.notice
   end
 
-  test 'should download for the owners school' do
-    @request.host = "#{@school.identification}.lvh.me"
+  test 'should download for the owners institution' do
+    @request.host = "#{@institution.identification}.lvh.me"
 
     get :download, path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
     assert_response :success
@@ -38,9 +38,9 @@ class FilesControllerTest < ActionController::TestCase
     )
   end
 
-  test 'should not download for another school' do
-    school = Fabricate(:school)
-    @request.host = "#{school.identification}.lvh.me"
+  test 'should not download for another institution' do
+    institution = Fabricate(:institution)
+    @request.host = "#{institution.identification}.lvh.me"
 
     get :download, path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
     assert_redirected_to root_url

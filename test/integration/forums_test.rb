@@ -6,16 +6,16 @@ class ForumsTest < ActionDispatch::IntegrationTest
   test 'should create a new forum' do
     login
     
-    school = Fabricate(:school)
-    forum = Fabricate.build(:forum, owner_id: school.id, owner_type: 'School')
+    institution = Fabricate(:institution)
+    forum = Fabricate.build(:forum, owner_id: institution.id, owner_type: 'Institution')
     
-    visit new_school_forum_path(school)
+    visit new_institution_forum_path(institution)
     
     fill_in Forum.human_attribute_name('name'), with: forum.name
     fill_in Forum.human_attribute_name('topic'), with: forum.topic
     fill_in Forum.human_attribute_name('info'), with: forum.info
 
-    assert_difference 'school.forums.count' do
+    assert_difference 'institution.forums.count' do
       find('.btn.btn-primary').click
     end
   end
@@ -23,11 +23,11 @@ class ForumsTest < ActionDispatch::IntegrationTest
   test 'should create a comment' do
     login
     
-    school = Fabricate(:school)
-    forum = Fabricate(:forum, owner_id: school.id, owner_type: 'School')
+    institution = Fabricate(:institution)
+    forum = Fabricate(:forum, owner_id: institution.id, owner_type: 'Institution')
     comment = Fabricate.build(:comment, forum_id: forum.id, user_id: nil)
     
-    visit school_forum_path(school, forum)
+    visit institution_forum_path(institution, forum)
     
     assert_difference 'forum.comments.count' do
       within '#new_comment' do

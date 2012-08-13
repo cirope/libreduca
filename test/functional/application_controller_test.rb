@@ -7,14 +7,14 @@ class ApplicationControllerTest < ActionController::TestCase
     @controller.send 'request=', @request
   end
   
-  test 'should set the current school from subdomain' do
-    school = Fabricate(:school)
+  test 'should set the current institution from subdomain' do
+    institution = Fabricate(:institution)
     
-    assert_nil @controller.send(:current_school)
+    assert_nil @controller.send(:current_institution)
     
-    @request.host = "#{school.identification}.libreduca.com"
+    @request.host = "#{institution.identification}.libreduca.com"
     
-    assert_not_nil @controller.send(:set_current_school)
-    assert_equal school.id, @controller.send(:current_school).id
+    assert_not_nil @controller.send(:set_current_institution)
+    assert_equal institution.id, @controller.send(:current_institution).id
   end
 end

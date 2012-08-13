@@ -19,7 +19,7 @@
         <li>
           <%= t(
             'view.users.job_role.html',
-            school: link_to_if(can?(:read, job.school), job.school.name, job.school),
+            institution: link_to_if(can?(:read, job.institution), job.institution.name, job.institution),
             role: show_human_job_type(job.job)
           ) %>
         </li>

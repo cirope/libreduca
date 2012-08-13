@@ -30,11 +30,11 @@
 
 <div class="form-actions">
   <%= link_to(
-    t('label.edit'), edit_polymorphic_path([@school, @forum]),
+    t('label.edit'), edit_polymorphic_path([@institution, @forum]),
     class: 'btn btn-primary'
   ) if can? :update, @forum %>
 
   <div class="pull-right">
-    <%= link_to t('label.list'), polymorphic_path([@school, Forum]) %>
+    <%= link_to t('label.list'), polymorphic_path([@institution, Forum]) %>
   </div>
 </div>

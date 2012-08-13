@@ -1,4 +1,4 @@
-<% url = comments_school_forum_path(@school, @forum, comment, format: :html) %>
+<% url = comments_institution_forum_path(@institution, @forum, comment, format: :html) %>
 <%= simple_form_for comment, url: url, remote: true do |f| %>
   <%= f.input :comment, label: false, input_html: {
     rows: 5, class: 'span11',

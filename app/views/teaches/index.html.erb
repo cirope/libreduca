@@ -11,8 +11,8 @@
               'view.teaches.from_course.html',
               count: @course.teaches.count,
               course: link_to_if(can?(:read, @course), @course.to_s, [@course.grade, @course]),
-              grade: link_to_if(can?(:read, grade), grade.to_s, [grade.school, grade]),
-              school: link_to_if(can?(:read, grade.school), grade.school.to_s, grade.school)
+              grade: link_to_if(can?(:read, grade), grade.to_s, [grade.institution, grade]),
+              institution: link_to_if(can?(:read, grade.institution), grade.institution.to_s, grade.institution)
             ) %></h4>
           <br />
         </caption>

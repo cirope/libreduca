@@ -2,8 +2,8 @@ class ForumsController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :school
-  load_and_authorize_resource :forum, through: :school
+  load_and_authorize_resource :institution
+  load_and_authorize_resource :forum, through: :institution
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
   
@@ -55,8 +55,8 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
-        format.html { redirect_to [@school, @forum], notice: t('view.forums.correctly_created') }
-        format.json { render json: @forum, status: :created, location: [@school, @forum] }
+        format.html { redirect_to [@institution, @forum], notice: t('view.forums.correctly_created') }
+        format.json { render json: @forum, status: :created, location: [@institution, @forum] }
       else
         format.html { render action: 'new' }
         format.json { render json: @forum.errors, status: :unprocessable_entity }
@@ -71,7 +71,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.update_attributes(params[:forum])
-        format.html { redirect_to [@school, @forum], notice: t('view.forums.correctly_updated') }
+        format.html { redirect_to [@institution, @forum], notice: t('view.forums.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -79,7 +79,7 @@ class ForumsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_school_forum_url(@school, @forum), alert: t('view.forums.stale_object_error')
+    redirect_to edit_institution_forum_url(@institution, @forum), alert: t('view.forums.stale_object_error')
   end
 
   # DELETE /forums/1
@@ -88,7 +88,7 @@ class ForumsController < ApplicationController
     @forum.destroy
 
     respond_to do |format|
-      format.html { redirect_to school_forums_url(@school) }
+      format.html { redirect_to institution_forums_url(@institution) }
       format.json { head :ok }
     end
   end
@@ -112,7 +112,7 @@ class ForumsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.html { render partial: 'comment', locals: { comment: @comment } }
-        format.json { render json: @comment, status: :created, location: [@school, @forum] }
+        format.json { render json: @comment, status: :created, location: [@institution, @forum] }
       else
         format.html { render partial: 'new_comment', locals: { comment: @comment } }
         format.json { render json: @comment.errors, status: :unprocessable_entity }

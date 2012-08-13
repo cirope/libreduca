@@ -1,5 +1,5 @@
 <% if @forums.empty? %>
-  <% @empty_index_options = { owner: @school } %>
+  <% @empty_index_options = { owner: @institution } %>
   <%= render 'shared/empty_index' %>
 <% else %>
   <div class="row">
@@ -10,7 +10,7 @@
             <%= t(
               'view.forums.from_owner.html',
               count: @forums.size,
-              owner: link_to(@school.to_s, @school)
+              owner: link_to(@institution.to_s, @institution)
             ) %>
           </h4>
           <br />
@@ -45,6 +45,6 @@
 <div class="form-actions">
   <%= link_to(
     t('view.forums.new', default: :'label.new'),
-    new_polymorphic_path([@school, Forum]), class: 'btn btn-primary'
-  ) if can? :create, @school.forums.build %>
+    new_polymorphic_path([@institution, Forum]), class: 'btn btn-primary'
+  ) if can? :create, @institution.forums.build %>
 </div>

@@ -1,6 +1,6 @@
 <div class="readonly-data">
   <div class="page-header">
-    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, school: current_school.name) %></h1>
+    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, institution: current_institution.name) %></h1>
   </div>
   <% if @grades.empty? %>
     <div class="alert">
@@ -14,7 +14,7 @@
       <div class="row-fluid">
         <% grades.each do |grade| %>
           <div class="span6">
-            <h3><%= link_to grade.to_s, [grade.school, grade] %></h3>
+            <h3><%= link_to grade.to_s, [grade.institution, grade] %></h3>
             
             <div class="page-header">
               <h5>
@@ -38,7 +38,7 @@
               <% if can? :update, grade %>
                 <%= link_to(
                   t('view.dashboard.janitor.edit_grade'),
-                  edit_school_grade_path(grade.school, grade),
+                  edit_institution_grade_path(grade.institution, grade),
                   class: 'btn btn-info'
                 ) %>
               <% end %>
@@ -51,7 +51,7 @@
 </div>
 
 <div class="form-actions">
-  <% if can? :create, current_school.grades.build %>
-    <%= link_to t('view.grades.new'), new_school_grade_path(current_school), class: 'btn btn-primary' %>
+  <% if can? :create, current_institution.grades.build %>
+    <%= link_to t('view.grades.new'), new_institution_grade_path(current_institution), class: 'btn btn-primary' %>
   <% end %>
 </div>

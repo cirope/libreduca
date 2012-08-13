@@ -9,7 +9,7 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, school_id: @owner.to_param
+    get :index, institution_id: @owner.to_param
     assert_response :success
     assert_not_nil assigns(:forums)
     assert_select '#unexpected_error', false
@@ -23,7 +23,7 @@ class ForumsControllerTest < ActionController::TestCase
       end
     end
     
-    get :index, school_id: @owner.to_param, q: 'filtered_index'
+    get :index, institution_id: @owner.to_param, q: 'filtered_index'
     assert_response :success
     assert_not_nil assigns(:forums)
     assert_equal 3, assigns(:forums).size
@@ -34,7 +34,7 @@ class ForumsControllerTest < ActionController::TestCase
   end
  
   test 'should get new' do
-    get :new, school_id: @owner.to_param
+    get :new, institution_id: @owner.to_param
     assert_response :success
     assert_not_nil assigns(:forum)
     assert_select '#unexpected_error', false
@@ -43,18 +43,18 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should create forum' do
     assert_difference('Forum.count') do
-      post :create, school_id: @owner.to_param,
+      post :create, institution_id: @owner.to_param,
         forum: Fabricate.attributes_for(:forum).slice(
           *Forum.accessible_attributes
         )
     end
 
-    assert_redirected_to school_forum_url(@owner, assigns(:forum))
+    assert_redirected_to institution_forum_url(@owner, assigns(:forum))
     assert_equal @user.id, assigns(:forum).user_id
   end
 
   test 'should show forum' do
-    get :show, school_id: @owner.to_param, id: @forum
+    get :show, institution_id: @owner.to_param, id: @forum
     assert_response :success
     assert_not_nil assigns(:forum)
     assert_select '#unexpected_error', false
@@ -62,7 +62,7 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test 'should get edit' do
-    get :edit, school_id: @owner.to_param, id: @forum
+    get :edit, institution_id: @owner.to_param, id: @forum
     assert_response :success
     assert_not_nil assigns(:forum)
     assert_select '#unexpected_error', false
@@ -71,27 +71,27 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should update forum' do
     assert_no_difference 'Forum.count' do
-      put :update, school_id: @owner.to_param, id: @forum,
+      put :update, institution_id: @owner.to_param, id: @forum,
         forum: Fabricate.attributes_for(:forum, name: 'Upd').slice(
           *Forum.accessible_attributes
         )
     end
     
-    assert_redirected_to school_forum_url(@owner, assigns(:forum))
+    assert_redirected_to institution_forum_url(@owner, assigns(:forum))
     assert_equal 'Upd', @forum.reload.name
   end
 
   test 'should destroy forum' do
     assert_difference('Forum.count', -1) do
-      delete :destroy, school_id: @owner.to_param, id: @forum
+      delete :destroy, institution_id: @owner.to_param, id: @forum
     end
 
-    assert_redirected_to school_forums_url(@owner)
+    assert_redirected_to institution_forums_url(@owner)
   end
 
   test 'should create a comment' do
     assert_difference(['@forum.comments.count', '@user.comments.count']) do
-      xhr :post, :create_comment, id: @forum, school_id: @owner.to_param,
+      xhr :post, :create_comment, id: @forum, institution_id: @owner.to_param,
         comment: Fabricate.attributes_for(:comment).slice(
           *Comment.accessible_attributes
         )
@@ -103,7 +103,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should not create a comment' do
     assert_no_difference(['@forum.comments.count', '@user.comments.count']) do
-      xhr :post, :create_comment, id: @forum, school_id: @owner.to_param,
+      xhr :post, :create_comment, id: @forum, institution_id: @owner.to_param,
         comment: Fabricate.attributes_for(:comment).slice(
           *Comment.accessible_attributes
         ).merge(comment: '')
@@ -116,7 +116,7 @@ class ForumsControllerTest < ActionController::TestCase
   test 'should get comments' do
     3.times { Fabricate(:comment, forum_id: @forum.id) }
 
-    get :comments, id: @forum, school_id: @owner.to_param, format: :json
+    get :comments, id: @forum, institution_id: @owner.to_param, format: :json
 
     assert_response :success
     comments = ActiveSupport::JSON.decode(@response.body)

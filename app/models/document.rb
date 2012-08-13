@@ -23,8 +23,8 @@ class Document < ActiveRecord::Base
     self.name
   end
 
-  def school
-    self.owner.try(:school)
+  def institution
+    self.owner.try(:institution)
   end
 
   private

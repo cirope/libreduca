@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   has_many :relatives, through: :kinships
   has_many :dependents, through: :inverse_kinships, source: :user
   has_many :jobs, dependent: :destroy
-  has_many :schools, through: :jobs
+  has_many :institutions, through: :jobs
   has_many :comments, dependent: :destroy
   
   accepts_nested_attributes_for :kinships, allow_destroy: true,
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     
   accepts_nested_attributes_for :jobs, allow_destroy: true,
     reject_if: ->(attributes) {
-      attributes['job'].blank? && attributes['school_id'].blank?
+      attributes['job'].blank? && attributes['institution_id'].blank?
     }
   
   def initialize(attributes = {}, options = {})
@@ -88,10 +88,10 @@ class User < ActiveRecord::Base
   end
   
   def self.find_by_email_and_subdomain(email, subdomain)
-    joins(:schools).where(
+    joins(:institutions).where(
       [
         "#{table_name}.email ILIKE :email",
-        "#{School.table_name}.identification = :subdomain"
+        "#{Institution.table_name}.identification = :subdomain"
       ].join(' AND '),
       email: email, subdomain: subdomain
     ).readonly(false).first

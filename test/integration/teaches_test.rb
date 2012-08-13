@@ -29,7 +29,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     end
     
     user = Fabricate(:user, lastname: 'in_filtered_index').tap do |u|
-      Fabricate(:job, user_id: u.id, school_id: course.school.id)
+      Fabricate(:job, user_id: u.id, institution_id: course.institution.id)
     end
     
     click_link Teach.human_attribute_name('enrollments', count: 0)
@@ -50,7 +50,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     page.execute_script("$('.ui-autocomplete').remove()")
     
     user = Fabricate(:user, lastname: 'in_filtered_index').tap do |u|
-      Fabricate(:job, user_id: u.id, school_id: course.school.id)
+      Fabricate(:job, user_id: u.id, institution_id: course.institution.id)
     end
     
     within '.enrollment:nth-child(2)' do
@@ -112,7 +112,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     course = Fabricate(:course)
     
     user = Fabricate(:user).tap do |u|
-      Fabricate :job, job: 'student', user_id: u.id, school_id: course.school.id
+      Fabricate :job, job: 'student', user_id: u.id, institution_id: course.institution.id
     end
     
     teach = Fabricate(:teach, course_id: course.id).tap do |t|
@@ -154,7 +154,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
       5.times do
         user = Fabricate(:user).tap do |u|
           Fabricate(
-            :job, job: 'student', user_id: u.id, school_id: course.school.id
+            :job, job: 'student', user_id: u.id, institution_id: course.institution.id
           )
         end
         
@@ -179,7 +179,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     course = Fabricate(:course)
     
     user = Fabricate(:user).tap do |u|
-      Fabricate :job, job: 'student', user_id: u.id, school_id: course.school.id
+      Fabricate :job, job: 'student', user_id: u.id, institution_id: course.institution.id
     end
     
     teach = Fabricate(:teach, course_id: course.id).tap do |t|
@@ -213,7 +213,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     2.times do
       Fabricate(:user).tap do |u|
         Fabricate(
-          :job, job: 'student', user_id: u.id, school_id: course.school.id
+          :job, job: 'student', user_id: u.id, institution_id: course.institution.id
         )
         
         Fabricate :enrollment, teach_id: teach.id, user_id: u.id, job: 'student'

@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate_user!, :load_school_job, :validate_action
+  before_filter :authenticate_user!, :load_institution_job, :validate_action
   
   def index
     if @job
@@ -13,7 +13,7 @@ class DashboardController < ApplicationController
   
   def headmaster
     @title = t 'view.dashboard.generic_title'
-    @grades = current_school.grades
+    @grades = current_institution.grades
     
     respond_to do |format|
       format.html # janitor.html.erb
@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
   
   def janitor
     @title = t 'view.dashboard.generic_title'
-    @grades = current_school.grades
+    @grades = current_institution.grades
     
     respond_to do |format|
       format.html # janitor.html.erb
@@ -33,7 +33,9 @@ class DashboardController < ApplicationController
   
   def student
     @title = t 'view.dashboard.generic_title'
-    @enrollments = current_user.enrollments.in_school(current_school).in_current_teach
+    @enrollments = current_user.enrollments.in_institution(
+      current_institution
+    ).in_current_teach
     
     respond_to do |format|
       format.html # student.html.erb
@@ -43,7 +45,9 @@ class DashboardController < ApplicationController
   
   def teacher
     @title = t 'view.dashboard.generic_title'
-    @enrollments = current_user.enrollments.in_school(current_school).in_current_teach
+    @enrollments = current_user.enrollments.in_institution(
+      current_institution
+    ).in_current_teach
     
     respond_to do |format|
       format.html # teacher.html.erb
@@ -53,8 +57,8 @@ class DashboardController < ApplicationController
   
   private
   
-  def load_school_job
-    @job = current_user.jobs.in_school(current_school).first
+  def load_institution_job
+    @job = current_user.jobs.in_institution(current_institution).first
   end
   
   def validate_action

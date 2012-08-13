@@ -10,8 +10,8 @@
         class: field_classes.join(' '),
         value: f.object.user.try(:label),
         data: {
-          'autocomplete-url' => within_school_school_users_path(
-            @course.school, format: :json
+          'autocomplete-url' => within_institution_institution_users_path(
+            @course.institution, format: :json
           ),
           'autocomplete-id-target' => "#auto_user_id_#{id}"
         }

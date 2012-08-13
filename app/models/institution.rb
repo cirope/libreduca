@@ -1,4 +1,4 @@
-class School < ActiveRecord::Base
+class Institution < ActiveRecord::Base
   has_paper_trail
   
   has_magick_columns name: :string, identification: :string

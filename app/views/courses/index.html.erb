@@ -9,8 +9,8 @@
             <%= t(
               'view.courses.from_grade.html',
               count: @grade.courses.count,
-              grade: link_to(@grade.to_s, [@grade.school, @grade]),
-              school: link_to(@grade.school.to_s, @grade.school)
+              grade: link_to(@grade.to_s, [@grade.institution, @grade]),
+              institution: link_to(@grade.institution.to_s, @grade.institution)
             ) %></h4>
           <br />
         </caption>

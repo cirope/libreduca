@@ -7,20 +7,21 @@ class Job < ActiveRecord::Base
   scope :exclude_studens, where('job <> ?', 'student')
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :job, :user_id, :school_id, :auto_school_name, :lock_version
+  attr_accessible :job, :user_id, :institution_id, :auto_institution_name,
+    :lock_version
   
-  attr_accessor :auto_school_name
+  attr_accessor :auto_institution_name
   
   # Validations
-  validates :job, :school_id, presence: true
+  validates :job, :institution_id, presence: true
   validates :job, length: { maximum: 255 }, allow_nil: true, allow_blank: true
   validates :job, inclusion: { in: TYPES }, allow_nil: true, allow_blank: true
   
   # Relations
   belongs_to :user
-  belongs_to :school
+  belongs_to :institution
   
-  def self.in_school(school)
-    where(school_id: school.id)
+  def self.in_institution(institution)
+    where(institution_id: institution.id)
   end
 end

@@ -1,4 +1,4 @@
 Fabricator(:grade) do
   name { sequence(:grade_name) }
-  school_id { Fabricate(:school).id }
+  institution_id { Fabricate(:institution).id }
 end

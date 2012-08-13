@@ -17,7 +17,7 @@ class District < ActiveRecord::Base
   
   # Relations
   belongs_to :region
-  has_many :schools, dependent: :destroy
+  has_many :institutions, dependent: :destroy
   
   def to_s
     self.name

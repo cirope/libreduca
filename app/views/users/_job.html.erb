@@ -2,21 +2,21 @@
 <div class="row-fluid job">
   <div class="span5">
     <% field_classes = ['autocomplete_field', 'span10'] %>
-    <% copy_attribute_errors(:school_id, :auto_school_name, f) %>
-    <%= f.input :auto_school_name, label: false,
-      placeholder: Job.human_attribute_name('school_id'),
+    <% copy_attribute_errors(:institution_id, :auto_institution_name, f) %>
+    <%= f.input :auto_institution_name, label: false,
+      placeholder: Job.human_attribute_name('institution_id'),
       input_html: {
-        id: "auto_school_#{id}",
+        id: "auto_institution_#{id}",
         class: field_classes.join(' '),
-        value: f.object.school.try(:label),
+        value: f.object.institution.try(:label),
         data: {
-          'autocomplete-url' => schools_path(format: :json),
-          'autocomplete-id-target' => "#auto_school_id_#{id}"
+          'autocomplete-url' => institutions_path(format: :json),
+          'autocomplete-id-target' => "#auto_institution_id_#{id}"
         }
       }
     %>
-    <%= f.input :school_id, as: :hidden,
-      input_html: { class: 'autocomplete_id', id: "auto_school_id_#{id}" }
+    <%= f.input :institution_id, as: :hidden,
+      input_html: { class: 'autocomplete_id', id: "auto_institution_id_#{id}" }
     %>
   </div>
   <div class="span5">

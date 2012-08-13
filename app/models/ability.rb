@@ -45,29 +45,29 @@ class Ability
     can :send_email_summary, Teach, enrollments_restricionts
     can :read, Course, teaches: enrollments_restricionts
     can :read, Grade, courses: { teaches: enrollments_restricionts }
-    can :read, School, users: { id: user.id }
+    can :read, Institution, users: { id: user.id }
     can :read, User, enrollments_restricionts
   end
 
   def janitor_rules(user)
     jobs_restrictions = {
-      school: { workers: { user_id: user.id, job: 'janitor' } }
+      institution: { workers: { user_id: user.id, job: 'janitor' } }
     }
     
     can :manage, Grade, jobs_restrictions
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
-    can :read, School, workers: { user_id: user.id, job: 'janitor' }
+    can :read, Institution, workers: { user_id: user.id, job: 'janitor' }
   end
 
   def headmaster_rules(user)
     jobs_restrictions = {
-      school: { workers: { user_id: user.id, job: 'headmaster' } }
+      institution: { workers: { user_id: user.id, job: 'headmaster' } }
     }
     
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
-    can :read, School, workers: { user_id: user.id, job: 'headmaster' }
+    can :read, Institution, workers: { user_id: user.id, job: 'headmaster' }
   end
 end

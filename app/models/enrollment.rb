@@ -25,13 +25,13 @@ class Enrollment < ActiveRecord::Base
   belongs_to :teach
   has_one :course, through: :teach
   has_one :grade, through: :course
-  has_one :school, through: :grade
+  has_one :institution, through: :grade
   
   def set_job
     if self.user && self.teach
-      school = self.school || self.teach.school || self.teach.grade.school
+      institution = self.institution || self.teach.institution || self.teach.grade.institution
       
-      self.job = self.user.jobs.in_school(school).first.try(:job)
+      self.job = self.user.jobs.in_institution(institution).first.try(:job)
     end
   end
   
@@ -51,8 +51,10 @@ class Enrollment < ActiveRecord::Base
     where("#{table_name}.user_id = ?", user.id)
   end
   
-  def self.in_school(school)
-    joins(:school).where("#{School.table_name}.id = ?", school.id)
+  def self.in_institution(institution)
+    joins(:institution).where(
+      "#{Institution.table_name}.id = ?", institution.id
+    )
   end
   
   def self.in_current_teach

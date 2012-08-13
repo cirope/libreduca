@@ -111,7 +111,7 @@ GEM
       railties (~> 3.0)
     pg (0.14.0)
     polyglot (0.3.3)
-    puma (1.5.0)
+    puma (1.6.1)
       rack (~> 1.2)
     rack (1.4.1)
     rack-cache (1.2)
@@ -146,7 +146,7 @@ GEM
       sprockets
     role_model (0.7.1)
     rubyzip (0.9.9)
-    sass (3.1.20)
+    sass (3.2.0)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)

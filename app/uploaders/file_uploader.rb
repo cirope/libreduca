@@ -9,9 +9,10 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def base_store_dir
-    school = model.school.try(:identification) || RESERVED_SUBDOMAINS.first
+    institution = model.institution.try(:identification) ||
+      RESERVED_SUBDOMAINS.first
 
-    "private/#{school}/#{model.class.to_s.underscore}/#{mounted_as}"
+    "private/#{institution}/#{model.class.to_s.underscore}/#{mounted_as}"
   end
 
   def delete_empty_upstream_dirs

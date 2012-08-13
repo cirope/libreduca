@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AuthenticationTest < ActionDispatch::IntegrationTest
   setup do
-    @school = Fabricate(:school)
+    @institution = Fabricate(:institution)
   end
   
   test 'should be able to login and logout as admin' do
@@ -20,11 +20,11 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     end
   end
   
-  test 'should be able to login as related to school' do
-    Capybara.app_host = "http://#{@school.identification}.lvh.me:54163"
+  test 'should be able to login as related to institution' do
+    Capybara.app_host = "http://#{@institution.identification}.lvh.me:54163"
     
     user = Fabricate(:user, password: '123456', roles: [:normal])
-    job = Fabricate(:job, user_id: user.id, school_id: @school.id)
+    job = Fabricate(:job, user_id: user.id, institution_id: @institution.id)
     expected_path = url_for(
       controller: 'dashboard', action: job.job, only_path: true
     )
@@ -32,8 +32,8 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     login user: user, clean_password: '123456', expected_path: expected_path
   end
   
-  test 'should not be able to login as no related to school' do
-    Capybara.app_host = "http://#{@school.identification}.lvh.me:54163"
+  test 'should not be able to login as no related to institution' do
+    Capybara.app_host = "http://#{@institution.identification}.lvh.me:54163"
     
     user = Fabricate(:user, password: '123456', roles: [:normal])
     
@@ -43,7 +43,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   test 'should not be able to login as normal user in admin page' do
     user = Fabricate(:user, password: '123456', roles: [:normal])
     
-    Fabricate(:job, user_id: user.id, school_id: @school.id)
+    Fabricate(:job, user_id: user.id, institution_id: @institution.id)
     
     invalid_login user: user, clean_password: '123456'
   end

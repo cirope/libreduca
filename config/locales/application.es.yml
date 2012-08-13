@@ -41,9 +41,9 @@
       region:
         one: 'Región'
         other: 'Regiones'
-      school:
-        one: 'Escuela'
-        other: 'Escuelas'
+      institution:
+        one: 'Institución'
+        other: 'Instituciones'
       score:
         one: 'Calificación'
         other: 'Calificaciones'
@@ -79,7 +79,7 @@
         name: 'Nombre'
       job:
         job: 'Trabajo'
-        school_id: 'Escuela'
+        institution_id: 'Institución'
         user_id: 'Usuario'
       kinship:
         kin: 'Parentesco'
@@ -89,7 +89,7 @@
         name: 'Nombre'
       region/district:
         name: 'Nombre (distrito)'
-      school:
+      institution:
         name: 'Nombre'
         identification: 'Identificación'
         district_id: 'Distrito'
@@ -156,7 +156,7 @@
       logout: 'Salir de la aplicación'
     dashboard: 'Tablero'
     regions: 'Regiones'
-    schools: 'Escuelas'
+    institutions: 'Instituciones'
     users: 'Usuarios'
     
   messages:
@@ -198,18 +198,18 @@
       new: 'Nueva asignatura'
       from_grade:
         html:
-          one: 'Asignatura de %{grade} | %{school}'
-          other: 'Asignaturas de %{grade} | %{school}'
+          one: 'Asignatura de %{grade} | %{institution}'
+          other: 'Asignaturas de %{grade} | %{institution}'
     dashboard:
       generic_title: 'Tablero'
       empty_enrollments:
         html: 'No estás inscripto en cursos que se estén dictando actualmente'
       empty_grades:
-        html: 'No se ha creado ningún grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
+        html: 'No se ha creado ningún grado para esta institución hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
       empty_scores:
         html: 'No hay notas cargadas para <strong>%{course}</strong>'
       greetings:
-        html: 'Hola %{user}<small>, este es tu resumen educativo en <strong>%{school}</strong></small>'
+        html: 'Hola %{user}<small>, este es tu resumen educativo en <strong>%{institution}</strong></small>'
       score_average:
         html: 'La nota <strong>promedio</strong> de %{course} hasta el momento es %{average}'
       janitor:
@@ -248,15 +248,15 @@
       correctly_updated: 'Grado actualizado correctamente.'
       stale_object_error: 'El grado no pudo ser actualizado, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ningún grado para esta escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
+        html: 'No se ha creado ningún grado para esta institución hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
       new: 'Nuevo grado'
       show_courses:
         one: 'Una asignatura'
         other: '%{count} asignaturas'
-      from_school:
+      from_institution:
         html:
-          one: 'Grado de la escuela %{school}'
-          other: 'Grados de la escuela %{school}'
+          one: 'Grado de la institución %{institution}'
+          other: 'Grados de la institución %{institution}'
     jobs:
       types:
         headmaster: 'Director'
@@ -281,17 +281,17 @@
         html: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva región</span>'
       new: 'Nueva región'
       new_district: 'Agregar nuevo distrito'
-    schools:
-      index_title: 'Listado de escuelas'
-      show_title: 'Detalle de escuela'
-      new_title: 'Nueva escuela'
-      edit_title: 'Modificar escuela'
-      correctly_created: 'Escuela agregada correctamente.'
-      correctly_updated: 'Escuela actualizada correctamente.'
-      stale_object_error: 'La escuela no pudo ser actualizada, intente nuevamente.'
+    institutions:
+      index_title: 'Listado de instituciones'
+      show_title: 'Detalle de institución'
+      new_title: 'Nueva institución'
+      edit_title: 'Modificar institución'
+      correctly_created: 'Institución agregada correctamente.'
+      correctly_updated: 'Institución actualizada correctamente.'
+      stale_object_error: 'La institución no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna escuela hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva escuela</span>'
-      new: 'Nueva escuela'
+        html: 'No se ha creado ninguna institución hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva institución</span>'
+      new: 'Nueva institución'
       worker_role:
         html: '%{worker} es %{role}'
       hints:
@@ -346,8 +346,8 @@
           other: 'Alumnos'
       from_course:
         html:
-          one: 'Asignatura de %{course} | %{grade} | %{school}'
-          other: 'Asignaturas de %{course} | %{grade} | %{school}'
+          one: 'Asignatura de %{course} | %{grade} | %{institution}'
+          other: 'Asignaturas de %{course} | %{grade} | %{institution}'
       without_contents:
         html: 'Sin contenido, para cargarlo seleccione <span class="label label-info">Editar</span>'
       without_entollments_in_edit:
@@ -374,7 +374,7 @@
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
       edit_profile: 'Editar perfil'
       job_role:
-        html: '%{role} de %{school}'
+        html: '%{role} de %{institution}'
       kinship:
         html: 'Su %{kin} es %{relative}'
       inverse_kinship:

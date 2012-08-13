@@ -3,11 +3,11 @@ class CreateGrades < ActiveRecord::Migration
     create_table :grades do |t|
       t.string :name, null: false
       t.integer :lock_version, null: false, default: 0
-      t.references :school
+      t.references :institution
 
       t.timestamps
     end
     
-    add_index :grades, :school_id
+    add_index :grades, :institution_id
   end
 end

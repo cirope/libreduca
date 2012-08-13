@@ -19,10 +19,10 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     find('#user_role_admin').click
     
-    school = Fabricate(:school)
+    institution = Fabricate(:institution)
     
     within '.job' do
-      fill_in find('input[name$="[auto_school_name]"]')[:id], with: school.name
+      fill_in find('input[name$="[auto_institution_name]"]')[:id], with: institution.name
     end
       
     find('.ui-autocomplete li.ui-menu-item a').click
@@ -41,10 +41,10 @@ class UsersTest < ActionDispatch::IntegrationTest
     # Must be removed before the next search, forcing the new "creation"
     page.execute_script("$('.ui-autocomplete').remove()")
     
-    school = Fabricate(:school)
+    institution = Fabricate(:institution)
     
     within '.job:nth-child(2)' do
-      fill_in find('input[name$="[auto_school_name]"]')[:id], with: school.name
+      fill_in find('input[name$="[auto_institution_name]"]')[:id], with: institution.name
     end
     
     find('.ui-autocomplete li.ui-menu-item a').click

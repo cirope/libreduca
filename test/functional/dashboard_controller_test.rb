@@ -2,10 +2,10 @@ require 'test_helper'
 
 class DashboardControllerTest < ActionController::TestCase
   setup do
-    school = Fabricate(:school)
+    institution = Fabricate(:institution)
     user = Fabricate(:user, password: '123456', roles: [:normal])
-    @job = Fabricate(:job, user_id: user.id, school_id: school.id)
-    @request.host = "#{school.identification}.lvh.me"
+    @job = Fabricate(:job, user_id: user.id, institution_id: institution.id)
+    @request.host = "#{institution.identification}.lvh.me"
     
     sign_in user
   end

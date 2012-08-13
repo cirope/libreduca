@@ -3,9 +3,10 @@ class UsersController < ApplicationController
   before_filter :load_current_user, only: [:edit_profile, :update_profile]
   
   check_authorization
-  load_and_authorize_resource except: [:within_school]
-  load_and_authorize_resource :school, only: [:within_school]
-  load_and_authorize_resource :user, through: :school, only: [:within_school]
+  load_and_authorize_resource except: [:within_institution]
+  load_and_authorize_resource :institution, only: [:within_institution]
+  load_and_authorize_resource :user, through: :institution,
+    only: [:within_institution]
   
   # GET /users
   # GET /users.json
@@ -120,9 +121,9 @@ class UsersController < ApplicationController
     end
   end
   
-  # GET /users/within_school
-  # GET /users/within_school.json
-  def within_school
+  # GET /users/within_institution
+  # GET /users/within_institution.json
+  def within_institution
     @title = t 'view.users.index_title'
     @searchable = true
     @users = @users.filtered_list(params[:q]).page(params[:page])

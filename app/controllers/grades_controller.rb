@@ -2,8 +2,8 @@ class GradesController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :school
-  load_and_authorize_resource :grade, through: :school
+  load_and_authorize_resource :institution
+  load_and_authorize_resource :grade, through: :institution
   
   # GET /grades
   # GET /grades.json
@@ -52,7 +52,7 @@ class GradesController < ApplicationController
 
     respond_to do |format|
       if @grade.save
-        format.html { redirect_to [@school, @grade], notice: t('view.grades.correctly_created') }
+        format.html { redirect_to [@institution, @grade], notice: t('view.grades.correctly_created') }
         format.json { render json: @grade, status: :created, location: @grade }
       else
         format.html { render action: 'new' }
@@ -68,7 +68,7 @@ class GradesController < ApplicationController
 
     respond_to do |format|
       if @grade.update_attributes(params[:grade])
-        format.html { redirect_to [@school, @grade], notice: t('view.grades.correctly_updated') }
+        format.html { redirect_to [@institution, @grade], notice: t('view.grades.correctly_updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -78,7 +78,7 @@ class GradesController < ApplicationController
     
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.grades.stale_object_error'
-    redirect_to edit_school_grade_url(@school, @grade)
+    redirect_to edit_institution_grade_url(@institution, @grade)
   end
 
   # DELETE /grades/1
@@ -87,7 +87,7 @@ class GradesController < ApplicationController
     @grade.destroy
 
     respond_to do |format|
-      format.html { redirect_to school_grades_url(@school) }
+      format.html { redirect_to institution_grades_url(@institution) }
       format.json { head :no_content }
     end
   end

@@ -3,6 +3,6 @@ Fabricator(:forum) do
   topic { Faker::Lorem.sentences(4).join("\n") }
   info { Faker::Lorem.sentence }
   user_id { Fabricate(:user).id }
-  owner_id { Fabricate(:school).id }
-  owner_type 'School'
+  owner_id { Fabricate(:institution).id }
+  owner_type 'Institution'
 end

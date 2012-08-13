@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_current_school
+  before_filter :set_current_institution
   after_filter -> { expires_now if user_signed_in? }
   
-  helper_method :current_school
+  helper_method :current_institution
   
   rescue_from Exception do |exception|
     begin
@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
     current_user.try(:id)
   end
   
-  def current_school
-    @current_school
+  def current_institution
+    @current_institution
   end
   
   private
@@ -41,7 +41,9 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
   
-  def set_current_school
-    @current_school = School.find_by_identification(request.subdomains.first)
+  def set_current_institution
+    @current_institution = Institution.find_by_identification(
+      request.subdomains.first
+    )
   end
 end

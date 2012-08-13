@@ -16,7 +16,7 @@ class Content < ActiveRecord::Base
   # Relations
   belongs_to :teach
   has_many :documents, as: :owner, dependent: :destroy
-  has_one :school, through: :teach
+  has_one :institution, through: :teach
 
   accepts_nested_attributes_for :documents, allow_destroy: true,
     reject_if: ->(attrs) {

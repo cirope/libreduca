@@ -25,8 +25,8 @@
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_school_grade_path(@school, @grade), class: 'btn btn-primary' if can? :edit, @grade %>
+  <%= link_to t('label.edit'), edit_institution_grade_path(@institution, @grade), class: 'btn btn-primary' if can? :edit, @grade %>
   <div class="pull-right">
-    <%= link_to t('label.list'), school_grades_path(@school) if can? :read, Grade %>
+    <%= link_to t('label.list'), institution_grades_path(@institution) if can? :read, Grade %>
   </div>
 </nav>

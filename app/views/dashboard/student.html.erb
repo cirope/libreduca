@@ -1,6 +1,6 @@
 <div class="readonly-data">
   <div class="page-header">
-    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, school: current_school.name) %></h1>
+    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, institution: current_institution.name) %></h1>
   </div>
   <% if @enrollments.empty? %>
     <div class="alert">

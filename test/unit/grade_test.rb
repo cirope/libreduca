@@ -3,7 +3,7 @@ require 'test_helper'
 class GradeTest < ActiveSupport::TestCase
   setup do
     @grade = Fabricate(:grade)
-    @school = @grade.school
+    @institution = @grade.institution
   end
   
   test 'create' do
@@ -30,18 +30,18 @@ class GradeTest < ActiveSupport::TestCase
   
   test 'validates blank attributes' do
     @grade.name = ''
-    @grade.school_id = nil
+    @grade.institution_id = nil
     
     assert @grade.invalid?
     assert_equal 2, @grade.errors.size
     assert_equal [error_message_from_model(@grade, :name, :blank)],
       @grade.errors[:name]
-    assert_equal [error_message_from_model(@grade, :school_id, :blank)],
-      @grade.errors[:school_id]
+    assert_equal [error_message_from_model(@grade, :institution_id, :blank)],
+      @grade.errors[:institution_id]
   end
   
   test 'validates unique attributes' do
-    new_grade = Fabricate(:grade, school_id: @school.id)
+    new_grade = Fabricate(:grade, institution_id: @institution.id)
     @grade.name = new_grade.name
     
     assert @grade.invalid?
