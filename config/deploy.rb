@@ -6,7 +6,7 @@ set :repository,  'https://github.com/francocatena/libreduca.git'
 set :deploy_to, '/var/rails/libreduca'
 set :user, 'deployer'
 set :group_writable, false
-set :shared_children, %w(config log pids private public)
+set :shared_children, %w(log pids private public)
 set :use_sudo, false
 
 set :scm, :git
@@ -17,6 +17,7 @@ role :app, 'www.libreduca.com'
 role :db, 'www.libreduca.com', primary: true
 
 before 'deploy:finalize_update', 'deploy:create_shared_symlinks'
+after 'deploy:update_code', 'deploy:create_tmp_pids_symlink'
 
 namespace :deploy do
   task :start do ; end
@@ -36,5 +37,11 @@ namespace :deploy do
 
       run "ln -s #{shared_files_path} #{release_files_path}"
     end
+  end
+
+  desc 'Creates the synmlink to tmp/pids'
+  task :create_tmp_pids_symlink, roles: :app, except: { no_release: true } do
+    run "mkdir -p #{release_path}/tmp"
+    run "ln -s #{shared_path}/tmp/pids #{release_path}/tmp/pids"
   end
 end
