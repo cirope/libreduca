@@ -1,0 +1,4 @@
+'es':
+  errors:
+    messages:
+      extension_white_list_error: 'no se permite el formato del archivo'

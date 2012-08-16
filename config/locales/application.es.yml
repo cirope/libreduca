@@ -118,6 +118,7 @@
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
+        avatar: 'Imágen'
         remember_me: 'Recordarme'
         jobs:
           one: 'Trabajo'

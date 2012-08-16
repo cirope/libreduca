@@ -18,6 +18,9 @@
           <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
         <% end %>
 
+        <%= f.input :avatar, hint: user_avatar_identifier(f.object) %>
+        <%= f.input :avatar_cache, as: :hidden %>
+
         <% if can? :assign_roles, @user %>
           <label><%= User.human_attribute_name 'roles', count: 1 %></label>
           <%= show_user_roles_options(f) %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120809141711) do
+ActiveRecord::Schema.define(:version => 20120814125457) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment",                     :null => false
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(:version => 20120809141711) do
     t.integer  "lock_version",           :default => 0,  :null => false
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

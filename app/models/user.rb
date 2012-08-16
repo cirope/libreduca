@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   include RoleModel
   
   roles :admin, :regular
+
+  mount_uploader :avatar, AvatarUploader
   
   has_paper_trail
   
@@ -13,7 +15,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
-    :role, :remember_me, :kinships_attributes, :jobs_attributes, :lock_version
+    :avatar, :avatar_cache, :role, :remember_me, :kinships_attributes,
+    :jobs_attributes, :lock_version
   
   # Defaul order
   default_scope order("#{table_name}.lastname ASC")

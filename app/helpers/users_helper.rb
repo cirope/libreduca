@@ -26,4 +26,15 @@ module UsersHelper
   def show_human_kinship_type(kinship)
     t "view.kinships.types.#{kinship}"
   end
+
+  def show_user_avatar(user, version = :thumb)
+    avatar = user.avatar.send(version)
+    dimensions = MiniMagick::Image.open(avatar.path)['dimensions']
+
+    image_tag avatar.url, size: dimensions.join('x'), alt: user, class: 'avatar'
+  end
+
+  def user_avatar_identifier(user)
+    user.avatar.identifier || user.avatar_identifier if user.avatar?
+  end
 end

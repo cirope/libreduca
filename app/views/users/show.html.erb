@@ -1,65 +1,72 @@
 <div class="readonly-data">
-  <h2><%= @user %></h2>
+  <div class="row-fluid">
+    <div class="span9">
+      <h2><%= @user %></h2>
 
-  <p>
-    <%= mail_to @user.email %>
-  </p>
+      <p>
+        <%= mail_to @user.email %>
+      </p>
 
-  <% if @user.role %>
-    <p>
-      <%= User.human_attribute_name 'roles', count: 1 %>:
-      <strong><%= t("view.users.roles.#{@user.role}") %></strong>
-    </p>
-  <% end %>
-    
-  <% unless @user.jobs.empty? %>
-    <h3><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h3>
-    <ul>
-      <% @user.jobs.each do |job| %>
-        <li>
-          <%= t(
-            'view.users.job_role.html',
-            institution: link_to_if(can?(:read, job.institution), job.institution.name, job.institution),
-            role: show_human_job_type(job.job)
-          ) %>
-        </li>
+      <% if @user.role %>
+        <p>
+          <%= User.human_attribute_name 'roles', count: 1 %>:
+          <strong><%= t("view.users.roles.#{@user.role}") %></strong>
+        </p>
       <% end %>
-    </ul>
-  <% end %>
-  
-  <% unless @user.kinships.empty? %>
-    <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size %></h3>
-    <ul>
-      <% @user.kinships.each do |kinship| %>
-        <li>
-          <%= t(
-            'view.users.kinship.html',
-            relative: link_to_if(can?(:read, kinship.relative), kinship.relative.to_s, kinship.relative),
-            kin: show_human_kinship_type(kinship.kin)
-          ) %>
-        </li>
+        
+      <% unless @user.jobs.empty? %>
+        <h3><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h3>
+        <ul>
+          <% @user.jobs.each do |job| %>
+            <li>
+              <%= t(
+                'view.users.job_role.html',
+                institution: link_to_if(can?(:read, job.institution), job.institution.name, job.institution),
+                role: show_human_job_type(job.job)
+              ) %>
+            </li>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
-  <% end %>
-  
-  <% unless @user.inverse_kinships.empty? %>
-    <h3>
-      <%= User.human_attribute_name(
-        'inverse_kinships', count: @user.inverse_kinships.size
-      ) %>
-    </h3>
-    <ul>
-      <% @user.inverse_kinships.each do |inverse_kinship| %>
-        <li>
-          <%= t(
-            'view.users.inverse_kinship.html',
-            user: link_to_if(can?(:read, inverse_kinship.user), inverse_kinship.user.to_s, inverse_kinship.user),
-            kin: show_human_kinship_type(inverse_kinship.kin)
-          ) %>
-        </li>
+      
+      <% unless @user.kinships.empty? %>
+        <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size %></h3>
+        <ul>
+          <% @user.kinships.each do |kinship| %>
+            <li>
+              <%= t(
+                'view.users.kinship.html',
+                relative: link_to_if(can?(:read, kinship.relative), kinship.relative.to_s, kinship.relative),
+                kin: show_human_kinship_type(kinship.kin)
+              ) %>
+            </li>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
-  <% end %>
+      
+      <% unless @user.inverse_kinships.empty? %>
+        <h3>
+          <%= User.human_attribute_name(
+            'inverse_kinships', count: @user.inverse_kinships.size
+          ) %>
+        </h3>
+        <ul>
+          <% @user.inverse_kinships.each do |inverse_kinship| %>
+            <li>
+              <%= t(
+                'view.users.inverse_kinship.html',
+                user: link_to_if(can?(:read, inverse_kinship.user), inverse_kinship.user.to_s, inverse_kinship.user),
+                kin: show_human_kinship_type(inverse_kinship.kin)
+              ) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+    <div class="span3">
+      <%= show_user_avatar(@user) if @user.avatar? %>
+    </div>
+  </div>
 </div>
 
 <nav class="form-actions">

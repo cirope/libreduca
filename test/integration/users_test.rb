@@ -8,7 +8,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     visit new_user_path
     
-    user_attributes = Fabricate.attributes_for(:user)
+    user_attributes = Fabricate.attributes_for(:user, raw_avatar_path: true)
     
     fill_in 'user_name', with: user_attributes['name']
     fill_in 'user_lastname', with: user_attributes['lastname']
@@ -16,6 +16,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     fill_in 'user_password', with: user_attributes['password']
     fill_in 'user_password_confirmation',
       with: user_attributes['password_confirmation']
+    attach_file 'user_avatar', user_attributes['avatar']
     
     find('#user_role_admin').click
     
@@ -66,7 +67,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     visit new_user_path
     
-    user_attributes = Fabricate.attributes_for(:user)
+    user_attributes = Fabricate.attributes_for(:user, raw_avatar_path: true)
     
     fill_in 'user_name', with: user_attributes['name']
     fill_in 'user_lastname', with: user_attributes['lastname']
@@ -74,6 +75,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     fill_in 'user_password', with: user_attributes['password']
     fill_in 'user_password_confirmation',
       with: user_attributes['password_confirmation']
+    attach_file 'user_avatar', user_attributes['avatar']
     
     find('#user_role_admin').click
     
