@@ -128,11 +128,16 @@ class TeachTest < ActiveSupport::TestCase
   
   test 'send email summary' do
     2.times do
-      Fabricate(:enrollment, teach_id: @teach.id).tap do |enrollment|
+      Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student').tap do |enrollment|
         Fabricate(:kinship, user_id: enrollment.user_id)
       end
     end
+
+    Fabricate(:enrollment, teach_id: @teach.id, with_job: 'teacher').tap do |enrollment|
+      Fabricate(:kinship, user_id: enrollment.user_id)
+    end
     
+    # Teacher email should not be sent
     assert_difference 'ActionMailer::Base.deliveries.size', 2 do
       @teach.send_email_summary
     end

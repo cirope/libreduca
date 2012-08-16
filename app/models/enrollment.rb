@@ -44,7 +44,15 @@ class Enrollment < ActiveRecord::Base
   end
   
   def send_email_summary
-    Notifier.enrollment_status(self).deliver
+    Notifier.delay.enrollment_status(self)
+  end
+
+  def method_missing(method, *args, &block)
+    if method.to_s =~ /^is_(\w+)\?$/
+      self.job == $1
+    else
+      super
+    end
   end
   
   def self.for_user(user)

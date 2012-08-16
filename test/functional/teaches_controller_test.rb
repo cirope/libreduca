@@ -68,7 +68,7 @@ class TeachesControllerTest < ActionController::TestCase
   end
   
   test 'should send email summary' do
-    Fabricate(:enrollment, teach_id: @teach.id).tap do |enrollment|
+    Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student').tap do |enrollment|
       Fabricate(:kinship, user_id: enrollment.user_id)
     end
     

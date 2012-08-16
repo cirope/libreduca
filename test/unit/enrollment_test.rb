@@ -101,6 +101,14 @@ class EnrollmentTest < ActiveSupport::TestCase
       @enrollment.send_email_summary
     end
   end
+
+  test 'is methods' do
+    job = @enrollment.job
+    no_jobs = Job::TYPES - [job]
+
+    assert @enrollment.send("is_#{job}?")
+    assert no_jobs.all? { |no_job| !@enrollment.send("is_#{no_job}?") }
+  end
   
   test 'self for user' do
     Enrollment.for_user(@enrollment.user).map(&:id).tap do |enrollment_ids|

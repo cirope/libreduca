@@ -58,7 +58,7 @@ class Teach < ActiveRecord::Base
   
   def send_email_summary
     self.enrollments.each do |enrollment|
-      Notifier.enrollment_status(enrollment).deliver
+      enrollment.send_email_summary if enrollment.is_student?
     end
   end
 end
