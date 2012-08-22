@@ -13,24 +13,6 @@
 
     .form-inputs {
       padding: 6px 20px;
-
-      /* TODO: Erase this excesive amount of CSS for control de checkbox position */
-      label.boolean {
-        display: inline;
-      }
-
-      .control-group.boolean {
-        label, .controls {
-          display: inline;
-        }
-
-        label {
-          input.boolean {
-            margin: 0px 6px 0px 0px;
-          }
-        }
-      }
-      /* ENDTODO (if something like this exists...) */
     }
 
     .form-actions {

@@ -1,22 +1,29 @@
-<div class="row">
-  <div class="public_form_container span4 offset4">
+<div class="row-fluid">
+  <div class="span4 hidden-phone">
+    &nbsp;
+  </div>
+  <div class="public_form_container span4">
     <h3>Inicio de sesión</h3>
 
-    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="form-inputs">
-        <%= f.input :email, input_html: { autofocus: true, class: 'span3' } %>
-        <%= f.input :password, input_html: { class: 'span3' } %>
-        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    <div class="row-fuild">
+      <div class="span12">
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-inputs">
+            <%= f.input :email, input_html: { autofocus: true, class: 'span12' } %>
+            <%= f.input :password, input_html: { class: 'span12' } %>
+            <%= f.input :remember_me, as: :boolean, wrapper: :checkbox if devise_mapping.rememberable? %>
+          </div>
+        
+          <div class="form-actions">
+            <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
+            <%= show_button_dropdown(
+              link_to('Ingresar', '#', class: 'btn btn-primary submit'),
+              devise_links_es
+            ) %>
+          </div>
+        <% end %>
       </div>
-    
-      <div class="form-actions">
-        <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
-        <%= show_button_dropdown(
-          link_to('Ingresar', '#', class: 'btn btn-primary submit'),
-          devise_links_es
-        ) %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
 <% if devise_mapping.recoverable? %>

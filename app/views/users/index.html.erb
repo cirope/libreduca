@@ -8,7 +8,11 @@
           <tr>
             <th><%= User.human_attribute_name 'name' %></th>
             <th><%= User.human_attribute_name 'lastname' %></th>
-            <th class="visible-desktop"><%= User.human_attribute_name 'email' %></th>
+            <th>
+              <span class="visible-desktop">
+                <%= User.human_attribute_name 'email' %>
+              </span>
+            </th>
             <th colspan="2"></th>
           </tr>
         </thead>
@@ -18,7 +22,7 @@
             <tr>
               <td><%= link_to user.name, user, title: t('label.show') %></td>
               <td><%= link_to user.lastname, user, title: t('label.show') %></td>
-              <td class="visible-desktop"><%= mail_to user.email %></td>
+              <td><%= mail_to user.email, user.email, class: 'visible-desktop' %></td>
               <td><%= link_to_edit edit_user_path(user) if can? :update, user %></td>
               <td><%= link_to_destroy user if can? :destroy, user %></td>
             </tr>
