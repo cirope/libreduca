@@ -20,7 +20,7 @@ jQuery ($)->
           $(this).addClass('active')
           $('.navbar form.navbar-search').attr 'action', newAction
 
-      App.onPageLoad()
+      App.Load.pageLoad()
 
     $(document).on 'pjax:start', '[data-pjax-container]', ->
       $('input.search-query').val('')
