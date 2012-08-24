@@ -1,5 +1,5 @@
 <%= simple_form_for(@region) do |f| %>
-  <%= content_for :js_extra do %>
+  <%= inline_js_content :js_extra do %>
     <%= raw "var district='#{generate_template(f, :districts)}';" %>
   <% end %>
 

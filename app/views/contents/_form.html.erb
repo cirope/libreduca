@@ -1,5 +1,5 @@
 <%= simple_form_for([@teach, @content], defaults: { input_html: { class: 'span11' } }) do |f| %>
-  <%= content_for :js_extra do %>
+  <%= inline_js_content :js_extra do %>
     <%= raw "var doc='#{generate_template(f, :documents)}';" %>
   <% end %>
 

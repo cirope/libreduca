@@ -3,10 +3,14 @@ module ApplicationHelper
     MARKDOWN_RENDERER.render(text).html_safe
   end
 
-  def show_error_messages_for(model)
-    render 'shared/error_messages', model: model unless model.errors.empty?
+  def inline_js_content(*args)
+    if pjax_request? && block_given?
+      javascript_tag { yield }
+    elsif block_given?
+      content_for(*args) { yield }
+    end
   end
-  
+
   def show_button_dropdown(main_action, extra_actions = [], options = {})
     if extra_actions.blank?
       main_action

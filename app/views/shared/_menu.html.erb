@@ -10,38 +10,35 @@
       <% if user_signed_in? %>
         <div class="nav-collapse">
           <ul class="nav">
-            <%= content_tag(
-              :li, link_to(t('menu.dashboard'), dashboard_path),
-              class: ('active' if controller_name == 'dashboard')
+            <%= show_menu_link(
+              name: 'dashboard', controllers: 'dashboard', path: dashboard_path
             ) if current_institution %>
-            <%= content_tag(
-              :li, link_to(t('menu.users'), users_path),
-              class: ('active' if controller_name == 'users')
+            <%= show_menu_link(
+              name: 'users', controllers: 'users', path: users_path
             ) if can?(:read, User) && current_user.is?(:admin) %>
-            <%= content_tag(
-              :li, link_to(t('menu.regions'), regions_path),
-              class: ('active' if controller_name == 'regions')
+            <%= show_menu_link(
+              name: 'regions', controllers: 'regions', path: regions_path
             ) if can? :read, Region %>
-            <%= content_tag(
-              :li, link_to(t('menu.institutions'), institutions_path),
-              class: ('active' if ['institutions', 'grades', 'courses', 'teaches', 'scores'].include?(controller_name))
+            <%= show_menu_link(
+              name: 'institutions', path: institutions_path,
+              controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
             ) if can? :read, Institution %>
           </ul>
-          <%= render partial: 'shared/nav_search' if @searchable %>
+          <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">
             <li>
               <%= link_to(
                 current_user.email, edit_profile_user_path(current_user),
-                'title' => t('view.users.edit_profile'),
-                'data-show-tooltip' => true, 'data-placement' => 'bottom'
+                title: t('view.users.edit_profile'),
+                data: { 'show-tooltip' => true, 'placement' => 'bottom' }
               ) %>
             </li>
             <li>
               <%= link_to(
                 '&#x2192;'.html_safe, destroy_user_session_path,
-                'title' => t('menu.actions.logout'), 'class' => 'iconic',
-                'id' => 'logout', 'data-show-tooltip' => true,
-                'data-placement' => 'bottom', 'method' => :delete
+                title: t('menu.actions.logout'), class: 'iconic', id: 'logout',
+                method: :delete,
+                data: { 'show-tooltip' => true, 'placement' => 'bottom' }
               ) %>
             </li>
           </ul>

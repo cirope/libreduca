@@ -1,5 +1,5 @@
 <%= simple_form_for(@user) do |f| %>
-  <%= content_for :js_extra do %>
+  <%= inline_js_content :js_extra do %>
     <%= raw "var job='#{generate_template(f, :jobs)}';" %>
     <%= raw "var kinship='#{generate_template(f, :kinships)}';" %>
   <% end %>
