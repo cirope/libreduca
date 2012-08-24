@@ -11,8 +11,19 @@ window.App =
         clickClose = -> $(a).find('a.close').trigger('click')
 
         setTimeout clickClose, $(a).data('close-after')
-  ]
-  onPageLoad: -> jQuery.each(App.onEveryLoad, (i, f) -> f())
+
+      App.unLoadEvents()
+
+      jQuery.each App.events, (i, e)->
+        $(document).on(e.type, e.selector, e.handler) if e.condition()
+  ],
+  registerOnLoad: (onLoad) -> App.onEveryLoad.push onLoad,
+  onPageLoad: -> jQuery.each(App.onEveryLoad, (i, f)-> f()),
+  events: [],
+  registerEvent: (event)-> App.events.push event,
+  unLoadEvents: ->
+    jQuery.each App.events, (i, e)->
+      $(document).off(e.type, e.selector, e.handler)
 
 jQuery ($)->
   pjaxQuery  = 'a:not([data-remote])'
@@ -21,7 +32,6 @@ jQuery ($)->
   pjaxQuery += ':not(.submit)'
 
   $(pjaxQuery).pjax('[data-pjax-container]')
-
   
   $(document).on 'click', 'a.submit', -> $('form').submit(); false
   
