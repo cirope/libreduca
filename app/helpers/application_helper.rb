@@ -1,4 +1,17 @@
 module ApplicationHelper
+  def show_menu_link(options = {})
+    name = t("menu.#{options[:name]}")
+    classes = []
+
+    classes << 'active' if [*options[:controllers]].include?(controller_name)
+
+    content_tag(
+      :li, link_to(name, options[:path]),
+      class: (classes.empty? ? nil : classes.join(' ')),
+      data: { controllers: [*options[:controllers]].to_json }
+    )
+  end
+
   def show_error_messages_for(model)
     render 'shared/error_messages', model: model unless model.errors.empty?
   end

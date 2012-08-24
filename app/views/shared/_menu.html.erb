@@ -10,12 +10,11 @@
       <% if user_signed_in? %>
         <div class="nav-collapse">
           <ul class="nav">
-            <%= content_tag(
-              :li, link_to(t('menu.users'), users_path),
-              class: ('active' if controller_name == 'users')
-            ) if can? :read, User %>
+            <%= show_menu_link(
+              name: 'users', controllers: 'users', path: users_path
+            ) if can?(:read, User) %>
           </ul>
-          <%= render partial: 'shared/nav_search' if @searchable %>
+          <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">
             <li>
               <%= link_to(

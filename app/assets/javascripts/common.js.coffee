@@ -1,23 +1,38 @@
+window.App =
+  # Functions to call on each load of Pjax and no Pjax
+  onEveryLoad: [
+    ->
+      # For browsers with no autofocus support
+      $('[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
+      $('[data-show-tooltip]').tooltip()
+      $('.nav-collapse').collapse('hide')
+
+      $('.alert[data-close-after]').each (i, a)->
+        clickClose = -> $(a).find('a.close').trigger('click')
+
+        setTimeout clickClose, $(a).data('close-after')
+  ]
+  onPageLoad: -> jQuery.each(App.onEveryLoad, (i, f) -> f())
+
 jQuery ($)->
-  # For browsers with no autofocus support
-  $('*[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
+  pjaxQuery  = 'a:not([data-remote])'
+  pjaxQuery += ':not([data-behavior])'
+  pjaxQuery += ':not([data-skip-pjax])'
+  pjaxQuery += ':not(.submit)'
+
+  $(pjaxQuery).pjax('[data-pjax-container]')
+
   
-  $('*[data-show-tooltip]').tooltip()
-  
-  $('a.submit').click -> $('form').submit(); return false
+  $(document).on 'click', 'a.submit', -> $('form').submit(); false
   
   $('#loading_caption').bind
     ajaxStart: `function() { $(this).stop(true, true).fadeIn(100) }`
     ajaxStop: `function() { $(this).stop(true, true).fadeOut(100) }`
   
-  $('form').submit ->
+  $(document).on 'submit', 'form', ->
     $(this).find('input[type="submit"], input[name="utf8"]')
     .attr 'disabled', true
     $(this).find('a.submit').removeClass('submit').addClass('disabled')
     $(this).find('.dropdown-toggle').addClass('disabled')
 
-  if $('.alert[data-close-after]').length > 0
-    $('.alert[data-close-after]').each (i, a)->
-      setTimeout(
-        (-> $(a).find('a.close').trigger('click')), $(a).data('close-after')
-      )
+  App.onPageLoad()

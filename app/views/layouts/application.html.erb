@@ -16,7 +16,7 @@
     <strong><%= t('label.loading') %></strong>
   </div>
   <div class="container">
-    <div class="content"><%= yield %></div>
+    <div class="content" data-pjax-container="true"><%= yield %></div>
   </div>
   
   <%= render 'shared/notice' if flash.notice %>
