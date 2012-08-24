@@ -12,10 +12,6 @@ module ApplicationHelper
     )
   end
 
-  def show_error_messages_for(model)
-    render 'shared/error_messages', model: model unless model.errors.empty?
-  end
-  
   def show_button_dropdown(main_action, extra_actions = [], options = {})
     if extra_actions.blank?
       main_action
