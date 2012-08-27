@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :set_current_institution
   after_filter -> { expires_now if user_signed_in? }
+  after_filter :add_pjax_headers
   
   helper_method :current_institution
   
@@ -45,5 +46,14 @@ class ApplicationController < ActionController::Base
     @current_institution = Institution.find_by_identification(
       request.subdomains.first
     )
+  end
+
+  def add_pjax_headers
+    if pjax_request?
+      response.headers['X-PJAX-Searchable'] = 'true' if @searchable
+      response.headers['X-PJAX-Controller'] = controller_name
+      response.headers['X-PJAX-Action']     = action_name
+      response.headers['X-PJAX-Title']      = @title || ''
+    end
   end
 end

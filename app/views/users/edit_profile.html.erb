@@ -1,6 +1,6 @@
 <% common_options = {
   url: update_profile_user_path(@user),
-  defaults: { input_html: { class: 'span6' } }
+  defaults: { input_html: { class: 'span5' } }
 } %>
 <div class="row">
   <div class="span9">
@@ -11,7 +11,7 @@
         <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
         <%= f.input :avatar, hint: user_avatar_identifier(f.object) %>
         <%= f.input :avatar_cache, as: :hidden %>
-        
+       
         <%= f.input :lock_version, as: :hidden %>
         <%= f.button :submit, t('view.users.update_profile'), class: 'btn-primary' %>
       </div>

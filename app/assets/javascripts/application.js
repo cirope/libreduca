@@ -13,12 +13,14 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jquery.pjax
 //= require jquery/jquery.ui.datepicker-es
 //= require twitter/bootstrap
 //= require common
 //= require autocomplete
 //= require dynamic_form
 //= require effect_helper
+//= require pjax
 //= require date_pickers
 //= require mobile
 //= require contents

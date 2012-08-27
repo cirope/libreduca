@@ -4,6 +4,7 @@ gem 'rails', '3.2.8'
 
 gem 'pg'
 gem 'jquery-rails'
+gem 'pjax_rails'
 gem 'will_paginate'
 gem 'simple_form'
 gem 'devise'
