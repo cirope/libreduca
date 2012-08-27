@@ -1,4 +1,6 @@
-jQuery ($)->
-  if $('#c_forums').length > 0
-    $('form[data-remote]').on 'ajax:success', (event, data)->
-      $(this).replaceWith(data)
+App.Event.registerEvent(
+  condition: -> $('#c_forums').length > 0
+  type: 'ajax:success'
+  selector: 'form[data-remote]'
+  handler: (event, data)-> $(this).replaceWith(data)
+)

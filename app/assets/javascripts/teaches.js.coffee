@@ -1,19 +1,28 @@
-jQuery ($)->
-  if $('#c_teaches').length > 0
-    $(document).on 'keyup', '#global_multiplier, #global_description', ->
-      $($(this).data('target')).val($(this).val())
-      
-    $(document).on 'click', 'a.send_email_summary', ->
-      $(this).removeAttr('href').removeAttr('data-remote').
-      removeAttr('data-method')
-    
-    $(document).on 'ajax:success', 'a.send_email_summary', (event, data)->
-      modal = $(this).parents('.modal:first')
-      
-      modal.find('.modal-body').hide().html(data).fadeIn()
-      modal.find('.btn.btn-primary').button('complete')
-      # Some weird behaviour with button complete make me do this
-      window.setTimeout(
-        (-> modal.find('.btn.btn-primary').addClass('disabled')), 20
-      )
-      
+App.Event.registerEvent(
+  condition: -> $('#c_teaches').length > 0
+  type: 'keyup'
+  selector: '#global_multiplier, #global_description'
+  handler: ()-> $($(this).data('target')).val($(this).val())
+)
+
+App.Event.registerEvent(
+  condition: -> $('#c_teaches').length > 0
+  type: 'click'
+  selector: 'a.send_email_summary'
+  handler: ()->
+    $(this).removeAttr('href').removeAttr('data-remote').removeAttr('data-method')
+)
+
+App.Event.registerEvent(
+  condition: -> $('#c_teaches').length > 0
+  type: 'ajax:success'
+  selector: 'a.send_email_summary'
+  handler: (event, data)->
+    modal = $(this).parents('.modal:first')
+    button = modal.find('.btn.btn-primary').button('complete')
+
+    modal.find('.modal-body').hide().html(data).fadeIn()
+    # Some weird behaviour with button complete make me do this
+    window.setTimeout((-> button.addClass('disabled')), 20)
+
+)
