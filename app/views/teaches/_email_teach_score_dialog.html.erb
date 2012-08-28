@@ -14,7 +14,7 @@
     <a href="#" class="btn" data-dismiss="modal"><%= t('label.close') %></a>
     <%= link_to(
       t('label.send'),
-      send_email_summary_course_teach_path(course, teach, format: :html),
+      send_email_summary_teach_path(teach, format: :html),
       class: 'btn btn-primary send_email_summary', method: :post, remote: true,
       data: {
         'loading-text' => t('label.sending'), 'complete-text' => t('label.sent')

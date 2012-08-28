@@ -109,9 +109,9 @@
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_course_teach_path(@course, @teach), class: 'btn btn-primary' if can? :update, @teach %>
+  <%= link_to t('label.edit'), edit_teach_path(@teach), class: 'btn btn-primary' if can? :update, @teach %>
   <%= link_to t('view.teaches.send_email_summary.html'), '#email_modal', class: 'btn', data: { toggle: 'modal' } if can? :send_email_summary, @teach %>
-  <% if can? :read, Teach %>
+  <% if @course && can?(:read, @course) %>
     <div class="pull-right">
       <%= link_to t('label.list'), course_teaches_path(@course) %>
     </div>
@@ -119,6 +119,8 @@
 </nav>
 
 <%= yield :modal_dialogs %>
-<%= render partial: 'email_teach_score_dialog', locals: {
-  teach: @teach, course: @course
-} %>
+<% if can? :send_email_summary, @teach %>
+  <%= render partial: 'email_teach_score_dialog', locals: {
+    teach: @teach, course: @course
+  } %>
+<% end %>

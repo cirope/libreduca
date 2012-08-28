@@ -1,4 +1,4 @@
-<%= simple_form_for([@course, @teach]) do |f| %>
+<%= simple_form_for((@teach.new_record? ? [@course, @teach] : @teach)) do |f| %>
   <%= inline_js_content :js_extra do %>
     <%= raw "var enrollment='#{generate_template(f, :enrollments)}';" %>
   <% end %>

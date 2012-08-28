@@ -5,7 +5,9 @@ class TeachesController < ApplicationController
   
   check_authorization
   load_and_authorize_resource :course
-  load_and_authorize_resource :teach, through: :course
+  load_and_authorize_resource :teach, through: :course, shallow: true
+
+  before_filter :load_course
   
   # GET /teaches
   # GET /teaches.json
@@ -53,7 +55,7 @@ class TeachesController < ApplicationController
 
     respond_to do |format|
       if @teach.save
-        format.html { redirect_to [@course, @teach], notice: t('view.teaches.correctly_created') }
+        format.html { redirect_to @teach, notice: t('view.teaches.correctly_created') }
         format.json { render json: @teach, status: :created, location: @teach }
       else
         format.html { render action: 'new' }
@@ -69,7 +71,7 @@ class TeachesController < ApplicationController
 
     respond_to do |format|
       if @teach.update_attributes(params[:teach])
-        format.html { redirect_to [@course, @teach], notice: t('view.teaches.correctly_updated') }
+        format.html { redirect_to @teach, notice: t('view.teaches.correctly_updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -79,7 +81,7 @@ class TeachesController < ApplicationController
     
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.teaches.stale_object_error'
-    redirect_to edit_course_teach_url(@course, @teach)
+    redirect_to edit_teach_url(@teach)
   end
 
   # DELETE /teaches/1
@@ -102,5 +104,11 @@ class TeachesController < ApplicationController
       format.html # send_email_summary.html.erb
       format.json { render json: @enrollment }
     end
+  end
+
+  private
+
+  def load_course
+    @course ||= @teach.try(:course)
   end
 end

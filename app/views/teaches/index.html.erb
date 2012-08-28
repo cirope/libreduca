@@ -29,9 +29,9 @@
             <tr>
               <td><%= l teach.start %></td>
               <td><%= l teach.finish %></td>
-              <td><%= link_to_show [@course, teach] if can? :read, teach %></td>
-              <td><%= link_to_edit edit_course_teach_path(@course, teach) if can? :update, teach %></td>
-              <td><%= link_to_destroy [@course, teach] if can? :destroy, teach %></td>
+              <td><%= link_to_show teach if can? :read, teach %></td>
+              <td><%= link_to_edit edit_teach_path(teach) if can? :update, teach %></td>
+              <td><%= link_to_destroy teach if can? :destroy, teach %></td>
             </tr>
           <% end %>
         </tbody>

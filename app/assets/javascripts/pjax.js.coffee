@@ -25,4 +25,5 @@ jQuery ($)->
     $(document).on 'pjax:start', '[data-pjax-container]', ->
       $('input.search-query').val('')
       $('.navbar .nav .active').removeClass('active')
-      $('*[data-show-tooltip]').tooltip('destroy')
+      $('[data-show-tooltip]').tooltip('destroy')
+      $('[data-show-popover]').popover('destroy')

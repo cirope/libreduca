@@ -16,7 +16,7 @@
     
     <ul>
       <% @course.teaches.reject!(&:new_record?).each do |teach| %>
-        <li><%= link_to_if can?(:read, teach), teach.to_s, [@course, teach] %></li>
+        <li><%= link_to_if can?(:read, teach), teach.to_s, teach %></li>
       <% end %>
     </ul>
   <% end %>

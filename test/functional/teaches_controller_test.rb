@@ -30,7 +30,7 @@ class TeachesControllerTest < ActionController::TestCase
         teach: Fabricate.attributes_for(:teach, course_id: @course.id)
     end
 
-    assert_redirected_to course_teach_url(@course, assigns(:teach))
+    assert_redirected_to teach_url(assigns(:teach))
   end
 
   test 'should show teach' do
@@ -55,7 +55,7 @@ class TeachesControllerTest < ActionController::TestCase
         teach: Fabricate.attributes_for(:teach, start: Date.tomorrow)
     end
     
-    assert_redirected_to course_teach_url(@course, assigns(:teach))
+    assert_redirected_to teach_url(assigns(:teach))
     assert_equal Date.tomorrow, @teach.reload.start
   end
 

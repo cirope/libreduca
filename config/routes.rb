@@ -4,7 +4,7 @@ Libreduca::Application.routes.draw do
       resources :contents
     end
 
-    resources :courses, only: [] do
+    resources :courses, shallow: true, only: [] do
       resources :teaches do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end
@@ -55,7 +55,7 @@ Libreduca::Application.routes.draw do
       resources :contents
     end
 
-    resources :courses, only: [] do
+    resources :courses, shallow: true, only: [] do
       resources :teaches do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end

@@ -12,7 +12,7 @@
     <span class="divider">/</span>
   </li>
   <li>
-    <%= link_to_if can?(:read, @teach), @teach.to_s, [@teach.course, @teach] %>
+    <%= link_to_if can?(:read, @teach), @teach.to_s, @teach %>
     <% unless @content.new_record? %>
       <span class="divider">/</span>
     <% end %>

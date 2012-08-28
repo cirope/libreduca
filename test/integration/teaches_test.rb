@@ -89,7 +89,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     teach = Fabricate(:teach) { enrollments { [Fabricate(:enrollment)] } }
     
-    visit edit_course_teach_path(teach.course, teach)
+    visit edit_teach_path(teach)
     
     click_link Teach.human_attribute_name('enrollments', count: 0)
     
@@ -119,7 +119,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
       Fabricate :enrollment, teach_id: t.id, user_id: user.id, job: 'student'
     end
     
-    visit edit_course_teach_path(course, teach)
+    visit edit_teach_path(teach)
 
     click_link I18n.t('view.teaches.enter_scores')
 
@@ -162,7 +162,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
       end
     end
     
-    visit edit_course_teach_path(course, teach)
+    visit edit_teach_path(teach)
 
     click_link I18n.t('view.teaches.enter_scores')
     
@@ -188,7 +188,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     2.times { Fabricate(:score, user_id: user.id, teach_id: teach.id) }
     
-    visit course_teach_path(course, teach)
+    visit teach_path(teach)
     
     click_link '✉'
     
@@ -222,7 +222,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
       end
     end
     
-    visit course_teach_path(course, teach)
+    visit teach_path(teach)
     
     find('a[href="#email_modal"]').click
     
