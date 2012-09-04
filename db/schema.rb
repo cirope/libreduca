@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904172053) do
+ActiveRecord::Schema.define(:version => 20120904180110) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment",                     :null => false
@@ -147,6 +147,15 @@ ActiveRecord::Schema.define(:version => 20120904172053) do
 
   add_index "kinships", ["relative_id"], :name => "index_kinships_on_relative_id"
   add_index "kinships", ["user_id"], :name => "index_kinships_on_user_id"
+
+  create_table "questions", :force => true do |t|
+    t.string   "content",    :null => false
+    t.integer  "survey_id",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "questions", ["survey_id"], :name => "index_questions_on_survey_id"
 
   create_table "regions", :force => true do |t|
     t.string   "name",                        :null => false

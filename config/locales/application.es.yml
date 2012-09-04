@@ -44,15 +44,24 @@
       institution:
         one: 'Institución'
         other: 'Instituciones'
+      question:
+        one: 'Pregunta'
+        other: 'Preguntas'
       score:
         one: 'Calificación'
         other: 'Calificaciones'
+      survey:
+        one: 'Encuesta'
+        other: 'Encuestas'
       teach:
         one: 'Dictado'
         other: 'Dictados'
       user:
         one: 'Usuario'
         other: 'Usuarios'
+      visit:
+        one: 'Visita'
+        other: 'Visitas'
       
     attributes:
       comment:
@@ -94,11 +103,17 @@
         identification: 'Identificación'
         district_id: 'Distrito'
         workers: 'Personal'
+      question:
+        content: 'Pregunta'
       score:
         score: 'Calificación'
         multiplier: 'Multiplicador'
         description: 'Descripción'
         user_id: 'Alumno'
+      survey:
+        name: 'Nombre'
+      survey/question:
+        content: 'Pregunta'
       teach:
         start: 'Inicio'
         finish: 'Finalización'

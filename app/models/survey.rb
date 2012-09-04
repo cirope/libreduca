@@ -10,6 +10,10 @@ class Survey < ActiveRecord::Base
 
   # Relations
   belongs_to :content
+  has_many :questions
+
+  accepts_nested_attributes_for :questions, allow_destroy: true,
+    reject_if: ->(attrs) { attrs['content'].blank? }
 
   def to_s
     self.name
