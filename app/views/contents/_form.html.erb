@@ -7,7 +7,10 @@
 
   <div class="form-inputs">
     <%= f.input :title, input_html: { autofocus: true } %>
-    <%= f.input :content, input_html: { rows: 10 } %>
+    <%= f.input :content, input_html: { rows: 10 }, hint: t(
+      'view.contents.markdown_help.html',
+      link: link_to('markdown', '#markdown-help', data: { toggle: 'modal' })
+    ) %>
 
     <div id="documents">
       <%  @content.documents.build unless @content.documents.detect(&:new_record?) %>
@@ -33,3 +36,4 @@
     <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
+<%= render 'help/markdown_inline' %>
