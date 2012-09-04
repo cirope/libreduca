@@ -59,6 +59,23 @@ class ContentTest < ActiveSupport::TestCase
       error_message_from_model(@content, :title, :too_long, count: 255)
     ], @content.errors[:title]
   end
+
+  test 'visited by' do
+    user = Fabricate(:user)
+
+    assert !@content.visited_by?(user)
+
+    assert_difference '@content.visits.count' do
+      assert @content.visited_by(user)
+    end
+
+    assert @content.reload.visited_by?(user)
+
+    # If there is a visit, then no visit is created =)
+    assert_no_difference '@content.visits.count' do
+      assert !@content.visited_by(user)
+    end
+  end
   
   test 'magick search' do
     5.times do

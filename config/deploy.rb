@@ -42,6 +42,7 @@ namespace :deploy do
   desc 'Creates the synmlink to tmp/pids'
   task :create_tmp_pids_symlink, roles: :app, except: { no_release: true } do
     run "mkdir -p #{release_path}/tmp"
+    run "mkdir -p #{shared_path}/tmp/pids"
     run "ln -s #{shared_path}/tmp/pids #{release_path}/tmp/pids"
   end
 end

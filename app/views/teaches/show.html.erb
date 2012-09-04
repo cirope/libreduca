@@ -43,6 +43,9 @@
               <%= link_to_if(
                 can?(:read, content), content, [@teach, content]
               ) %>
+              <% if content.visited_by?(current_user) %>
+                <span class="visited iconic">&#x2714;</span>
+              <% end %>
             </li>
           <% end %>
         </ul>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814125457) do
+ActiveRecord::Schema.define(:version => 20120903185818) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment",                     :null => false
@@ -220,5 +220,16 @@ ActiveRecord::Schema.define(:version => 20120814125457) do
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
   add_index "versions", ["whodunnit"], :name => "index_versions_on_whodunnit"
+
+  create_table "visits", :force => true do |t|
+    t.integer  "user_id",      :null => false
+    t.integer  "visited_id",   :null => false
+    t.string   "visited_type", :null => false
+    t.datetime "created_at",   :null => false
+  end
+
+  add_index "visits", ["user_id", "visited_id", "visited_type"], :name => "index_visits_on_user_id_and_visited_id_and_visited_type", :unique => true
+  add_index "visits", ["user_id"], :name => "index_visits_on_user_id"
+  add_index "visits", ["visited_id", "visited_type"], :name => "index_visits_on_visited_id_and_visited_type"
 
 end

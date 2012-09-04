@@ -23,6 +23,8 @@ class ContentsController < ApplicationController
   def show
     @title = t('view.contents.show_title')
 
+    @content.visited_by(current_user)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @content }

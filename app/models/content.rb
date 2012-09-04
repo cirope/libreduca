@@ -16,6 +16,7 @@ class Content < ActiveRecord::Base
   # Relations
   belongs_to :teach
   has_many :documents, as: :owner, dependent: :destroy
+  has_many :visits, as: :visited, dependent: :destroy
   has_one :institution, through: :teach
 
   accepts_nested_attributes_for :documents, allow_destroy: true,
@@ -29,5 +30,13 @@ class Content < ActiveRecord::Base
 
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
+  end
+
+  def visited_by?(user)
+    self.visits.where(user_id: user.id).exists?
+  end
+
+  def visited_by(user)
+    self.visits.create!(user: user) unless self.visited_by?(user)
   end
 end
