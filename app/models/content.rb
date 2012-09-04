@@ -4,7 +4,8 @@ class Content < ActiveRecord::Base
   has_magick_columns title: :string
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :title, :content, :documents_attributes, :lock_version
+  attr_accessible :title, :content, :surveys_attributes, :documents_attributes,
+    :lock_version
 
   # Default order
   default_scope order("#{table_name}.title ASC")

@@ -2,7 +2,7 @@ class Survey < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :lock_version
+  attr_accessible :name, :questions_attributes, :lock_version
 
   # Validations
   validates :name, presence: true
