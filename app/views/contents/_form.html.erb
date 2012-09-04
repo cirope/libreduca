@@ -13,7 +13,6 @@
     ) %>
 
     <div id="documents">
-      <%  @content.documents.build unless @content.documents.detect(&:new_record?) %>
       <%= f.simple_fields_for :documents do |df| %>
         <%= render partial: 'document', locals: { f: df } %>
       <% end %>

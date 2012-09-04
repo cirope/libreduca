@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903185818) do
+ActiveRecord::Schema.define(:version => 20120904172053) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment",                     :null => false
@@ -170,6 +170,16 @@ ActiveRecord::Schema.define(:version => 20120903185818) do
 
   add_index "scores", ["teach_id"], :name => "index_scores_on_teach_id"
   add_index "scores", ["user_id"], :name => "index_scores_on_user_id"
+
+  create_table "surveys", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.integer  "content_id",                  :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "surveys", ["content_id"], :name => "index_surveys_on_content_id"
 
   create_table "teaches", :force => true do |t|
     t.date     "start",                       :null => false
