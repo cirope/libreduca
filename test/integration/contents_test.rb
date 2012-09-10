@@ -15,6 +15,10 @@ class ContentsTest < ActionDispatch::IntegrationTest
     fill_in Content.human_attribute_name('content'), with: content.content
 
     document = Fabricate.build(:document, owner_id: nil)
+
+    assert page.has_no_css?('.document')
+    
+    click_link I18n.t('view.contents.new_document')
       
     within '.document' do
       fill_in find('input[name$="[name]"]')[:id], with: document.name
@@ -48,6 +52,10 @@ class ContentsTest < ActionDispatch::IntegrationTest
     
     visit new_teach_content_path(teach)
     
+    assert page.has_no_css?('.document')
+
+    click_link I18n.t('view.contents.new_document')
+
     assert page.has_css?('.document')
     
     within '.document' do
