@@ -3,14 +3,6 @@ module ApplicationHelper
     MARKDOWN_RENDERER.render(text).html_safe
   end
 
-  def inline_js_content(*args)
-    if pjax_request? && block_given?
-      javascript_tag { yield }
-    elsif block_given?
-      content_for(*args) { yield }
-    end
-  end
-
   def show_menu_link(options = {})
     name = t("menu.#{options[:name]}")
     classes = []

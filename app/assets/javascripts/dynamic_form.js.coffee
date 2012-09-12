@@ -1,9 +1,10 @@
 window.DynamicFormEvent =
   addNestedItem: (e)->
-    template = eval(e.data('dynamic-template'))
+    template = e.data('dynamic-template')
+    regexp = new RegExp(e.data('id'), 'g')
 
     $(e.data('dynamic-container')).append(
-      DynamicFormHelper.replaceIds(template, /NEW_RECORD/g)
+      DynamicFormHelper.replaceIds(template, regexp)
     )
     
     e.trigger('dynamic-item.added', e)

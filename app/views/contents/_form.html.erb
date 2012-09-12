@@ -1,8 +1,4 @@
 <%= simple_form_for([@teach, @content], defaults: { input_html: { class: 'span11' } }) do |f| %>
-  <%= inline_js_content :js_extra do %>
-    <%= raw "var doc='#{generate_template(f, :documents)}';" %>
-  <% end %>
-
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -19,13 +15,7 @@
     </div>
 
     <div class="pull-left">
-      <%= link_to t('view.contents.new_document'), '#',
-        data: {
-          'dynamic-form-event' => 'addNestedItem',
-          'dynamic-template' => 'doc',
-          'dynamic-container' => '#documents',
-          'show-tooltip' => true
-        }, class: 'btn btn-small', title: t('view.contents.new_document') %>
+      <%= link_to_add_fields(t('view.contents.new_document'), f, :documents) %>
     </div>
   </div>
 

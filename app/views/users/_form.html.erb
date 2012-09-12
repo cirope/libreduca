@@ -1,9 +1,4 @@
 <%= simple_form_for(@user) do |f| %>
-  <%= inline_js_content :js_extra do %>
-    <%= raw "var job='#{generate_template(f, :jobs)}';" %>
-    <%= raw "var kinship='#{generate_template(f, :kinships)}';" %>
-  <% end %>
-
   <%= f.error_notification %>
 
   <div class="row">
@@ -44,13 +39,7 @@
         </div>
 
         <div class="pull-left">
-          <%= link_to t('view.users.new_job'), '#',
-            data: {
-              'dynamic-form-event' => 'addNestedItem',
-              'dynamic-template' => 'job',
-              'dynamic-container' => '#jobs',
-              'show-tooltip' => true
-            }, class: 'btn btn-small', title: t('view.users.new_job') %>
+          <%= link_to_add_fields(t('view.users.new_job'), f, :jobs) %>
         </div>
       </div>
       
@@ -69,13 +58,7 @@
         </div>
 
         <div class="pull-left">
-          <%= link_to t('view.users.new_kinship'), '#',
-            data: {
-              'dynamic-form-event' => 'addNestedItem',
-              'dynamic-template' => 'kinship',
-              'dynamic-container' => '#kinships',
-              'show-tooltip' => true
-            }, class: 'btn btn-small', title: t('view.users.new_kinship') %>
+          <%= link_to_add_fields(t('view.users.new_kinship'), f, :kinships) %>
         </div>
       </div>
     </div>

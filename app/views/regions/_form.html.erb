@@ -1,10 +1,6 @@
 <%= simple_form_for(@region) do |f| %>
-  <%= inline_js_content :js_extra do %>
-    <%= raw "var district='#{generate_template(f, :districts)}';" %>
-  <% end %>
-
   <div class="form-inputs">
-    <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+    <%= f.input :name, input_html: { autofocus: true, maxlength: 255, class: 'span4' } %>
     
     <div class="row-fluid">
       <div class="span12">
@@ -28,13 +24,7 @@
     </div>
     
     <div class="pull-left">
-      <%= link_to t('view.regions.new_district'), '#',
-        data: {
-          'dynamic-form-event' => 'addNestedItem',
-          'dynamic-template' => 'district',
-          'dynamic-container' => '#districts',
-          'show-tooltip' => true
-        }, class: 'btn btn-small', title: t('view.regions.new_district') %>
+      <%= link_to_add_fields t('view.regions.new_district'), f, :districts %>
     </div>
   </div>
 

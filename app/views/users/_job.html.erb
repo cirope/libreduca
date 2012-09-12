@@ -1,4 +1,4 @@
-<% id = dynamic_object_id('job', f) %>
+<% id = f.object.object_id %>
 <div class="row-fluid job">
   <div class="span5">
     <% field_classes = ['autocomplete_field', 'span10'] %>
@@ -9,6 +9,7 @@
         id: "auto_institution_#{id}",
         class: field_classes.join(' '),
         value: f.object.institution.try(:label),
+        autofocus: true,
         data: {
           'autocomplete-url' => institutions_path(format: :json),
           'autocomplete-id-target' => "#auto_institution_id_#{id}"

@@ -1,4 +1,4 @@
-<% id = dynamic_object_id('kinship', f) %>
+<% id = f.object.object_id %>
 <div class="row-fluid kinship">
   <div class="span5">
     <% field_classes = ['autocomplete_field', 'span10'] %>
@@ -9,6 +9,7 @@
         id: "auto_user_#{id}",
         class: field_classes.join(' '),
         value: f.object.relative.try(:label),
+        autofocus: true,
         data: {
           'autocomplete-url' => users_path(format: :json),
           'autocomplete-id-target' => "#auto_relative_id_#{id}"
