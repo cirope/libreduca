@@ -212,6 +212,10 @@
         html:
           one: 'Contenido de %{teach}'
           other: 'Contenidos de %{teach}'
+      surveys:
+        new: 'Agregar encuesta'
+        new_question: 'Agregar pregunta'
+        new_answer: 'Agregar opción'
     courses:
       index_title: 'Listado de asignaturas'
       show_title: 'Detalle de asignatura'

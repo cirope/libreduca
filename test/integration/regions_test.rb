@@ -16,9 +16,9 @@ class RegionsTest < ActionDispatch::IntegrationTest
     
     click_link I18n.t('view.regions.new_district')
     
-    assert page.has_css?('.district:nth-child(2)')
+    assert page.has_css?('#districts fieldset:nth-child(2)')
     
-    within '.district:nth-child(2)' do
+    within '#districts fieldset:nth-child(2)' do
       fill_in find('input[name$="[name]"]')[:id],
         with: Fabricate.attributes_for(:district)['name']
     end
@@ -42,12 +42,12 @@ class RegionsTest < ActionDispatch::IntegrationTest
     
     visit new_region_path
     
-    assert page.has_css?('.district')
+    assert page.has_css?('#districts fieldset')
     
-    within '.district' do
+    within '#districts fieldset' do
       click_link '✘' # Destroy link
     end
     
-    assert page.has_no_css?('.district')
+    assert page.has_no_css?('#districts fieldset')
   end
 end

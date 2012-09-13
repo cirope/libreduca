@@ -3,23 +3,19 @@ window.DynamicFormEvent =
     template = e.data('dynamic-template')
     regexp = new RegExp(e.data('id'), 'g')
 
-    $(e.data('dynamic-container')).append(
-      DynamicFormHelper.replaceIds(template, regexp)
-    )
+    e.before DynamicFormHelper.replaceIds(template, regexp)
     
     e.trigger('dynamic-item.added', e)
 
   hideItem: (e)->
-    EffectHelper.hide e.parents(e.data('dynamic-target'))
+    EffectHelper.hide e.closest('fieldset')
     
     e.prev('input[type=hidden].destroy').val('1').trigger(
       'dynamic-item.hidden', e
     )
 
   removeItem: (e)->
-    target = e.parents e.data('dynamic-target')
-
-    EffectHelper.remove target, ->
+    EffectHelper.remove e.closest('fieldset'), ->
       $(document).trigger('dynamic-item.removed', target)
     
 window.DynamicFormHelper =

@@ -4,6 +4,9 @@ class Question < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :content, :answers_attributes, :lock_version
 
+  # Scopes
+  default_scope order("#{table_name}.content ASC")
+
   # Validations
   validates :content, presence: true
   validates :content, length: { maximum: 255 }, allow_nil: true,

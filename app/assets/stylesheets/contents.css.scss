@@ -1,5 +1,13 @@
 #c_contents {
   .nested-actions {
-    margin-top: 2.5em;
+    margin-top: .5em;
+  }
+
+  fieldset fieldset, fieldset .btn {
+    margin-left: 2em;
+  }
+
+  fieldset .btn {
+    margin-bottom: 1em;
   }
 }

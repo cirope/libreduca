@@ -22,35 +22,35 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     institution = Fabricate(:institution)
     
-    within '.job' do
+    within '#jobs fieldset' do
       fill_in find('input[name$="[auto_institution_name]"]')[:id], with: institution.name
     end
       
     find('.ui-autocomplete li.ui-menu-item a').click
       
-    within '.job' do
+    within '#jobs fieldset' do
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
         from: find('select[name$="[job]"]')[:id]
     end
     
-    assert page.has_no_css?('.job:nth-child(2)')
+    assert page.has_no_css?('#jobs fieldset:nth-child(2)')
     
     click_link I18n.t('view.users.new_job')
     
-    assert page.has_css?('.job:nth-child(2)')
+    assert page.has_css?('#jobs fieldset:nth-child(2)')
     
     # Must be removed before the next search, forcing the new "creation"
     page.execute_script("$('.ui-autocomplete').remove()")
     
     institution = Fabricate(:institution)
     
-    within '.job:nth-child(2)' do
+    within '#jobs fieldset:nth-child(2)' do
       fill_in find('input[name$="[auto_institution_name]"]')[:id], with: institution.name
     end
     
     find('.ui-autocomplete li.ui-menu-item a').click
     
-    within '.job:nth-child(2)' do
+    within '#jobs fieldset:nth-child(2)' do
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
         from: find('select[name$="[job]"]')[:id]
     end
@@ -81,35 +81,35 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     relative = Fabricate(:user)
     
-    within '.kinship' do
+    within '#kinships fieldset' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: relative.name
     end
       
     find('.ui-autocomplete li.ui-menu-item a').click
       
-    within '.kinship' do
+    within '#kinships fieldset' do
       select I18n.t("view.kinships.types.#{Kinship::TYPES.first}"),
         from: find('select[name$="[kin]"]')[:id]
     end
     
-    assert page.has_no_css?('.kinship:nth-child(2)')
+    assert page.has_no_css?('#kinships fieldset:nth-child(2)')
     
     click_link I18n.t('view.users.new_kinship')
     
-    assert page.has_css?('.kinship:nth-child(2)')
+    assert page.has_css?('#kinships fieldset:nth-child(2)')
     
     # Must be removed before the next search, forcing the new "creation"
     page.execute_script("$('.ui-autocomplete').remove()")
     
     relative = Fabricate(:user)
     
-    within '.kinship:nth-child(2)' do
+    within '#kinships fieldset:nth-child(2)' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: relative.name
     end
     
     find('.ui-autocomplete li.ui-menu-item a').click
     
-    within '.kinship:nth-child(2)' do
+    within '#kinships fieldset:nth-child(2)' do
       select I18n.t("view.kinships.types.#{Kinship::TYPES.first}"),
         from: find('select[name$="[kin]"]')[:id]
     end
@@ -126,13 +126,13 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     visit new_user_path
     
-    assert page.has_css?('.job')
+    assert page.has_css?('#jobs fieldset')
     
-    within '.job' do
+    within '#jobs fieldset' do
       click_link '✘' # Destroy link
     end
     
-    assert page.has_no_css?('.job')
+    assert page.has_no_css?('#jobs fieldset')
   end
   
   test 'should delete all kinship inputs' do
@@ -140,13 +140,13 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     visit new_user_path
     
-    assert page.has_css?('.kinship')
+    assert page.has_css?('#kinships fieldset')
     
-    within '.kinship' do
+    within '#kinships fieldset' do
       click_link '✘' # Destroy link
     end
     
-    assert page.has_no_css?('.kinship')
+    assert page.has_no_css?('#kinships fieldset')
   end
   
   test 'should hide and mark for destruction a job' do
@@ -156,9 +156,9 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     visit edit_user_path(user)
     
-    assert page.has_css?('.job')
+    assert page.has_css?('#jobs fieldset')
     
-    within '.job' do
+    within '#jobs fieldset' do
       click_link '✘' # Destroy link
     end
     
@@ -176,9 +176,9 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     visit edit_user_path(user)
     
-    assert page.has_css?('.kinship')
+    assert page.has_css?('#kinships fieldset')
     
-    within '.kinship' do
+    within '#kinships fieldset' do
       click_link '✘' # Destroy link
     end
     

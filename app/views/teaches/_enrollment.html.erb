@@ -1,5 +1,5 @@
 <% id = f.object.object_id %>
-<div class="row-fluid enrollment">
+<fieldset class="row-fluid">
   <div class="span5">
     <% field_classes = ['autocomplete_field', 'span10'] %>
     <% copy_attribute_errors(:user_id, :auto_user_name, f) %>
@@ -27,4 +27,4 @@
     <%= f.input :lock_version, as: :hidden %>
     <%= link_to_remove_nested_item(f) %>
   </div>
-</div>
+</fieldset>

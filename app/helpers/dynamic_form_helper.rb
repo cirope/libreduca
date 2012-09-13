@@ -11,7 +11,6 @@ module DynamicFormHelper
         'id' => id,
         'dynamic-form-event' => 'addNestedItem',
         'dynamic-template' => fields.gsub("\n", ""),
-        'dynamic-container' => "##{association}",
         'show-tooltip' => true
       }
     )

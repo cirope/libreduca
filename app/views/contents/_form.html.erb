@@ -8,14 +8,24 @@
       link: link_to('markdown', '#markdown-help', data: { toggle: 'modal' })
     ) %>
 
+    <hr />
+
+    <div id="surveys">
+      <%= f.simple_fields_for :surveys do |sf| %>
+        <%= render partial: 'survey', locals: { f: sf } %>
+      <% end %>
+
+      <%= link_to_add_fields t('view.contents.surveys.new'), f, :surveys %>
+    </div>
+
+    <hr />
+
     <div id="documents">
       <%= f.simple_fields_for :documents do |df| %>
         <%= render partial: 'document', locals: { f: df } %>
       <% end %>
-    </div>
 
-    <div class="pull-left">
-      <%= link_to_add_fields(t('view.contents.new_document'), f, :documents) %>
+      <%= link_to_add_fields t('view.contents.new_document'), f, :documents %>
     </div>
   </div>
 

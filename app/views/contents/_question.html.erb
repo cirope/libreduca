@@ -1,0 +1,18 @@
+<fieldset class="row-fluid">
+  <div class="span10">
+    <%= f.input :content, label: false, input_html: {
+      autofocus: true, class: 'span11', placeholder: Question.human_attribute_name('content')
+    } %>
+
+    <%= f.simple_fields_for :answers do |qf| %>
+      <%= render partial: 'answer', locals: { f: qf } %>
+    <% end %>
+
+    <%= link_to_add_fields t('view.contents.surveys.new_answer'), f, :answers %>
+  </div>
+  <div class="span2 nested-actions">
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %> 
+    <%= link_to_remove_nested_item(f) %>
+  </div>
+</fieldset>

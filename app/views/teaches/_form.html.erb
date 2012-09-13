@@ -81,16 +81,12 @@
       </div>
       
       <div id="enrollments_container" class="tab-pane <%= @teach.new_record? ? 'active' : '' %>">
-        <div id="enrollments">
-          <% @teach.enrollments.build %>
-          <%= f.simple_fields_for :enrollments do |j_f| %>
-            <%= render partial: 'enrollment', locals: { f: j_f } %>
-          <% end %>
-        </div>
+        <% @teach.enrollments.build %>
+        <%= f.simple_fields_for :enrollments do |j_f| %>
+          <%= render partial: 'enrollment', locals: { f: j_f } %>
+        <% end %>
 
-        <div class="pull-left">
-          <%= link_to_add_fields t('view.teaches.new_enrollment'), f, :enrollments %>
-        </div>
+        <%= link_to_add_fields t('view.teaches.new_enrollment'), f, :enrollments %>
       </div>
     </div>
   </div>

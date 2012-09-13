@@ -7,23 +7,13 @@
         <h5><%= District.model_name.human(count: 0) %></h5>
       </div>
     </div>
-    
-    <div class="row-fluid">
-      <div class="span10">
-        <h6><%= District.human_attribute_name 'name' %></h6>
-      </div>
-    </div>
-    
-    <div class="row-fluid">
-      <div class="span6" id="districts">
-        <% @region.districts.build %>
-        <%= f.simple_fields_for :districts do |d_f| %>
-          <%= render partial: 'district', locals: { f: d_f } %>
-        <% end %>
-      </div>
-    </div>
-    
-    <div class="pull-left">
+
+    <div id="districts">
+      <% @region.districts.build %>
+      <%= f.simple_fields_for :districts do |d_f| %>
+        <%= render partial: 'district', locals: { f: d_f } %>
+      <% end %>
+
       <%= link_to_add_fields t('view.regions.new_district'), f, :districts %>
     </div>
   </div>

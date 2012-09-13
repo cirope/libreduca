@@ -30,16 +30,14 @@
         </div>
 
         <div class="row-fluid">
-          <div class="span12" id="jobs">
+          <div id="jobs" class="span12">
             <% @user.jobs.build %>
             <%= f.simple_fields_for :jobs do |j_f| %>
               <%= render partial: 'job', locals: { f: j_f } %>
             <% end %>
-          </div>
-        </div>
 
-        <div class="pull-left">
-          <%= link_to_add_fields(t('view.users.new_job'), f, :jobs) %>
+            <%= link_to_add_fields(t('view.users.new_job'), f, :jobs) %>
+          </div>
         </div>
       </div>
       
@@ -49,16 +47,14 @@
         </div>
 
         <div class="row-fluid">
-          <div class="span12" id="kinships">
+          <div id="kinships" class="span12">
             <% @user.kinships.build %>
             <%= f.simple_fields_for :kinships do |j_f| %>
               <%= render partial: 'kinship', locals: { f: j_f } %>
             <% end %>
-          </div>
-        </div>
 
-        <div class="pull-left">
-          <%= link_to_add_fields(t('view.users.new_kinship'), f, :kinships) %>
+            <%= link_to_add_fields(t('view.users.new_kinship'), f, :kinships) %>
+          </div>
         </div>
       </div>
     </div>

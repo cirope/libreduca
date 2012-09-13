@@ -34,17 +34,17 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     click_link Teach.human_attribute_name('enrollments', count: 0)
     
-    within '.enrollment' do
+    within '#enrollments_container fieldset' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name
     end
       
     find('.ui-autocomplete li.ui-menu-item a').click
     
-    assert page.has_no_css?('.enrollment:nth-child(2)')
+    assert page.has_no_css?('#enrollments_container fieldset:nth-child(2)')
     
     click_link I18n.t('view.teaches.new_enrollment')
     
-    assert page.has_css?('.enrollment:nth-child(2)')
+    assert page.has_css?('#enrollments_container fieldset:nth-child(2)')
     
     # Must be removed before the next search, forcing the new "creation"
     page.execute_script("$('.ui-autocomplete').remove()")
@@ -53,7 +53,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
       Fabricate(:job, user_id: u.id, institution_id: course.institution.id)
     end
     
-    within '.enrollment:nth-child(2)' do
+    within '#enrollments_container fieldset:nth-child(2)' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name
     end
     
@@ -75,13 +75,13 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     click_link Teach.human_attribute_name('enrollments', count: 0)
     
-    assert page.has_css?('.enrollment')
+    assert page.has_css?('#enrollments_container fieldset')
     
-    within '.enrollment' do
+    within '#enrollments_container fieldset' do
       click_link '✘' # Destroy link
     end
     
-    assert page.has_no_css?('.enrollment')
+    assert page.has_no_css?('#enrollments_container fieldset')
   end
   
   test 'should hide and mark for destruction an enrollment' do
@@ -93,9 +93,9 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     click_link Teach.human_attribute_name('enrollments', count: 0)
     
-    assert page.has_css?('.enrollment')
+    assert page.has_css?('#enrollments_container fieldset')
     
-    within '.enrollment' do
+    within '#enrollments_container fieldset' do
       click_link '✘' # Destroy link
     end
     
