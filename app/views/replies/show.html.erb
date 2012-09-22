@@ -1,0 +1,16 @@
+<% inline = controller_name != 'replies' %>
+<% question = inline ? question : @question %>
+<% reply = inline ? question.reply_by(current_user) : @reply %>
+<div>
+  <%= question %>
+  <span class="label label-info">
+    <%= reply.answer %>
+  </span>
+</div>
+
+<% if !inline && !request.xhr? %>
+  <div class="form-actions">
+    <%= link_to t('label.edit'), edit_question_reply_path(question, reply) if can? :update, reply %> |
+    <%= link_to t('label.list'), question_replies_path(question) %>
+  </div>
+<% end %>

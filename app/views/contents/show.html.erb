@@ -19,6 +19,25 @@
       <% end %>
     </ul>
   <% end %>
+
+  <% unless @content.surveys.empty? %>
+    <hr />
+    <% @content.surveys.each do |survey| %>
+      <h3><%= survey %></h3>
+
+      <ul>
+        <% survey.questions.each do |question| %>
+          <li>
+            <% if question.has_been_answered_by? current_user %>
+              <%= render template: 'replies/show', locals: { question: question } %>
+            <% else %>
+              <%= render 'replies/form', question: question %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="form-actions">

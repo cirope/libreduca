@@ -14,6 +14,7 @@ class Answer < ActiveRecord::Base
 
   # Relations
   belongs_to :question
+  has_many :replies, dependent: :destroy
 
   def to_s
     self.content

@@ -31,5 +31,6 @@
 //= require grades
 //= require institutions
 //= require regions
+//= require replies
 //= require teaches
 //= require users

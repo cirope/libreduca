@@ -1,0 +1,19 @@
+<% inline = controller_name != 'replies' %>
+<% question = inline ? question : @question %>
+<% reply = inline ? question.replies.build : @reply %>
+<%= simple_form_for([question, reply], html: { id: "reply_#{reply.object_id}", data: { type: 'html' } }, remote: inline) do |f| %>
+  <%= f.error_notification %>
+
+  <p><%= question %></p>
+
+  <div class="form-inputs">
+    <%= f.input :answer_id, label: false, collection: question.answers, as: :radio_buttons %>
+  </div>
+
+  <% unless inline %>
+    <div class="form-actions">
+      <div class="pull-right"><%= yield :form_actions %></div>
+      <%= f.button :submit, class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+<% end %>

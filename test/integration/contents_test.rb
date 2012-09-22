@@ -150,4 +150,29 @@ class ContentsTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'should answer a survey' do
+    login
+    
+    content = Fabricate(:content)
+    survey = Fabricate(:survey, content_id: content.id)
+  
+    2.times do
+      question = Fabricate(:question, survey_id: survey.id)
+
+      3.times { Fabricate(:answer, question_id: question.id) }
+    end
+    
+    visit teach_content_path(content.teach, content)
+    
+    assert page.has_css?('form.new_reply input')
+
+    assert_difference 'Reply.count', 2 do
+      all('form.new_reply').each do |form|
+        form.find('input[type="radio"]').click
+      end
+
+      assert page.has_no_css?('form.new_reply')
+    end
+  end
 end

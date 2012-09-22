@@ -1,0 +1,7 @@
+<% if controller_name == 'replies' %>
+  <%= content_for :form_actions do %>
+    <%= link_to t('label.list'), question_replies_path(@question) %>
+  <% end %>
+<% end %>
+
+<%= render 'replies/form' %>

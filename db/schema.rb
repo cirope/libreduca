@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904182238) do
+ActiveRecord::Schema.define(:version => 20120917165823) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -176,6 +176,17 @@ ActiveRecord::Schema.define(:version => 20120904182238) do
   end
 
   add_index "regions", ["name"], :name => "index_regions_on_name", :unique => true
+
+  create_table "replies", :force => true do |t|
+    t.integer  "question_id", :null => false
+    t.integer  "answer_id",   :null => false
+    t.integer  "user_id",     :null => false
+    t.datetime "created_at",  :null => false
+  end
+
+  add_index "replies", ["answer_id"], :name => "index_replies_on_answer_id"
+  add_index "replies", ["question_id"], :name => "index_replies_on_question_id"
+  add_index "replies", ["user_id"], :name => "index_replies_on_user_id"
 
   create_table "scores", :force => true do |t|
     t.decimal  "score",        :precision => 5, :scale => 2
