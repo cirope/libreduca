@@ -24,4 +24,8 @@ class Job < ActiveRecord::Base
   def self.in_institution(institution)
     where(institution_id: institution.id)
   end
+
+  TYPES.each do |type|
+    define_method("#{type}?") { self.job == type }
+  end
 end

@@ -57,4 +57,17 @@ class JobTest < ActiveSupport::TestCase
       error_message_from_model(@job, :job, :inclusion)
     ].sort, @job.errors[:job].sort
   end
+
+  test 'job type methods' do
+    Job::TYPES.each do |type|
+      @job.job = type
+      assert @job.send("#{type}?")
+
+      (Job::TYPES - [type]).each do |wrong_type|
+        @job.job = wrong_type
+
+        assert !@job.send("#{type}?")
+      end
+    end
+  end
 end

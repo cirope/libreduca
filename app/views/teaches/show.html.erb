@@ -18,18 +18,20 @@
         '#contents_container', data: { toggle: 'tab' }
       ) %>
     </li>
-    <li>
-      <%= link_to(
-        Teach.human_attribute_name('scores', count: 0),
-        '#scores_container', data: { toggle: 'tab' }
-      ) %>
-    </li>
-    <li>
-      <%= link_to(
-        Teach.human_attribute_name('enrollments', count: 0),
-        '#enrollments_container', data: { toggle: 'tab' }
-      ) %>
-    </li>
+    <% unless current_user_is_student? %>
+      <li>
+        <%= link_to(
+          Teach.human_attribute_name('scores', count: 0),
+          '#scores_container', data: { toggle: 'tab' }
+        ) %>
+      </li>
+      <li>
+        <%= link_to(
+          Teach.human_attribute_name('enrollments', count: 0),
+          '#enrollments_container', data: { toggle: 'tab' }
+        ) %>
+      </li>
+    <% end %>
   </ul>
   
   <div class="tab-content">
@@ -51,63 +53,65 @@
         </ul>
       <% end %>
     </div>
-    <div id="scores_container" class="tab-pane">
-      <% if @teach.scores.empty? %>
-        <div class="alert"><%= t('view.teaches.without_scores.html') %></div>
-      <% else %>
-        <% grouped_scores = teach_scores_grouped_by_student(@teach) %>
-        <table class="table table-striped table-bordered table-condensed">
-          <thead>
-            <tr>
-              <th><%= Score.human_attribute_name 'user_id' %></th>
-              <th colspan="<%= grouped_scores.first.last.size %>"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% grouped_scores.each do |user, scores| %>
-              <%= content_for :modal_dialogs do %>
-                <%= render partial: 'email_enrollment_score_dialog', locals: {
-                  user: user, enrollment: @teach.enrollment_for(user)
-                } %>
-              <% end %>
+    <% unless current_user_is_student? %>
+      <div id="scores_container" class="tab-pane">
+        <% if @teach.scores.empty? %>
+          <div class="alert"><%= t('view.teaches.without_scores.html') %></div>
+        <% else %>
+          <% grouped_scores = teach_scores_grouped_by_student(@teach) %>
+          <table class="table table-striped table-bordered table-condensed">
+            <thead>
               <tr>
-                <td>
-                  <%= link_to(
-                    '&#x2709;'.html_safe, "#email_modal_#{user.id}",
-                    class: 'iconic', data: { toggle: 'modal' }
-                  ) if can? :send_email_summary, @teach.enrollment_for(user) %>
-                  <%= user %>
-                </td>
-                <% scores.each do |score| %>
-                  <td><%= show_teach_score_details score %></td>
-                <% end %>
+                <th><%= Score.human_attribute_name 'user_id' %></th>
+                <th colspan="<%= grouped_scores.first.last.size %>"></th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% end %>
-    </div>
-    
-    <div id="enrollments_container" class="tab-pane">
-      <% if @teach.enrollments.empty? %>
-        <div class="alert"><%= t('view.teaches.without_entollments_in_show.html') %></div>
-      <% else %>
-        <% teach_splited_enrollments(@teach).each do |type, enrollments| %>
-          <h4><%= type %></h4>
-          <ul>
-            <% enrollments.each do |enrollment| %>
-              <li>
-                <%= t(
-                  'view.teaches.enrollment_info.html',
-                  user: link_to_if(can?(:read, enrollment.user), enrollment.user.to_s, enrollment.user),
-                  date: l(enrollment.created_at, format: :long)
-                ) %>
-              </li>
-            <% end %>
-          </ul>
+            </thead>
+            <tbody>
+              <% grouped_scores.each do |user, scores| %>
+                <%= content_for :modal_dialogs do %>
+                  <%= render partial: 'email_enrollment_score_dialog', locals: {
+                    user: user, enrollment: @teach.enrollment_for(user)
+                  } %>
+                <% end %>
+                <tr>
+                  <td>
+                    <%= link_to(
+                      '&#x2709;'.html_safe, "#email_modal_#{user.id}",
+                      class: 'iconic', data: { toggle: 'modal' }
+                    ) if can? :send_email_summary, @teach.enrollment_for(user) %>
+                    <%= user %>
+                  </td>
+                  <% scores.each do |score| %>
+                    <td><%= show_teach_score_details score %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+      
+      <div id="enrollments_container" class="tab-pane">
+        <% if @teach.enrollments.empty? %>
+          <div class="alert"><%= t('view.teaches.without_entollments_in_show.html') %></div>
+        <% else %>
+          <% teach_splited_enrollments(@teach).each do |type, enrollments| %>
+            <h4><%= type %></h4>
+            <ul>
+              <% enrollments.each do |enrollment| %>
+                <li>
+                  <%= t(
+                    'view.teaches.enrollment_info.html',
+                    user: link_to_if(can?(:read, enrollment.user), enrollment.user.to_s, enrollment.user),
+                    date: l(enrollment.created_at, format: :long)
+                  ) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 
