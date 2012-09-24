@@ -31,8 +31,9 @@ class Ability
     can :read, Teach, enrollments: { user_id: user.id }
     can :read, Content
     can :read, Document
-    can :read, Reply
-    can :update, Reply
+    can :read, Reply, user_id: user.id
+    can :create, Reply, user_id: user.id
+    can :update, Reply, user_id: user.id
     can :read, Image
   end
 
