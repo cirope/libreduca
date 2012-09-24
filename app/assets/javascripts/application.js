@@ -29,6 +29,7 @@
 //= require enrollments
 //= require forums
 //= require grades
+//= require images
 //= require institutions
 //= require regions
 //= require replies

@@ -9,15 +9,14 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def base_store_dir
-    institution = model.institution.try(:identification) ||
-      RESERVED_SUBDOMAINS.first
+    institution = model.institution.try(:identification) || RESERVED_SUBDOMAINS.first
 
     "private/#{institution}/#{model.class.to_s.underscore}/#{mounted_as}"
   end
 
   def delete_empty_upstream_dirs
-    Dir.delete(::File.expand_path(store_dir, root))
-    Dir.delete(::File.expand_path(base_store_dir, root))
+    Dir.delete ::File.expand_path(store_dir, root)
+    Dir.delete ::File.expand_path(base_store_dir, root)
   rescue SystemCallError
     true
   end

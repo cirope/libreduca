@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_institution
-    @current_institution
+    @_current_institution
   end
   
   private
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_current_institution
-    @current_institution = Institution.find_by_identification(
+    @_current_institution ||= Institution.find_by_identification(
       request.subdomains.first
     )
   end

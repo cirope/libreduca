@@ -15,14 +15,14 @@
             ) if current_institution %>
             <%= show_menu_link(
               name: 'users', controllers: 'users', path: users_path
-            ) if can?(:read, User) && current_user.is?(:admin) %>
+            ) if can?(:read, User) && current_user.is?(:admin) && !current_institution %>
             <%= show_menu_link(
               name: 'regions', controllers: 'regions', path: regions_path
-            ) if can? :read, Region %>
+            ) if can?(:read, Region) && !current_institution %>
             <%= show_menu_link(
               name: 'institutions', path: institutions_path,
               controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
-            ) if can? :read, Institution %>
+            ) if can?(:read, Institution) && !current_institution %>
           </ul>
           <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">

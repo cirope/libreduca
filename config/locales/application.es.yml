@@ -9,8 +9,8 @@
   activerecord:
     models:
       answer:
-        one: 'Respuesta'
-        other: 'Respuestas'
+        one: 'Opción'
+        other: 'Opciones'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
@@ -35,6 +35,9 @@
       grade:
         one: 'Grado'
         other: 'Grados'
+      image:
+        one: 'Imagen'
+        other: 'Imágenes'
       job:
         one: 'Trabajo'
         other: 'Trabajos'
@@ -50,6 +53,9 @@
       question:
         one: 'Pregunta'
         other: 'Preguntas'
+      reply:
+        one: 'Respuesta'
+        other: 'Respuestas'
       score:
         one: 'Calificación'
         other: 'Calificaciones'
@@ -91,6 +97,9 @@
         user_id: 'Usuario'
       grade:
         name: 'Nombre'
+      image:
+        name: 'Nombre'
+        file: 'Imagen'
       job:
         job: 'Trabajo'
         institution_id: 'Institución'
@@ -112,6 +121,9 @@
         content: 'Pregunta'
       question/answer:
         content: 'Respuesta'
+      reply:
+        question: 'Pregunta'
+        answer: 'Opción'
       score:
         score: 'Calificación'
         multiplier: 'Multiplicador'
@@ -288,6 +300,36 @@
         html:
           one: 'Grado de la institución %{institution}'
           other: 'Grados de la institución %{institution}'
+    images:
+      index_title: 'Listado de imágenes'
+      show_title: 'Detalle de imagen'
+      new_title: 'Nueva imagen'
+      edit_title: 'Modificar imagen'
+      correctly_created: 'Imagen agregada correctamente.'
+      correctly_updated: 'Imagen actualizada correctamente.'
+      stale_object_error: 'La imagen no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna imagen hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva imagen</span>'
+      new: 'Nueva imagen'
+      modal: 'Con dialogo modal'
+      versions: 'Versiones'
+    institutions:
+      index_title: 'Listado de instituciones'
+      show_title: 'Detalle de institución'
+      new_title: 'Nueva institución'
+      edit_title: 'Modificar institución'
+      correctly_created: 'Institución agregada correctamente.'
+      correctly_updated: 'Institución actualizada correctamente.'
+      stale_object_error: 'La institución no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna institución hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva institución</span>'
+      new: 'Nueva institución'
+      worker_role:
+        html: '%{worker} es %{role}'
+      hints:
+        identification:
+          html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
+
     jobs:
       types:
         headmaster: 'Director'
@@ -312,22 +354,17 @@
         html: 'No se ha creado ninguna región hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva región</span>'
       new: 'Nueva región'
       new_district: 'Agregar nuevo distrito'
-    institutions:
-      index_title: 'Listado de instituciones'
-      show_title: 'Detalle de institución'
-      new_title: 'Nueva institución'
-      edit_title: 'Modificar institución'
-      correctly_created: 'Institución agregada correctamente.'
-      correctly_updated: 'Institución actualizada correctamente.'
-      stale_object_error: 'La institución no pudo ser actualizada, intente nuevamente.'
+    replies:
+      index_title: 'Listado de respuestas'
+      show_title: 'Detalle de respuesta'
+      new_title: 'Nueva respuesta'
+      edit_title: 'Modificar respuesta'
+      correctly_created: 'Respuesta agregada correctamente.'
+      correctly_updated: 'Respuesta actualizada correctamente.'
+      stale_object_error: 'La respuesta no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna institución hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva institución</span>'
-      new: 'Nueva institución'
-      worker_role:
-        html: '%{worker} es %{role}'
-      hints:
-        identification:
-          html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
+        html: 'No se ha creado ninguna respuesta hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva respuesta</span>'
+      new: 'Nueva respuesta'
     teaches:
       index_title: 'Listado de dictados'
       show_title: 'Detalle de dictado'

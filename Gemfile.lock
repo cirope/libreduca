@@ -184,7 +184,7 @@ GEM
     subexec (0.2.2)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
-    thin (1.4.1)
+    thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)

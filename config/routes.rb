@@ -1,5 +1,4 @@
 Libreduca::Application.routes.draw do
-
   constraints(AdminSubdomain) do
     resources :questions, only: [] do
       resources :replies, except: [:destroy]
@@ -56,6 +55,8 @@ Libreduca::Application.routes.draw do
   end
   
   constraints(SchoolSubdomain) do
+    resources :images
+
     resources :questions, only: [] do
       resources :replies, except: [:destroy]
     end

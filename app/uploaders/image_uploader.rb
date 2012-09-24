@@ -1,21 +1,23 @@
 # encoding: utf-8
 
-class AvatarUploader < CarrierWave::Uploader::Base
+class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   
   storage :file
   after :remove, :delete_empty_upstream_dirs
 
-  version(:thumb)       { process resize_to_fill: [200, 200] }
-  version(:mini_thumb)  { process resize_to_fill: [80, 80] }
-  version(:micro_thumb) { process resize_to_fill: [40, 40] }
+  version(:thumb)       { process resize_to_fit: [200, 200] }
+  version(:mini_thumb)  { process resize_to_fit: [80, 80] }
+  version(:micro_thumb) { process resize_to_fit: [40, 40] }
 
   def store_dir
     "#{base_store_dir}/#{('%08d' % model.id).scan(/\d{4}/).join('/')}"
   end
 
   def base_store_dir
-    "private/avatars/#{model.class.to_s.underscore}/#{mounted_as}"
+    institution = model.institution.try(:identification) || RESERVED_SUBDOMAINS.first
+
+    "private/#{institution}/#{model.class.to_s.underscore}/#{mounted_as}"
   end
 
   def delete_empty_upstream_dirs

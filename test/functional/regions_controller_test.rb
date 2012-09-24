@@ -91,6 +91,6 @@ class RegionsControllerTest < ActionController::TestCase
       delete :destroy, id: @region
     end
 
-    assert_redirected_to regions_path
+    assert_redirected_to regions_url
   end
 end

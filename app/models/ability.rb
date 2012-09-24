@@ -31,6 +31,9 @@ class Ability
     can :read, Teach, enrollments: { user_id: user.id }
     can :read, Content
     can :read, Document
+    can :read, Reply
+    can :update, Reply
+    can :read, Image
   end
 
   def teacher_rules(user)
@@ -47,6 +50,9 @@ class Ability
     can :read, Grade, courses: { teaches: enrollments_restricionts }
     can :read, Institution, users: { id: user.id }
     can :read, User, enrollments_restricionts
+    can :manage, Image, institution: {
+      workers: enrollments_restricionts[:enrollments]
+    }
   end
 
   def janitor_rules(user)
@@ -59,6 +65,7 @@ class Ability
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
     can :read, Institution, workers: { user_id: user.id, job: 'janitor' }
+    can :manage, Image, jobs_restrictions
   end
 
   def headmaster_rules(user)
@@ -69,5 +76,6 @@ class Ability
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
     can :read, Institution, workers: { user_id: user.id, job: 'headmaster' }
+    can :manage, Image, jobs_restrictions
   end
 end
