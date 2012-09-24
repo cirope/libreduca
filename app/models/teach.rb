@@ -61,4 +61,12 @@ class Teach < ActiveRecord::Base
       enrollment.send_email_summary if enrollment.is_student?
     end
   end
+
+  def next_content_for(content)
+    self.contents.next_for(content)
+  end
+
+  def prev_content_for(content)
+    self.contents.prev_for(content)
+  end
 end

@@ -142,4 +142,19 @@ class TeachTest < ActiveSupport::TestCase
       @teach.send_email_summary
     end
   end
+
+  test 'next and prev content for' do
+    @teach.contents.clear
+
+    assert_equal 0, @teach.contents.count
+
+    content = Fabricate(:content, title: 'B', teach_id: @teach.id)
+    prev_content = Fabricate(:content, title: 'A', teach_id: @teach.id)
+    next_content = Fabricate(:content, title: 'C', teach_id: @teach.id)
+
+    assert_equal prev_content.id, @teach.prev_content_for(content).id
+    assert_equal next_content.id, @teach.next_content_for(content).id
+    assert_nil @teach.next_content_for(next_content)
+    assert_nil @teach.prev_content_for(prev_content)
+  end
 end

@@ -38,14 +38,10 @@
       </ul>
     <% end %>
   <% end %>
+
+  <%= content_next_and_prev_links(@teach, @content) %>
 </div>
 
 <div class="form-actions">
   <%= link_to t('label.edit'), edit_teach_content_path(@teach, @content), class: 'btn btn-primary' if can? :update, @content %>
-
-  <% if can? :read, Content %>
-    <div class="pull-right">
-      <%= link_to t('label.list'), teach_contents_path(@teach) %>
-    </div>
-  <% end %>
 </div>

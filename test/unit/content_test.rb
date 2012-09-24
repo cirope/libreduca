@@ -93,4 +93,19 @@ class ContentTest < ActiveSupport::TestCase
     
     assert contents.empty?
   end
+
+  test 'next and prev for' do
+    Content.destroy_all
+
+    assert_equal 0, Content.count
+
+    content = Fabricate(:content, title: 'B')
+    prev_content = Fabricate(:content, title: 'A')
+    next_content = Fabricate(:content, title: 'C')
+
+    assert_equal prev_content.id, Content.prev_for(content).id
+    assert_equal next_content.id, Content.next_for(content).id
+    assert_nil Content.next_for(next_content)
+    assert_nil Content.prev_for(prev_content)
+  end
 end

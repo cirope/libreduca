@@ -43,4 +43,12 @@ class Content < ActiveRecord::Base
   def visited_by(user)
     self.visits.create!(user: user) unless self.visited_by?(user)
   end
+
+  def self.prev_for(content)
+    where("#{table_name}.title < ?", content.title).last
+  end
+
+  def self.next_for(content)
+    where("#{table_name}.title > ?", content.title).first
+  end
 end
