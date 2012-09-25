@@ -334,7 +334,7 @@
       types:
         headmaster: 'Director'
         teacher: 'Profesor'
-        janitor: 'Bedel'
+        janitor: 'Administrativo'
         student: 'Alumno'
     kinships:
       types:

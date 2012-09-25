@@ -4,9 +4,9 @@ module ImagesHelper
   end
 
   def image_modal(image, thumb_version = :thumb)
+    id = "image-modal-#{Time.now.to_i}-#{image.object_id}"
     out = link_to(
-      raw(image.to_html(thumb_version)), "#image-modal-#{image.object_id}",
-      data: { toggle: 'modal' }
+      raw(image.to_html(thumb_version)), id, data: { toggle: 'modal' }
     )
 
     content = content_tag(
@@ -20,8 +20,6 @@ module ImagesHelper
       class: 'modal-footer'
     )
 
-    out << content_tag(
-      :div, content, class: 'modal fade', id: "image-modal-#{image.object_id}"
-    )
+    out << content_tag(:div, content, class: 'modal hide fade', id: id)
   end
 end
