@@ -1,12 +1,14 @@
 <h2>
   <%= t('notifier.new_enrollment.greeting.html', user: @enrollment.user.name) %>
 </h2>
-<h3>
+
+<p>
   <%= t(
     'notifier.new_enrollment.teach.html',
     course: @enrollment.course
   ) %>
-</h3>
+</p>
+
 <p>
   <%= t(
     'notifier.new_enrollment.teach_details.html',

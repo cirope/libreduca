@@ -16,16 +16,16 @@
         text: 'Su nota promedio en %{course} hasta el momento es %{average}'
     footer:
       instructions:
-        html: 'Para <strong>ingresar</strong> al contenido de <strong>%{institution}</strong> accede a %{link}'
-        text: 'Para ingresar al contenido de %{institution} accede a %{link}'
+        html: 'Para <strong>ingresar</strong> al contenido de <strong>%{institution}</strong> ingresa en %{link}'
+        text: 'Para ingresar al contenido de %{institution} ingresa en %{link}'
     new_enrollment:
-      subject: '%{user} bienvenido a %{course}'
+      subject: '%{user}, bienvenido/a a %{course}'
       greeting:
         html: 'Hola <strong>%{user}</strong>,'
         text: 'Hola %{user},'
       teach:
-        html: 'Ya estás inscripto en <strong>%{course}</strong>'
-        text: 'Ya estás inscripto en %{course}'
+        html: 'Ya estás inscripto/a en <strong>%{course}</strong>'
+        text: 'Ya estás inscripto/a en %{course}'
       teach_details:
         html: 'El dictado comienza el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
         text: 'El dictado comienza el %{start} y finaliza el %{finish}'

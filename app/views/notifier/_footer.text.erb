@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
-<% url = root_url(subdomain: @institution.identification) %>
 <%= t(
-  'notifier.footer.instructions.html',
-  institution: @institution, link: link_to(url, url)
+  'notifier.footer.instructions.text',
+  institution: @institution,
+  link: root_url(subdomain: @institution.identification)
 ) %>

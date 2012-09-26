@@ -52,7 +52,7 @@ class Notifier < ActionMailer::Base
     mail(
       subject: t(
         'notifier.new_enrollment.subject',
-        user: @enrollment.user,
+        user: @enrollment.user.name,
         course: @enrollment.course
       ),
       to: enrollment.user.email,

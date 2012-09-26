@@ -1,14 +1,14 @@
-<%= t('notifier.new_enrollment.greeting.html', user: @enrollment.user.name) %>
+<%= t('notifier.new_enrollment.greeting.text', user: @enrollment.user.name) %>
 ================================================================================
 
 <%= t(
-  'notifier.new_enrollment.teach.html',
+  'notifier.new_enrollment.teach.text',
   course: @enrollment.course
 ) %>
 --------------------------------------------------------------------------------
 
 <%= t(
-  'notifier.new_enrollment.teach_details.html',
+  'notifier.new_enrollment.teach_details.text',
   start: l(@enrollment.teach.start, format: :long),
   finish: l(@enrollment.teach.finish, format: :long)
 ) %>
