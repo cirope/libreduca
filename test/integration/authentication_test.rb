@@ -21,15 +21,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
   
   test 'should be able to login as related to institution' do
-    Capybara.app_host = "http://#{@institution.identification}.lvh.me:54163"
-    
-    user = Fabricate(:user, password: '123456', roles: [:normal])
-    job = Fabricate(:job, user_id: user.id, institution_id: @institution.id)
-    expected_path = url_for(
-      controller: 'dashboard', action: job.job, only_path: true
-    )
-    
-    login user: user, clean_password: '123456', expected_path: expected_path
+    login_into_institution institution: @institution
   end
   
   test 'should not be able to login as no related to institution' do

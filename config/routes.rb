@@ -21,13 +21,6 @@ Libreduca::Application.routes.draw do
     resources :regions
 
     resources :institutions do
-      resources :forums do
-        member do
-          get :comments
-          post :comments, action: 'create_comment'
-        end
-      end
-
       resources :grades
 
       resources :users, only: [] do

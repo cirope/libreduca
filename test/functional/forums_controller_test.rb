@@ -2,10 +2,16 @@ require 'test_helper'
 
 class ForumsControllerTest < ActionController::TestCase
   setup do
-    @forum = Fabricate(:forum)
+    institution = Fabricate(:institution)
+    @user = Fabricate(:user, password: '123456', roles: [:normal])
+    job = Fabricate(:job, user_id: @user.id, institution_id: institution.id)
+    @forum = Fabricate(
+      :forum, owner_id: institution.id, owner_type: institution.class.name
+    )
     @owner = @forum.owner
+    @request.host = "#{institution.identification}.lvh.me"
     
-    sign_in(@user = Fabricate(:user))
+    sign_in @user
   end
 
   test 'should get index' do

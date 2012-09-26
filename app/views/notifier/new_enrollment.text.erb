@@ -1,0 +1,16 @@
+<%= t('notifier.new_enrollment.greeting.html', user: @enrollment.user.name) %>
+================================================================================
+
+<%= t(
+  'notifier.new_enrollment.teach.html',
+  course: @enrollment.course
+) %>
+--------------------------------------------------------------------------------
+
+<%= t(
+  'notifier.new_enrollment.teach_details.html',
+  start: l(@enrollment.teach.start, format: :long),
+  finish: l(@enrollment.teach.finish, format: :long)
+) %>
+
+<%= render 'footer' %>

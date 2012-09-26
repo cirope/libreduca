@@ -8,5 +8,6 @@
   | <%= l.chomp %>
 <% end %>
 
-
 <%= t('notifier.new_forum.view') %>: <%= polymorphic_url [@forum.owner, @forum] %>
+
+<%= render 'footer' %>

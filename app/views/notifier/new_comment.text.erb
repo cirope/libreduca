@@ -9,3 +9,5 @@
 <% end %>
 
 <%= t('notifier.new_comment.view') %>: <%= polymorphic_url([@forum.owner, @forum], anchor: @comment.anchor) %>
+
+<%= render 'footer' %>

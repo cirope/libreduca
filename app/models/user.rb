@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
     :avatar, :avatar_cache, :role, :remember_me, :kinships_attributes,
     :jobs_attributes, :lock_version
-  
+
   # Defaul order
   default_scope order("#{table_name}.lastname ASC")
   

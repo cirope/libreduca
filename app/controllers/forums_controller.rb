@@ -55,7 +55,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
-        Notifier.delay.new_forum(@forum)
+        Notifier.delay.new_forum(@forum, current_institution)
         format.html { redirect_to [@institution, @forum], notice: t('view.forums.correctly_created') }
         format.json { render json: @forum, status: :created, location: [@institution, @forum] }
       else
@@ -112,7 +112,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        Notifier.delay.new_comment(@comment)
+        Notifier.delay.new_comment(@comment, current_institution)
         format.html { render partial: 'comment', locals: { comment: @comment } }
         format.json { render json: @comment, status: :created, location: [@institution, @forum] }
       else

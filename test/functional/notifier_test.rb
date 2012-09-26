@@ -33,7 +33,7 @@ class NotifierTest < ActionMailer::TestCase
     forum = Fabricate(
       :forum, owner_id: institution.id, owner_type: 'Institution'
     )
-    mail = Notifier.new_forum(forum)
+    mail = Notifier.new_forum(forum, institution)
 
     assert_equal I18n.t('notifier.new_forum.subject', forum: forum),
       mail.subject
@@ -56,7 +56,7 @@ class NotifierTest < ActionMailer::TestCase
       :forum, owner_id: institution.id, owner_type: 'Institution'
     )
     comment = Fabricate(:comment, forum_id: forum.id)
-    mail = Notifier.new_comment(comment)
+    mail = Notifier.new_comment(comment, institution)
 
     assert_equal I18n.t('notifier.new_comment.subject', forum: forum),
       mail.subject
@@ -66,6 +66,30 @@ class NotifierTest < ActionMailer::TestCase
     assert_equal [APP_CONFIG['smtp']['user_name']], mail.from
     assert_match I18n.t('notifier.new_comment.view'), mail.body.encoded
 
+    assert_difference 'ActionMailer::Base.deliveries.size' do
+      mail.deliver
+    end
+  end
+
+  test 'new enrollment' do
+    enrollment = Fabricate(:enrollment)
+    Fabricate(
+      :score, teach_id: enrollment.teach_id, user_id: enrollment.user_id
+    )
+    mail = Notifier.new_enrollment(enrollment)
+    
+    assert_equal I18n.t(
+      'notifier.new_enrollment.subject',
+      user: enrollment.user, course: enrollment.course
+    ), mail.subject
+    assert_equal [enrollment.user.email], mail.to
+    assert_equal [], mail.cc
+    assert_equal [APP_CONFIG['smtp']['user_name']], mail.from
+    assert_match I18n.t(
+      'notifier.new_enrollment.greeting.html',
+      user: enrollment.user.name
+    ), mail.body.encoded
+    
     assert_difference 'ActionMailer::Base.deliveries.size' do
       mail.deliver
     end
