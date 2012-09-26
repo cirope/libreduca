@@ -1,0 +1,6 @@
+Bienvenido <%= @resource.name %>,
+================================================================================
+
+Puedes confirmar el correo de tu cuenta ingresando en la siguiente dirección:
+
+<%= confirmation_url(@resource, confirmation_token: @resource.confirmation_token) %>

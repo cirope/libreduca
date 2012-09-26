@@ -1,0 +1,7 @@
+Hola <%= @resource.name %>,
+
+Tu cuenta ha sido bloqueada debido a una cantidad excesiva de intentos fallidos.
+
+Ingresá a la siguiente dirección para desbloquearla:
+
+<%= unlock_url(@resource, unlock_token: @resource.unlock_token) %>
