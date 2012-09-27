@@ -12,9 +12,9 @@ set :use_sudo, false
 set :scm, :git
 set :branch, 'master'
 
-role :web, 'www.libreduca.com'
-role :app, 'www.libreduca.com'
-role :db, 'www.libreduca.com', primary: true
+role :web, 'libreduca.com'
+role :app, 'libreduca.com'
+role :db, 'libreduca.com', primary: true
 
 before 'deploy:finalize_update', 'deploy:create_shared_symlinks'
 after 'deploy:update_code', 'deploy:create_tmp_pids_symlink'

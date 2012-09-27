@@ -6,7 +6,7 @@ module ImagesHelper
   def image_modal(image, thumb_version = :thumb)
     id = "image-modal-#{Time.now.to_i}-#{image.object_id}"
     out = link_to(
-      raw(image.to_html(thumb_version)), id, data: { toggle: 'modal' }
+      raw(image.to_html(thumb_version)), "##{id}", data: { toggle: 'modal' }
     )
 
     content = content_tag(
