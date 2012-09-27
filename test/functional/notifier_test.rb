@@ -80,7 +80,7 @@ class NotifierTest < ActionMailer::TestCase
     
     assert_equal I18n.t(
       'notifier.new_enrollment.subject',
-      user: enrollment.user, course: enrollment.course
+      user: enrollment.user.name, course: enrollment.course
     ), mail.subject
     assert_equal [enrollment.user.email], mail.to
     assert_equal [], mail.cc

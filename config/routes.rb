@@ -108,4 +108,8 @@ Libreduca::Application.routes.draw do
     
     root to: 'dashboard#index'
   end
+
+  get 'errors/error_404'
+
+  match '*not_found', to: 'errors#error_404'
 end
