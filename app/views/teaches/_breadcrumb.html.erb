@@ -1,6 +1,6 @@
 <ul class="breadcrumb">
   <li>
-    <%= link_to_if can?(:read, @course.institution), @course.institution.to_s, @course.institution %>
+    <%= link_to_if can?(:read, @course.institution) && !current_user_is_student?, @course.institution.to_s, @course.institution %>
     <span class="divider">/</span>
   </li>
   <li>
