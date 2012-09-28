@@ -21,7 +21,9 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
   
   test 'should be able to login as related to institution' do
-    login_into_institution institution: @institution
+    assert_difference 'Login.count' do
+      login_into_institution institution: @institution
+    end
   end
   
   test 'should not be able to login as no related to institution' do
@@ -29,7 +31,9 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     
     user = Fabricate(:user, password: '123456', roles: [:normal])
     
-    invalid_login user: user, clean_password: '123456'
+    assert_no_difference 'Login.count' do
+      invalid_login user: user, clean_password: '123456'
+    end
   end
   
   test 'should not be able to login as normal user in admin page' do

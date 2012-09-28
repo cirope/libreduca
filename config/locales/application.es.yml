@@ -44,6 +44,9 @@
       kinship:
         one: 'Parentesco'
         other: 'Parentescos'
+      login:
+        one: 'Ingreso'
+        other: 'Ingresos'
       region:
         one: 'Región'
         other: 'Regiones'
@@ -108,6 +111,9 @@
         kin: 'Parentesco'
         user_id: 'Usuario'
         relative_id: 'Pariente'
+      login:
+        ip: 'IP'
+        user_agent: 'Navegador'
       region:
         name: 'Nombre'
       region/district:
