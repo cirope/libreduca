@@ -174,7 +174,7 @@ GEM
       multi_json (~> 1)
       redis (~> 3)
       redis-namespace
-    simple_form (2.0.2)
+    simple_form (2.0.3)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     sprockets (2.1.3)

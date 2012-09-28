@@ -106,7 +106,7 @@ module ApplicationHelper
 
   Job::TYPES.each do |type|
     define_method("current_user_is_#{type}?") do
-      current_user.is?(:admin) || current_user.jobs.in_institution(current_institution).first.try("#{type}?")
+      current_institution && current_user.jobs.in_institution(current_institution).any?(&:"#{type}?")
     end
   end
 end
