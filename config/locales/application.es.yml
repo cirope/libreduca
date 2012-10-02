@@ -319,6 +319,8 @@
       new: 'Nueva imagen'
       modal: 'Con dialogo modal'
       versions: 'Versiones'
+      click_to_enlarge:
+        html: 'Haga <strong>clic</strong> sobre la imagen para <strong>ampliar</strong>'
     institutions:
       index_title: 'Listado de instituciones'
       show_title: 'Detalle de institución'

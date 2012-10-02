@@ -1,3 +1,4 @@
+<% columns = 2 %>
 <% if @images.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
@@ -6,24 +7,30 @@
       <table class="table resource-list">
         <thead>
           <tr>
-            <th><%= Image.human_attribute_name 'name' %></th>
-            <th><%= Image.human_attribute_name 'file' %></th>
-            <th><%= Image.human_attribute_name 'content_type' %></th>
-            <th><%= Image.human_attribute_name 'file_size' %></th>
-            <th colspan="3"></th>
+            <% columns.times do %>
+              <th><span class="visible-desktop"><%= Image.human_attribute_name 'name' %></span></th>
+              <th><%= Image.human_attribute_name 'file' %></th>
+              <th colspan="3"></th>
+            <% end %>
           </tr>
         </thead>
 
         <tbody>
-          <% @images.each do |image| %>
+          <% @images.each_slice(columns) do |images| %>
             <tr>
-              <td><%= image.name %></td>
-              <td><%= image.file %></td>
-              <td><%= image.content_type %></td>
-              <td><%= image.file_size %></td>
-              <td><%= link_to_show image %></td>
-              <td><%= link_to_edit edit_image_path(image) if can? :update, image %></td>
-              <td><%= link_to_destroy image if can? :destroy, image %></td>
+              <% images.each do |image| %>
+                <td><span class="visible-desktop"><%= image.name %></span></td>
+                <td><%= image_tag image.file.micro_thumb, alt: image.name %></td>
+                <td><%= link_to_show image %></td>
+                <td><%= link_to_edit edit_image_path(image) if can? :update, image %></td>
+                <td><%= link_to_destroy image if can? :destroy, image %></td>
+              <% end %>
+
+              <% size = images.size %>
+              <% while size < columns %>
+                <td colspan="5">&nbsp;</td>
+                <% size += 1 %>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

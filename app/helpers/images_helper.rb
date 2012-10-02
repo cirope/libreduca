@@ -5,9 +5,12 @@ module ImagesHelper
 
   def image_modal(image, thumb_version = :thumb)
     id = "image-modal-#{Time.now.to_i}-#{image.object_id}"
+    text = content_tag(:small, t('view.images.click_to_enlarge.html'))
     out = link_to(
       raw(image.to_html(thumb_version)), "##{id}", data: { toggle: 'modal' }
     )
+
+    out << content_tag(:p, text, class: 'muted')
 
     content = content_tag(
       :div, content_tag(:h3, image.to_s), class: 'modal-header'
