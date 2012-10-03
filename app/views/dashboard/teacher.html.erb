@@ -14,7 +14,11 @@
       <div class="row-fluid">
         <% enrollments.each do |enrollment| %>
           <div class="span6">
-            <h3><%= show_teach_info enrollment.teach %></h3>
+            <% enrollment.teach.tap do |teach| %>
+              <h3><%= show_teach_info teach %></h3>
+              <%= markdown teach.description if teach.description.present? %>
+            <% end %>
+
             <% if enrollment.teach.scores.empty? %>
               <div class="alert">
                 <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>

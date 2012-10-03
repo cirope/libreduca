@@ -259,6 +259,8 @@
         html: 'No se ha creado ningún grado para esta institución hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo grado</span>'
       empty_scores:
         html: 'No hay notas cargadas para <strong>%{course}</strong>'
+      footer:
+        html: 'Ingresa al contenido del dictado haciendo <strong>clic en su nombre</strong>. No es necesario completar todo en una sola visita.'
       greetings:
         html: 'Hola %{user}<small>, este es tu resumen educativo en <strong>%{institution}</strong></small>'
       score_average:
@@ -339,7 +341,6 @@
       hints:
         identification:
           html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
-
     jobs:
       types:
         headmaster: 'Director'
