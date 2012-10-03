@@ -22,7 +22,7 @@
             <br />
 
             <% if enrollment.scores.empty? %>
-              <div class="alert">
+              <div class="alert alert-info">
                 <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>
               </div>
             <% else %>
