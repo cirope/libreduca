@@ -21,7 +21,7 @@ class ContentsController < ApplicationController
   # GET /contents/1
   # GET /contents/1.json
   def show
-    @title = t('view.contents.show_title')
+    @title = [@teach.course.to_s, @content.to_s].join(' | ')
 
     @content.visited_by(current_user)
 

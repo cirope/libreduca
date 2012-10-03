@@ -216,7 +216,6 @@
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
     contents:
       index_title: 'Listado de contenidos'
-      show_title: 'Detalle de contenido'
       new_title: 'Nuevo contenido'
       edit_title: 'Modificar contenido'
       correctly_created: 'Contenido agregado correctamente.'
