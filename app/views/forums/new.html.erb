@@ -1,5 +1,5 @@
 <%= content_for :form_actions do %>
-  <%= link_to t('label.list'), polymorphic_path([@owner, @forum]) %>
+  <%= link_to t('label.back'), @owner %>
 <% end %>
 
 <%= render 'form' %>
