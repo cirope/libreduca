@@ -7,6 +7,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     login
     
     course = Fabricate(:course)
+    teach = Fabricate.build(:teach, course_id: course.id)
     
     visit new_course_teach_path(course)
     
@@ -27,6 +28,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
     within '.ui-datepicker-calendar' do
       find('a.ui-state-default').click
     end
+
+    fill_in find('#teach_description')[:id], with: teach.description
     
     user = Fabricate(:user, lastname: 'in_filtered_index').tap do |u|
       Fabricate(:job, user_id: u.id, institution_id: course.institution.id)

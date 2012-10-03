@@ -10,6 +10,8 @@
       finish: l(@teach.finish, format: :long)
     ) %>
   </p>
+
+  <%= markdown @teach.description if @teach.description.present? %>
   
   <ul class="nav nav-tabs">
     <li class="active">

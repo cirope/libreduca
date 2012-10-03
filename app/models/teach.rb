@@ -2,8 +2,8 @@ class Teach < ActiveRecord::Base
   has_paper_trail
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :start, :finish, :course_id, :enrollments_attributes,
-    :scores_attributes, :lock_version
+  attr_accessible :start, :finish, :description, :course_id,
+    :enrollments_attributes, :scores_attributes, :lock_version
   
   # Default order
   default_scope order("#{table_name}.start DESC")
