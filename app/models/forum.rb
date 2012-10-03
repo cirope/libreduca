@@ -27,6 +27,10 @@ class Forum < ActiveRecord::Base
   def users
     self.owner.try(:users)
   end
+
+  def institution
+    self.owner.try(:institution)
+  end
   
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped

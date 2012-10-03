@@ -44,19 +44,19 @@
   <hr />
 
   <% if @institution.forums.empty? %>
-    <%= link_to t('view.forums.new'), new_institution_forum_path(@institution), class: 'btn btn-mini btn-inverse' if can? :create, @institution.forums.build %>
+    <%= link_to t('view.forums.new'), new_institution_forum_path(@institution), class: 'btn btn-mini btn-inverse' if current_institution && can?(:create, @institution.forums.build) %>
   <% else %>
     <h3>
-      <%= link_to_if can?(:read, Forum), Forum.model_name.human(count: @institution.forums.size), institution_forums_path(@institution) %>
-      <% if can? :create, @institution.forums.build %>
+      <%= link_to_if current_institution && can?(:read, Forum), Forum.model_name.human(count: @institution.forums.size), institution_forums_path(@institution) %>
+      <% if current_institution && can?(:create, @institution.forums.build) %>
         <span class="divider">|</span>
         <%= link_to t('view.forums.new'), new_institution_forum_path(@institution), class: 'btn btn-mini' %>
       <% end %>
     </h3>
 
     <ul>
-      <% @institution.forums.reject!(&:new_record?).each do |forum| %>
-        <li><%= link_to_if can?(:read, forum), forum.to_s, [@institution, forum] %></li>
+      <% @institution.forums.reject(&:new_record?).each do |forum| %>
+        <li><%= link_to_if current_institution && can?(:read, forum), forum.to_s, [@institution, forum] %></li>
       <% end %>
     </ul>
   <% end %>

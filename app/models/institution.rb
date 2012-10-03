@@ -51,6 +51,10 @@ class Institution < ActiveRecord::Base
     
     super(default_options.merge(options || {}))
   end
+
+  def institution
+    self
+  end
   
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped

@@ -71,7 +71,7 @@ class ActionDispatch::IntegrationTest
     institution = options[:institution] || Fabricate(:institution)
     Capybara.app_host = "http://#{institution.identification}.lvh.me:54163"
     
-    user = Fabricate(:user, password: '123456', roles: [:normal])
+    user = options[:user] || Fabricate(:user, password: '123456', roles: [:normal])
     job = Fabricate(
       :job, user_id: user.id, institution_id: institution.id, job: options[:as] || 'student'
     )

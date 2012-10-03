@@ -56,6 +56,13 @@ Libreduca::Application.routes.draw do
 
     resources :teaches, only: [] do
       resources :contents
+
+      resources :forums do
+        member do
+          get :comments
+          post :comments, action: 'create_comment'
+        end
+      end
     end
 
     resources :courses, shallow: true, only: [] do

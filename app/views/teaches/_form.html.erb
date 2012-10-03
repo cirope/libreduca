@@ -100,6 +100,24 @@
         <%= link_to_add_fields t('view.teaches.new_enrollment'), f, :enrollments %>
       </div>
     </div>
+
+    <% if @teach.persisted? && @teach.forums.empty? %>
+      <%= link_to t('view.forums.new'), new_teach_forum_path(@teach), class: 'btn btn-mini btn-inverse' if current_institution && can?(:create, @teach.forums.build) %>
+    <% elsif @teach.persisted? %>
+      <h3>
+        <%= link_to_if current_institution && can?(:read, Forum), Forum.model_name.human(count: @teach.forums.size), teach_forums_path(@teach) %>
+        <% if current_institution && can?(:create, @teach.forums.build) %>
+          <span class="divider">|</span>
+          <%= link_to t('view.forums.new'), new_teach_forum_path(@teach), class: 'btn btn-mini' %>
+        <% end %>
+      </h3>
+
+      <ul>
+        <% @teach.forums.reject(&:new_record?).each do |forum| %>
+          <li><%= link_to_if current_institution && can?(:read, forum), forum.to_s, [@teach, forum] %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 
   <div class="form-actions">

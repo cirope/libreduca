@@ -11,7 +11,11 @@
 <p>
   <%= link_to(
     t('notifier.new_comment.view'),
-    polymorphic_url([@forum.owner, @forum], anchor: @comment.anchor)
+    polymorphic_url(
+      [@forum.owner, @forum],
+      anchor: @comment.anchor,
+      subdomain: @forum.institution.identification
+    )
   ) %>
 </p>
 

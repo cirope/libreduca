@@ -3,7 +3,10 @@ class ForumsController < ApplicationController
   
   check_authorization
   load_and_authorize_resource :institution
-  load_and_authorize_resource :forum, through: :institution
+  load_and_authorize_resource :teach
+  load_and_authorize_resource :forum, through: [:institution, :teach]
+
+  before_filter :set_owner
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
   
@@ -56,8 +59,8 @@ class ForumsController < ApplicationController
     respond_to do |format|
       if @forum.save
         Notifier.delay.new_forum(@forum, current_institution)
-        format.html { redirect_to [@institution, @forum], notice: t('view.forums.correctly_created') }
-        format.json { render json: @forum, status: :created, location: [@institution, @forum] }
+        format.html { redirect_to [@owner, @forum], notice: t('view.forums.correctly_created') }
+        format.json { render json: @forum, status: :created, location: [@owner, @forum] }
       else
         format.html { render action: 'new' }
         format.json { render json: @forum.errors, status: :unprocessable_entity }
@@ -72,7 +75,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.update_attributes(params[:forum])
-        format.html { redirect_to [@institution, @forum], notice: t('view.forums.correctly_updated') }
+        format.html { redirect_to [@owner, @forum], notice: t('view.forums.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -80,7 +83,7 @@ class ForumsController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_institution_forum_url(@institution, @forum), alert: t('view.forums.stale_object_error')
+    redirect_to edit_polymorphic_url([@owner, @forum]), alert: t('view.forums.stale_object_error')
   end
 
   # DELETE /forums/1
@@ -89,7 +92,7 @@ class ForumsController < ApplicationController
     @forum.destroy
 
     respond_to do |format|
-      format.html { redirect_to institution_forums_url(@institution) }
+      format.html { redirect_to polymorphic_path([@owner, Forum]) }
       format.json { head :ok }
     end
   end
@@ -114,11 +117,17 @@ class ForumsController < ApplicationController
       if @comment.save
         Notifier.delay.new_comment(@comment, current_institution)
         format.html { render partial: 'comment', locals: { comment: @comment } }
-        format.json { render json: @comment, status: :created, location: [@institution, @forum] }
+        format.json { render json: @comment, status: :created, location: [@owner, @forum] }
       else
         format.html { render partial: 'new_comment', locals: { comment: @comment } }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  private
+
+  def set_owner
+    @owner = @institution || @teach
   end
 end

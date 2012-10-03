@@ -183,6 +183,7 @@
   label:
     'yes': 'Si'
     'no': 'No'
+    back: 'Volver'
     close: 'Cerrar'
     delete: 'Eliminar'
     edit: 'Editar'

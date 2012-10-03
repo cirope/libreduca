@@ -22,6 +22,8 @@ class Teach < ActiveRecord::Base
   has_many :enrollments, dependent: :destroy, after_add: :set_teach
   has_many :contents, dependent: :destroy
   has_many :scores, dependent: :destroy
+  has_many :users, through: :enrollments
+  has_many :forums, dependent: :destroy, as: :owner
   
   accepts_nested_attributes_for :enrollments, allow_destroy: true,
     reject_if: ->(attributes) { attributes['user_id'].blank? }
