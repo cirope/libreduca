@@ -13,6 +13,7 @@
             <%= show_menu_link(
               name: 'dashboard', controllers: 'dashboard', path: dashboard_path
             ) if current_institution %>
+            <%= render 'shared/menu_dropdowns/enrollments' if current_enrollments.present? %>
             <%= show_menu_link(
               name: 'users', controllers: 'users', path: users_path
             ) if can?(:read, User) && current_user.is?(:admin) && !current_institution %>

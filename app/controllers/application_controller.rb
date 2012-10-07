@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_current_institution
+  before_filter :set_current_institution, :load_enrollments
   after_filter :add_pjax_headers, if: :pjax_request?
   after_filter -> { expires_now if user_signed_in? }
   
-  helper_method :current_institution
+  helper_method :current_institution, :current_enrollments
 
   rescue_from Exception do |exception|
     begin
@@ -33,14 +33,16 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: t('errors.access_denied')
   end
 
-
-    
   def user_for_paper_trail
     current_user.try(:id)
   end
   
   def current_institution
     @_current_institution
+  end
+
+  def current_enrollments
+    @_enrollments
   end
 
   def not_found
@@ -58,6 +60,14 @@ class ApplicationController < ActionController::Base
     @_current_institution ||= Institution.find_by_identification(
       request.subdomains.first
     )
+  end
+
+  def load_enrollments
+    if current_user && current_institution
+      @_enrollments = current_user.enrollments.in_institution(
+        current_institution
+      ).sorted_by_name.in_current_teach
+    end
   end
 
   def add_pjax_headers

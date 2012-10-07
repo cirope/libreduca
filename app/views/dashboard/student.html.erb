@@ -2,7 +2,7 @@
   <div class="page-header">
     <h1><%= t('view.dashboard.greetings.html', user: current_user.name, institution: current_institution.name) %></h1>
   </div>
-  <% if @enrollments.empty? %>
+  <% if current_enrollments.empty? %>
     <div class="alert">
       <h4 class="alert-heading">
         <%= t('view.dashboard.empty_enrollments.html') %>
@@ -10,7 +10,7 @@
     </div>
     <br />
   <% else %>
-    <% @enrollments.each_slice(2) do |enrollments| %>
+    <% current_enrollments.each_slice(2) do |enrollments| %>
       <div class="row-fluid">
         <% enrollments.each do |enrollment| %>
           <div class="span6">

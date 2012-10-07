@@ -35,7 +35,7 @@ class DashboardControllerTest < ActionController::TestCase
     assert @job.update_attribute :job, 'student'
     get :student
     assert_response :success
-    assert_not_nil assigns(:enrollments)
+    assert_not_nil assigns(:_enrollments)
     assert_select '#unexpected_error', false
     assert_template 'dashboard/student'
   end
@@ -44,7 +44,7 @@ class DashboardControllerTest < ActionController::TestCase
     assert @job.update_attribute :job, 'teacher'
     get :teacher
     assert_response :success
-    assert_not_nil assigns(:enrollments)
+    assert_not_nil assigns(:_enrollments)
     assert_select '#unexpected_error', false
     assert_template 'dashboard/teacher'
   end

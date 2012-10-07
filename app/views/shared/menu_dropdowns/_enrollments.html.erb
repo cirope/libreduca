@@ -1,0 +1,14 @@
+<% teach_controller = controller_name == 'teaches' %>
+<li class="dropdown<%= ' active' if teach_controller %>">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <%= t('menu.teaches') %>
+    <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <% current_enrollments.each do |enrollment| %>
+      <li>
+        <%= link_to enrollment.course.to_s, teach_path(enrollment.teach) %>
+      </li>
+    <% end %>
+  </ul>
+</li>

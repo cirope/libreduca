@@ -2,6 +2,7 @@ class Enrollment < ActiveRecord::Base
   has_paper_trail
   
   # Scopes
+  scope :sorted_by_name, joins(:course).order("#{Course.table_name}.name ASC")
   scope :only_students, where(job: 'student')
   
   # Setup accessible (or protected) attributes for your model
