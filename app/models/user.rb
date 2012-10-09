@@ -107,9 +107,9 @@ class User < ActiveRecord::Base
     subdomains = conditions.delete(:subdomains)
     
     if subdomains.blank? || RESERVED_SUBDOMAINS.include?(subdomains.first)
-      user_by_email = where(email: conditions[:email]).first
-      
-      user_by_email.try(:is?, :admin) ? user_by_email : nil
+      user = find_by_email(conditions[:email])
+
+      user.try(:is?, :admin) || user.institutions.present? ? user : nil
     else
       find_by_email_and_subdomain(conditions[:email], subdomains.first)
     end

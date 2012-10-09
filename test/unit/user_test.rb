@@ -189,6 +189,13 @@ class UserTest < ActiveSupport::TestCase
     
     @user.update_attributes(role: :normal)
     # No longer admin...
+    assert_equal @user, User.find_for_authentication(
+      email: @user.email, subdomains: ['admin']
+    )
+
+    # With no jobs
+    @user.jobs.destroy_all
+    assert_equal 0, @user.jobs.reload.count
     assert_nil User.find_for_authentication(
       email: @user.email, subdomains: ['admin']
     )

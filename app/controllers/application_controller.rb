@@ -55,6 +55,14 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource_or_scope)
     new_user_session_path
   end
+
+  def after_sign_in_path_for(resource)
+    if resource.is?(:admin)
+      root_url
+    else
+      root_url(subdomain: resource.institutions.first.try(:identification))
+    end
+  end
   
   def set_current_institution
     @_current_institution ||= Institution.find_by_identification(

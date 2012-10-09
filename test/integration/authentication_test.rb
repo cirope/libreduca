@@ -36,12 +36,18 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     end
   end
   
-  test 'should not be able to login as normal user in admin page' do
+  test 'should normal user be redirected to his own subdomain in admin page' do
     user = Fabricate(:user, password: '123456', roles: [:normal])
     
-    Fabricate(:job, user_id: user.id, institution_id: @institution.id)
+    job = Fabricate(:job, user_id: user.id, institution_id: @institution.id)
+
+    expected_path = url_for(
+      controller: 'dashboard', action: job.job, only_path: true
+    )
     
-    invalid_login user: user, clean_password: '123456'
+    login user: user, clean_password: '123456', expected_path: expected_path
+
+    assert_match /\Ahttp:\/\/#{@institution.identification}\./, current_url
   end
   
   private
