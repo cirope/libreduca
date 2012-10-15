@@ -39,7 +39,11 @@
                 '&#x2192;'.html_safe, destroy_user_session_path,
                 title: t('menu.actions.logout'), class: 'iconic', id: 'logout',
                 method: :delete,
-                data: { 'show-tooltip' => true, 'placement' => 'bottom' }
+                data: {
+                  'show-tooltip' => true,
+                  'placement' => 'bottom',
+                  'skip-pjax' => true
+                }
               ) %>
             </li>
           </ul>
