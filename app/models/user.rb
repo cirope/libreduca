@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
     if subdomains.blank? || RESERVED_SUBDOMAINS.include?(subdomains.first)
       user = find_by_email(conditions[:email])
 
-      user.try(:is?, :admin) || user.institutions.present? ? user : nil
+      user && (user.is?(:admin) || user.institutions.present?) ? user : nil
     else
       find_by_email_and_subdomain(conditions[:email], subdomains.first)
     end
