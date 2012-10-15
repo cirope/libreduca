@@ -39,6 +39,7 @@ jQuery ($)->
   pjaxQuery  = 'a:not([data-remote])'
   pjaxQuery += ':not([data-behavior])'
   pjaxQuery += ':not([data-skip-pjax])'
+  pjaxQuery += ':not([data-method])'
   pjaxQuery += ':not(.submit)'
 
   $(pjaxQuery).pjax('[data-pjax-container]')
