@@ -32,6 +32,7 @@ class ActionDispatch::IntegrationTest
     Capybara.default_driver = :selenium
     Capybara.server_port = '54163'
     Capybara.app_host = 'http://admin.lvh.me:54163'
+    Capybara.default_wait_time = ENV['TRAVIS'] ? 10 : 2
   end
 
   teardown do
