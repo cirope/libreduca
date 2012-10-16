@@ -122,13 +122,23 @@ class UserTest < ActiveSupport::TestCase
       error_message_from_model(@user, :email, :too_long, count: 255)
     ], @user.errors[:email]
   end
+
+  test 'has job in' do
+    institution = Fabricate(:institution)
+
+    assert !@user.has_job_in?(institution)
+
+    Fabricate(:job, user_id: @user.id, institution_id: institution.id)
+
+    assert @user.has_job_in?(institution)
+  end
   
   test 'magick search' do
-    5.times { Fabricate(:user) { name { "magick_name" } } }
-    3.times { Fabricate(:user) { lastname { "magick_lastname" } } }
+    5.times { Fabricate(:user) { name { 'magick_name' } } }
+    3.times { Fabricate(:user) { lastname { 'magick_lastname' } } }
     Fabricate(:user) {
-      name { "magick_name" }
-      lastname { "magick_lastname" }
+      name { 'magick_name' }
+      lastname { 'magick_lastname' }
     }
     
     users = User.magick_search('magick')

@@ -7,19 +7,14 @@
         <thead>
           <tr>
             <th><%= Institution.human_attribute_name 'name' %></th>
-            <th>
-              <span class="visible-desktop">
-                <%= Institution.human_attribute_name 'identification' %>
-              </span>
-            </th>
-            <th colspan="2"></th>
+            <th colspan="3"></th>
           </tr>
         </thead>
         <tbody>
           <% @institutions.each do |institution| %>
             <tr>
-              <td><%= link_to_if can?(:read, institution), institution.name, institution, title: t('label.show') %></td>
-              <td><span class="visible-desktop"><%= institution.identification %></span></td>
+              <td><%= link_to_if current_user.has_job_in?(institution), institution, root_url(subdomain: institution.identification) %></td>
+              <td><%= link_to_show institution if can? :read, institution %></td>
               <td><%= link_to_edit edit_institution_path(institution) if can? :update, institution %></td>
               <td><%= link_to_destroy institution if can? :destroy, institution %></td>
             </tr>

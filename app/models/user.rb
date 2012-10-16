@@ -88,6 +88,10 @@ class User < ActiveRecord::Base
   def role=(role)
     self.roles = [role]
   end
+
+  def has_job_in?(institution)
+    self.institutions.exists?(institution.id)
+  end
   
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
