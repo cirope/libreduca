@@ -10,6 +10,7 @@
       <% if user_signed_in? %>
         <div class="nav-collapse">
           <ul class="nav">
+            <%= render 'shared/menu_dropdowns/institutions' if current_user.institutions.count > 1 %>
             <%= show_menu_link(
               name: 'dashboard', controllers: 'dashboard', path: dashboard_path
             ) if current_institution %>

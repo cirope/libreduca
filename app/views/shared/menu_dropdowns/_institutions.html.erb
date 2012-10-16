@@ -1,0 +1,15 @@
+<% launchpad_controller = controller_name == 'launchpad' %>
+<li class="dropdown<%= ' active' if launchpad_controller %>">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <%= current_institution %>
+    <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <% institutions = current_user.institutions.to_a - [current_institution] %>
+    <% institutions.each do |institution| %>
+      <li>
+        <%= link_to institution, root_url(subdomain: institution.identification) %>
+      </li>
+    <% end %>
+  </ul>
+</li>
