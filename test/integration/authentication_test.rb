@@ -49,6 +49,18 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
 
     assert_match /\Ahttp:\/\/#{@institution.identification}\./, current_url
   end
+
+  test 'should normal user be redirected to launchpad in admin page' do
+    user = Fabricate(:user, password: '123456', roles: [:normal])
+    
+    Fabricate(:job, user_id: user.id, institution_id: @institution.id)
+    Fabricate(:job, user_id: user.id)
+
+    login user: user, clean_password: '123456', expected_path: launchpad_path
+
+    assert_match launchpad_path, current_path
+  end
+
   
   private
   

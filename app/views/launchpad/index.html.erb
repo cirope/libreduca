@@ -1,0 +1,17 @@
+<div class="row">
+  <% @institutions.each_slice(2) do |institutions| %>
+    <div class="span1"></div>
+    <% institutions.each do |institution| %>
+      <div class="span5">
+        <div class="well">
+          <h3>
+            <%= link_to institution, root_url(subdomain: institution.identification) %>
+          </h3>
+        </div>
+      </div>
+    <% end %>
+    <div class="span1"></div>
+  <% end %>
+</div>
+
+<nav class="form-actions"></nav>

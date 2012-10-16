@@ -60,10 +60,17 @@ class ApplicationController < ActionController::Base
     if resource.is?(:admin)
       root_url
     else
-      root_url(subdomain: resource.institutions.first.try(:identification))
+      count = resource.institutions.count
+      if count > 1
+        launchpad_url
+      elsif count == 1
+        root_url(subdomain: resource.institutions.first.identification)
+      else
+        root_url
+      end
     end
   end
-  
+
   def set_current_institution
     @_current_institution ||= Institution.find_by_identification(
       request.subdomains.first
@@ -82,6 +89,6 @@ class ApplicationController < ActionController::Base
     response.headers['X-PJAX-Searchable'] = 'true' if @searchable
     response.headers['X-PJAX-Controller'] = controller_name
     response.headers['X-PJAX-Action']     = action_name
-    response.headers['X-PJAX-Title']      = @title || ''
+    response.headers['X-PJAX-Title']      = title
   end
 end

@@ -1,5 +1,7 @@
 Libreduca::Application.routes.draw do
   constraints(AdminSubdomain) do
+    match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
+
     resources :questions, only: [] do
       resources :replies, except: [:destroy]
     end
@@ -48,6 +50,8 @@ Libreduca::Application.routes.draw do
   end
   
   constraints(SchoolSubdomain) do
+    match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
+
     resources :images
 
     resources :questions, only: [] do

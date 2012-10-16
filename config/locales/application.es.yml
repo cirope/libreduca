@@ -353,6 +353,8 @@
         mother: 'Madre'
         tutor: 'Tutor'
         other: 'Otro'
+    launchpad:
+      index_title: 'Instituciones'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'

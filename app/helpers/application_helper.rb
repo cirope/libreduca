@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def title
+    [t('app_name'), @title].compact.join(' | ')
+  end
+
   def markdown(text)
     MARKDOWN_RENDERER.render(text).html_safe
   end

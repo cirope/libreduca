@@ -32,6 +32,7 @@
 //= require grades
 //= require images
 //= require institutions
+//= require launchpad
 //= require regions
 //= require replies
 //= require teaches
