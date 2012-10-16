@@ -1,7 +1,7 @@
 <hr />
 
 <footer>
-  <% url = root_url(subdomain: @institution.identification) %>
+  <% url = root_url %>
   <%= t(
     'notifier.footer.instructions.html',
     institution: @institution, link: link_to(url, url)
