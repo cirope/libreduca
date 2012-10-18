@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def title
+    [t('app_name'), @title].compact.join(' | ')
+  end
+
   def show_menu_link(options = {})
     name = t("menu.#{options[:name]}")
     classes = []
@@ -7,8 +11,7 @@ module ApplicationHelper
 
     content_tag(
       :li, link_to(name, options[:path]),
-      class: (classes.empty? ? nil : classes.join(' ')),
-      data: { controllers: [*options[:controllers]].to_json }
+      class: (classes.empty? ? nil : classes.join(' '))
     )
   end
 

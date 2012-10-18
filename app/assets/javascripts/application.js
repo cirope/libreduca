@@ -13,11 +13,11 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require jquery.pjax
 //= require jquery/jquery.ui.datepicker-es
 //= require twitter/bootstrap
+//= require turboevents
+//= require turbolinks
 //= require common
-//= require pjax
 //= require date_pickers
 //= require mobile
 //= require users

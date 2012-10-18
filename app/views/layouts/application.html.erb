@@ -5,8 +5,9 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
-  <title><%= [t('app_name'), @title].compact.join(' | ') %></title>
+  <title><%= title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <%= javascript_include_tag 'application' %>
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -19,12 +20,10 @@
     <strong><%= t('label.loading') %></strong>
   </div>
   <div class="container">
-    <div class="content" data-pjax-container="true"><%= yield %></div>
+    <div class="content"><%= yield %></div>
   </div>
   
   <%= render 'shared/notice' if flash.notice %>
   <%= render 'shared/alert' if flash.alert %>
-
-  <%= javascript_include_tag 'application' %>
 </body>
 </html>
