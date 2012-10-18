@@ -53,7 +53,7 @@ GEM
     celluloid (0.12.2)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
-    childprocess (0.3.5)
+    childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -121,8 +121,6 @@ GEM
       activerecord (~> 3.0)
       railties (~> 3.0)
     pg (0.14.1)
-    pjax_rails (0.3.3)
-      jquery-rails
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -197,6 +195,7 @@ GEM
     treetop (1.4.11)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (0.5.1)
     turn (0.9.6)
       ansi
     tzinfo (0.3.33)
@@ -231,7 +230,6 @@ DEPENDENCIES
   newrelic_rpm
   paper_trail
   pg
-  pjax_rails
   rails (= 3.2.8)
   redcarpet
   roadie
@@ -241,6 +239,7 @@ DEPENDENCIES
   simple_form
   therubyracer
   thin
+  turbolinks
   turn
   uglifier
   validates_timeliness

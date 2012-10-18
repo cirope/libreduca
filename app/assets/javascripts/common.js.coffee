@@ -17,7 +17,7 @@ window.App.Event =
     App.Event.loadEvents()
 
 window.App.Load =
-  # Functions to call on each load of Pjax and no Pjax
+  # Functions to call on each load of Turbolinks and no Turbolinks
   onEveryLoad: [
     ->
       # For browsers with no autofocus support
@@ -36,14 +36,6 @@ window.App.Load =
   pageLoad: -> jQuery.each(App.Load.onEveryLoad, (i, f)-> f())
 
 jQuery ($)->
-  pjaxQuery  = 'a:not([data-remote])'
-  pjaxQuery += ':not([data-behavior])'
-  pjaxQuery += ':not([data-skip-pjax])'
-  pjaxQuery += ':not([data-method])'
-  pjaxQuery += ':not(.submit)'
-
-  $(pjaxQuery).pjax('[data-pjax-container]')
-  
   $(document).on 'click', 'a.submit', -> $('form').submit(); false
   
   $(document).on 'click', 'a[data-remote][data-loading-text]', ->

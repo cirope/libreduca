@@ -15,8 +15,7 @@ module ApplicationHelper
 
     content_tag(
       :li, link_to(name, options[:path]),
-      class: (classes.empty? ? nil : classes.join(' ')),
-      data: { controllers: [*options[:controllers]].to_json }
+      class: (classes.empty? ? nil : classes.join(' '))
     )
   end
 
