@@ -10,10 +10,6 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
-    
-    within '.alert' do
-      assert page.has_content?(I18n.t('devise.failure.unauthenticated'))
-    end
   end
   
   test 'should send reset password instructions' do

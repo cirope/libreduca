@@ -8,5 +8,5 @@ X0Y0::Application.routes.draw do
     end
   end
   
-  root to: 'users#index'
+  root to: redirect('/users/sign_in')
 end
