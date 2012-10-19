@@ -65,6 +65,16 @@ module ApplicationHelper
     result + page_entries
   end
   
+  def link_to_show(*args)
+    options = args.extract_options!
+    
+    options['class'] ||= 'iconic'
+    options['title'] ||= t('label.show')
+    options['data-show-tooltip'] ||= true
+    
+    link_to '&#xe074;'.html_safe, *args, options
+  end
+
   def link_to_edit(*args)
     options = args.extract_options!
     
