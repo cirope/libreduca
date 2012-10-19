@@ -17,14 +17,8 @@ module DashboardHelper
       ].join('').html_safe
     )
     
-    content_tag(
-      :span,
-      link_to_if(can?(:read, teach), teach.course.to_s, teach),
-      title: Teach.model_name.human,
-      data: {
-        'show-popover' => true, 'content' => raw(content), 'placement' => 'right'
-      }
-    )
+    show_info title: Teach.model_name.human, content: raw(content),
+      placement: 'left'
   end
   
   def show_dashboard_score(score)
@@ -61,12 +55,18 @@ module DashboardHelper
       ].join('').html_safe
     )
 
+    show_info title: score.description, content: raw(content)
+  end
+
+  def show_info(options = {})
     content_tag(
       :span, '&#x2139;'.html_safe,
-      title: score.description,
-      class: 'iconic small label',
+      title: options[:title],
+      class: 'info iconic small label',
       data: {
-        'show-popover' => true, 'content' => raw(content), 'placement' => 'top'
+        'show-popover' => true,
+        'content' => options[:content],
+        'placement' => options[:placement] || 'top'
       }
     )
   end

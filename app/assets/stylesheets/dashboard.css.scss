@@ -2,4 +2,14 @@
   .readonly-data {
     margin: 0px 20px;
   }
+
+  .teach-header {
+    position: relative;
+
+    span.label {
+      position: absolute;
+      top: 1em;
+      right: 0px;
+    }
+  }
 }

@@ -47,7 +47,8 @@ class ActionDispatch::IntegrationTest
   def login(options = {})
     clean_password = options[:clean_password] || '123456'
     user = options[:user] || Fabricate(:user, password: clean_password)
-    expected_path = options[:expected_path] || root_path
+    expected_path = options[:expected_path]
+    expected_path ||= user.is?(:admin) ? institutions_path : dashboard_path
     
     visit new_user_session_path
     

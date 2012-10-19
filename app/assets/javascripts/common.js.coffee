@@ -23,7 +23,7 @@ window.App.Load =
       # For browsers with no autofocus support
       $('[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
       $('[data-show-tooltip]').tooltip()
-      $('[data-show-popover]').popover(trigger: 'hover')
+      $('[data-show-popover]').popover(trigger: 'hover', html: true)
 
       $('.alert[data-close-after]').each (i, a)->
         clickClose = -> $(a).find('a.close').trigger('click')

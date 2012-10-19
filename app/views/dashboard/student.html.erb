@@ -15,7 +15,13 @@
         <% enrollments.each do |enrollment| %>
           <div class="span6">
             <% enrollment.teach.tap do |teach| %>
-              <h3><%= show_teach_info teach %></h3>
+              <div class="teach-header">
+                <h3>
+                  <%= link_to_if(can?(:read, teach), teach.course.to_s, teach) %>
+                </h3>
+                <%= show_teach_info teach %>
+              </div>
+
               <%= markdown teach.description if teach.description.present? %>
             <% end %>
 

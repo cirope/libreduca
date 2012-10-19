@@ -4,16 +4,12 @@ require 'test_helper'
 
 class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
   test 'should ask for login' do
-    visit root_path
+    visit new_user_session_path
     
     assert_equal new_user_session_path, current_path
     
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
-    
-    within 'footer.alert' do
-      assert page.has_content?(I18n.t('devise.failure.unauthenticated'))
-    end
   end
   
   test 'should send reset password instructions' do

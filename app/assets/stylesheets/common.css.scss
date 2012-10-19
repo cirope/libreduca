@@ -40,6 +40,10 @@ html, body {
   font-size: 1em;
 }
 
+.info {
+  cursor: help;
+}
+
 .logged_in {
   .container > .content {
     background-color: #fff;

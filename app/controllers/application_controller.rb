@@ -57,15 +57,15 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is?(:admin)
-      root_url
+      institutions_url
     else
       count = resource.institutions.count
       if count > 1
         launchpad_url
       elsif count == 1
-        root_url(subdomain: resource.institutions.first.identification)
+        dashboard_url(subdomain: resource.institutions.first.identification)
       else
-        root_url
+        dashboard_url
       end
     end
   end

@@ -199,6 +199,7 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    admin: 'Administración'
     dashboard: 'Tablero'
     regions: 'Regiones'
     institutions: 'Instituciones'

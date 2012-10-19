@@ -46,7 +46,7 @@ Libreduca::Application.routes.draw do
     match 'private/:path', to: 'files#download',
       constraints: { path: /.+/ }, via: :get
 
-    root to: 'institutions#index'
+    root to: redirect('/users/sign_in')
   end
   
   constraints(SchoolSubdomain) do
@@ -117,7 +117,7 @@ Libreduca::Application.routes.draw do
     match 'private/:path', to: 'files#download',
       constraints: { path: /.+/ }, via: :get
     
-    root to: 'dashboard#index'
+    root to: redirect('/users/sign_in')
   end
 
   get 'errors/error_404'
