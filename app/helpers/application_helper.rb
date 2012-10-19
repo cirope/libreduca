@@ -78,7 +78,7 @@ module ApplicationHelper
     
     link_to '&#xe074;'.html_safe, *args, options
   end
-  
+
   def link_to_edit(*args)
     options = args.extract_options!
     
