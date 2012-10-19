@@ -1,26 +1,30 @@
 <% id = f.object.object_id %>
 <fieldset class="row-fluid">
   <div class="span5">
-    <% field_classes = ['autocomplete_field', 'span10'] %>
-    <% copy_attribute_errors(:user_id, :auto_user_name, f) %>
-    <%= f.input :auto_user_name, label: false,
-      placeholder: Enrollment.human_attribute_name('user_id'),
-      input_html: {
-        id: "auto_user_#{id}",
-        class: field_classes.join(' '),
-        value: f.object.user.try(:label),
-        autofocus: true,
-        data: {
-          'autocomplete-url' => within_institution_institution_users_path(
-            @course.institution, format: :json
-          ),
-          'autocomplete-id-target' => "#auto_user_id_#{id}"
+    <% if f.object.new_record? %>
+      <% field_classes = ['autocomplete_field', 'span10'] %>
+      <% copy_attribute_errors(:user_id, :auto_user_name, f) %>
+      <%= f.input :auto_user_name, label: false,
+        placeholder: Enrollment.human_attribute_name('user_id'),
+        input_html: {
+          id: "auto_user_#{id}",
+          class: field_classes.join(' '),
+          value: f.object.user.try(:label),
+          autofocus: true,
+          data: {
+            'autocomplete-url' => within_institution_institution_users_path(
+              @course.institution, format: :json
+            ),
+            'autocomplete-id-target' => "#auto_user_id_#{id}"
+          }
         }
-      }
-    %>
-    <%= f.input :user_id, as: :hidden,
-      input_html: { class: 'autocomplete_id', id: "auto_user_id_#{id}" }
-    %>
+      %>
+      <%= f.input :user_id, as: :hidden,
+        input_html: { class: 'autocomplete_id', id: "auto_user_id_#{id}" }
+      %>
+    <% else %>
+      <p><%= f.object.user.label %></p>
+    <% end %>
   </div>
   <div class="span2 nested-actions">
     <%= f.input :id, as: :hidden %>
