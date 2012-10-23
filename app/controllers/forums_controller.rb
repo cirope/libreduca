@@ -4,7 +4,7 @@ class ForumsController < ApplicationController
   check_authorization
   load_and_authorize_resource :institution
   load_and_authorize_resource :teach
-  load_and_authorize_resource :forum, through: [:institution, :teach]
+  load_and_authorize_resource through: [:institution, :teach]
 
   before_filter :set_owner
 

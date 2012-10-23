@@ -15,7 +15,7 @@ class NotifierTest < ActionMailer::TestCase
     ), mail.subject
     assert_equal [enrollment.user.email], mail.to
     assert_equal [kinship.relative.email], mail.cc
-    assert_equal [APP_CONFIG['smtp']['user_name']], mail.from
+    assert_equal [APP_CONFIG['support_email']], mail.from
     assert_match I18n.t(
       'notifier.enrollment_status.greeting.html',
       users: [enrollment.user.name, kinship.relative.name].to_sentence
@@ -40,7 +40,7 @@ class NotifierTest < ActionMailer::TestCase
     assert_equal users.map(&:email).sort, mail.bcc.sort
     assert !mail.bcc.include?(random_user.email)
     assert_nil mail.to
-    assert_equal [APP_CONFIG['smtp']['user_name']], mail.from
+    assert_equal [APP_CONFIG['support_email']], mail.from
     assert_match I18n.t('notifier.new_forum.greeting.html'), mail.body.encoded
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
@@ -63,7 +63,7 @@ class NotifierTest < ActionMailer::TestCase
     assert_equal users.map(&:email).sort, mail.bcc.sort
     assert !mail.bcc.include?(random_user.email)
     assert_nil mail.to
-    assert_equal [APP_CONFIG['smtp']['user_name']], mail.from
+    assert_equal [APP_CONFIG['support_email']], mail.from
     assert_match I18n.t('notifier.new_comment.view'), mail.body.encoded
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
@@ -84,7 +84,7 @@ class NotifierTest < ActionMailer::TestCase
     ), mail.subject
     assert_equal [enrollment.user.email], mail.to
     assert_equal [], mail.cc
-    assert_equal [APP_CONFIG['smtp']['user_name']], mail.from
+    assert_equal [APP_CONFIG['support_email']], mail.from
     assert_match I18n.t(
       'notifier.new_enrollment.greeting.html',
       user: enrollment.user.name

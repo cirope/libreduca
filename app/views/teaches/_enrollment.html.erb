@@ -12,9 +12,7 @@
           value: f.object.user.try(:label),
           autofocus: true,
           data: {
-            'autocomplete-url' => within_institution_institution_users_path(
-              @course.institution, format: :json
-            ),
+            'autocomplete-url' => users_path(format: :json),
             'autocomplete-id-target' => "#auto_user_id_#{id}"
           }
         }

@@ -51,6 +51,76 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal 0, users.size
   end
 
+  test 'should get institution index' do
+    institution = login_into_institution
+
+    3.times do
+      Fabricate(:user).tap do |user|
+        Fabricate(:job, user_id: user.id, institution_id: institution.id)
+      end
+    end
+
+    Fabricate(:user) # Without job in institution
+    
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:users)
+    assert_equal 4, assigns(:users).size # 3 + 1 in logged in
+    assert assigns(:users).all? { |u| u.institutions.include?(institution) }
+    assert_select '#unexpected_error', false
+    assert_template 'users/index'
+  end
+  
+  test 'should get institution filtered index' do
+    institution = login_into_institution
+    
+    Fabricate(:user, lastname: 'in_filtered_index') # No match, outside institution
+    
+    3.times do
+      Fabricate(:user, lastname: 'in_filtered_index').tap do |user|
+        Fabricate(:job, user_id: user.id, institution_id: institution.id)
+      end
+    end
+    
+    get :index, q: 'filtered_index'
+    assert_response :success
+    assert_not_nil assigns(:users)
+    assert_equal 3, assigns(:users).size
+    assert assigns(:users).all? { |u| u.to_s =~ /filtered_index/ }
+    assert assigns(:users).all? { |u| u.institutions.include?(institution) }
+    assert_not_equal assigns(:users).size, User.count
+    assert_select '#unexpected_error', false
+    assert_template 'users/index'
+  end
+  
+  test 'should get institution filtered index in json' do
+    institution = login_into_institution
+    
+    Fabricate(:user, lastname: 'in_filtered_index') # No match, outside institution
+    
+    3.times do
+      Fabricate(:user, lastname: 'in_filtered_index').tap do |user|
+        Fabricate(:job, user_id: user.id, institution_id: institution.id)
+      end
+    end
+    
+    get :index, q: 'filtered_index', format: 'json'
+    assert_response :success
+    
+    users = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 3, users.size
+    assert users.all? { |s| s['label'].match /filtered_index/i }
+    
+    get :index, q: 'no_user', format: 'json'
+    assert_response :success
+    
+    users = ActiveSupport::JSON.decode(@response.body)
+    
+    assert_equal 0, users.size
+  end
+
+
   test 'should get new' do
     sign_in @user
     
@@ -163,77 +233,20 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_equal 'Upd', another_user.reload.name
     assert_equal 'Upd', @user.reload.name
   end
-  
-  test 'should get within institution index' do
-    sign_in @user
-    
+
+  private
+
+  def login_into_institution
     institution = Fabricate(:institution)
+
+    Fabricate(
+      :job, user_id: @user.id, institution_id: institution.id, job: 'janitor'
+    )
     
-    3.times do
-      Fabricate(:user).tap do |user|
-        Fabricate(:job, user_id: user.id, institution_id: institution.id)
-      end
-    end
+    @request.host = "#{institution.identification}.lvh.me"
     
-    get :within_institution, institution_id: institution.id
-    assert_response :success
-    assert_not_nil assigns(:users)
-    assert_equal 3, assigns(:users).size
-    assert assigns(:users).all? { |u| u.institutions.include?(institution) }
-    assert_select '#unexpected_error', false
-    assert_template 'users/index'
-  end
-  
-  test 'should get within institution filtered index' do
     sign_in @user
-    
-    institution = Fabricate(:institution)
-    
-    Fabricate(:user, lastname: 'in_filtered_index') # No match, outside institution
-    
-    3.times do
-      Fabricate(:user, lastname: 'in_filtered_index').tap do |user|
-        Fabricate(:job, user_id: user.id, institution_id: institution.id)
-      end
-    end
-    
-    get :within_institution, institution_id: institution.id, q: 'filtered_index'
-    assert_response :success
-    assert_not_nil assigns(:users)
-    assert_equal 3, assigns(:users).size
-    assert assigns(:users).all? { |u| u.to_s =~ /filtered_index/ }
-    assert assigns(:users).all? { |u| u.institutions.include?(institution) }
-    assert_not_equal assigns(:users).size, User.count
-    assert_select '#unexpected_error', false
-    assert_template 'users/index'
-  end
-  
-  test 'should get within institution filtered index in json' do
-    sign_in @user
-    
-    institution = Fabricate(:institution)
-    
-    Fabricate(:user, lastname: 'in_filtered_index') # No match, outside institution
-    
-    3.times do
-      Fabricate(:user, lastname: 'in_filtered_index').tap do |user|
-        Fabricate(:job, user_id: user.id, institution_id: institution.id)
-      end
-    end
-    
-    get :within_institution, institution_id: institution.id, q: 'filtered_index', format: 'json'
-    assert_response :success
-    
-    users = ActiveSupport::JSON.decode(@response.body)
-    
-    assert_equal 3, users.size
-    assert users.all? { |s| s['label'].match /filtered_index/i }
-    
-    get :within_institution, institution_id: institution.id, q: 'no_user', format: 'json'
-    assert_response :success
-    
-    users = ActiveSupport::JSON.decode(@response.body)
-    
-    assert_equal 0, users.size
+
+    institution
   end
 end

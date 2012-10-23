@@ -35,6 +35,10 @@ class ApplicationController < ActionController::Base
   def user_for_paper_trail
     current_user.try(:id)
   end
+
+  def current_ability
+    @_current_ability ||= Ability.new(current_user, current_institution)
+  end
   
   def current_institution
     @_current_institution
@@ -56,16 +60,22 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if resource.is?(:admin)
-      institutions_url
+    return_url = session[:user_return_to]
+
+    if return_url.present?
+      return_url
     else
-      count = resource.institutions.count
-      if count > 1
-        launchpad_url
-      elsif count == 1
-        dashboard_url(subdomain: resource.institutions.first.identification)
+      if resource.is?(:admin)
+        institutions_url
       else
-        dashboard_url
+        count = resource.institutions.count
+        if count > 1
+          launchpad_url
+        elsif count == 1
+          dashboard_url(subdomain: resource.institutions.first.identification)
+        else
+          dashboard_url
+        end
       end
     end
   end

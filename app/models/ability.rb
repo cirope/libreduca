@@ -1,34 +1,39 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    user ? user_rules(user) : default_rules(user)
+  def initialize(user, institution)
+    @job = user.jobs.in_institution(institution).first if user && institution
+
+    user ? user_rules(user, institution) : default_rules(user, institution)
   end
   
-  def user_rules(user)
+  def user_rules(user, institution)
     user.roles.each do |role|
-      send("#{role}_rules", user) if respond_to?("#{role}_rules")
+      send("#{role}_rules", user, institution) if respond_to?("#{role}_rules")
     end
-    
-    default_rules(user)
   end
   
-  def admin_rules(user)
+  def admin_rules(user, institution)
     can :manage, :all
   end
   
-  def regular_rules(user)
-    teacher_rules(user)
-    janitor_rules(user)
-    headmaster_rules(user)
+  def regular_rules(user, institution)
+    if @job
+      teacher_rules(user, institution)    if @job.teacher?
+      janitor_rules(user, institution)    if @job.janitor?
+      headmaster_rules(user, institution) if @job.headmaster?
+    end
+
+    default_rules(user, institution)    if institution
   end
   
-  def default_rules(user)
+  def default_rules(user, institution)
     can :edit_profile, User
     can :update_profile, User
     can :manage, Forum
     can :manage, Comment
     can :read, Teach, enrollments: { user_id: user.id }
+    can :read, Institution, workers: { user_id: user.id }
     can :read, Content
     can :read, Document
     can :read, Question
@@ -38,7 +43,7 @@ class Ability
     can :read, Image
   end
 
-  def teacher_rules(user)
+  def teacher_rules(user, institution)
     enrollments_restricionts = {
       enrollments: { user_id: user.id, job: 'teacher' }
     }
@@ -50,14 +55,11 @@ class Ability
     can :send_email_summary, Teach, enrollments_restricionts
     can :read, Course, teaches: enrollments_restricionts
     can :read, Grade, courses: { teaches: enrollments_restricionts }
-    can :read, Institution, users: { id: user.id }
     can :read, User, enrollments_restricionts
-    can :manage, Image, institution: {
-      workers: enrollments_restricionts[:enrollments]
-    }
+    can :manage, Image, institution_id: institution.id
   end
 
-  def janitor_rules(user)
+  def janitor_rules(user, institution)
     jobs_restrictions = {
       institution: { workers: { user_id: user.id, job: 'janitor' } }
     }
@@ -66,18 +68,17 @@ class Ability
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
-    can :read, Institution, workers: { user_id: user.id, job: 'janitor' }
     can :manage, Image, jobs_restrictions
+    can :manage, User, jobs: { institution_id: institution.id }
   end
 
-  def headmaster_rules(user)
+  def headmaster_rules(user, institution)
     jobs_restrictions = {
       institution: { workers: { user_id: user.id, job: 'headmaster' } }
     }
     
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
-    can :read, Institution, workers: { user_id: user.id, job: 'headmaster' }
     can :manage, Image, jobs_restrictions
   end
 end

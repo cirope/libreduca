@@ -24,10 +24,7 @@ Libreduca::Application.routes.draw do
 
     resources :institutions do
       resources :grades
-
-      resources :users, only: [] do
-        get :within_institution, on: :collection
-      end
+      resources :users
     end
 
     devise_for :users
@@ -88,10 +85,7 @@ Libreduca::Application.routes.draw do
       end
 
       resources :grades
-
-      resources :users, only: [] do
-        get :within_institution, on: :collection
-      end
+      resources :users
     end
     
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get

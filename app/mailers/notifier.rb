@@ -1,7 +1,7 @@
 class Notifier < ActionMailer::Base
   layout 'notifier_mailer'
   helper :application
-  default from: "'#{I18n.t('app_name')}' <#{APP_CONFIG['smtp']['user_name']}>"
+  default from: "'#{I18n.t('app_name')}' <#{APP_CONFIG['support_email']}>"
   
   def enrollment_status(enrollment)
     # TODO: fix when nested through works =)

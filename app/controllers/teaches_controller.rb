@@ -4,8 +4,8 @@ class TeachesController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :course
-  load_and_authorize_resource :teach, through: :course, shallow: true
+  load_resource :course
+  load_and_authorize_resource through: :course, shallow: true
 
   before_filter :load_course
   

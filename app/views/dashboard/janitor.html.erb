@@ -52,6 +52,9 @@
 
 <div class="form-actions">
   <% if can? :create, current_institution.grades.build %>
-    <%= link_to t('view.grades.new'), new_institution_grade_path(current_institution), class: 'btn btn-primary' %>
+    <%= link_to t('view.grades.new'), new_institution_grade_path(current_institution), class: 'btn' %>
+  <% end %>
+  <% if can? :create, User %>
+    <%= link_to t('view.users.new'), new_user_path, class: 'btn' %>
   <% end %>
 </div>
