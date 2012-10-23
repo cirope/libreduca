@@ -97,7 +97,7 @@ Libreduca::Application.routes.draw do
     
     devise_for :users
     
-    resources :users, only: [] do
+    resources :users do
       member do
         get :edit_profile
         put :update_profile

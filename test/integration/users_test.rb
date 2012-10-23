@@ -121,6 +121,37 @@ class UsersTest < ActionDispatch::IntegrationTest
     end
   end
   
+  test 'should create a new user as janitor' do
+    institution = Fabricate(:institution)
+
+    login_into_institution institution: institution, as: 'janitor'
+    
+    visit new_user_path
+    
+    user_attributes = Fabricate.attributes_for(:user, raw_avatar_path: true)
+    
+    fill_in 'user_name', with: user_attributes['name']
+    fill_in 'user_lastname', with: user_attributes['lastname']
+    fill_in 'user_email', with: user_attributes['email']
+    fill_in 'user_password', with: user_attributes['password']
+    fill_in 'user_password_confirmation',
+      with: user_attributes['password_confirmation']
+    attach_file 'user_avatar', user_attributes['avatar']
+    
+    assert page.has_no_css?('#user_role_admin')
+    assert page.has_no_css?('#jobs fieldset input[name$="[auto_institution_name]"]')
+    
+    within '#jobs fieldset' do
+      select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
+        from: find('select[name$="[job]"]')[:id]
+    end
+    
+    assert_difference ['User.count', 'Job.count'] do
+      find('.btn.btn-primary').click
+    end
+  end
+
+  
   test 'should delete all job inputs' do
     login
     

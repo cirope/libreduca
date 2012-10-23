@@ -24,7 +24,7 @@ class Ability
       headmaster_rules(user, institution) if @job.headmaster?
     end
 
-    default_rules(user, institution)    if institution
+    default_rules(user, institution) if institution
   end
   
   def default_rules(user, institution)
@@ -69,7 +69,17 @@ class Ability
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
     can :manage, Image, jobs_restrictions
-    can :manage, User, jobs: { institution_id: institution.id }
+    can :read, Job, institution_id: institution.id
+    can :read, User, jobs: { institution_id: institution.id }
+    can :create, User do |user|
+      job_conditions = user.jobs.empty?
+      job_conditions ||= user.jobs.all? { |j| j.institution_id == institution.id }
+      
+      user.is?(:regular) && job_conditions
+    end
+    can :update, User do |user|
+      user.jobs.in_institution(institution).exists?
+    end
   end
 
   def headmaster_rules(user, institution)
