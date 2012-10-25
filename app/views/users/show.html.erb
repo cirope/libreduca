@@ -70,10 +70,13 @@
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn btn-primary' if can? :edit, @user %>
   <% if can? :read, User %>
     <div class="pull-right">
       <%= link_to t('label.list'), users_path %>
     </div>
+  <% end %>
+  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn btn-primary' if can? :edit, @user %>
+  <% if can? :create, User %>
+    <%= link_to t('view.users.new'), new_user_path, class: 'btn' %>
   <% end %>
 </nav>

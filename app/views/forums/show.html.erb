@@ -35,6 +35,6 @@
   ) if can? :update, @forum %>
 
   <div class="pull-right">
-    <%= link_to t('label.back'), @owner %>
+    <%= link_to t('view.forums.back_to_owner', owner: @owner.to_s), @owner %>
   </div>
 </div>

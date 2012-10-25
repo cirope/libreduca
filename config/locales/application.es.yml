@@ -175,6 +175,10 @@
         roles:
           one: 'Perfil'
           other: 'Perfiles'
+
+  date:
+    formats:
+      minimal: '%d/%m/%y'
         
   errors:
     title: 'Error'
@@ -287,6 +291,7 @@
         html: 'No se ha creado ningún foro para %{owner} hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo foro</span>'
       new: 'Nuevo foro'
       invalid_comment: 'El comentario no se agregó, contenía errores'
+      back_to_owner: 'Volver a %{owner}'
       created_by:
         html: 'Creado hace %{distance_time} por <strong>%{user}</strong>'
       from_owner:
