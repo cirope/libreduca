@@ -31,8 +31,7 @@
 
         <div class="row-fluid">
           <div id="jobs" class="span12">
-            <% @user.jobs.build unless @user.jobs.detect(&:new_record?) %>
-            <%= f.simple_fields_for :jobs do |j_f| %>
+            <%= f.simple_fields_for :jobs, user_jobs(@user) do |j_f| %>
               <%= render partial: 'job', locals: { f: j_f } %>
             <% end %>
 

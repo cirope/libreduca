@@ -38,4 +38,13 @@ module UsersHelper
   def user_avatar_identifier(user)
     user.avatar.identifier || user.avatar_identifier if user.avatar?
   end
+
+  def user_jobs(user)
+    jobs = current_institution ?
+      user.jobs.in_institution(current_institution) : user.jobs
+
+    jobs << user.jobs.detect(&:new_record?) || user.jobs.build if jobs.empty?
+
+    jobs
+  end
 end
