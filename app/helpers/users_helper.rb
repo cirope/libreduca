@@ -41,9 +41,9 @@ module UsersHelper
 
   def user_jobs(user)
     jobs = current_institution ?
-      user.jobs.in_institution(current_institution) : user.jobs
+      user.jobs.in_institution(current_institution).to_a : user.jobs.to_a
 
-    jobs << user.jobs.detect(&:new_record?) || user.jobs.build if jobs.empty?
+    jobs << (user.jobs.detect(&:new_record?) || user.jobs.build if jobs.empty?)
 
     jobs
   end
