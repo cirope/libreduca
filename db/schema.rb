@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112142830) do
+ActiveRecord::Schema.define(:version => 20121112183812) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -190,6 +190,16 @@ ActiveRecord::Schema.define(:version => 20121112142830) do
   end
 
   add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "group_id",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "memberships", ["group_id"], :name => "index_memberships_on_group_id"
+  add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
 
   create_table "questions", :force => true do |t|
     t.string   "content",                     :null => false

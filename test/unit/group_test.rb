@@ -58,4 +58,31 @@ class GroupTest < ActiveSupport::TestCase
       error_message_from_model(@group, :name, :too_long, count: 255)
     ], @group.errors[:name]
   end
+
+  test 'magick search' do
+    5.times { Fabricate(:group, name: 'magick_name') }
+
+    Fabricate(:group, name: 'magick_something')
+    
+    groups = Group.magick_search('magick')
+    
+    assert_equal 6, groups.count
+    assert groups.all? { |u| u.to_s =~ /magick/ }
+    
+    groups = Group.magick_search('magick_name')
+    
+    assert_equal 5, groups.count
+    assert groups.all? { |u| u.to_s =~ /magick_name/ }
+    
+    groups = Group.magick_search(
+      "magick_something #{I18n.t('magick_columns.or').first} magick_name"
+    )
+    
+    assert_equal 6, groups.count
+    assert groups.all? { |u| u.to_s =~ /magick_name|magick_something/ }
+    
+    groups = Group.magick_search('nobody')
+    
+    assert groups.empty?
+  end
 end

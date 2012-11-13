@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   has_many :replies, dependent: :destroy
   has_many :logins, dependent: :destroy
+  has_many :memberships, dependent: :destroy
+  has_many :groups, through: :memberships
   
   accepts_nested_attributes_for :kinships, allow_destroy: true,
     reject_if: ->(attributes) {
