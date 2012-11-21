@@ -17,16 +17,16 @@ class TeachesTest < ActionDispatch::IntegrationTest
       find('a.ui-state-default.ui-state-highlight').click
     end
     
-    wait_until { find('.ui-datepicker-calendar').visible? }
+    synchronize { find('.ui-datepicker-calendar').visible? }
     
     find('#teach_finish').click
     
-    wait_until { find('.ui-datepicker-calendar').visible? }
+    synchronize { find('.ui-datepicker-calendar').visible? }
     
     find('.ui-datepicker-header a.ui-datepicker-next').click
     
     within '.ui-datepicker-calendar' do
-      find('a.ui-state-default').click
+      first(:css, 'a.ui-state-default').click
     end
 
     fill_in find('#teach_description')[:id], with: teach.description
@@ -98,7 +98,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     assert page.has_css?('#enrollments_container fieldset')
     
-    within '#enrollments_container fieldset' do
+    within '#enrollments_container fieldset:nth-child(1)' do
       click_link '✘' # Destroy link
     end
     
@@ -192,16 +192,18 @@ class TeachesTest < ActionDispatch::IntegrationTest
     2.times { Fabricate(:score, user_id: user.id, teach_id: teach.id) }
     
     visit teach_path(teach)
+
+    click_link Teach.human_attribute_name('scores', count: 0)
     
-    click_link '✉'
+    first(:css, "a[href=\"#email_modal_#{user.id}\"]").click
     
-    wait_until { find('.modal').visible? }
+    synchronize { find("#email_modal_#{user.id}").visible? }
     sleep 0.5 # For you Néstor... =) There is a bug in capybara and animations
     
     assert_difference 'ActionMailer::Base.deliveries.size' do
       assert page.has_no_css?('.modal .alert-success')
       
-      click_link I18n.t('label.send')
+      find("#email_modal_#{user.id}").click_link I18n.t('label.send')
       
       assert page.has_css?('.modal .alert-success')
     end
@@ -229,13 +231,13 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     find('a[href="#email_modal"]').click
     
-    wait_until { find('.modal').visible? }
+    synchronize { find('#email_modal').visible? }
     sleep 0.5 # For you Néstor... =) There is a bug in capybara and animations
     
     assert_difference 'ActionMailer::Base.deliveries.size', 2 do
       assert page.has_no_css?('.modal .alert-success')
       
-      click_link I18n.t('label.send')
+      find('#email_modal').click_link I18n.t('label.send')
       
       assert page.has_css?('.modal .alert-success')
     end

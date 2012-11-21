@@ -19,7 +19,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     
     assert_page_has_no_errors!
     
-    click_link '¿Olvidaste tu contraseña?'
+    find('#reset-password').click
 
     sleep 0.5
     
@@ -29,7 +29,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: user.email
     
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      find('.btn.btn-primary').click
+      find('.btn.btn-primary.submit').click
     end
     
     assert_equal new_user_session_path, current_path

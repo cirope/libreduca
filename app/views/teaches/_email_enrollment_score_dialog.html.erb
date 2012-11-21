@@ -1,5 +1,5 @@
 <% users = [user.to_s] + user.relatives.map(&:to_s) %>
-<div class="modal fade" id="email_modal_<%= user.id %>">
+<div class="modal hide fade" id="email_modal_<%= user.id %>">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
     <h3>

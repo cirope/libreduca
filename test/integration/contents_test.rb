@@ -169,7 +169,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
     assert_difference 'Reply.count', 2 do
       all('form.new_reply').each do |form|
-        form.find('input[type="radio"]').click
+        form.first(:css, 'input[type="radio"]').click
       end
 
       assert page.has_no_css?('form.new_reply')

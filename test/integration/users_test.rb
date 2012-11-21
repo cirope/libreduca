@@ -47,6 +47,8 @@ class UsersTest < ActionDispatch::IntegrationTest
     within '#jobs fieldset:nth-child(2)' do
       fill_in find('input[name$="[auto_institution_name]"]')[:id], with: institution.name
     end
+
+    synchronize { find('.ui-autocomplete li.ui-menu-item a').visible? }
     
     find('.ui-autocomplete li.ui-menu-item a').click
     
@@ -209,7 +211,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     
     assert page.has_css?('#kinships fieldset')
     
-    within '#kinships fieldset' do
+    within '#kinships fieldset:nth-child(1)' do
       click_link '✘' # Destroy link
     end
     

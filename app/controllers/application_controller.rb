@@ -81,9 +81,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_institution
-    @_current_institution ||= Institution.find_by_identification(
-      request.subdomains.first
-    )
+    unless RESERVED_SUBDOMAINS.include?(request.subdomains.first)
+      @_current_institution ||= Institution.find_by_identification(
+        request.subdomains.first
+      )
+    end
   end
 
   def load_enrollments

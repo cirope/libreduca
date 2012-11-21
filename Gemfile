@@ -17,7 +17,7 @@ gem 'roadie'
 gem 'redcarpet'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'sidekiq', '2.3.3'
+gem 'sidekiq'
 gem 'capistrano'
 gem 'newrelic_rpm'
 
