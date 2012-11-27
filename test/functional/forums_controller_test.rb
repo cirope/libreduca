@@ -4,7 +4,9 @@ class ForumsControllerTest < ActionController::TestCase
   setup do
     institution = Fabricate(:institution)
     @user = Fabricate(:user, password: '123456', roles: [:normal])
-    job = Fabricate(:job, user_id: @user.id, institution_id: institution.id)
+    job = Fabricate(
+      :job, user_id: @user.id, institution_id: institution.id, job: 'teacher'
+    )
     @forum = Fabricate(
       :forum, owner_id: institution.id, owner_type: institution.class.name
     )
