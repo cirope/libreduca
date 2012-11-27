@@ -39,12 +39,12 @@ class ForumsTest < ActionDispatch::IntegrationTest
   end
 
   
-  test 'should create a comment in institution' do
+  test 'should create a comment in institution as teacher' do
     institution = Fabricate(:institution)
     forum = Fabricate(:forum, owner_id: institution.id, owner_type: 'Institution')
     comment = Fabricate.build(:comment, forum_id: forum.id, user_id: nil)
 
-    login_into_institution institution: institution
+    login_into_institution institution: institution, as: 'teacher'
     
     visit institution_forum_path(institution, forum)
     
@@ -58,6 +58,30 @@ class ForumsTest < ActionDispatch::IntegrationTest
       assert page.has_no_css?('#new_comment')
     end
   end
+
+  test 'should create a comment in institution as student' do
+    institution = Fabricate(:institution)
+    forum = Fabricate(:forum, owner_id: institution.id, owner_type: 'Institution')
+    comment = Fabricate.build(:comment, forum_id: forum.id, user_id: nil)
+
+    login_into_institution institution: institution, as: 'student'
+    
+    visit institution_forum_path(institution, forum)
+    
+    # No send email if is a student
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      assert_difference 'forum.comments.count' do
+        within '#new_comment' do
+          fill_in 'comment_comment', with: comment.comment
+
+          find('.btn').click
+        end
+
+        assert page.has_no_css?('#new_comment')
+      end
+    end
+  end
+
 
   test 'should create a comment in teach' do
     teach = Fabricate(:teach)
@@ -74,14 +98,16 @@ class ForumsTest < ActionDispatch::IntegrationTest
     
     visit teach_forum_path(teach, forum)
     
-    assert_difference ['forum.comments.count', 'ActionMailer::Base.deliveries.size'] do
-      within '#new_comment' do
-        fill_in 'comment_comment', with: comment.comment
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do 
+      assert_difference 'forum.comments.count' do
+        within '#new_comment' do
+          fill_in 'comment_comment', with: comment.comment
 
-        find('.btn').click
+          find('.btn').click
+        end
+
+        assert page.has_no_css?('#new_comment')
       end
-
-      assert page.has_no_css?('#new_comment')
     end
   end
 end

@@ -59,6 +59,7 @@ class ForumsController < ApplicationController
     respond_to do |format|
       if @forum.save
         Notifier.delay.new_forum(@forum, current_institution)
+
         format.html { redirect_to [@owner, @forum], notice: t('view.forums.correctly_created') }
         format.json { render json: @forum, status: :created, location: [@owner, @forum] }
       else
@@ -115,7 +116,10 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        Notifier.delay.new_comment(@comment, current_institution)
+        jobs = current_user.jobs.in_institution(current_institution)
+
+        Notifier.delay.new_comment(@comment, current_institution) unless jobs.all?(&:student?)
+
         format.html { render partial: 'comment', locals: { comment: @comment } }
         format.json { render json: @comment, status: :created, location: [@owner, @forum] }
       else
