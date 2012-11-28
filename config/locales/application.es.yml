@@ -267,7 +267,7 @@
       footer:
         html: 'Ingresa al contenido del dictado haciendo <strong>clic en su nombre</strong>. No es necesario completar todo en una sola visita.'
       greetings:
-        html: 'Hola %{user}<small>, este es tu resumen educativo en <strong>%{institution}</strong></small>'
+        html: 'Hola %{user}<small>, este es tu resumen en <strong>%{institution}</strong></small>'
       score_average:
         html: 'La nota <strong>promedio</strong> de %{course} hasta el momento es %{average}'
       janitor:
