@@ -12,6 +12,16 @@
   </p>
 
   <%= markdown @teach.description if @teach.description.present? %>
+
+  <% unless @teach.forums.empty? %>
+    <hr />
+    <h3><%= Forum.model_name.human(count: @teach.forums.size) %></h3>
+    <ul>
+      <% @teach.forums.each do |forum| %>
+        <li><%= link_to_if current_institution && can?(:read, forum), forum.to_s, [@teach, forum] %></li>
+      <% end %>
+    </ul>
+  <% end %>
   
   <ul class="nav nav-tabs">
     <li class="active">
@@ -115,16 +125,6 @@
       </div>
     <% end %>
   </div>
-
-  <% unless @teach.forums.empty? %>
-    <hr />
-    <h3><%= Forum.model_name.human(count: @teach.forums.size) %></h3>
-    <ul>
-      <% @teach.forums.each do |forum| %>
-        <li><%= link_to_if current_institution && can?(:read, forum), forum.to_s, [@teach, forum] %></li>
-      <% end %>
-    </ul>
-  <% end %>
 </div>
 
 <nav class="form-actions">
