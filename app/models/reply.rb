@@ -23,6 +23,8 @@ class Reply < ActiveRecord::Base
   belongs_to :answer
   belongs_to :question
   belongs_to :user
+  has_one :survey, through: :question
+  has_one :content, through: :survey
 
   def check_age
     self.created_at > 1.day.ago
