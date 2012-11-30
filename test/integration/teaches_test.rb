@@ -36,6 +36,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
     end
     
     click_link Teach.human_attribute_name('enrollments', count: 0)
+
+    assert page.has_css?('#enrollments_container fieldset:nth-child(1)')
     
     within '#enrollments_container fieldset' do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name
@@ -96,7 +98,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     
     click_link Teach.human_attribute_name('enrollments', count: 0)
     
-    assert page.has_css?('#enrollments_container fieldset')
+    assert page.has_css?('#enrollments_container fieldset:nth-child(1)')
     
     within '#enrollments_container fieldset:nth-child(1)' do
       click_link '✘' # Destroy link
@@ -194,6 +196,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
     visit teach_path(teach)
 
     click_link Teach.human_attribute_name('scores', count: 0)
+
+    assert page.has_css?("a[href=\"#email_modal_#{user.id}\"]")
     
     first(:css, "a[href=\"#email_modal_#{user.id}\"]").click
     

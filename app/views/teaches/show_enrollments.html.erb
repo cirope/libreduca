@@ -1,0 +1,18 @@
+<% if @teach.enrollments.empty? %>
+  <div class="alert"><%= t('view.teaches.without_entollments_in_show.html') %></div>
+<% else %>
+  <% teach_splited_enrollments(@teach).each do |type, enrollments| %>
+    <h4><%= type %></h4>
+    <ul>
+      <% enrollments.each do |enrollment| %>
+        <li>
+          <%= t(
+            'view.teaches.enrollment_info.html',
+            user: link_to_if(can?(:read, enrollment.user), enrollment.user.to_s, enrollment.user),
+            date: l(enrollment.created_at, format: :long)
+          ) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

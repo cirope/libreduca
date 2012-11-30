@@ -33,6 +33,7 @@
 //= require images
 //= require institutions
 //= require launchpad
+//= require lazy_tabs
 //= require regions
 //= require replies
 //= require teaches

@@ -66,7 +66,39 @@ class TeachesControllerTest < ActionController::TestCase
 
     assert_redirected_to course_teaches_url(@course)
   end
-  
+
+  test 'should show teach scores' do
+    get :show_scores, course_id: @course.to_param, id: @teach
+    assert_response :success
+    assert_not_nil assigns(:teach)
+    assert_select '#unexpected_error', false
+    assert_template 'teaches/show_scores'
+  end
+
+  test 'should show teach enrollments' do
+    get :show_enrollments, course_id: @course.to_param, id: @teach
+    assert_response :success
+    assert_not_nil assigns(:teach)
+    assert_select '#unexpected_error', false
+    assert_template 'teaches/show_enrollments'
+  end
+
+  test 'should edit teach scores' do
+    get :edit_scores, course_id: @course.to_param, id: @teach
+    assert_response :success
+    assert_not_nil assigns(:teach)
+    assert_select '#unexpected_error', false
+    assert_template 'teaches/edit_scores'
+  end
+
+  test 'should edit teach enrollments' do
+    get :edit_enrollments, course_id: @course.to_param, id: @teach
+    assert_response :success
+    assert_not_nil assigns(:teach)
+    assert_select '#unexpected_error', false
+    assert_template 'teaches/edit_enrollments'
+  end
+
   test 'should send email summary' do
     Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student').tap do |enrollment|
       Fabricate(:kinship, user_id: enrollment.user_id)

@@ -1,12 +1,12 @@
 App.Event.registerEvent(
-  condition: -> $('#c_teaches').length > 0
+  condition: -> $('#c_teaches').length
   type: 'keyup'
   selector: '#global_multiplier, #global_description'
   handler: ()-> $($(this).data('target')).val($(this).val())
 )
 
 App.Event.registerEvent(
-  condition: -> $('#c_teaches').length > 0
+  condition: -> $('#c_teaches').length
   type: 'click'
   selector: 'a.send_email_summary'
   handler: ()->
@@ -14,7 +14,7 @@ App.Event.registerEvent(
 )
 
 App.Event.registerEvent(
-  condition: -> $('#c_teaches').length > 0
+  condition: -> $('#c_teaches').length
   type: 'ajax:success'
   selector: 'a.send_email_summary'
   handler: (event, data)->

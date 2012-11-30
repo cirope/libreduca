@@ -14,7 +14,7 @@
       </div>
     </div>
     
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" <%= 'data-remote="true"' if @teach.persisted? %>>
       <% unless @teach.new_record? %>
         <li class="active">
           <%= link_to(
@@ -23,16 +23,21 @@
           ) %>
         </li>
       <% end %>
-      <li>
-        <%= link_to(
-          t('view.teaches.enter_scores'),
-          '#scores_container', data: { toggle: 'tab' }
-        ) %>
-      </li>
-      <li class="<%= @teach.new_record? ? 'active' : '' %>">
+      <% if @teach.persisted? %>
+        <li>
+          <%= link_to(
+            t('view.teaches.enter_scores'), '#scores_container', data: {
+              'toggle' => 'tab', 'remote-url' => edit_scores_teach_path(@teach)
+            }
+          ) %>
+        </li>
+      <% end %>
+      <li class="<%= 'active' if @teach.new_record? %>">
+        <% data = { 'toggle' => 'tab' } %>
+        <% data['remote-url'] = edit_enrollments_teach_path(@teach) if @teach.persisted? %>
         <%= link_to(
           Teach.human_attribute_name('enrollments', count: 0),
-          '#enrollments_container', data: { toggle: 'tab' }
+          '#enrollments_container', data: data
         ) %>
       </li>
     </ul>
@@ -57,47 +62,18 @@
             class: 'btn btn-small'
           ) if can? :create, @teach.contents.build%>
         </div>
+
+        <div id="scores_container" class="tab-pane">
+          <div class="alert"><%= t('label.loading') %></div>
+        </div>
       <% end %>
-      <div id="scores_container" class="tab-pane">
-        <% if @teach.enrollments.empty? %>
-          <div class="alert"><%= t('view.teaches.without_entollments_in_edit.html') %></div>
-        <% else %>
-          <div class="row-fluid">
-            <div class="span6">&nbsp;</div>
-            <div class="span2">
-              <%= text_field_tag(
-                'global_multiplier', nil,
-                id: 'global_multiplier',
-                class: 'span10',
-                placeholder: t('view.teaches.global_multiplier'),
-                data: { target: 'input.multiplier' }
-              ) %>
-            </div>
-            <div class="span4">
-              <%= text_field_tag(
-                'global_description', nil,
-                id: 'global_description',
-                class: 'span10',
-                placeholder: t('view.teaches.global_description'),
-                data: { target: 'input.description' }
-              ) %>
-            </div>
-          </div>
-          <div id="scores">
-            <%= f.simple_fields_for :scores, build_new_teach_scores(@teach), defaults: { input_html: { class: 'span10' } } do |j_f| %>
-              <%= render partial: 'score', locals: { f: j_f } %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
       
       <div id="enrollments_container" class="tab-pane <%= @teach.new_record? ? 'active' : '' %>">
-        <% @teach.enrollments.build %>
-        <%= f.simple_fields_for :enrollments do |j_f| %>
-          <%= render partial: 'enrollment', locals: { f: j_f } %>
+        <% if @teach.new_record? %>
+          <%= render template: 'teaches/edit_enrollments' %>
+        <% else %>
+          <div class="alert"><%= t('label.loading') %></div>
         <% end %>
-
-        <%= link_to_add_fields t('view.teaches.new_enrollment'), f, :enrollments %>
       </div>
     </div>
 

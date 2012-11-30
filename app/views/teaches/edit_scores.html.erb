@@ -1,0 +1,32 @@
+<%= simple_fields_for(@teach, defaults: { input_html: { class: 'span12' } }) do |f| %>
+  <% if @teach.enrollments.empty? %>
+    <div class="alert"><%= t('view.teaches.without_entollments_in_edit.html') %></div>
+  <% else %>
+    <div class="row-fluid">
+      <div class="span6">&nbsp;</div>
+      <div class="span2">
+        <%= text_field_tag(
+          'global_multiplier', nil,
+          id: 'global_multiplier',
+          class: 'span10',
+          placeholder: t('view.teaches.global_multiplier'),
+          data: { target: 'input.multiplier' }
+        ) %>
+      </div>
+      <div class="span4">
+        <%= text_field_tag(
+          'global_description', nil,
+          id: 'global_description',
+          class: 'span10',
+          placeholder: t('view.teaches.global_description'),
+          data: { target: 'input.description' }
+        ) %>
+      </div>
+    </div>
+    <div id="scores">
+      <%= f.simple_fields_for :scores, build_new_teach_scores(@teach), defaults: { input_html: { class: 'span10' } } do |j_f| %>
+        <%= render partial: 'score', locals: { f: j_f } %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

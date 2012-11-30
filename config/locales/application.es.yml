@@ -392,6 +392,10 @@
       correctly_created: 'Dictado agregado correctamente.'
       correctly_updated: 'Dictado actualizado correctamente.'
       stale_object_error: 'El dictado no pudo ser actualizado, intente nuevamente.'
+      show_scores_title: 'Detalle de calificaciones del dictado'
+      show_enrollments_title: 'Detalle de inscripciones del dictado'
+      edit_scores_title: 'Modificar calificaciones del dictado'
+      edit_enrollments_title: 'Modificar inscripciones del dictado'
       global_description: 'Descripción global'
       global_multiplier: 'Multiplicador global'
       empty_index:

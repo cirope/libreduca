@@ -12,7 +12,13 @@ Libreduca::Application.routes.draw do
 
     resources :courses, shallow: true, only: [] do
       resources :teaches do
-        post :send_email_summary, on: :member, as: 'send_email_summary'
+        member do
+          get :show_scores, as: 'show_scores'
+          get :show_enrollments, as: 'show_enrollments'
+          get :edit_scores, as: 'edit_scores'
+          get :edit_enrollments, as: 'edit_enrollments'
+          post :send_email_summary, as: 'send_email_summary'
+        end
       end
     end
 
@@ -68,7 +74,13 @@ Libreduca::Application.routes.draw do
 
     resources :courses, shallow: true, only: [] do
       resources :teaches do
-        post :send_email_summary, on: :member, as: 'send_email_summary'
+        member do
+          get :show_scores, as: 'show_scores'
+          get :show_enrollments, as: 'show_enrollments'
+          get :edit_scores, as: 'edit_scores'
+          get :edit_enrollments, as: 'edit_enrollments'
+          post :send_email_summary, as: 'send_email_summary'
+        end
       end
     end
 
