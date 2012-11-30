@@ -17,6 +17,9 @@ class Content < ActiveRecord::Base
   # Relations
   belongs_to :teach
   has_many :surveys, dependent: :destroy
+  has_many :questions, through: :surveys
+  has_many :answers, through: :question
+  has_many :replies, through: :answers
   has_many :documents, as: :owner, dependent: :destroy
   has_many :visits, as: :visited, dependent: :destroy
   has_one :institution, through: :teach
