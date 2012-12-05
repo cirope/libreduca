@@ -8,6 +8,7 @@ Libreduca::Application.routes.draw do
 
     resources :teaches, only: [] do
       resources :contents
+      resources :surveys
     end
 
     resources :courses, shallow: true, only: [] do
@@ -63,6 +64,7 @@ Libreduca::Application.routes.draw do
 
     resources :teaches, only: [] do
       resources :contents
+      resources :surveys
 
       resources :forums do
         member do

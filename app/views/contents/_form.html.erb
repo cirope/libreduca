@@ -1,5 +1,6 @@
 <%= simple_form_for([@teach, @content], defaults: { input_html: { class: 'span11' } }) do |f| %>
   <%= f.error_notification %>
+  <%= f.object.errors.full_messages.join('; ') %>
 
   <div class="form-inputs">
     <%= f.input :title, input_html: { autofocus: true } %>

@@ -213,7 +213,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     end
   end
   
-  test 'send email summary' do
+  test 'should send email summary' do
     login
     
     course = Fabricate(:course)
@@ -245,5 +245,35 @@ class TeachesTest < ActionDispatch::IntegrationTest
       
       assert page.has_css?('.modal .alert-success')
     end
+  end
+
+  test 'should show teach surveys' do
+    user = Fabricate(:user, password: '123456', roles: [:normal])
+    login_into_institution user: user, as: 'teacher'
+    
+    course = Fabricate(:course)
+    teach = Fabricate(:teach, course_id: course.id)
+
+    Fabricate(
+      :enrollment, user_id: user.id, teach_id: teach.id
+    )
+
+    Fabricate(:content, teach_id: teach.id).tap do |content|
+      Fabricate(:survey, content_id: content.id).tap do |survey|
+        Fabricate(:question, survey_id: survey.id).tap do |question|
+          Fabricate(:answer, question_id: question.id).tap do |answer|
+            5.times {
+              Fabricate(:reply, answer_id: answer.id, question_id: question.id)
+            }
+          end
+        end
+      end
+    end
+
+    visit teach_path(teach)
+
+    find('a[href="#surveys_container"]').click
+
+    assert page.has_css?('#surveys_container table.table')
   end
 end

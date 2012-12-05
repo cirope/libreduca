@@ -49,4 +49,18 @@ class SurveyTest < ActiveSupport::TestCase
       error_message_from_model(@survey, :name, :too_long, count: 255)
     ], @survey.errors[:name]
   end
+
+  test 'to csv' do
+    Fabricate(:question, survey_id: @survey.id).tap do |question|
+      Fabricate(:answer, question_id: question.id).tap do |answer|
+        5.times {
+          Fabricate(:reply, answer_id: answer.id, question_id: question.id)
+        }
+      end
+    end
+
+    CSV.parse(Survey.to_csv(@survey.teach)).tap do |result|
+      assert_equal @survey.teach.contents.count, result.size
+    end
+  end
 end

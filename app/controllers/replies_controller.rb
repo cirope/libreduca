@@ -3,7 +3,7 @@ class RepliesController < ApplicationController
   
   check_authorization
   load_and_authorize_resource :question
-  load_and_authorize_resource :reply, through: :question
+  load_and_authorize_resource through: :question
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
   

@@ -83,7 +83,7 @@ class TeachesControllerTest < ActionController::TestCase
     assert_template 'teaches/show_enrollments'
   end
 
-  test 'should edit teach scores' do
+  test 'should get edit teach scores' do
     get :edit_scores, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
@@ -91,7 +91,7 @@ class TeachesControllerTest < ActionController::TestCase
     assert_template 'teaches/edit_scores'
   end
 
-  test 'should edit teach enrollments' do
+  test 'should get edit teach enrollments' do
     get :edit_enrollments, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)

@@ -2,7 +2,7 @@ class Survey < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :questions_attributes, :lock_version
+  attr_accessible :name, :content_id, :questions_attributes, :lock_version
 
   # Scopes
   default_scope order("#{table_name}.name ASC")
@@ -13,6 +13,7 @@ class Survey < ActiveRecord::Base
 
   # Relations
   belongs_to :content
+  has_one :teach, through: :content
   has_many :questions, dependent: :destroy
 
   accepts_nested_attributes_for :questions, allow_destroy: true,
@@ -20,5 +21,22 @@ class Survey < ActiveRecord::Base
 
   def to_s
     self.name
+  end
+
+  def self.to_csv(teach)
+    CSV.generate do |csv|
+      teach.contents.each do |content|
+        row = [content.to_s]
+
+        row << content.questions.joins(survey: :content).map do |question|
+          [
+            "[#{question.survey}] #{question}",
+            question.answers.map { |answer| [answer.to_s, answer.replies.count] }
+          ]
+        end
+
+        csv << row.flatten
+      end
+    end
   end
 end

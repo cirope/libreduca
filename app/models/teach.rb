@@ -23,6 +23,7 @@ class Teach < ActiveRecord::Base
   has_many :contents, dependent: :destroy
   has_many :scores, dependent: :destroy
   has_many :users, through: :enrollments
+  has_many :surveys, through: :contents
   has_many :forums, dependent: :destroy, as: :owner
   
   accepts_nested_attributes_for :enrollments, allow_destroy: true,
@@ -33,7 +34,7 @@ class Teach < ActiveRecord::Base
   def to_s
     "#{self.course} (#{self.date_range_s})"
   end
-  
+
   def date_range_s
     "#{I18n.l(self.start, format: :minimal)} -> #{I18n.l(self.finish, format: :minimal)}"
   end

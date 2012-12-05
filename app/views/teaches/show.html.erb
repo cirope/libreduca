@@ -44,6 +44,12 @@
           '#enrollments_container', data: { 'toggle' => 'tab', 'remote-url' => show_enrollments_teach_path(@teach) }
         ) %>
       </li>
+      <li>
+        <%= link_to(
+          Teach.human_attribute_name('surveys', count: 0),
+          '#surveys_container', data: { 'toggle' => 'tab', 'remote-url' => teach_surveys_path(@teach) }
+        ) %>
+      </li>
     <% end %>
   </ul>
   
@@ -74,18 +80,22 @@
       <div id="enrollments_container" class="tab-pane">
         <div class="alert"><%= t('label.loading') %></div>
       </div>
+      
+      <div id="surveys_container" class="tab-pane">
+        <div class="alert"><%= t('label.loading') %></div>
+      </div>
     <% end %>
   </div>
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_teach_path(@teach), class: 'btn btn-primary' if can? :update, @teach %>
-  <%= link_to t('view.teaches.send_email_summary.html'), '#email_modal', class: 'btn', data: { toggle: 'modal' } if can? :send_email_summary, @teach %>
   <% if @course && can?(:read, @course) %>
     <div class="pull-right">
       <%= link_to t('label.list'), course_teaches_path(@course) %>
     </div>
   <% end %>
+  <%= link_to t('label.edit'), edit_teach_path(@teach), class: 'btn btn-primary' if can? :update, @teach %>
+  <%= link_to t('view.teaches.send_email_summary.html'), '#email_modal', class: 'btn', data: { toggle: 'modal' } if can? :send_email_summary, @teach %>
 </nav>
 
 <% if can? :send_email_summary, @teach %>

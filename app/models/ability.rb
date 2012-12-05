@@ -44,18 +44,20 @@ class Ability
   end
 
   def teacher_rules(user, institution)
-    enrollments_restricionts = {
+    enrollments_restrictions = {
       enrollments: { user_id: user.id, job: 'teacher' }
     }
+    teach_restrictions = { teach: enrollments_restrictions }
     
-    can :read, Enrollment, teach: enrollments_restricionts
-    can :send_email_summary, Enrollment, teach: enrollments_restricionts
-    can :update, Teach, enrollments_restricionts
-    can :manage, Content, teach: enrollments_restricionts
-    can :send_email_summary, Teach, enrollments_restricionts
-    can :read, Course, teaches: enrollments_restricionts
-    can :read, Grade, courses: { teaches: enrollments_restricionts }
-    can :read, User, enrollments_restricionts
+    can :read, Enrollment, teach_restrictions
+    can :send_email_summary, Enrollment, teach_restrictions
+    can :update, Teach, enrollments_restrictions
+    can :manage, Content, teach_restrictions
+    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
+    can :send_email_summary, Teach, enrollments_restrictions
+    can :read, Course, teaches: enrollments_restrictions
+    can :read, Grade, courses: { teaches: enrollments_restrictions }
+    can :read, User, enrollments_restrictions
     can :manage, Image, institution_id: institution.id
   end
 
@@ -68,6 +70,7 @@ class Ability
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
+    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
     can :manage, Image, jobs_restrictions
     can :read, Job, institution_id: institution.id
     can :read, User, jobs: { institution_id: institution.id }

@@ -36,5 +36,6 @@
 //= require lazy_tabs
 //= require regions
 //= require replies
+//= require surveys
 //= require teaches
 //= require users

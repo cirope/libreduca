@@ -127,7 +127,7 @@ class TeachesController < ApplicationController
       format.json { render json: @teach }
     end
   end
-  
+
   # GET /teaches/1/edit_scores
   # GET /teaches/1/edit_scores.json
   def edit_scores

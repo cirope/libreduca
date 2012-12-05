@@ -155,6 +155,9 @@
         scores:
           one: 'Calificación'
           other: 'Calificaciones'
+        surveys:
+          one: 'Encuesta'
+          other: 'Encuestas'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -190,6 +193,9 @@
     back: 'Volver'
     close: 'Cerrar'
     delete: 'Eliminar'
+    download: 'Descargar'
+    download_with_format:
+      html: 'Descargar en <strong>%{file_format}</strong>'
     edit: 'Editar'
     list: 'Listado'
     loading: 'Cargando...'
@@ -394,6 +400,7 @@
       stale_object_error: 'El dictado no pudo ser actualizado, intente nuevamente.'
       show_scores_title: 'Detalle de calificaciones del dictado'
       show_enrollments_title: 'Detalle de inscripciones del dictado'
+      show_surveys_title: 'Detalle de encuestas del dictado'
       edit_scores_title: 'Modificar calificaciones del dictado'
       edit_enrollments_title: 'Modificar inscripciones del dictado'
       global_description: 'Descripción global'
@@ -447,6 +454,16 @@
         html: 'Sin inscripciones, para enrolar alumnos seleccione <span class="label label-info">Editar</span> y vaya a la solapa <span class="label">Inscripciones</span>'
       without_scores:
         html: 'Sin calificaciones, para cargar nuevas seleccione <span class="label label-info">Editar</span>'
+    surveys:
+      index_title: 'Listado de encuestas'
+      show_title: 'Detalle de encuesta'
+      new_title: 'Nueva encuesta'
+      edit_title: 'Modificar encuesta'
+      correctly_created: 'Encuesta agregada correctamente.'
+      correctly_updated: 'Encuesta actualizada correctamente.'
+      stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna encuesta hasta el momento'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
