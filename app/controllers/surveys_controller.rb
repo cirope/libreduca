@@ -16,7 +16,12 @@ class SurveysController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @surveys }
-      format.csv  { render csv:  @surveys.to_csv(@teach), filename: @title }
+      format.csv  {
+        # Dear Explorer: ...
+        headers['Cache-Control'] = 'max-age=1'
+
+        render csv:  @surveys.to_csv(@teach), filename: @title
+      }
     end
   end
 

@@ -24,7 +24,7 @@ class Survey < ActiveRecord::Base
   end
 
   def self.to_csv(teach)
-    CSV.generate do |csv|
+    CSV.generate(col_sep: ';') do |csv|
       teach.contents.each do |content|
         row = [content.to_s]
 
