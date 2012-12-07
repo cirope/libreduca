@@ -437,8 +437,8 @@
           one: 'Profesor'
           other: 'Profesores'
         janitor:
-          one: 'Bedel'
-          other: 'Bedeles'
+          one: 'Administrativo'
+          other: 'Administrativos'
         student:
           one: 'Alumno'
           other: 'Alumnos'
