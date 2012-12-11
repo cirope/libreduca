@@ -43,7 +43,7 @@ class ContentsControllerTest < ActionController::TestCase
 
   test 'should create content' do
     assert_difference('Content.count') do
-      assert_difference 'Document.count', 2 do
+      assert_difference ['Document.count', 'Homework.count'], 2 do
         post :create, teach_id: @teach.to_param,
           content: Fabricate.attributes_for(:content).slice(
             *Content.accessible_attributes
@@ -52,6 +52,12 @@ class ContentsControllerTest < ActionController::TestCase
               Fabricate.attributes_for(
                 :document, owner_id: nil, owner_type: nil
               ).slice(*Document.accessible_attributes)
+            }
+          ).merge(
+            homeworks_attributes: 2.times.map {
+              Fabricate.attributes_for(
+                :homework, content_id: nil
+              ).slice(*Homework.accessible_attributes)
             }
           )
       end

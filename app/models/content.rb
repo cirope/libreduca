@@ -5,7 +5,7 @@ class Content < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :title, :content, :surveys_attributes, :documents_attributes,
-    :lock_version
+    :homeworks_attributes, :lock_version
 
   # Default order
   default_scope order("#{table_name}.title ASC")
@@ -17,6 +17,7 @@ class Content < ActiveRecord::Base
   # Relations
   belongs_to :teach
   has_many :surveys, dependent: :destroy
+  has_many :homeworks, dependent: :destroy
   has_many :questions, through: :surveys
   has_many :answers, through: :questions
   has_many :replies, through: :answers
@@ -25,6 +26,8 @@ class Content < ActiveRecord::Base
   has_one :institution, through: :teach
 
   accepts_nested_attributes_for :surveys, allow_destroy: true,
+    reject_if: ->(attrs) { attrs['name'].blank? }
+  accepts_nested_attributes_for :homeworks, allow_destroy: true,
     reject_if: ->(attrs) { attrs['name'].blank? }
   accepts_nested_attributes_for :documents, allow_destroy: true,
     reject_if: ->(attrs) {

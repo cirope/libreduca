@@ -1,0 +1,22 @@
+<fieldset class="row-fluid">
+  <div class="span3">
+    <%= f.input :name, label: false, input_html: {
+      autofocus: true, class: 'span11', placeholder: Homework.human_attribute_name('name')
+    } %>
+  </div>
+  <div class="span3">
+    <%= f.input :closing_at, as: :date_picker, label: false, input_html: {
+      class: 'span11', placeholder: Homework.human_attribute_name('closing_at')
+    } %>
+  </div>
+  <div class="span4">
+    <%= f.input :description, label: false, input_html: {
+      class: 'span11', rows: 3, placeholder: Homework.human_attribute_name('description')
+    } %>
+  </div>
+  <div class="span2 nested-actions">
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %> 
+    <%= link_to_remove_nested_item(f) %>
+  </div>
+</fieldset>

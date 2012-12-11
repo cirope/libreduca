@@ -40,7 +40,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#jobs fieldset:nth-child(2)')
     
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').remove()")
+    page.execute_script("$('.ui-autocomplete').html('')")
     
     institution = Fabricate(:institution)
     
@@ -48,8 +48,6 @@ class UsersTest < ActionDispatch::IntegrationTest
       fill_in find('input[name$="[auto_institution_name]"]')[:id], with: institution.name
     end
 
-    synchronize { find('.ui-autocomplete li.ui-menu-item a').visible? }
-    
     find('.ui-autocomplete li.ui-menu-item a').click
     
     within '#jobs fieldset:nth-child(2)' do
@@ -101,7 +99,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#kinships fieldset:nth-child(2)')
     
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').remove()")
+    page.execute_script("$('.ui-autocomplete').html('')")
     
     relative = Fabricate(:user)
     

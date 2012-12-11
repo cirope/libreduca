@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112183812) do
+ActiveRecord::Schema.define(:version => 20121210155357) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -131,6 +131,19 @@ ActiveRecord::Schema.define(:version => 20121112183812) do
 
   add_index "groups", ["institution_id"], :name => "index_groups_on_institution_id"
   add_index "groups", ["name"], :name => "index_groups_on_name"
+
+  create_table "homeworks", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.text     "description"
+    t.date     "closing_at"
+    t.integer  "content_id",                  :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "homeworks", ["closing_at"], :name => "index_homeworks_on_closing_at"
+  add_index "homeworks", ["content_id"], :name => "index_homeworks_on_content_id"
 
   create_table "images", :force => true do |t|
     t.string   "name",                          :null => false

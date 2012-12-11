@@ -52,7 +52,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#enrollments_container fieldset:nth-child(2)')
     
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').remove()")
+    page.execute_script("$('.ui-autocomplete').html('')")
     
     user = Fabricate(:user, lastname: 'in_filtered_index').tap do |u|
       Fabricate(:job, user_id: u.id, institution_id: course.institution.id)

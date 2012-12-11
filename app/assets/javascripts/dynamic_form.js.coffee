@@ -25,9 +25,10 @@ window.DynamicFormHelper =
     s.replace(regex, new Date().getTime() + DynamicFormHelper.newIdCounter++)
     
 jQuery ($)->
+  linkSelector = 'a[data-dynamic-form-event]'
   eventList = $.map DynamicFormEvent, (v, k)-> k
   
-  $(document).on 'click', 'a[data-dynamic-form-event]', (event)->
+  $(document).on 'click', linkSelector, (event)->
     return if event.stopped
     
     eventName = $(this).data('dynamic-form-event')
@@ -37,3 +38,8 @@ jQuery ($)->
       
       event.preventDefault()
       event.stopPropagation()
+
+  $(document).on 'dynamic-item.added', linkSelector, (event, element)->
+    $(element).prev('fieldset').find(
+      '[autofocus]:not([readonly]):enabled:visible:first'
+    ).focus().triggerHandler('focus') 

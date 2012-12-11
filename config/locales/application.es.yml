@@ -35,6 +35,9 @@
       grade:
         one: 'Grado'
         other: 'Grados'
+      homework:
+        one: 'Tarea'
+        other: 'Tareas'
       image:
         one: 'Imagen'
         other: 'Imágenes'
@@ -100,6 +103,10 @@
         user_id: 'Usuario'
       grade:
         name: 'Nombre'
+      homework:
+        name: 'Nombre'
+        description: 'Descripción'
+        closing_at: 'Fecha límite'
       image:
         name: 'Nombre'
         file: 'Imagen'
@@ -152,6 +159,9 @@
         enrollments:
           one: 'Inscripción'
           other: 'Inscripciones'
+        homeworks:
+          one: 'Tarea'
+          other: 'Tareas'
         scores:
           one: 'Calificación'
           other: 'Calificaciones'
@@ -243,6 +253,8 @@
         html:
           one: 'Contenido de %{teach}'
           other: 'Contenidos de %{teach}'
+      homeworks:
+        new: 'Agregar tarea'
       surveys:
         new: 'Agregar encuesta'
         new_question: 'Agregar pregunta'
