@@ -19,7 +19,8 @@ gem 'capistrano'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-  gem 'therubyracer', require: false
+  gem 'libv8'
+  gem 'therubyracer'
   gem 'uglifier'
 end
 
