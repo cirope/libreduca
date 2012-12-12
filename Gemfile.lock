@@ -50,7 +50,7 @@ GEM
     carrierwave (0.7.1)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
-    celluloid (0.12.3)
+    celluloid (0.12.4)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
     childprocess (0.3.6)
