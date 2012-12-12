@@ -14,6 +14,7 @@ class Homework < ActiveRecord::Base
 
   # Relations
   belongs_to :content
+  has_many :presentations, dependent: :destroy
 
   def to_s
     self.name

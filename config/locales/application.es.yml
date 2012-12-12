@@ -41,6 +41,9 @@
       image:
         one: 'Imagen'
         other: 'Imágenes'
+      institution:
+        one: 'Institución'
+        other: 'Instituciones'
       job:
         one: 'Trabajo'
         other: 'Trabajos'
@@ -50,15 +53,15 @@
       login:
         one: 'Ingreso'
         other: 'Ingresos'
-      region:
-        one: 'Región'
-        other: 'Regiones'
-      institution:
-        one: 'Institución'
-        other: 'Instituciones'
+      presentation:
+        one: 'Entrega'
+        other: 'Entregas'
       question:
         one: 'Pregunta'
         other: 'Preguntas'
+      region:
+        one: 'Región'
+        other: 'Regiones'
       reply:
         one: 'Respuesta'
         other: 'Respuestas'
@@ -110,6 +113,11 @@
       image:
         name: 'Nombre'
         file: 'Imagen'
+      institution:
+        name: 'Nombre'
+        identification: 'Identificación'
+        district_id: 'Distrito'
+        workers: 'Personal'
       job:
         job: 'Trabajo'
         institution_id: 'Institución'
@@ -121,19 +129,16 @@
       login:
         ip: 'IP'
         user_agent: 'Navegador'
-      region:
-        name: 'Nombre'
-      region/district:
-        name: 'Nombre (distrito)'
-      institution:
-        name: 'Nombre'
-        identification: 'Identificación'
-        district_id: 'Distrito'
-        workers: 'Personal'
+      presentation:
+        file: 'Archivo'
       question:
         content: 'Pregunta'
       question/answer:
         content: 'Respuesta'
+      region:
+        name: 'Nombre'
+      region/district:
+        name: 'Nombre (distrito)'
       reply:
         question: 'Pregunta'
         answer: 'Opción'
@@ -255,6 +260,10 @@
           other: 'Contenidos de %{teach}'
       homeworks:
         new: 'Agregar tarea'
+      presentations:
+        new: 'Agregar entrega'
+        presented:
+          html: 'Entrega: %{link}'
       surveys:
         new: 'Agregar encuesta'
         new_question: 'Agregar pregunta'
@@ -379,6 +388,13 @@
         other: 'Otro'
     launchpad:
       index_title: 'Instituciones'
+    presentations:
+      index_title: 'Listado de entregas'
+      show_title: 'Detalle de entrega'
+      new_title: 'Nueva entrega'
+      correctly_created: 'Entrega agregada correctamente.'
+      empty_index:
+        html: 'No se ha encontrado ninguna entrega para este contenido'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'
@@ -402,6 +418,16 @@
       empty_index:
         html: 'No se ha creado ninguna respuesta hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva respuesta</span>'
       new: 'Nueva respuesta'
+    surveys:
+      index_title: 'Listado de encuestas'
+      show_title: 'Detalle de encuesta'
+      new_title: 'Nueva encuesta'
+      edit_title: 'Modificar encuesta'
+      correctly_created: 'Encuesta agregada correctamente.'
+      correctly_updated: 'Encuesta actualizada correctamente.'
+      stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna encuesta hasta el momento'
     teaches:
       index_title: 'Listado de dictados'
       show_title: 'Detalle de dictado'
@@ -466,16 +492,6 @@
         html: 'Sin inscripciones, para enrolar alumnos seleccione <span class="label label-info">Editar</span> y vaya a la solapa <span class="label">Inscripciones</span>'
       without_scores:
         html: 'Sin calificaciones, para cargar nuevas seleccione <span class="label label-info">Editar</span>'
-    surveys:
-      index_title: 'Listado de encuestas'
-      show_title: 'Detalle de encuesta'
-      new_title: 'Nueva encuesta'
-      edit_title: 'Modificar encuesta'
-      correctly_created: 'Encuesta agregada correctamente.'
-      correctly_updated: 'Encuesta actualizada correctamente.'
-      stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
-      empty_index:
-        html: 'No se ha creado ninguna encuesta hasta el momento'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

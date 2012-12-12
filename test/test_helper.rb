@@ -70,18 +70,18 @@ class ActionDispatch::IntegrationTest
   end
 
   def login_into_institution(options = {})
-    institution = options[:institution] || Fabricate(:institution)
-    Capybara.app_host = "http://#{institution.identification}.lvh.me:54163"
+    @test_institution = options[:institution] || Fabricate(:institution)
+    Capybara.app_host = "http://#{@test_institution.identification}.lvh.me:54163"
     
-    user = options[:user] || Fabricate(:user, password: '123456', roles: [:normal])
+    @test_user = options[:user] || Fabricate(:user, password: '123456', roles: [:normal])
     job = Fabricate(
-      :job, user_id: user.id, institution_id: institution.id, job: options[:as] || 'student'
+      :job, user_id: @test_user.id, institution_id: @test_institution.id, job: options[:as] || 'student'
     )
     expected_path = url_for(
       controller: 'dashboard', action: job.job, only_path: true
     )
     
-    login user: user, clean_password: '123456', expected_path: expected_path
+    login user: @test_user, clean_password: '123456', expected_path: expected_path
   end
   
   def assert_page_has_no_errors!

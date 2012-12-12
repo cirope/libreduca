@@ -39,6 +39,28 @@
     <% end %>
   <% end %>
 
+  <% unless @content.homeworks.empty? %>
+    <hr />
+    <% @content.homeworks.each do |homework| %>
+      <h3><%= homework %></h3>
+      <% if current_user_is_student? %>
+        <% presentation = current_user.presentations.for_homework(homework) %>
+
+        <% if presentation %>
+          <%= t(
+            'view.contents.presentations.presented.html',
+            link: link_to(presentation.file.file.identifier, presentation.file.url)
+          ) %>
+        <% elsif can?(:create, homework.presentations.build) %>
+          <%= markdown homework.description if homework.description.present? %>
+          <%= render_new_homework_presentation_form(homework) %>
+        <% end %>
+      <% else %>
+        <%= render_homework_presentations(homework) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <%= content_next_and_prev_links(@teach, @content) %>
 </div>
 

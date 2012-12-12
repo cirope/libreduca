@@ -205,4 +205,23 @@ class ContentsTest < ActionDispatch::IntegrationTest
       assert page.has_no_css?('form.new_reply')
     end
   end
+
+  test 'should upload a presentation' do
+    login_into_institution as: 'student'
+    
+    homework = Fabricate(:homework)
+    content = homework.content
+    presentation = Fabricate.build(:presentation, homework_id: homework.id, user_id: nil)
+    Fabricate(:enrollment, user_id: @test_user.id, teach_id: content.teach_id)
+  
+    visit teach_content_path(content.teach, content)
+    
+    assert page.has_css?('#presentation_file')
+
+    attach_file 'presentation_file', presentation.file.path
+
+    assert_difference 'Presentation.count' do
+      find('.btn.btn-primary').click
+    end
+  end
 end

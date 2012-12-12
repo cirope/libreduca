@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   has_many :replies, dependent: :destroy
   has_many :logins, dependent: :destroy
+  has_many :presentations, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
   

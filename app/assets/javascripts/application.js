@@ -34,6 +34,7 @@
 //= require institutions
 //= require launchpad
 //= require lazy_tabs
+//= require presentations
 //= require regions
 //= require replies
 //= require surveys

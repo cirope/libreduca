@@ -11,7 +11,7 @@ Libreduca::Application.routes.draw do
       resources :surveys
     end
 
-    resources :courses, shallow: true, only: [] do
+   resources :courses, shallow: true, only: [] do
       resources :teaches do
         member do
           get :show_scores, as: 'show_scores'
@@ -71,6 +71,12 @@ Libreduca::Application.routes.draw do
           get :comments
           post :comments, action: 'create_comment'
         end
+      end
+    end
+
+    resources :contents, only: [] do
+      resources :homeworks, only: [] do
+        resources :presentations, except: [:edit, :update]
       end
     end
 

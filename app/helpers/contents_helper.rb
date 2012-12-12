@@ -26,4 +26,18 @@ module ContentsHelper
 
     content_tag(:ul, content, class: 'pager')
   end
+  
+  def render_new_homework_presentation_form(homework)
+    @homework = homework
+    @presentation ||= Presentation.new
+
+    render template: 'presentations/new'
+  end
+
+  def render_homework_presentations(homework)
+    @homework = homework
+    @presentations = homework.presentations
+
+    render template: 'presentations/index'
+  end
 end

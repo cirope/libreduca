@@ -19,6 +19,7 @@ class Ability
   
   def regular_rules(user, institution)
     if @job
+      student_rules(user, institution)    if @job.student?
       teacher_rules(user, institution)    if @job.teacher?
       janitor_rules(user, institution)    if @job.janitor?
       headmaster_rules(user, institution) if @job.headmaster?
@@ -43,6 +44,10 @@ class Ability
     can :read, Image
   end
 
+  def student_rules(user, institution)
+    can :create, Presentation
+  end
+
   def teacher_rules(user, institution)
     enrollments_restrictions = {
       enrollments: { user_id: user.id, job: 'teacher' }
@@ -59,6 +64,7 @@ class Ability
     can :read, Grade, courses: { teaches: enrollments_restrictions }
     can :read, User, enrollments_restrictions
     can :manage, Image, institution_id: institution.id
+    can :read, Presentation # TODO: check for proper access
   end
 
   def janitor_rules(user, institution)
@@ -83,6 +89,7 @@ class Ability
     can :update, User do |user|
       user.jobs.in_institution(institution).exists?
     end
+    can :manage, Presentation # TODO: check for proper access
   end
 
   def headmaster_rules(user, institution)
