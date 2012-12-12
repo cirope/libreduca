@@ -42,4 +42,4 @@ jQuery ($)->
   $(document).on 'dynamic-item.added', linkSelector, (event, element)->
     $(element).prev('fieldset').find(
       '[autofocus]:not([readonly]):enabled:visible:first'
-    ).focus().triggerHandler('focus') 
+    ).focus()
