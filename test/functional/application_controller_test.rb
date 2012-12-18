@@ -40,4 +40,18 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_equal user.enrollments.sorted_by_name.to_a,
       @controller.send(:current_enrollments).to_a
   end
+
+  test 'should redirect to default' do
+    @controller.send :redirect_to_back_or, '/test'
+
+    assert_redirected_to '/test'
+  end
+
+  test 'should redirect to back' do
+    request.env['HTTP_REFERER'] = '/test'
+
+    @controller.send :redirect_to_back_or, '/no_way'
+
+    assert_redirected_to '/test'
+  end
 end

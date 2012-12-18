@@ -52,6 +52,9 @@
                   <%= link_to_if(
                     can?(:read, content), content, [@teach, content]
                   ) %>
+                  <% if can?(:destroy, content) %>
+                    | <%= link_to_destroy [@teach, content]  %>
+                  <% end %>
                 </li>
               <% end %>
             </ul>

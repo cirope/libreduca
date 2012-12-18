@@ -48,6 +48,12 @@ class ApplicationController < ActionController::Base
     @_enrollments
   end
 
+  def redirect_to_back_or(default_url, *args)
+    redirect_to :back, *args
+  rescue ActionController::RedirectBackError
+    redirect_to default_url, *args
+  end
+
   def not_found
     redirect_to root_url
   end

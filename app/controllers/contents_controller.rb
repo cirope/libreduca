@@ -87,7 +87,7 @@ class ContentsController < ApplicationController
     @content.destroy
 
     respond_to do |format|
-      format.html { redirect_to teach_contents_url(@teach) }
+      format.html { redirect_to_back_or teach_contents_url(@teach) }
       format.json { head :ok }
     end
   end
