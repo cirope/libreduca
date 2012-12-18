@@ -16,7 +16,7 @@ class Institution < ActiveRecord::Base
   validates :name, :identification, :district_id, presence: true
   validates :name, :identification, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
-  validates :identification, format: { with: /\A[a-z\d]+(-[a-z\d]+)*\z/i },
+  validates :identification, format: { with: /\A[a-z\d]+(-[a-z\d]+)*\z/ },
     allow_nil: true, allow_blank: true
   validates :identification, uniqueness: { case_sensitive: false },
     allow_nil: true, allow_blank: true
