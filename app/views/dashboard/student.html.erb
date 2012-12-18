@@ -65,6 +65,10 @@
   <% end %>
 </div>
 
+<div class="alert">
+  <%= t('view.dashboard.footer.html') %>
+</div>
+
 <div class="form-actions">
   <% unless current_user.teaches.in_institution(current_institution).empty? %>
     <%= link_to t('view.dashboard.teaches_history'), user_teaches_path(current_user) %>
