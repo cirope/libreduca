@@ -30,6 +30,17 @@ class SurveyTest < ActiveSupport::TestCase
       assert_difference('Survey.count', -1) { @survey.destroy }
     end
   end
+
+  test 'can not create for not current teach' do
+    teach = Fabricate(:teach, start: 5.days.ago, finish: 1.day.ago)
+    content = Fabricate(:content, teach_id: teach.id)
+
+    assert_raise(RuntimeError) do
+      survey = Fabricate.build(:survey, content_id: content.id)
+
+      survey.save
+    end
+  end
   
   test 'validates blank attributes' do
     @survey.name = ''

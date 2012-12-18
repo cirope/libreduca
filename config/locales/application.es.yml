@@ -285,6 +285,7 @@
           other: 'Asignaturas de %{grade} | %{institution}'
     dashboard:
       generic_title: 'Tablero'
+      teaches_history: 'Histórico de cursos'
       empty_enrollments:
         html: 'No estás inscripto en cursos que se estén dictando actualmente'
       empty_grades:
@@ -444,7 +445,7 @@
       global_description: 'Descripción global'
       global_multiplier: 'Multiplicador global'
       empty_index:
-        html: 'No se ha creado ningún dictado para este curso hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo dictado</span>'
+        html: 'No hay dictados por el momento'
       new: 'Nuevo dictado'
       new_enrollment: 'Agregar nueva inscripción'
       new_content: 'Agregar contenido'

@@ -69,7 +69,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     login user: @test_user, expected_path: student_dashboard_path
 
     assert_equal(
-      "http://#{@test_institution.identification}.lvh.me:54163#{student_dashboard_pastudent_th}",
+      "http://#{@test_institution.identification}.lvh.me:54163#{student_dashboard_path}",
       current_url
     )
   end

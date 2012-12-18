@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   
   # Relations
   has_many :enrollments, dependent: :destroy
+  has_many :teaches, through: :enrollments
   has_many :scores, dependent: :destroy
   has_many :kinships, dependent: :destroy
   has_many :inverse_kinships, class_name: 'Kinship', foreign_key: 'relative_id'

@@ -7,6 +7,9 @@ class Survey < ActiveRecord::Base
   # Scopes
   default_scope order("#{table_name}.name ASC")
 
+  # Callbacks
+  before_save :check_current_teach
+
   # Validations
   validates :name, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true
@@ -21,6 +24,10 @@ class Survey < ActiveRecord::Base
 
   def to_s
     self.name
+  end
+
+  def check_current_teach
+    raise 'You can not do this' unless self.content.try(:teach).try(:current?)
   end
 
   def self.to_csv(teach)

@@ -5,7 +5,8 @@ class TeachesController < ApplicationController
   
   check_authorization
   load_resource :course
-  load_and_authorize_resource through: :course, shallow: true
+  load_resource :user
+  load_and_authorize_resource through: [:course, :user], shallow: true
 
   before_filter :load_course
   
@@ -14,6 +15,8 @@ class TeachesController < ApplicationController
   def index
     @title = t 'view.teaches.index_title'
     @teaches = @teaches.page(params[:page]).uniq('id')
+    @teaches = @teaches.in_institution(current_institution) if current_institution
+    @teaches = @teaches.historic if @user
 
     respond_to do |format|
       format.html # index.html.erb

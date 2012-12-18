@@ -7,6 +7,9 @@ class Teach < ActiveRecord::Base
   
   # Default order
   default_scope order("#{table_name}.start DESC")
+
+  # Scopes
+  scope :historic, -> { where("#{table_name}.start <= ?", Date.today) }
   
   # Validations
   validates :start, :finish, :course_id, presence: true
@@ -71,5 +74,11 @@ class Teach < ActiveRecord::Base
 
   def prev_content_for(content)
     self.contents.prev_for(content)
+  end
+
+  def self.in_institution(institution)
+    self.joins(:institution).where(
+      "#{Institution.table_name}.id = ?", institution.id
+    )
   end
 end

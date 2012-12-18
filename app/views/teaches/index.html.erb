@@ -4,32 +4,35 @@
   <div class="row">
     <div class="span12">
       <table class="table resource-list">
-        <caption>
-          <h4>
-            <% grade = @course.grade %>
-            <%= t(
-              'view.teaches.from_course.html',
-              count: @course.teaches.count,
-              course: link_to_if(can?(:read, @course), @course.to_s, [@course.grade, @course]),
-              grade: link_to_if(can?(:read, grade), grade.to_s, [grade.institution, grade]),
-              institution: link_to_if(can?(:read, grade.institution), grade.institution.to_s, grade.institution)
-            ) %></h4>
-          <br />
-        </caption>
+        <% if @course %>
+          <caption>
+            <h4>
+              <% grade = @course.grade %>
+              <%= t(
+                'view.teaches.from_course.html',
+                count: @course.teaches.count,
+                course: link_to_if(can?(:read, @course), @course.to_s, [@course.grade, @course]),
+                grade: link_to_if(can?(:read, grade), grade.to_s, [grade.institution, grade]),
+                institution: link_to_if(can?(:read, grade.institution), grade.institution.to_s, grade.institution)
+              ) %></h4>
+            <br />
+          </caption>
+        <% end %>
         <thead>
           <tr>
+            <th><%= Course.model_name.human(count: 1) %></th>
             <th><%= Teach.human_attribute_name 'start' %></th>
             <th><%= Teach.human_attribute_name 'finish' %></th>
-            <th colspan="3"></th>
+            <th colspan="2"></th>
           </tr>
         </thead>
         
         <tbody>
           <% @teaches.each do |teach| %>
             <tr>
+              <td><%= link_to_if can?(:read, teach), teach.course, teach %></td>
               <td><%= l teach.start %></td>
               <td><%= l teach.finish %></td>
-              <td><%= link_to_show teach if can? :read, teach %></td>
               <td><%= link_to_edit edit_teach_path(teach) if can? :update, teach %></td>
               <td><%= link_to_destroy teach if can? :destroy, teach %></td>
             </tr>
@@ -43,9 +46,11 @@
 <% end %>
 
 <nav class="form-actions">
-  <%= link_to(
-    t('view.teaches.new', default: :'label.new'),
-    new_course_teach_path(@course), class: 'btn btn-primary'
-    ) if can? :create, @course.teaches.build
-  %>
+  <% if @course %>
+    <%= link_to(
+      t('view.teaches.new', default: :'label.new'),
+      new_course_teach_path(@course), class: 'btn btn-primary'
+      ) if can? :create, @course.teaches.build
+    %>
+  <% end %>
 </nav>

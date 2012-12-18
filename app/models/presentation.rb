@@ -4,7 +4,7 @@ class Presentation < ActiveRecord::Base
   mount_uploader :file, FileUploader
 
   # Callbacks
-  before_save :update_file_attributes
+  before_save :check_current_teach, :update_file_attributes
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :file, :file_cache, :lock_version
@@ -26,6 +26,12 @@ class Presentation < ActiveRecord::Base
 
   def to_s
     self.file.present? ? self.file.file.identifier : '-'
+  end
+
+  def check_current_teach
+    unless self.homework.try(:content).try(:teach).try(:current?)
+      raise 'You can not do this' 
+    end
   end
 
   def institution

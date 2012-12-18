@@ -22,14 +22,16 @@ class PresentationTest < ActiveSupport::TestCase
   end
     
   test 'update' do
+    new_homework = Fabricate(:homework)
+
     # Readonly attributes
     assert_no_difference 'Presentation.count' do
-      @presentation.homework_id = 0
+      @presentation.homework_id = new_homework.id
 
       assert @presentation.save
     end
 
-    assert_not_equal 0, @presentation.reload.homework_id
+    assert_not_equal new_homework.id, @presentation.reload.homework_id
   end
     
   test 'destroy' do 
@@ -37,6 +39,19 @@ class PresentationTest < ActiveSupport::TestCase
       assert_difference('Presentation.count', -1) { @presentation.destroy }
     end
   end
+  
+  test 'can not create for not current teach' do
+    teach = Fabricate(:teach, start: 5.days.ago, finish: 1.day.ago)
+    content = Fabricate(:content, teach_id: teach.id)
+    homework = Fabricate(:homework, content_id: content.id)
+
+    assert_raise(RuntimeError) do
+      presentation = Fabricate.build(:presentation, homework_id: homework.id)
+
+      presentation.save
+    end
+  end
+
     
   test 'validates blank attributes' do
     @presentation.remove_file!

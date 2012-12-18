@@ -126,6 +126,8 @@ Libreduca::Application.routes.draw do
       resources :enrollments, only: [] do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end
+
+      resources :teaches, only: [:index]
     end
 
     match 'private/:path', to: 'files#download',

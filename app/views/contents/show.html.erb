@@ -20,7 +20,7 @@
     </ul>
   <% end %>
 
-  <% unless @content.surveys.empty? %>
+  <% if @content.surveys.present? && @teach.current? %>
     <hr />
     <% @content.surveys.each do |survey| %>
       <h3><%= survey %></h3>
@@ -39,7 +39,7 @@
     <% end %>
   <% end %>
 
-  <% unless @content.homeworks.empty? %>
+  <% if @content.homeworks.present? && @teach.current? %>
     <hr />
     <% @content.homeworks.each do |homework| %>
       <h3><%= homework %></h3>

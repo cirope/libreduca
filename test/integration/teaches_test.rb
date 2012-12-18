@@ -276,4 +276,22 @@ class TeachesTest < ActionDispatch::IntegrationTest
 
     assert page.has_css?('#surveys_container table.table')
   end
+
+  test 'should show historic teaches index' do
+    login_into_institution
+
+    grade = Fabricate(:grade, institution_id: @test_institution.id)
+    course = Fabricate(:course, grade_id: grade.id)
+    teach = Fabricate(:teach, course_id: course.id)
+
+    Fabricate(
+      :enrollment, user_id: @test_user.id, teach_id: teach.id
+    )
+
+    visit user_teaches_path(@test_user)
+
+    assert_page_has_no_errors!
+
+    assert page.has_css?('table.table')
+  end
 end
