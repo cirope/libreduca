@@ -54,4 +54,23 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
       assert page.has_content?(I18n.t('devise.sessions.signed_out'))
     end
   end
+
+  test 'should be redirected to subdomain' do
+    login_into_institution
+
+    click_link 'logout'
+
+    visit student_dashboard_path
+
+    Capybara.app_host = "http://#{RESERVED_SUBDOMAINS.first}.lvh.me:54163"
+
+    visit new_user_session_path
+
+    login user: @test_user, expected_path: student_dashboard_path
+
+    assert_equal(
+      "http://#{@test_institution.identification}.lvh.me:54163#{student_dashboard_pastudent_th}",
+      current_url
+    )
+  end
 end
