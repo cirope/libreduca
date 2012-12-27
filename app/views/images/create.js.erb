@@ -1,0 +1,5 @@
+<% if @image.persisted? %>
+  Turbolinks.visit('<%= image_url(@image) %>');
+<% else %>
+  $('.container .content').html('<%= j render(template: 'images/new') %>');
+<% end %>

@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_current_institution, :load_enrollments
+  before_filter :set_current_institution, :load_enrollments,
+    :set_js_format_in_iframe_request
   after_filter -> { expires_now if user_signed_in? }
   
   helper_method :current_institution, :current_enrollments
@@ -100,5 +101,9 @@ class ApplicationController < ActionController::Base
         current_institution
       ).sorted_by_name.in_current_teach
     end
+  end
+
+  def set_js_format_in_iframe_request
+    request.format = :js if params['X-Requested-With'] == 'IFrame'
   end
 end

@@ -65,8 +65,14 @@ class Image < ActiveRecord::Base
   def update_file_attributes
     if file.present? && file_changed?
       self.content_type = file.file.content_type
-      self.content_type ||= Mime::Type.lookup_by_extension(file.file.extension)
       self.file_size = file.file.size
+
+      if self.content_type.blank?
+        ext = file.file.extension || File.extname(file.file.original_filename)[1..-1]
+
+        self.content_type = Mime::Type.lookup_by_extension(ext.to_s.downcase).to_s
+        self.content_type ||= 'application/octet-stream'
+      end
     end
   end
 end

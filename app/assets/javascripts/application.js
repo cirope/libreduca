@@ -14,6 +14,8 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery/jquery.ui.datepicker-es
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require twitter/bootstrap
 //= require turboevents
 //= require turbolinks
@@ -22,6 +24,7 @@
 //= require dynamic_form
 //= require effect_helper
 //= require date_pickers
+//= require file_uploads
 //= require mobile
 //= require contents
 //= require courses

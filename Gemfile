@@ -27,6 +27,7 @@ group :assets do
   gem 'libv8'
   gem 'therubyracer'
   gem 'uglifier'
+  gem 'jquery-fileupload-rails'
 end
 
 group :development do
