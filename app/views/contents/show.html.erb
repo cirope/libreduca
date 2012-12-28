@@ -28,10 +28,19 @@
       <ul>
         <% survey.questions.each do |question| %>
           <li>
-            <% if question.has_been_answered_by? current_user %>
-              <%= render template: 'replies/show', locals: { question: question } %>
+            <% if current_user_is_student? %>
+              <% if question.has_been_answered_by? current_user %>
+                <%= render template: 'replies/show', locals: { question: question } %>
+              <% else %>
+                <%= render 'replies/form', question: question %>
+              <% end %>
             <% else %>
-              <%= render 'replies/form', question: question %>
+              <%= question %>
+              <ul>
+                <% question.answers.each do |answer| %>
+                  <li><%= answer %></li>
+                <% end %>
+              </ul>
             <% end %>
           </li>
         <% end %>
