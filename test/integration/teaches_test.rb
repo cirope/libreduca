@@ -278,14 +278,14 @@ class TeachesTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show historic teaches index' do
-    login_into_institution
+    login_into_institution as: 'student'
 
     grade = Fabricate(:grade, institution_id: @test_institution.id)
     course = Fabricate(:course, grade_id: grade.id)
     teach = Fabricate(:teach, course_id: course.id)
 
     Fabricate(
-      :enrollment, user_id: @test_user.id, teach_id: teach.id
+      :enrollment, user_id: @test_user.id, teach_id: teach.id, job: 'student'
     )
 
     visit user_teaches_path(@test_user)

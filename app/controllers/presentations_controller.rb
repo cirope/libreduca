@@ -52,7 +52,7 @@ class PresentationsController < ApplicationController
       if @presentation.save
         format.html { redirect_to [@content.teach, @content], notice: t('view.presentations.correctly_created') }
         format.json { render json: @presentation, status: :created, location: @presentation }
-        format.js   { flash.notice = t('view.presentations.correctly_created') } # create.js.erb
+        format.js   { flash.now.notice = t('view.presentations.correctly_created') } # create.js.erb
       else
         format.html { render action: 'new' }
         format.json { render json: @presentation.errors, status: :unprocessable_entity }

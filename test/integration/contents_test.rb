@@ -228,7 +228,6 @@ class ContentsTest < ActionDispatch::IntegrationTest
     assert_difference 'Presentation.count' do
       attach_file "presentation_file_#{homework.to_param}", presentation.file.path
 
-      assert page.has_css?('.upload')
       assert page.has_no_css?('.upload') # Wait until the file is uploaded
     end
   end

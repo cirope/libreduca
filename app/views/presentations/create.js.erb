@@ -1,5 +1,3 @@
-<% if @presentation.persisted? %>
-  Turbolinks.visit('<%= teach_content_url(@content.teach, @content) %>');
-<% else %>
-  $('#new-presentation-for-homework-<%= @homework.to_param %>').replaceWith('<%= j render(template: 'presentations/new') %>');
-<% end %>
+$('#new-presentation-for-homework-<%= @homework.to_param %>').html(
+  '<%= j render(template: @presentation.persisted? ? 'presentations/show' : 'presentations/new') %>'
+).effect('highlight', 'slow');

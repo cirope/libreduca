@@ -233,6 +233,11 @@
     
   messages:
     confirmation: '¿Está seguro?'
+
+  plugin:
+    jquery_file_upload:
+      please_wait:
+        html: 'Por favor, <strong>espere</strong> mientras se procesa el archivo'
     
   view:
     generic:

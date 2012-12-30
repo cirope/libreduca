@@ -14,17 +14,22 @@ class FileUploadHelper
     @element.hide().before(@data.context)
   evalAutosubmit: ->
     if @element.data('fileupload-autosubmit')
-      @data.submit()
+      @submit()
     else
+      submit = @submit
+
       @element.parents('form:first').find(
         ':submit:not([data-observed])'
-      ).click(-> @data.submit(); false).attr('data-observed', 'true')
+      ).click(-> submit(); false).attr('data-observed', 'true')
   showErrorMessage: ->
     $(@errorElement).removeClass('hide').alert() if @errorElement
   hideErrorMessage: ->
     $(@errorElement).alert('close') if @errorElement
+  submit: ->
+    @data.context.find('.message').show() if @data.context
+    @data.submit()
 
-App.Event.registerEvent(
+App.Event.registerEvent
   condition: -> $('[data-fileupload]').length
   type: 'click focus keydown drop'
   selector: '[data-fileupload]:not([data-observed])'
@@ -48,4 +53,3 @@ App.Event.registerEvent(
       done: (e, data) ->
         data.context.find('.bar').css('width', '100%') if data.context
     ).attr('data-observed', true)
-)

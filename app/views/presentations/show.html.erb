@@ -1,10 +1,4 @@
-<div class="readonly-data">
-  <h2><%= @presentation.homework %></h2>
-
-  <p>
-    <strong><%= Presentation.human_attribute_name 'file' %></strong>:
-    <%= @presentation.file %>
-  </p>
-</div>
-
-<div class="form-actions"></div>
+<%= t(
+  'view.contents.presentations.presented.html',
+  link: link_to(@presentation.file.file.identifier, @presentation.file.url)
+) %>

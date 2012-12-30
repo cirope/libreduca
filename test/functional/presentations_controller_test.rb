@@ -39,6 +39,20 @@ class PresentationsControllerTest < ActionController::TestCase
     assert_redirected_to teach_content_url(homework.content.teach, homework.content)
   end
 
+  test 'should create presentation with response in js' do
+    homework = Fabricate(:homework)
+
+    assert_difference('Presentation.count') do
+      post :create, format: :js, content_id: homework.content, homework_id: homework,
+        presentation: Fabricate.attributes_for(
+          :presentation, user_id: nil, homework_id: nil
+        ).slice(*Presentation.accessible_attributes)
+    end
+
+    assert_template 'presentations/create'
+  end
+
+
   test 'should show presentation' do
     get :show, content_id: @content, homework_id: @homework, id: @presentation
     assert_response :success

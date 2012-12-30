@@ -56,10 +56,7 @@
         <% presentation = current_user.presentations.for_homework(homework) %>
 
         <% if presentation %>
-          <%= t(
-            'view.contents.presentations.presented.html',
-            link: link_to(presentation.file.file.identifier, presentation.file.url)
-          ) %>
+          <%= render template: 'presentations/show', locals: { :@presentation => presentation } %>
         <% elsif can?(:create, homework.presentations.build) %>
           <%= markdown homework.description if homework.description.present? %>
           <%= render_new_homework_presentation_form(homework) %>

@@ -39,6 +39,17 @@ class ImagesControllerTest < ActionController::TestCase
     assert_redirected_to image_url(assigns(:image))
   end
 
+  test 'should create image with response in js' do
+    assert_difference('Image.count') do
+      post :create, format: :js, image: Fabricate.attributes_for(
+        :image, institution_id: @institution.id
+      ).slice(*Image.accessible_attributes)
+    end
+
+    assert_template 'images/create'
+  end
+
+
   test 'should show image' do
     get :show, id: @image
     assert_response :success
