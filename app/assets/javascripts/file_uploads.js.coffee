@@ -16,11 +16,11 @@ class FileUploadHelper
     if @element.data('fileupload-autosubmit')
       @submit()
     else
-      submit = @submit
+      _this = this
 
       @element.parents('form:first').find(
         ':submit:not([data-observed])'
-      ).click(-> submit(); false).attr('data-observed', 'true')
+      ).click(-> _this.submit(); false).attr('data-observed', 'true')
   showErrorMessage: ->
     $(@errorElement).removeClass('hide').alert() if @errorElement
   hideErrorMessage: ->
