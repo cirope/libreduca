@@ -20,6 +20,8 @@ gem 'mini_magick'
 gem 'sidekiq'
 gem 'capistrano'
 gem 'newrelic_rpm'
+# Must be outside assets because a constant is used in the initializers
+gem 'jquery-fileupload-rails'
 
 group :assets do
   gem 'sass-rails'
@@ -27,7 +29,6 @@ group :assets do
   gem 'libv8'
   gem 'therubyracer'
   gem 'uglifier'
-  gem 'jquery-fileupload-rails'
 end
 
 group :development do
