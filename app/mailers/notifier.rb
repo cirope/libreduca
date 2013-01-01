@@ -34,11 +34,15 @@ class Notifier < ActionMailer::Base
   def new_comment(comment, institution)
     @institution = institution
     @comment = comment
-    @forum = @comment.forum
-    users = @forum.users
+    @commentable = @comment.commentable
+    users = @commentable.users
 
     mail(
-      subject: t('notifier.new_comment.subject', forum: @forum),
+      subject: t(
+        'notifier.new_comment.subject',
+        commentable: @commentable,
+        commentable_name: @commentable.class.model_name.human
+      ),
       bcc: users.map(&:email)
     )
   end

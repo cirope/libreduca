@@ -246,6 +246,16 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    comments:
+      index_title: 'Listado de comentarios'
+      new_title: 'Nuevo comentario'
+      edit_title: 'Modificar comentario'
+      correctly_created: 'Comentario agregado correctamente.'
+      correctly_updated: 'Comentario actualizado correctamente.'
+      stale_object_error: 'El comentario no pudo ser actualizado, intente nuevamente.'
+      new: 'Nuevo comentario'
+      empty_index:
+        html: 'No se ha creado ningún comentario, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo comentario</span>'
     contents:
       index_title: 'Listado de contenidos'
       new_title: 'Nuevo contenido'

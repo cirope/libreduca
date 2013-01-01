@@ -36,10 +36,10 @@
         text: 'Se ha creado un nuevo foro en el que puedes participar,'
       view: 'Visitar el nuevo foro'
     new_comment:
-      subject: 'Hay un nuevo comentario en el foro [%{forum}]'
+      subject: 'Hay un nuevo comentario en el %{commentable_name} [%{commentable}]'
       greeting:
-        html: 'Agregaron un nuevo comentario en [<strong>%{forum}</strong>],'
-        text: 'Agregaron un nuevo comentario en [%{forum}],'
+        html: 'Agregaron un nuevo comentario en [<strong>%{commentable}</strong>],'
+        text: 'Agregaron un nuevo comentario en [%{commentable}],'
       user_say:
         html: '<strong>%{user}</strong> escribió:'
         text: '%{user} escribió:'

@@ -3,13 +3,13 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
   setup do
     @comment = Fabricate(:comment)
-    @forum = @comment.forum
+    @commentable = @comment.commentable
     @user = @comment.user
   end
   
   test 'create' do
     assert_difference 'Comment.count' do
-      @comment = @forum.comments.build(
+      @comment = @commentable.comments.build(
         Fabricate.attributes_for(:comment).slice(
           *Comment.accessible_attributes
         )

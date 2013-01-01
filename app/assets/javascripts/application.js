@@ -26,6 +26,7 @@
 //= require date_pickers
 //= require file_uploads
 //= require mobile
+//= require comments
 //= require contents
 //= require courses
 //= require dashboard

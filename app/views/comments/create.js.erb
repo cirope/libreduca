@@ -1,0 +1,9 @@
+<% if @comment.persisted? %>
+  $('#new_comment').replaceWith('<%= j render(template: 'comments/show', format: :html) %>');
+  $("#<%= @comment.anchor %>").effect('highlight', 'slow').after(
+      '<%= j render(template: 'comments/new', format: :html, locals: { :@comment => Comment.new }) %>'
+  );
+  $('#comment_comment').focus();
+<% else %>
+  $('#new_comment').replaceWith('<%= j render(template: 'comments/new', format: :html) %>');
+<% end %>

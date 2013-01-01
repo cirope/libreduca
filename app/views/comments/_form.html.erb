@@ -1,5 +1,4 @@
-<% url = polymorphic_path([@owner, @forum], action: :comments, format: :html) %>
-<%= simple_form_for comment, url: url, remote: true do |f| %>
+<%= simple_form_for([@commentable, @comment], remote: true) do |f| %>
   <%= f.input :comment, label: false, input_html: {
     rows: 5, class: 'span11',
     placeholder: Comment.human_attribute_name('comment')

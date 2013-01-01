@@ -93,39 +93,8 @@ class ForumsController < ApplicationController
     @forum.destroy
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@owner, Forum]) }
+      format.html { redirect_to polymorphic_url([@owner, Forum]) }
       format.json { head :ok }
-    end
-  end
-
-  # GET /forums/1/comments
-  # GET /forums/1/comments.json
-  def comments
-    @comments = @forum.comments
-
-    respond_to do |format|
-      format.json { render json: @comments }
-    end
-  end
-
-  # POST /forums/1/comments
-  # POST /forums/1/comments.json
-  def create_comment
-    @comment = @forum.comments.build(params[:comment])
-    @comment.user = current_user
-
-    respond_to do |format|
-      if @comment.save
-        jobs = current_user.jobs.in_institution(current_institution)
-
-        Notifier.delay.new_comment(@comment, current_institution) unless jobs.all?(&:student?)
-
-        format.html { render partial: 'comment', locals: { comment: @comment } }
-        format.json { render json: @comment, status: :created, location: [@owner, @forum] }
-      else
-        format.html { render partial: 'new_comment', locals: { comment: @comment } }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
     end
   end
 

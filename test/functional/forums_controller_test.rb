@@ -96,45 +96,4 @@ class ForumsControllerTest < ActionController::TestCase
 
     assert_redirected_to institution_forums_url(@owner)
   end
-
-  test 'should create a comment' do
-    counts = [
-      '@forum.comments.count', '@user.comments.count',
-      'ActionMailer::Base.deliveries.size'
-    ]
-
-    assert_difference counts do
-      xhr :post, :create_comment, id: @forum, institution_id: @owner.to_param,
-        comment: Fabricate.attributes_for(:comment).slice(
-          *Comment.accessible_attributes
-        )
-    end
-    
-    assert_response :success
-    assert_template 'forums/_comment'
-  end
-
-  test 'should not create a comment' do
-    assert_no_difference(['@forum.comments.count', '@user.comments.count']) do
-      xhr :post, :create_comment, id: @forum, institution_id: @owner.to_param,
-        comment: Fabricate.attributes_for(:comment).slice(
-          *Comment.accessible_attributes
-        ).merge(comment: '')
-    end
-    
-    assert_response :success
-    assert_template 'forums/_new_comment'
-  end
-
-  test 'should get comments' do
-    3.times { Fabricate(:comment, forum_id: @forum.id) }
-
-    get :comments, id: @forum, institution_id: @owner.to_param, format: :json
-
-    assert_response :success
-    comments = ActiveSupport::JSON.decode(@response.body)
-
-    assert_equal 3, comments.size
-    assert comments.all? { |c| c['forum_id'].to_i == @forum.id }
-  end
 end

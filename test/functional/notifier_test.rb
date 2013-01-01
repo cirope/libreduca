@@ -52,14 +52,21 @@ class NotifierTest < ActionMailer::TestCase
     institution = Fabricate(:institution)
     users = 3.times.map { Fabricate(:job, institution_id: institution.id).user }
     random_user = Fabricate(:job).user
-    forum = Fabricate(
+    commentable = Fabricate(
       :forum, owner_id: institution.id, owner_type: 'Institution'
     )
-    comment = Fabricate(:comment, forum_id: forum.id)
+    comment = Fabricate(
+      :comment,
+      commentable_id: commentable.id,
+      commentable_type: commentable.class.name
+    )
     mail = Notifier.new_comment(comment, institution)
 
-    assert_equal I18n.t('notifier.new_comment.subject', forum: forum),
-      mail.subject
+    assert_equal I18n.t(
+      'notifier.new_comment.subject',
+      commentable: commentable,
+      commentable_name: commentable.class.model_name.human
+    ), mail.subject
     assert_equal users.map(&:email).sort, mail.bcc.sort
     assert !mail.bcc.include?(random_user.email)
     assert_nil mail.to

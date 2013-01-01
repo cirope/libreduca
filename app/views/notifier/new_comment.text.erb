@@ -1,4 +1,4 @@
-<%= t('notifier.new_comment.greeting.text', forum: @forum) %>
+<%= t('notifier.new_comment.greeting.text', commentable: @commentable) %>
 ================================================================================
 
 <%= t('notifier.new_comment.user_say.text', user: @comment.user) %>
@@ -8,6 +8,6 @@
   | <%= l.chomp %>
 <% end %>
 
-<%= t('notifier.new_comment.view') %>: <%= polymorphic_url([@forum.owner, @forum], anchor: @comment.anchor) %>
+<%= t('notifier.new_comment.view') %>: <%= polymorphic_url([@commentable.owner, @commentable], anchor: @comment.anchor) %>
 
 <%= render 'footer' %>

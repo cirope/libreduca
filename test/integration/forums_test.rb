@@ -42,27 +42,33 @@ class ForumsTest < ActionDispatch::IntegrationTest
   test 'should create a comment in institution as teacher' do
     institution = Fabricate(:institution)
     forum = Fabricate(:forum, owner_id: institution.id, owner_type: 'Institution')
-    comment = Fabricate.build(:comment, forum_id: forum.id, user_id: nil)
+    comment = Fabricate.build(
+      :comment, commentable_id: forum.id, commentable_type: 'Forum', user_id: nil
+    )
 
     login_into_institution institution: institution, as: 'teacher'
     
     visit institution_forum_path(institution, forum)
     
     assert_difference ['forum.comments.count', 'ActionMailer::Base.deliveries.size'] do
+      assert page.has_no_css?('blockquote[id]')
+
       within '#new_comment' do
         fill_in 'comment_comment', with: comment.comment
 
         find('.btn').click
       end
 
-      assert page.has_no_css?('#new_comment')
+      assert page.has_css?('blockquote[id]')
     end
   end
 
   test 'should create a comment in institution as student' do
     institution = Fabricate(:institution)
     forum = Fabricate(:forum, owner_id: institution.id, owner_type: 'Institution')
-    comment = Fabricate.build(:comment, forum_id: forum.id, user_id: nil)
+    comment = Fabricate.build(
+      :comment, commentable_id: forum.id, commentable_type: 'Forum', user_id: nil
+    )
 
     login_into_institution institution: institution, as: 'student'
     
@@ -71,23 +77,26 @@ class ForumsTest < ActionDispatch::IntegrationTest
     # No send email if is a student
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       assert_difference 'forum.comments.count' do
+        assert page.has_no_css?('blockquote[id]')
+
         within '#new_comment' do
           fill_in 'comment_comment', with: comment.comment
 
           find('.btn').click
         end
 
-        assert page.has_no_css?('#new_comment')
+        assert page.has_css?('blockquote[id]')
       end
     end
   end
-
 
   test 'should create a comment in teach' do
     teach = Fabricate(:teach)
     institution = teach.institution
     forum = Fabricate(:forum, owner_id: teach.id, owner_type: 'Teach')
-    comment = Fabricate.build(:comment, forum_id: forum.id, user_id: nil)
+    comment = Fabricate.build(
+      :comment, commentable_id: forum.id, commentable_type: 'Forum', user_id: nil
+    )
     user = Fabricate(:user, password: '123456', roles: [:normal])
 
     login_into_institution user: user, institution: institution
@@ -100,13 +109,15 @@ class ForumsTest < ActionDispatch::IntegrationTest
     
     assert_no_difference 'ActionMailer::Base.deliveries.size' do 
       assert_difference 'forum.comments.count' do
+        assert page.has_no_css?('blockquote[id]')
+
         within '#new_comment' do
           fill_in 'comment_comment', with: comment.comment
 
           find('.btn').click
         end
 
-        assert page.has_no_css?('#new_comment')
+        assert page.has_css?('blockquote[id]')
       end
     end
   end
