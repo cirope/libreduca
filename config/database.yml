@@ -15,7 +15,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: libreduca_development
+  database: libreduca_test_development
   pool: 5
   username: libreduca
   password: libreduca
@@ -41,7 +41,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: libreduca_test
+  database: libreduca_test_test
   pool: 5
   username: <%= ENV['TRAVIS'] ? 'postgres' : 'libreduca' %>
   password: <%= ENV['TRAVIS'] ? '' : 'libreduca' %>
@@ -49,7 +49,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: libreduca_production
+  database: libreduca_test_production
   pool: 25
   username: libreduca
   password: libreduca

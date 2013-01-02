@@ -48,7 +48,7 @@ class BlocksControllerTest < ActionController::TestCase
     end
 
     assert_response :success
-    assert_template 'blocks/_block'
+    assert_template 'blocks/new'
   end
 
   test 'should get edit' do
