@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 require 'test_helper'
 
 class PagesTest < ActionDispatch::IntegrationTest
@@ -9,15 +8,18 @@ class PagesTest < ActionDispatch::IntegrationTest
     page_block = Fabricate(:page, institution_id: institution.id)
     block = Fabricate.build(:block, blockable_id: page_block.id, blockable_type: 'Page')
 
-    login_into_institution institution: institution, expected_path: page_path(institution.id),
+    login_into_institution institution: institution,
       user: user, as: 'janitor'
 
-    assert_difference('page_block.blocks(:reload).count') do
+    visit page_path(institution)
+
+    assert_difference('page_block.blocks.count') do
       find('.new-action').click
 
       find('#block_content').set block.content
       find('.create-action').click
-      sleep 1
+
+      assert page.has_no_css?('.create-action')
     end
   end
 
@@ -30,12 +32,15 @@ class PagesTest < ActionDispatch::IntegrationTest
     login_into_institution institution: institution, expected_path: page_path(institution.id),
       user: user, as: 'janitor'
 
-    assert_no_difference('page_block.blocks(:reload).count') do
+    visit page_path(institution)
+
+    assert_no_difference('page_block.blocks.count') do
       find('.edit-action').click
 
       find('#block_content').set "Upd"
       find('.save-action').click
-      sleep 1
+
+      assert page.has_no_css?('.save-action')
     end
 
     assert_equal "Upd", block.reload.content
@@ -51,10 +56,13 @@ class PagesTest < ActionDispatch::IntegrationTest
     login_into_institution institution: institution, expected_path: page_path(institution.id),
       user: user, as: 'janitor'
 
-    assert_difference('page_block.blocks(:reload).count', -1) do
+    visit page_path(institution)
+
+    assert_difference('page_block.blocks.count', -1) do
       find('.delete-action').click
       page.driver.browser.switch_to.alert.accept
-      sleep 1
+
+      assert page.has_no_css?('.delete-action')
     end
   end
 end

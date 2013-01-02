@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
 
   after_filter -> { expires_now if user_signed_in? }
 
-  helper_method :current_institution, :current_enrollments
+  helper_method :current_institution, :current_enrollments,
+    :empty_page?, :go_to_page_or_dashboard
 
   rescue_from Exception do |exception|
     begin
@@ -64,7 +65,7 @@ class ApplicationController < ActionController::Base
 
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource_or_scope)
-    root_url
+    new_user_session_path
   end
 
   def after_sign_in_path_for(resource)
@@ -80,7 +81,7 @@ class ApplicationController < ActionController::Base
         if count > 1
           launchpad_url
         elsif count == 1
-          page_url(resource.institutions.first.id)
+          go_to_page_or_dashboard(resource.institutions.first)
         else
           root_url
         end
@@ -106,5 +107,19 @@ class ApplicationController < ActionController::Base
 
   def set_js_format_in_iframe_request
     request.format = :js if params['X-Requested-With'] == 'IFrame'
+  end
+
+  def go_to_page_or_dashboard(institution)
+    if !empty_page?(institution)
+      page_url(institution.id)
+    else
+      dashboard_url(subdomain: institution.identification)
+    end
+  end
+
+  def empty_page?(institution)
+    if institution
+      institution.pages.first_or_create.blocks.empty?
+    end
   end
 end
