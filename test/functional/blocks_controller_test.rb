@@ -39,11 +39,11 @@ class BlocksControllerTest < ActionController::TestCase
     assert_template 'blocks/create'
   end
 
-  test 'should not create a comment' do
+  test 'should not create a block' do
     assert_no_difference('@blockable.count') do
       xhr :post, :create, page_id: @page_block.to_param,
         block: Fabricate.attributes_for(:block).slice(
-          *Comment.accessible_attributes
+          *Block.accessible_attributes
         ).merge(content: '')
     end
 
