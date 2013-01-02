@@ -1,7 +1,12 @@
-<%= simple_form_for([@page, block], remote: true) do |f| %>
-  <%= f.error_notification %>
-  <%= f.object.errors.full_messages.join('; ') %>
-  <div <%= raw 'class="can_edit"' if current_user && (can? :create, Block) %>>
-    <%= render partial: '/blocks/block', locals: { f: f } %>
-  </div>
+<%= simple_form_for([@blockable, @block], remote: true) do |f| %>
+  <%= f.input :content, label: false, input_html: {
+    placeholder: Block.human_attribute_name('content'),
+    rows: 5, class: 'span11'
+  }  %>
+  
+  <%= f.input :lock_version, as: :hidden %>
+  <%= f.button :submit %>
+  <% if @block.persisted? %>
+    | <%= link_to t('label.cancel'), [@blockable, @block], remote: true %>
+  <% end %>
 <% end %>

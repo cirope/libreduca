@@ -1,1 +1,6 @@
-$('#container_block_id_<%= @block.id %>').html('<%= j (render template: "blocks/show", :formats => [:html]) %>')
+<% if @block.errors.empty? %>
+  $('#block-<%= @block.to_param %>').replaceWith('<%= j render(template: 'blocks/show', :formats => [:html]) %>');
+  $('#block-<%= @block.to_param %>').effect('highlight', 'slow');
+<% else %>
+  $('#block-<%= @block.to_param %>').html('<%= j render(template: 'blocks/edit', :formats => [:html]) %>');
+<% end %>

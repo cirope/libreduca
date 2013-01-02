@@ -1,1 +1,2 @@
-$('#container_block_id_<%= @block.id %>').html('<%= j (render template: "blocks/edit", :formats => [:html]) %>')
+$('#block-<%= @block.to_param %>').html('<%= j render(template: 'blocks/edit', formats: [:html]) %>');
+$('#block_content').focus();
