@@ -114,6 +114,12 @@ module ApplicationHelper
   end
 
   def upper_login_button?
-    !user_signed_in? && (controller_name != 'sessions') && !current_institution.pages.first.blocks.empty?
+    !user_signed_in? && (controller_name != 'sessions') && not_empty_page?
+  end
+
+  def not_empty_page?
+    if current_institution
+      !current_institution.pages.first.blocks.empty?
+    end
   end
 end
