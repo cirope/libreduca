@@ -1,0 +1,12 @@
+<div class="readonly-data">
+  <div class="welcome-centered">
+    <%= markdown "## Bienvenido a #{@institution.name} ##" %>
+  </div>
+
+  <%= render file: "devise/sessions/new", :locals => {:resource => resource} %>
+
+  <div class="form-actions">
+    <div class="pull-right">
+    </div>
+  </div>
+</div>

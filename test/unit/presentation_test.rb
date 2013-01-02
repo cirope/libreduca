@@ -18,9 +18,9 @@ class PresentationTest < ActiveSupport::TestCase
       @presentation.homework = Fabricate(:homework)
 
       assert @presentation.save
-    end 
+    end
   end
-    
+
   test 'update' do
     new_homework = Fabricate(:homework)
 
@@ -33,13 +33,13 @@ class PresentationTest < ActiveSupport::TestCase
 
     assert_not_equal new_homework.id, @presentation.reload.homework_id
   end
-    
-  test 'destroy' do 
+
+  test 'destroy' do
     assert_difference 'Version.count' do
       assert_difference('Presentation.count', -1) { @presentation.destroy }
     end
   end
-  
+
   test 'can not create for not current teach' do
     teach = Fabricate(:teach, start: 5.days.ago, finish: 1.day.ago)
     content = Fabricate(:content, teach_id: teach.id)
@@ -52,22 +52,22 @@ class PresentationTest < ActiveSupport::TestCase
     end
   end
 
-    
+
   test 'validates blank attributes' do
     @presentation.remove_file!
-    
+
     assert @presentation.invalid?
     assert_equal 1, @presentation.errors.size
     assert_equal [error_message_from_model(@presentation, :file, :blank)],
       @presentation.errors[:file]
   end
-  
+
   test 'validates unique attributes' do
     new_presentation = Fabricate(:presentation)
 
     @presentation.homework_id = new_presentation.homework_id
     @presentation.user_id = new_presentation.user_id
-    
+
     assert @presentation.invalid?
     assert_equal 1, @presentation.errors.size
     assert_equal [

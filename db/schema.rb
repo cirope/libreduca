@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212155504) do
+ActiveRecord::Schema.define(:version => 20121220134525) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(:version => 20121212155504) do
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "blocks", :force => true do |t|
+    t.text     "content"
+    t.integer  "position",       :default => 0
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.integer  "blockable_id"
+    t.string   "blockable_type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "comments", :force => true do |t|
     t.text     "comment",                     :null => false
@@ -213,6 +223,13 @@ ActiveRecord::Schema.define(:version => 20121212155504) do
 
   add_index "memberships", ["group_id"], :name => "index_memberships_on_group_id"
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
+  create_table "pages", :force => true do |t|
+    t.integer  "institution_id"
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "presentations", :force => true do |t|
     t.string   "file",                        :null => false
