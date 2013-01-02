@@ -33,7 +33,6 @@ class ActionDispatch::IntegrationTest
     Capybara.server_port = '54163'
     Capybara.app_host = 'http://admin.lvh.me:54163'
     Capybara.default_wait_time = ENV['TRAVIS'] ? 4 : 2
-    Capybara.default_wait_time = 20
   end
 
   teardown do
