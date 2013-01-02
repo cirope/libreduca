@@ -1,7 +1,4 @@
 Libreduca::Application.routes.draw do
-  resources :comments
-
-
   constraints(AdminSubdomain) do
     match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
 
@@ -97,11 +94,17 @@ Libreduca::Application.routes.draw do
       resources :comments, only: [:index, :show, :new, :create]
     end
 
+    resources :news, only: [] do
+      resources :comments, only: [:index, :show, :new, :create]
+    end
+
     resources :institutions do
       resources :grades
       resources :users
       resources :forums
     end
+
+    resources :news
     
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
     

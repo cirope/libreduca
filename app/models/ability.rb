@@ -42,6 +42,7 @@ class Ability
     can :create, Reply, user_id: user.id
     can :update, Reply, user_id: user.id
     can :read, Image
+    can :read, News
   end
 
   def student_rules(user, institution)
@@ -90,6 +91,7 @@ class Ability
       user.jobs.in_institution(institution).exists?
     end
     can :manage, Presentation # TODO: check for proper access
+    can :manage, News, jobs_restrictions
   end
 
   def headmaster_rules(user, institution)

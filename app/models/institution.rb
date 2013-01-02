@@ -32,6 +32,7 @@ class Institution < ActiveRecord::Base
   has_many :teaches, through: :courses
   has_many :forums, dependent: :destroy, as: :owner
   has_many :images, dependent: :destroy
+  has_many :news, dependent: :destroy
   
   def to_s
     self.name

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130101184556) do
+ActiveRecord::Schema.define(:version => 20130101225315) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -214,6 +214,19 @@ ActiveRecord::Schema.define(:version => 20130101184556) do
 
   add_index "memberships", ["group_id"], :name => "index_memberships_on_group_id"
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
+  create_table "news", :force => true do |t|
+    t.string   "title",                         :null => false
+    t.text     "description"
+    t.text     "body"
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.integer  "institution_id"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "news", ["institution_id"], :name => "index_news_on_institution_id"
+  add_index "news", ["title"], :name => "index_news_on_title"
 
   create_table "presentations", :force => true do |t|
     t.string   "file",                        :null => false

@@ -3,7 +3,8 @@ class CommentsController < ApplicationController
   
   check_authorization
   load_and_authorize_resource :forum
-  load_and_authorize_resource through: [:forum]
+  load_and_authorize_resource :news
+  load_and_authorize_resource through: [:forum, :news]
 
   before_filter :set_commentable
 
@@ -43,10 +44,12 @@ class CommentsController < ApplicationController
     end
   end
 
+=begin
   # GET /comments/1/edit
   def edit
     @title = t('view.comments.edit_title')
   end
+=end
 
   # POST /comments
   # POST /comments.json
@@ -71,6 +74,7 @@ class CommentsController < ApplicationController
     end
   end
 
+=begin
   # PUT /comments/1
   # PUT /comments/1.json
   def update
@@ -99,10 +103,11 @@ class CommentsController < ApplicationController
       format.json { head :ok }
     end
   end
+=end
 
   private
 
   def set_commentable
-    @commentable = @forum
+    @commentable = @forum || @news
   end
 end

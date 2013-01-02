@@ -53,6 +53,9 @@
       login:
         one: 'Ingreso'
         other: 'Ingresos'
+      news:
+        one: 'Noticia'
+        other: 'Noticias'
       presentation:
         one: 'Entrega'
         other: 'Entregas'
@@ -129,6 +132,10 @@
       login:
         ip: 'IP'
         user_agent: 'Navegador'
+      news:
+        title: 'Título'
+        description: 'Descripción'
+        body: 'Contenido'
       presentation:
         file: 'Archivo'
       question:
@@ -405,6 +412,17 @@
         other: 'Otro'
     launchpad:
       index_title: 'Instituciones'
+    news:
+      index_title: 'Listado de noticias'
+      show_title: 'Detalle de noticia'
+      new_title: 'Nueva noticia'
+      edit_title: 'Modificar noticia'
+      correctly_created: 'Noticia agregada correctamente.'
+      correctly_updated: 'Noticia actualizada correctamente.'
+      stale_object_error: 'La noticia no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna noticia hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva noticia</span>'
+      new: 'Nueva noticia'
     presentations:
       index_title: 'Listado de entregas'
       show_title: 'Detalle de entrega'

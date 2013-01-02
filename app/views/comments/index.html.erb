@@ -13,6 +13,6 @@
 <div class="form-actions">
   <%= link_to(
     t('view.comments.new', default: :'label.new'),
-    new_comment_path, class: 'btn btn-primary'
+    new_polymorphic_path([@commentable, Comment]), class: 'btn btn-primary'
   ) if can? :create, @commentable.comments.build %>
 </div>
