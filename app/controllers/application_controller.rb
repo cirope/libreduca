@@ -1,15 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
   before_filter :set_current_institution, :load_enrollments
   after_filter -> { expires_now if user_signed_in? }
-  
+
   helper_method :current_institution, :current_enrollments
 
   rescue_from Exception do |exception|
     begin
       @title = t('errors.title')
-      
+
       if response.redirect_url.blank?
         render template: 'shared/show_error', locals: { error: exception }
       end
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   def current_ability
     @_current_ability ||= Ability.new(current_user, current_institution)
   end
-  
+
   def current_institution
     @_current_institution
   end
@@ -57,12 +57,12 @@ class ApplicationController < ActionController::Base
   def not_found
     redirect_to root_url
   end
-  
+
   private
 
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource_or_scope)
-    new_user_session_path
+    root_url
   end
 
   def after_sign_in_path_for(resource)
@@ -78,9 +78,9 @@ class ApplicationController < ActionController::Base
         if count > 1
           launchpad_url
         elsif count == 1
-          dashboard_url(subdomain: resource.institutions.first.identification)
+          page_url(resource.institutions.first.id)
         else
-          dashboard_url
+          root_url
         end
       end
     end

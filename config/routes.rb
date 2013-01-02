@@ -1,4 +1,5 @@
 Libreduca::Application.routes.draw do
+
   constraints(AdminSubdomain) do
     match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
 
@@ -41,7 +42,7 @@ Libreduca::Application.routes.draw do
         get :edit_profile
         put :update_profile
       end
-      
+
       resources :enrollments, only: [] do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end
@@ -52,7 +53,7 @@ Libreduca::Application.routes.draw do
 
     root to: redirect('/users/sign_in')
   end
-  
+
   constraints(SchoolSubdomain) do
     match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
 
@@ -107,22 +108,22 @@ Libreduca::Application.routes.draw do
       resources :grades
       resources :users
     end
-    
+
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
-    
+
     Job::TYPES.each do |job_type|
       match "/dashboard/#{job_type}(.:format)" => "dashboard##{job_type}",
         as: "#{job_type}_dashboard", via: :get
     end
-    
+
     devise_for :users
-    
+
     resources :users do
       member do
         get :edit_profile
         put :update_profile
       end
-      
+
       resources :enrollments, only: [] do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end
@@ -132,8 +133,12 @@ Libreduca::Application.routes.draw do
 
     match 'private/:path', to: 'files#download',
       constraints: { path: /.+/ }, via: :get
-    
-    root to: redirect('/users/sign_in')
+
+    resources :pages, only: [:show] do
+      resources :blocks
+    end
+
+    root to: "pages#show"
   end
 
   get 'errors/error_404'

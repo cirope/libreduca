@@ -6,17 +6,17 @@ class Ability
 
     user ? user_rules(user, institution) : default_rules(user, institution)
   end
-  
+
   def user_rules(user, institution)
     user.roles.each do |role|
       send("#{role}_rules", user, institution) if respond_to?("#{role}_rules")
     end
   end
-  
+
   def admin_rules(user, institution)
     can :manage, :all
   end
-  
+
   def regular_rules(user, institution)
     if @job
       student_rules(user, institution)    if @job.student?
@@ -27,7 +27,7 @@ class Ability
 
     default_rules(user, institution) if institution
   end
-  
+
   def default_rules(user, institution)
     can :edit_profile, User
     can :update_profile, User
@@ -42,10 +42,14 @@ class Ability
     can :create, Reply, user_id: user.id
     can :update, Reply, user_id: user.id
     can :read, Image
+    can :read, Page
+    can :read, Block
   end
 
   def student_rules(user, institution)
     can :create, Presentation
+    can :read, Page
+    can :read, Block
   end
 
   def teacher_rules(user, institution)
@@ -53,7 +57,7 @@ class Ability
       enrollments: { user_id: user.id, job: 'teacher' }
     }
     teach_restrictions = { teach: enrollments_restrictions }
-    
+
     can :read, Enrollment, teach_restrictions
     can :send_email_summary, Enrollment, teach_restrictions
     can :update, Teach, enrollments_restrictions
@@ -65,13 +69,15 @@ class Ability
     can :read, User, enrollments_restrictions
     can :manage, Image, institution_id: institution.id
     can :read, Presentation # TODO: check for proper access
+    can :read, Page
+    can :read, Block
   end
 
   def janitor_rules(user, institution)
     jobs_restrictions = {
       institution: { workers: { user_id: user.id, job: 'janitor' } }
     }
-    
+
     can :manage, Grade, jobs_restrictions
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
@@ -83,22 +89,26 @@ class Ability
     can :create, User do |user|
       job_conditions = user.jobs.empty?
       job_conditions ||= user.jobs.all? { |j| j.institution_id == institution.id }
-      
+
       user.is?(:regular) && job_conditions
     end
     can :update, User do |user|
       user.jobs.in_institution(institution).exists?
     end
     can :manage, Presentation # TODO: check for proper access
+    can :manage, Page, institution_id: institution.id
+    can :manage, Block
   end
 
   def headmaster_rules(user, institution)
     jobs_restrictions = {
       institution: { workers: { user_id: user.id, job: 'headmaster' } }
     }
-    
+
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
     can :manage, Image, jobs_restrictions
+    can :read, Page
+    can :read, Block
   end
 end

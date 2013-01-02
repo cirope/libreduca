@@ -1,11 +1,11 @@
 'es':
   app_name: 'Libreduca'
-  
+
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'
     whodunnit: 'Autor'
-    
+
   activerecord:
     models:
       answer:
@@ -80,7 +80,7 @@
       visit:
         one: 'Visita'
         other: 'Visitas'
-      
+
     attributes:
       answer:
         content: 'Respuesta'
@@ -197,11 +197,11 @@
   date:
     formats:
       minimal: '%d/%m/%y'
-        
+
   errors:
     title: 'Error'
     access_denied: 'No tiene permisos para acceder al contenido'
-        
+
   label:
     'yes': 'Si'
     'no': 'No'
@@ -220,7 +220,7 @@
     sending: 'Enviando...'
     sent: 'Enviado'
     show: 'Ver'
-    
+
   menu:
     actions:
       logout: 'Salir de la aplicación'
@@ -230,10 +230,10 @@
     institutions: 'Instituciones'
     teaches: 'Cursos'
     users: 'Usuarios'
-    
+
   messages:
     confirmation: '¿Está seguro?'
-    
+
   view:
     generic:
       empty_index:
@@ -241,6 +241,11 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    blocks:
+      new_block: 'Nueva seccion'
+      save: 'Guardar'
+      edit: 'Editar'
+      confirmable: 'Esta seguro que desea eliminar la seccion?'
     contents:
       index_title: 'Listado de contenidos'
       new_title: 'Nuevo contenido'
