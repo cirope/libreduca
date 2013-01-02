@@ -1,12 +1,13 @@
 <div class="readonly-data">
   <div class="page-header">
-    <h1><%= @news %></h1>
-
-    <hr />
-    <h3><%= @news.description %></h3>
-    <p><%= @news.body %></p>
+    <h1 class="text-info"><%= @news %></h1>
   </div>
 
+  <h4><%= @news.description %></h4>
+
+  <p><%= @news.body %></p>
+
+  <hr />
   <h3><%= Comment.model_name.human(count: @news.comments.size) %></h3>
 
   <%= render partial: 'comments/comment', collection: @news.comments %>
@@ -14,6 +15,11 @@
   <%= render template: 'comments/new', locals: { :@comment => @news.comments.build, :@commentable => @news } %>
 </div>
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_news_path(@news) if can? :update, @news %> |
-  <%= link_to t('label.list'), news_index_path %>
+  <%= link_to(
+    t('label.edit'), edit_news_path(@news), class: 'btn btn-primary'
+  ) if can? :update, @news %>
+
+  <div class="pull-right">
+    <%= link_to t('label.list'), news_index_path %>
+  </div>
 </div>
