@@ -15,7 +15,7 @@ jQuery ($)->
     $(this).next('.edit-action').show()
     $(this).hide()
 
-  $(document).on 'click', 'a.delete-action', (e) ->
+  $(document).on 'click', 'a.block-delete', (e) ->
     action_url = $(this).parents('form').attr('action')
     formdata = $(this).parents('form').serialize()
     $.ajax({

@@ -5,12 +5,12 @@ require 'test_helper'
 class ContentsTest < ActionDispatch::IntegrationTest
   test 'should create a new content' do
     login
-    
+
     teach = Fabricate(:teach)
     content = Fabricate.build(:content, teach_id: teach.id)
-    
+
     visit new_teach_content_path(teach)
-    
+
     fill_in Content.human_attribute_name('title'), with: content.title
     fill_in Content.human_attribute_name('content'), with: content.content
 
@@ -28,7 +28,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
       question = Fabricate.build(:question, survey_id: nil)
 
       assert page.has_no_css?('fieldset')
-      
+
       click_link I18n.t('view.contents.surveys.new_question')
 
       within 'fieldset' do
@@ -37,7 +37,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
         answer = Fabricate.build(:answer, question_id: nil)
 
         assert page.has_no_css?('fieldset')
-                    
+
         click_link I18n.t('view.contents.surveys.new_answer')
 
         within 'fieldset' do
@@ -51,7 +51,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
     click_link Document.model_name.human(count: 0)
 
     assert page.has_no_css?('#documents_content fieldset')
-    
+
     click_link I18n.t('view.contents.new_document')
 
     within '#documents_content fieldset' do
@@ -60,13 +60,13 @@ class ContentsTest < ActionDispatch::IntegrationTest
     end
 
     assert page.has_no_css?('#documents_content fieldset:nth-child(2)')
-    
+
     click_link I18n.t('view.contents.new_document')
-    
+
     assert page.has_css?('#documents_content fieldset:nth-child(2)')
-    
+
     document = Fabricate.build(:document, owner_id: nil)
-      
+
     within '#documents_content fieldset:nth-child(2)' do
       fill_in find('input[name$="[name]"]')[:id], with: document.name
       attach_file find('input[name$="[file]"]')[:id], document.file.path
@@ -77,7 +77,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
     click_link Homework.model_name.human(count: 0)
 
     assert page.has_no_css?('#homeworks_content fieldset')
-    
+
     click_link I18n.t('view.contents.homeworks.new')
 
     within '#homeworks_content fieldset' do
@@ -88,7 +88,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
       find('input[name$="[closing_at]"]').click
     end
-  
+
     within '.ui-datepicker-calendar' do
       find('a.ui-state-default.ui-state-highlight').click
      end
@@ -97,50 +97,50 @@ class ContentsTest < ActionDispatch::IntegrationTest
       'Content.count', 'Survey.count', 'Question.count', 'Answer.count',
       'Homework.count'
     ]
-    
+
     assert_difference counts do
       assert_difference 'Document.count', 2 do
         find('.btn.btn-primary').click
       end
     end
   end
-  
+
   test 'should delete all document inputs' do
     login
-    
+
     teach = Fabricate(:teach)
-    
+
     visit new_teach_content_path(teach)
-    
+
     assert page.has_no_css?('#documents_content fieldset')
 
     click_link I18n.t('view.contents.new_document')
 
     assert page.has_css?('#documents_content fieldset')
-    
+
     within '#documents_content fieldset' do
       click_link '✘' # Destroy link
     end
-    
+
     assert page.has_no_css?('#documents_content fieldset')
   end
-  
+
   test 'should hide and mark for destruction a document' do
     login
-    
+
     content = Fabricate(:content)
     document = Fabricate(
       :document, owner_id: content.id, owner_type: 'Content'
     )
-    
+
     visit edit_teach_content_path(content.teach, content)
-    
+
     assert page.has_css?('#documents_content fieldset')
-    
+
     within '#documents_content fieldset' do
       click_link '✘' # Destroy link
     end
-    
+
     assert_no_difference 'Content.count' do
       assert_difference 'Document.count', -1 do
         find('.btn.btn-primary').click
@@ -150,26 +150,26 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
   test 'should hide and mark for destruction a survey' do
     login
-    
+
     content = Fabricate(:content)
     survey = Fabricate(:survey, content_id: content.id)
-  
+
     2.times do
       question = Fabricate(:question, survey_id: survey.id)
 
       3.times { Fabricate(:answer, question_id: question.id) }
     end
-    
+
     visit edit_teach_content_path(content.teach, content)
 
     click_link Survey.model_name.human(count: 0)
-    
+
     assert page.has_css?('#surveys_content fieldset')
-    
+
     within '#surveys_content fieldset:first-child' do
       first('a[data-dynamic-target=".survey"]').click # Destroy link
     end
-    
+
     assert_no_difference 'Content.count' do
       assert_difference 'content.surveys.count', -1 do
         assert_difference 'Question.count', -2 do
@@ -184,7 +184,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
   test 'should answer a survey' do
     content = Fabricate(:content)
     survey = Fabricate(:survey, content_id: content.id)
-  
+
     2.times do
       question = Fabricate(:question, survey_id: survey.id)
 
@@ -198,9 +198,9 @@ class ContentsTest < ActionDispatch::IntegrationTest
       user_id: @test_user.id,
       teach_id: content.teach_id, job: 'student'
     )
-    
+
     visit teach_content_path(content.teach, content)
-    
+
     assert page.has_css?('form.new_reply input')
 
     assert_difference 'Reply.count', 2 do
@@ -214,14 +214,14 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
   test 'should upload a presentation' do
     login_into_institution as: 'student'
-    
+
     homework = Fabricate(:homework)
     content = homework.content
     presentation = Fabricate.build(:presentation, homework_id: homework.id, user_id: nil)
     Fabricate(:enrollment, user_id: @test_user.id, teach_id: content.teach_id)
-  
+
     visit teach_content_path(content.teach, content)
-    
+
     assert page.has_css?("#presentation_file_#{homework.to_param}")
     assert page.has_no_css?('.upload')
 

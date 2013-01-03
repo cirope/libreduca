@@ -6,7 +6,7 @@
         class: 'iconic edit-btn edit-action',
         remote: true, title: t('view.blocks.edit'), data: { show_tooltip: true }
       %>
-      <%= link_to_destroy [@blockable, @block], remote: true if can? :destroy, @block %>
+      <%= link_to_destroy [@blockable, @block], class: 'iconic block-delete', remote: true if can? :destroy, @block %>
     </div>
   <% end %>
 
