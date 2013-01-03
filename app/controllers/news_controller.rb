@@ -4,6 +4,8 @@ class NewsController < ApplicationController
   check_authorization
   load_and_authorize_resource through: :current_institution
 
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+  
   # GET /news
   # GET /news.json
   def index

@@ -3,8 +3,12 @@
     <h1><%= @news %></h1>
 
     <hr />
-    <h3><%= @news.description %></h3>
-    <p><%= @news.body %></p>
+    <% if @news.description.present? %>
+      <h3><%= @news.description %></h3>
+    <% end %>
+    <% if @news.body.present? %>
+      <p><%= markdown @news.body %></p>
+    <% end %>
   </div>
 
   <h3><%= Comment.model_name.human(count: @news.comments.size) %></h3>
