@@ -1,1 +1,3 @@
-$('#new_blocks').append('<%= j (render template: "blocks/_form", formats: [:html], locals: { block: @block }) %>')
+$('#new_block').replaceWith('<%= j render(template: @block.persisted? ? 'blocks/show' : 'blocks/new', formats: [:html]) %>');
+$('#block_content').focus();
+$('#block-<%= @block.to_param %>').effect('highlight', 'slow');

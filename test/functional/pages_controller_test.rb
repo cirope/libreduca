@@ -23,8 +23,7 @@ class PagesControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'pages/show'
     assert_template 'devise/sessions/new'
-    assert_template 'blocks/_block'
-    assert_template 'blocks/_form'
+    assert_template 'blocks/show'
   end
 
   test "should get show of page with blocks and user" do
@@ -34,7 +33,6 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_select '#unexpected_error', false
     assert_template 'pages/show'
-    assert_template 'blocks/_block'
-    assert_template 'blocks/_form'
+    assert_template 'blocks/show'
   end
 end

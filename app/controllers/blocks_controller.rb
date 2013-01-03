@@ -41,6 +41,7 @@ class BlocksController < ApplicationController
     respond_to do |format|
       format.html { render partial: 'block' }
       format.json { head :ok }
+      format.js
     end
   end
 

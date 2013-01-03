@@ -3,10 +3,12 @@
 <% else %>
   <% url = polymorphic_path([@page, :block], action: :new) %>
   <div class="readonly-data">
-    <%= render partial: 'blocks/form', collection: @page.blocks, as: :block %>
+    <% @page.blocks.each do |block| %>
+      <%= render template: 'blocks/show', locals: { :@block => block, :@blockable => @page } %>
+    <% end %>
     <div id="new_blocks">
     </div>
-    <%= link_to(t('view.blocks.new_block'), url, class: 'iconic btn edit-btn new-action',
+    <%= link_to(t('view.blocks.new_block'), url, class: 'btn edit-btn new-action',
         remote: true, title: t('view.blocks.new_block'), data: { show_tooltip: true }) if current_user && (can? :create, Block)
     %>
   </div>

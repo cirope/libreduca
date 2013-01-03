@@ -11,6 +11,9 @@
       answer:
         one: 'Opción'
         other: 'Opciones'
+      block:
+        one: 'Sección'
+        other: 'Secciones'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
@@ -87,6 +90,8 @@
     attributes:
       answer:
         content: 'Respuesta'
+      block:
+        content: 'Contenido'
       comment:
         comment: 'Comentario'
         info: 'Información adicional'
@@ -213,6 +218,7 @@
     'yes': 'Si'
     'no': 'No'
     back: 'Volver'
+    cancel: 'Cancelar'
     close: 'Cerrar'
     delete: 'Eliminar'
     download: 'Descargar'

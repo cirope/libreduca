@@ -1,1 +1,14 @@
-<%= markdown(@block.content || '') %>
+<div id="block-<%= @block.to_param %>" class="block">
+  <% if current_user && can?(:update, @block) %>
+    <div class="pull-right">
+      <%=
+        link_to '&#x270e;'.html_safe, edit_polymorphic_path([@blockable, @block]),
+        class: 'iconic edit-btn edit-action',
+        remote: true, title: t('view.blocks.edit'), data: { show_tooltip: true }
+      %>
+      <%= link_to_destroy [@blockable, @block], remote: true if can? :destroy, @block %>
+    </div>
+  <% end %>
+
+  <%= markdown(@block.content || '') %>
+</div>
