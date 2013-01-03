@@ -1,0 +1,7 @@
+<%= simple_form_for([@page, block], remote: true) do |f| %>
+  <%= f.error_notification %>
+  <%= f.object.errors.full_messages.join('; ') %>
+  <div <%= raw 'class="can_edit"' if current_user && (can? :create, Block) %>>
+    <%= render partial: '/blocks/block', locals: { f: f } %>
+  </div>
+<% end %>

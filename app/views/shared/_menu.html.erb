@@ -4,9 +4,9 @@
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="iconic">&#xe055;</span>
       </a>
-      
+
       <%= link_to t('app_name'), root_path, class: 'brand' %>
-      
+
       <% if user_signed_in? %>
         <div class="nav-collapse">
           <ul class="nav">
@@ -42,6 +42,21 @@
                 method: :delete,
                 data: { 'show-tooltip' => true, 'placement' => 'bottom' }
               ) %>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <div class="nav-collapse">
+          <ul class="nav pull-right">
+            <li class="dropdown">
+              <% if upper_login_button? %>
+                <%= link_to('#', class: 'dropdown-toggle fix-corners', data: { toggle: "dropdown"} ) do %>
+                  Ingresar <strong class="caret"></strong>
+                <% end %>
+                  <div class="dropdown-menu">
+                  <%= render file: "devise/sessions/new_miniform", :locals => {:resource => resource} %>
+                  </div>
+              <% end %>
             </li>
           </ul>
         </div>

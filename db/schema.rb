@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20130101225315) do
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
+  create_table "blocks", :force => true do |t|
+    t.text     "content"
+    t.integer  "position",       :default => 0
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.integer  "blockable_id"
+    t.string   "blockable_type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "comments", :force => true do |t|
     t.text     "comment",                         :null => false
     t.integer  "user_id",                         :null => false
@@ -227,6 +237,13 @@ ActiveRecord::Schema.define(:version => 20130101225315) do
 
   add_index "news", ["institution_id"], :name => "index_news_on_institution_id"
   add_index "news", ["title"], :name => "index_news_on_title"
+
+  create_table "pages", :force => true do |t|
+    t.integer  "institution_id"
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "presentations", :force => true do |t|
     t.string   "file",                        :null => false

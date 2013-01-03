@@ -38,6 +38,8 @@
 //= require institutions
 //= require launchpad
 //= require lazy_tabs
+//= require blocks
+//= require pages
 //= require presentations
 //= require regions
 //= require replies

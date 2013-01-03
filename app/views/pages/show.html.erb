@@ -1,0 +1,27 @@
+<% if !user_signed_in? && @page.blocks.empty? %>
+  <%= render 'shared/guest_page', controller_name: 'pages' %>
+<% else %>
+  <% url = polymorphic_path([@page, :block], action: :new) %>
+  <div class="readonly-data">
+    <%= render partial: 'blocks/form', collection: @page.blocks, as: :block %>
+    <div id="new_blocks">
+    </div>
+    <%= link_to(t('view.blocks.new_block'), url, class: 'iconic btn edit-btn new-action',
+        remote: true, title: t('view.blocks.new_block'), data: { show_tooltip: true }) if current_user && (can? :create, Block)
+    %>
+  </div>
+
+  <div class="form-actions">
+    <div class="pull-right">
+      <% if current_user && (can? :create, Block) %>
+        <%= t(
+          'view.contents.markdown_help.html',
+          link: link_to('markdown', '#markdown-help', data: { toggle: 'modal' })
+          )
+        %>
+
+        <%= render 'help/markdown_inline' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

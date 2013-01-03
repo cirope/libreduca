@@ -1,16 +1,18 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
   before_filter :set_current_institution, :load_enrollments,
     :set_js_format_in_iframe_request
+
   after_filter -> { expires_now if user_signed_in? }
-  
-  helper_method :current_institution, :current_enrollments
+
+  helper_method :current_institution, :current_enrollments,
+    :empty_page?, :go_to_page_or_dashboard
 
   rescue_from Exception do |exception|
     begin
       @title = t('errors.title')
-      
+
       if response.redirect_url.blank?
         render template: 'shared/show_error', locals: { error: exception }
       end
@@ -40,7 +42,7 @@ class ApplicationController < ActionController::Base
   def current_ability
     @_current_ability ||= Ability.new(current_user, current_institution)
   end
-  
+
   def current_institution
     @_current_institution
   end
@@ -58,7 +60,7 @@ class ApplicationController < ActionController::Base
   def not_found
     redirect_to root_url
   end
-  
+
   private
 
   # Overwriting the sign_out redirect path method
@@ -79,9 +81,9 @@ class ApplicationController < ActionController::Base
         if count > 1
           launchpad_url
         elsif count == 1
-          dashboard_url(subdomain: resource.institutions.first.identification)
+          go_to_page_or_dashboard(resource.institutions.first)
         else
-          dashboard_url
+          root_url
         end
       end
     end
@@ -105,5 +107,19 @@ class ApplicationController < ActionController::Base
 
   def set_js_format_in_iframe_request
     request.format = :js if params['X-Requested-With'] == 'IFrame'
+  end
+
+  def go_to_page_or_dashboard(institution)
+    if !empty_page?(institution)
+      page_url(institution.id)
+    else
+      dashboard_url(subdomain: institution.identification)
+    end
+  end
+
+  def empty_page?(institution)
+    if institution
+      institution.pages.first_or_create.blocks.empty?
+    end
   end
 end

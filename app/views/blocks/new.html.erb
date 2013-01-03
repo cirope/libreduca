@@ -1,0 +1,26 @@
+<%= simple_form_for([@blockable, @blockable.blocks.build], remote: true) do |f| %>
+  <%= f.error_notification %>
+  <%= f.object.errors.full_messages.join('; ') %>
+  <div <%= raw 'class="can_edit"' if current_user && (can? :create, Block) %>>
+    <fieldset class="row-fluid new-content">
+      <div class="span12 block-container">
+        <div class="content block-body">
+          <%= f.input :content, label: false, input_html: {
+            rows: 5, class: 'span11',
+            placeholder: Comment.human_attribute_name('content'),
+            value: (f.object.content || '') } %>
+        </div>
+        <div class="nested-actions grouped-actions push-right">
+          <%= f.input :id, as: :hidden %>
+          <%= f.input :lock_version, as: :hidden %>
+          <div class="hidden-actions">
+            <%= f.button :submit, t('view.blocks.save'), class: 'create-action' %>
+            <% if current_user && (can? :create, Block) %>
+              <%= link_to_remove_nested_item(f,t('view.blocks.confirmable')) %>
+            <% end %>
+          </div>
+      </div>
+      </div>
+    </fieldset>
+  </div>
+<% end %>
