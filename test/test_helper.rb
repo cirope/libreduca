@@ -88,4 +88,19 @@ class ActionDispatch::IntegrationTest
   def assert_page_has_no_errors!
     assert page.has_no_css?('#unexpected_error')
   end
+
+  def safe_drag_and_drop(source, target)
+    builder = page.driver.browser.action
+    source = source.native
+    target = target.native
+
+    builder.click_and_hold source
+    -1.downto -30 do |count|
+      builder.move_to target, count, -count
+    end
+
+    builder.move_to target
+    builder.release target
+    builder.perform
+  end
 end

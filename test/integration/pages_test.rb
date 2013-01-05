@@ -15,7 +15,7 @@ class PagesTest < ActionDispatch::IntegrationTest
     visit page_path(institution)
 
     assert_difference('page_block.blocks.count') do
-      find('.new-action').click
+      find('#create-block').click
 
       assert page.has_css?('#block_content')
 
@@ -65,10 +65,28 @@ class PagesTest < ActionDispatch::IntegrationTest
 
     assert_difference('page_block.blocks.count', -1) do
       find('.content a[data-method="delete"]').click
-      
+
       page.driver.browser.switch_to.alert.accept
 
       assert page.has_no_css?('.block')
     end
+  end
+
+  test 'should sort blocks from pages' do
+    institution = Fabricate(:institution)
+    user = Fabricate(:user, password: '123456', role: :normal)
+    page_block = Fabricate(:page, institution_id: institution.id)
+    2.times { |x| block = Fabricate(:block, content: x, blockable_id: page_block.id, blockable_type: 'Page') }
+
+    login_into_institution institution: institution, expected_path: page_path(institution.id),
+      user: user, as: 'janitor'
+
+    source = find("#block-1").find('.handle')
+    target = find("#block-2").find('.handle')
+    safe_drag_and_drop(source, target)
+
+    visit page_path(institution)
+
+    assert_equal first('.block'), find("#block-2")
   end
 end

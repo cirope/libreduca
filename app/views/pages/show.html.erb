@@ -2,14 +2,15 @@
   <%= render 'shared/guest_page', controller_name: 'pages' %>
 <% else %>
   <% url = polymorphic_path([@page, :block], action: :new) %>
-  <div class="readonly-data">
+  <div id="sortable" class="readonly-data" data-update-url="<%= page_sort_path(@page) %>">
     <% @page.blocks.each do |block| %>
       <%= render template: 'blocks/show', locals: { :@block => block, :@blockable => @page } %>
     <% end %>
-    <div id="new_blocks">
-    </div>
-    <%= link_to(t('view.blocks.new_block'), url, class: 'btn edit-btn new-action',
-        remote: true, title: t('view.blocks.new_block'), data: { show_tooltip: true }) if current_user && (can? :create, Block)
+  </div>
+
+  <div class="readonly-data">
+    <%= link_to(t('view.blocks.new_block'), url, class: 'btn edit-btn', id: 'create-block',
+          remote: true, title: t('view.blocks.new_block'), data: { show_tooltip: true }) if current_user && (can? :create, Block)
     %>
   </div>
 

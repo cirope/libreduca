@@ -136,6 +136,7 @@ Libreduca::Application.routes.draw do
 
     resources :pages, only: [:show] do
       resources :blocks
+      post :sort, controller: :blocks
     end
 
     root to: "pages#show"
