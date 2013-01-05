@@ -41,7 +41,7 @@ class PresentationTest < ActiveSupport::TestCase
   end
 
   test 'can not create for not current teach' do
-    teach = Fabricate(:teach, start: 5.days.ago, finish: 1.day.ago)
+    teach = Fabricate(:teach, start: 5.days.ago, finish: 2.day.ago)
     content = Fabricate(:content, teach_id: teach.id)
     homework = Fabricate(:homework, content_id: content.id)
 

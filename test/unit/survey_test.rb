@@ -4,7 +4,7 @@ class SurveyTest < ActiveSupport::TestCase
   setup do
     @survey = Fabricate(:survey)
   end
-  
+
   test 'create' do
     assert_difference 'Survey.count' do
       @survey = Survey.create do |survey|
@@ -14,17 +14,17 @@ class SurveyTest < ActiveSupport::TestCase
       end
     end
   end
-  
+
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'Survey.count' do
         assert @survey.update_attributes(name: 'Updated')
       end
     end
-    
+
     assert_equal 'Updated', @survey.reload.name
   end
-  
+
   test 'destroy' do
     assert_difference 'Version.count' do
       assert_difference('Survey.count', -1) { @survey.destroy }
@@ -32,7 +32,7 @@ class SurveyTest < ActiveSupport::TestCase
   end
 
   test 'can not create for not current teach' do
-    teach = Fabricate(:teach, start: 5.days.ago, finish: 1.day.ago)
+    teach = Fabricate(:teach, start: 5.days.ago, finish: 2.day.ago)
     content = Fabricate(:content, teach_id: teach.id)
 
     assert_raise(RuntimeError) do
@@ -41,10 +41,10 @@ class SurveyTest < ActiveSupport::TestCase
       survey.save
     end
   end
-  
+
   test 'validates blank attributes' do
     @survey.name = ''
-    
+
     assert @survey.invalid?
     assert_equal 1, @survey.errors.size
     assert_equal [error_message_from_model(@survey, :name, :blank)],
@@ -53,7 +53,7 @@ class SurveyTest < ActiveSupport::TestCase
 
   test 'validates length of _long_ attributes' do
     @survey.name = 'abcde' * 52
-    
+
     assert @survey.invalid?
     assert_equal 1, @survey.errors.count
     assert_equal [
