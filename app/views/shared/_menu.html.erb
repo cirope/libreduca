@@ -50,8 +50,8 @@
           <ul class="nav pull-right">
             <li class="dropdown">
               <% if upper_login_button? %>
-                <%= link_to('#', class: 'dropdown-toggle fix-corners', data: { toggle: "dropdown"} ) do %>
-                  Ingresar <strong class="caret"></strong>
+                <%= link_to('#', id: 'login', class: 'dropdown-toggle fix-corners', data: { toggle: "dropdown"} ) do %>
+                   <%= t('menu.actions.login') %><strong class="caret"></strong>
                 <% end %>
                   <div class="dropdown-menu">
                   <%= render file: "devise/sessions/new_miniform", :locals => {:resource => resource} %>

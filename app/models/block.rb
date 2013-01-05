@@ -4,8 +4,7 @@ class Block < ActiveRecord::Base
   attr_accessible :id, :content, :position, :lock_version
 
   # Default order
-  # TODO: change to position
-  default_scope order("#{table_name}.id ASC")
+  default_scope order("#{table_name}.position ASC")
 
   # Validations
   validates :content, presence: true, allow_blank: true

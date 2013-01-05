@@ -236,6 +236,7 @@
 
   menu:
     actions:
+      login: 'Ingresar'
       logout: 'Salir de la aplicación'
     admin: 'Administración'
     dashboard: 'Tablero'
@@ -263,7 +264,8 @@
       new_block: 'Nueva seccion'
       save: 'Guardar'
       edit: 'Editar'
-      confirmable: 'Esta seguro que desea eliminar la seccion?'
+      sort: 'Mover'
+      sorted: 'La posición fue actualizada correctamente'
     comments:
       index_title: 'Listado de comentarios'
       new_title: 'Nuevo comentario'

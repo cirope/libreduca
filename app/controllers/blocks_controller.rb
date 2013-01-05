@@ -86,6 +86,19 @@ class BlocksController < ApplicationController
     end
   end
 
+  # POST /pages/1/sort
+  # POST /pages/1/sort.json
+  def sort
+    params[:block].each_with_index do |id, index|
+      @blockable.blocks.update_all({position: index+1}, {id: id})
+    end
+
+    respond_to do |format|
+      format.html { head :ok, notice: t('view.blocks.sorted') }
+      format.json { head :ok }
+    end
+  end
+
   def set_blockable
     @blockable = current_institution.pages.find(params[:page_id])
   end
