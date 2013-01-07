@@ -76,4 +76,22 @@ class BlocksControllerTest < ActionController::TestCase
       xhr :delete, :destroy, page_id: @page_block.to_param, id: @block.id
     end
   end
+
+  test 'should sort blocks' do
+    blocks = [@block]
+    2.times do
+      blocks << Fabricate(
+        :block,
+        blockable_id: @block.blockable_id,
+        blockable_type: @block.blockable_type
+      )
+    end
+
+    assert blocks.all? { |b| b.position == 0 }
+
+    post :sort, page_id: @page_block.to_param, block: blocks.map(&:id)
+
+    assert_response :success
+    assert_equal([1, 2, 3], blocks.map { |b| b.reload.position })
+  end
 end

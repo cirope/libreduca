@@ -90,7 +90,7 @@ class BlocksController < ApplicationController
   # POST /pages/1/sort.json
   def sort
     params[:block].each_with_index do |id, index|
-      @blockable.blocks.update_all({position: index+1}, {id: id})
+      @blockable.blocks.update_all({ position: index + 1 }, { id: id })
     end
 
     respond_to do |format|
