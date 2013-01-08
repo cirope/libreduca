@@ -26,8 +26,6 @@ gem 'jquery-fileupload-rails'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-  gem 'libv8'
-  gem 'therubyracer'
   gem 'uglifier'
 end
 
