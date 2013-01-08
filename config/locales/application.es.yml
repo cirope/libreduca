@@ -446,16 +446,20 @@
       show_scores_title: 'Detalle de calificaciones del dictado'
       show_enrollments_title: 'Detalle de inscripciones del dictado'
       show_surveys_title: 'Detalle de encuestas del dictado'
+      show_tracking_title: 'Detalle de seguimiento del dictado'
       edit_scores_title: 'Modificar calificaciones del dictado'
       edit_enrollments_title: 'Modificar inscripciones del dictado'
       global_description: 'Descripción global'
       global_multiplier: 'Multiplicador global'
+      visited_content: 'Contenido visitado'
+      questions_answered: 'Encuestas contestadas'
       empty_index:
         html: 'No hay dictados por el momento'
       new: 'Nuevo dictado'
       new_enrollment: 'Agregar nueva inscripción'
       new_content: 'Agregar contenido'
       enter_scores: 'Cargar calificaciones'
+      tracking: 'Seguimiento'
       send_email_summary:
         html: '<span class="iconic">&#x2709;</span> Enviar calificaciones'
       between:

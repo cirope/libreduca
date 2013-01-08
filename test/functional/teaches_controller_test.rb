@@ -83,6 +83,15 @@ class TeachesControllerTest < ActionController::TestCase
     assert_template 'teaches/show_enrollments'
   end
 
+  test 'should show teach tracking' do
+    get :show_tracking, course_id: @course.to_param, id: @teach
+    assert_response :success
+    assert_not_nil assigns(:teach)
+    assert_select '#unexpected_error', false
+    assert_template 'teaches/show_tracking'
+  end
+
+
   test 'should get edit teach scores' do
     get :edit_scores, course_id: @course.to_param, id: @teach
     assert_response :success
