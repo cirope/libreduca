@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.11'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -19,8 +19,6 @@ gem 'capistrano'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-  gem 'libv8'
-  gem 'therubyracer'
   gem 'uglifier'
 end
 
