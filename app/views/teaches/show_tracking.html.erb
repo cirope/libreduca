@@ -19,4 +19,11 @@
       <% end %>
      </tbody>
   </table>
+
+  <p>
+    <%= link_to(
+      t('label.download_with_format.html', file_format: 'CSV'),
+      show_tracking_teach_path(@teach, format: 'csv'), class: 'btn'
+    ) %>
+  </p>
 <% end %>

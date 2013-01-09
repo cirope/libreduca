@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
     begin
       @title = t('errors.title')
       
-      if response.redirect_url.blank?
-        render template: 'shared/show_error', locals: { error: exception }
-      end
+#      if response.redirect_url.blank?
+#        render template: 'shared/show_error', locals: { error: exception }
+#      end
 
       logger.error(([exception, ''] + exception.backtrace).join("\n"))
 

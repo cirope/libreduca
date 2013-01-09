@@ -84,13 +84,25 @@ class TeachesControllerTest < ActionController::TestCase
   end
 
   test 'should show teach tracking' do
+    2.times { Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student') }
+
     get :show_tracking, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
     assert_select '#unexpected_error', false
     assert_template 'teaches/show_tracking'
   end
+  
+  test 'should download teach tracking in csv' do
+    2.times { Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student') }
 
+    get :show_tracking, course_id: @course.to_param, id: @teach, format: :csv
+    assert_response :success
+    assert_not_nil assigns(:teach)
+    assert_select '#unexpected_error', false
+    assert_template 'teaches/show_tracking'
+    assert_equal 3, CSV.parse(@response.body).reject(&:empty?).size
+  end
 
   test 'should get edit teach scores' do
     get :edit_scores, course_id: @course.to_param, id: @teach

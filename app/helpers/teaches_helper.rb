@@ -103,7 +103,7 @@ module TeachesHelper
       text = '%.2f%%' % ((visits_count.to_f / content_ids.size) * 100)
       html_class = visits_count == content_ids.size ? 'text-success' : 'text-warning'
 
-      content_tag :span, text, class: html_class
+      request.format == 'text/html' ? content_tag(:span, text, class: html_class) : text
     else
       '-'
     end
@@ -118,9 +118,27 @@ module TeachesHelper
       text = '%.2f%%' % ((questions_count.to_f / question_ids.size) * 100)
       html_class = questions_count == question_ids.size ? 'text-success' : 'text-warning'
 
-      content_tag :span, text, class: html_class
+      request.format == 'text/html' ? content_tag(:span, text, class: html_class) : text
     else
       '-'
+    end
+  end
+
+  def generate_teach_tracking_csv
+    CSV.generate(col_sep: ';') do |csv|
+      csv << [
+        t('view.teaches.enrollment_types.student', count: 1),
+        t('view.teaches.visited_content'),
+        t('view.teaches.questions_answered')
+      ]
+
+      @teach.enrollments.only_students.each do |enrollment|
+        csv << [
+          enrollment.user.to_s,
+          show_teach_visit_progress_to(@teach, enrollment.user),
+          show_teach_survey_progress_to(@teach, enrollment.user)
+        ]
+      end
     end
   end
 end

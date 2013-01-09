@@ -139,6 +139,10 @@ class TeachesController < ApplicationController
     respond_to do |format|
       format.html # show_tracking.html.erb
       format.json { render json: @teach }
+      format.csv  {
+        response.headers['Cache-Control'] = 'private, no-store'
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@title}.csv\""
+      }
     end
   end
 
