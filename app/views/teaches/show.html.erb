@@ -50,6 +50,12 @@
           '#surveys_container', data: { 'toggle' => 'tab', 'remote-url' => teach_surveys_path(@teach) }
         ) %>
       </li>
+      <li>
+        <%= link_to(
+          t('view.teaches.tracking'),
+          '#tracking_container', data: { 'toggle' => 'tab', 'remote-url' => show_tracking_teach_path(@teach) }
+        ) %>
+      </li>
     <% end %>
   </ul>
   
@@ -82,6 +88,10 @@
       </div>
       
       <div id="surveys_container" class="tab-pane">
+        <div class="alert"><%= t('label.loading') %></div>
+      </div>
+      
+      <div id="tracking_container" class="tab-pane">
         <div class="alert"><%= t('label.loading') %></div>
       </div>
     <% end %>

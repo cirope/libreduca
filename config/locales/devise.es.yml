@@ -3,13 +3,14 @@
 'es':
   errors:
     messages:
+      expired: 'ha caducado, por favor pida uno nuevo'
       not_found: 'no encontrado'
       already_confirmed: 'ya ha sido confirmada'
       not_locked: 'no está bloqueada'
-      expired: 'ha caducado, por favor pida uno nuevo'
       not_saved:
         one: '1 error evitó guardar este/a %{resource}:'
         other: '%{count} errores evitaron guardar este/a %{resource}:'
+      confirmation_period_expired: 'debe ser confirmado en %{period}, por favor, pide uno nuevo'
 
   devise:
     failure:
@@ -17,6 +18,7 @@
       unauthenticated: 'Necesita acceder a su cuenta o registrarse antes de continuar.'
       unconfirmed: 'Necesita confirmar su cuenta antes de continuar.'
       locked: 'Su cuenta está bloqueada.'
+      not_found_in_database: 'Contraseña o Email incorrecto.'
       invalid: 'Contraseña o Email incorrecto.'
       invalid_token: 'Token de autenticación incorrecto.'
       timeout: 'Su sesión ha expirado, por favor acceda de nuevo para continuar.'
@@ -29,6 +31,7 @@
       updated: 'Su contraseña ha sido modificada. Ya ha accedido a su cuenta.'
       updated_not_active: 'Su contraseña fue cambiada'
       send_paranoid_instructions: 'Si su email ya existe en nuestra base de datos, recibirá un enlace para recuperar su contraseña en su correo'
+      no_token: 'No puedes acceder a esta página sino vienes de un correo de cambio de contraseña. Si vienes de uno, por favor verifica haber usado la URL completa.'
     confirmations:
       send_instructions: 'Recibirá un email con instrucciones para confirmar su cuenta en pocos minutos.'
       send_paranoid_instructions: 'Si su email ya existe en nuestra base de datos, recibirá un email con instrucciones para confirmar su cuenta en pocos minutos.'

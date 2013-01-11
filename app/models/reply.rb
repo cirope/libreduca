@@ -29,4 +29,8 @@ class Reply < ActiveRecord::Base
   def check_age
     self.created_at > 1.day.ago
   end
+
+  def self.of_questions(*args)
+    joins(:question).where("#{Question.table_name}.id" => args)
+  end
 end
