@@ -272,6 +272,8 @@ class TeachesTest < ActionDispatch::IntegrationTest
 
     visit teach_path(teach)
 
+    assert page.has_no_css?('#surveys_container table.table')
+
     find('a[href="#surveys_container"]').click
 
     assert page.has_css?('#surveys_container table.table')

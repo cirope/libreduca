@@ -27,6 +27,7 @@ class Teach < ActiveRecord::Base
   has_many :scores, dependent: :destroy
   has_many :users, through: :enrollments
   has_many :surveys, through: :contents
+  has_many :questions, through: :surveys
   has_many :forums, dependent: :destroy, as: :owner
   
   accepts_nested_attributes_for :enrollments, allow_destroy: true,

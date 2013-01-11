@@ -93,4 +93,52 @@ module TeachesHelper
       '-'
     end
   end
+
+  def show_teach_visit_progress_to(teach, user)
+    @teach_content_ids ||= {}
+    content_ids = @teach_content_ids[teach.id] ||= teach.contents.map(&:id)
+
+    if content_ids.size > 0
+      visits_count = user.visits.visited(Content, *content_ids).count
+      text = '%.2f%%' % ((visits_count.to_f / content_ids.size) * 100)
+      html_class = visits_count == content_ids.size ? 'text-success' : 'text-warning'
+
+      request.format == 'text/html' ? content_tag(:span, text, class: html_class) : text
+    else
+      '-'
+    end
+  end
+
+  def show_teach_survey_progress_to(teach, user)
+    @teach_question_ids ||= {}
+    question_ids = @teach_question_ids[teach.id] ||= teach.questions.map(&:id)
+
+    if question_ids.size > 0
+      questions_count = user.replies.of_questions(*question_ids).count
+      text = '%.2f%%' % ((questions_count.to_f / question_ids.size) * 100)
+      html_class = questions_count == question_ids.size ? 'text-success' : 'text-warning'
+
+      request.format == 'text/html' ? content_tag(:span, text, class: html_class) : text
+    else
+      '-'
+    end
+  end
+
+  def generate_teach_tracking_csv
+    CSV.generate(col_sep: ';') do |csv|
+      csv << [
+        t('view.teaches.enrollment_types.student', count: 1),
+        t('view.teaches.visited_content'),
+        t('view.teaches.questions_answered')
+      ]
+
+      @teach.enrollments.only_students.each do |enrollment|
+        csv << [
+          enrollment.user.to_s,
+          show_teach_visit_progress_to(@teach, enrollment.user),
+          show_teach_survey_progress_to(@teach, enrollment.user)
+        ]
+      end
+    end
+  end
 end
