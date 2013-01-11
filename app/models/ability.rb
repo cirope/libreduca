@@ -5,6 +5,8 @@ class Ability
     @job = user.jobs.in_institution(institution).first if user && institution
 
     user ? user_rules(user, institution) : default_rules(user, institution)
+
+    alias_action :find_by_email, to: :read
   end
 
   def user_rules(user, institution)
@@ -87,6 +89,7 @@ class Ability
     can :manage, Image, jobs_restrictions
     can :read, Job, institution_id: institution.id
     can :read, User, jobs: { institution_id: institution.id }
+    can :create, Job, institution_id: institution.id
     can :create, User do |user|
       job_conditions = user.jobs.empty?
       job_conditions ||= user.jobs.all? { |j| j.institution_id == institution.id }

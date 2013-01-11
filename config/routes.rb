@@ -124,6 +124,9 @@ Libreduca::Application.routes.draw do
         put :update_profile
       end
 
+      get :find_by_email, on: :collection
+      resources :jobs, only: [:create]
+
       resources :enrollments, only: [] do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end

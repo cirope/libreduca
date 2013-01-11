@@ -400,6 +400,8 @@
         teacher: 'Profesor'
         janitor: 'Administrativo'
         student: 'Alumno'
+      correctly_created: 'Se agrego el usuario correctamente'
+      error_message: 'Usted no posee permisos para realizar esa accion'
     kinships:
       types:
         father: 'Padre'
@@ -538,3 +540,4 @@
       roles:
         admin: 'Administrador'
         regular: 'Normal'
+      edit_on_new_institution: 'Atencion: El usuario comenzara a pertenecer a esta institucion!'

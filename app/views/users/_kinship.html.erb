@@ -9,7 +9,6 @@
         id: "auto_user_#{id}",
         class: field_classes.join(' '),
         value: f.object.relative.try(:label),
-        autofocus: true,
         data: {
           'autocomplete-url' => users_path(format: :json),
           'autocomplete-id-target' => "#auto_relative_id_#{id}"

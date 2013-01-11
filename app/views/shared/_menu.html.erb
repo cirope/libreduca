@@ -13,7 +13,7 @@
             <%= render 'shared/menu_dropdowns/institutions' if current_user.institutions.count > 1 %>
             <%= show_menu_link(
               name: 'dashboard', controllers: 'dashboard', path: dashboard_path
-            ) if current_institution %>
+            ) if current_institution && current_user.has_job_in?(current_institution) %>
             <%= render 'shared/menu_dropdowns/enrollments' if current_enrollments.present? %>
             <%= show_menu_link(
               name: 'users', controllers: 'users', path: users_path
