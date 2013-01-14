@@ -94,8 +94,9 @@ Libreduca::Application.routes.draw do
       resources :comments, only: [:index, :show, :new, :create]
     end
 
-    resources :news, only: [] do
+    resources :news do
       resources :comments, only: [:index, :show, :new, :create]
+      resources :images
     end
 
     resources :institutions do
@@ -104,8 +105,6 @@ Libreduca::Application.routes.draw do
       resources :forums
     end
 
-    resources :news
-    
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
     
     Job::TYPES.each do |job_type|

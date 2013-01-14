@@ -227,6 +227,7 @@
     sending: 'Enviando...'
     sent: 'Enviado'
     show: 'Ver'
+    zoom: 'Ampliar'
     
   menu:
     actions:
@@ -380,6 +381,7 @@
       new: 'Nueva imagen'
       modal: 'Con dialogo modal'
       versions: 'Versiones'
+      load: 'Cargar imagen'
       click_to_enlarge:
         html: 'Haga <strong>clic</strong> sobre la imagen para <strong>ampliar</strong>'
     institutions:

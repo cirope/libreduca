@@ -44,3 +44,4 @@
 //= require surveys
 //= require teaches
 //= require users
+//= require news

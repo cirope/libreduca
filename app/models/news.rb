@@ -15,10 +15,15 @@ class News < ActiveRecord::Base
 
   # Relations
   belongs_to :institution
+  has_many :images, as: :owner, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
   def to_s
     self.title
+  end
+
+  def to_param
+    "#{self.id}-#{self.title.parameterize}"
   end
 
   def self.filtered_list(query)

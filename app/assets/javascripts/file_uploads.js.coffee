@@ -9,7 +9,7 @@ class FileUploadHelper
     !types? || typesRegExp.test(@file.type) || typesRegExp.test(@file.name)
   drawTemplate: ->
     @data.context = $(tmpl('template-upload', @file))
-
+    
     @hideErrorMessage()
     @element.hide().before(@data.context)
   evalAutosubmit: ->
@@ -22,9 +22,9 @@ class FileUploadHelper
         ':submit:not([data-observed])'
       ).click(-> _this.submit(); false).attr('data-observed', 'true')
   showErrorMessage: ->
-    $(@errorElement).removeClass('hide').alert() if @errorElement
+    $(@errorElement).show() if @errorElement
   hideErrorMessage: ->
-    $(@errorElement).alert('close') if @errorElement
+    $(@errorElement).hide() if @errorElement
   submit: ->
     @data.context.find('.message').show() if @data.context
     @data.submit()

@@ -4,7 +4,15 @@ class ImagesController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource through: :current_institution
+  load_resource :news, shallow: true
+
+  before_filter :set_owner
+
+  load_resource through: [:owner, :current_institution]
+
+  before_filter :set_institution_to_image, only: [:create, :update]
+  
+  authorize_resource
 
   # GET /images
   # GET /images.json
@@ -52,7 +60,7 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
-        format.html { redirect_to @image, notice: t('view.images.correctly_created') }
+        format.html { redirect_to [@owner, @image], notice: t('view.images.correctly_created') }
         format.json { render json: @image, status: :created, location: @image }
         format.js   # create.js.erb
       else
@@ -89,6 +97,17 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to images_url }
       format.json { head :ok }
+      format.js
     end
+  end
+
+  private
+
+  def set_owner
+    @owner = @news
+  end
+
+  def set_institution_to_image
+    @image.institution ||= current_institution 
   end
 end

@@ -44,13 +44,6 @@ class CommentsController < ApplicationController
     end
   end
 
-=begin
-  # GET /comments/1/edit
-  def edit
-    @title = t('view.comments.edit_title')
-  end
-=end
-
   # POST /comments
   # POST /comments.json
   def create
@@ -73,37 +66,6 @@ class CommentsController < ApplicationController
       end
     end
   end
-
-=begin
-  # PUT /comments/1
-  # PUT /comments/1.json
-  def update
-    @title = t('view.comments.edit_title')
-
-    respond_to do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to [@commentable, @comment], notice: t('view.comments.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
-  rescue ActiveRecord::StaleObjectError
-    redirect_to edit_comment_url(@comment), alert: t('view.comments.stale_object_error')
-  end
-
-  # DELETE /comments/1
-  # DELETE /comments/1.json
-  def destroy
-    @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to polymorphic_url([@commentable, Comment]) }
-      format.json { head :ok }
-    end
-  end
-=end
 
   private
 

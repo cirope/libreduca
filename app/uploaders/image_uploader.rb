@@ -6,6 +6,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   storage :file
   after :remove, :delete_empty_upstream_dirs
 
+  version(:large)       { process resize_to_fit: [600, 600] }
+  version(:normal)      { process resize_to_fit: [300, 300] }
   version(:thumb)       { process resize_to_fit: [200, 200] }
   version(:mini_thumb)  { process resize_to_fit: [80, 80] }
   version(:micro_thumb) { process resize_to_fit: [40, 40] }

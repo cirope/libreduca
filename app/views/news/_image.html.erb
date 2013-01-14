@@ -1,0 +1,16 @@
+<fieldset class="row-fluid">
+  <div class="span5">
+    <%= f.input :name, label: false, input_html: {
+      autofocus: true, class: 'span11', placeholder: Image.human_attribute_name('name')
+    } %>
+  </div>
+  <div class="span5">
+    <%= f.input :file, label: false, input_html: { class: 'span11' } %>
+    <%= f.input :file_cache, as: :hidden %>
+  </div>
+  <div class="span2 nested-actions">
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %>
+    <%= link_to_remove_nested_item(f) %>
+  </div>
+</fieldset>

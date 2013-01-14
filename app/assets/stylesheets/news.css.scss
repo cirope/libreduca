@@ -1,3 +1,18 @@
-// Place all the styles related to the News controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#c_news {
+  .carousel { margin: 0; }
+
+  .launch-modal {
+    position: relative;
+
+    .zoom {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      a { 
+        color: inherit; 
+        &:hover { text-decoration: none;}
+      }
+    }
+  }
+}

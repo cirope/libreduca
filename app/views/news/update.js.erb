@@ -1,0 +1,11 @@
+<% if params[:news][:description].present? %>
+  $('#description_news').html('<p><%= j(markdown @news.description) %></p>');
+  $('#description_news p').effect('highlight', 'slow');
+<% end %>
+
+<% if params[:news][:body].present? %>
+  $('#body_news').html('<p><%= j(markdown @news.body) %></p>');
+  $('#body_news p').effect('highlight', 'slow');
+<% end %>
+
+$("#bind-inputs :input:visible:first").focus();

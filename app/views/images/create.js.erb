@@ -1,5 +1,6 @@
 <% if @image.persisted? %>
-  Turbolinks.visit('<%= image_url(@image) %>');
+  $('#image_show').append('<%= j render('image_show') %>');
+  $('#image_form').html('<%= j render('form', :@image => Image.new) %>');
 <% else %>
-  $('.container .content').html('<%= j render(template: 'images/new') %>');
+  $('#image_form').html('<%= j render('form') %>');
 <% end %>

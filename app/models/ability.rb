@@ -91,7 +91,7 @@ class Ability
       user.jobs.in_institution(institution).exists?
     end
     can :manage, Presentation # TODO: check for proper access
-    can :manage, News, jobs_restrictions
+    can :manage, News, institution_id: institution.id
   end
 
   def headmaster_rules(user, institution)
