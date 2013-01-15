@@ -33,6 +33,7 @@ class Institution < ActiveRecord::Base
   has_many :forums, dependent: :destroy, as: :owner
   has_many :images, dependent: :destroy
   has_many :pages, dependent: :destroy
+  has_many :groups, dependent: :destroy
 
   accepts_nested_attributes_for :pages, allow_destroy: true
 

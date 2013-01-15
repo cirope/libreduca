@@ -88,8 +88,8 @@ class Ability
     can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
     can :manage, Image, jobs_restrictions
     can :read, Job, institution_id: institution.id
-    can :read, User, jobs: { institution_id: institution.id }
     can :create, Job, institution_id: institution.id
+    can :read, User, jobs: { institution_id: institution.id }
     can :create, User do |user|
       job_conditions = user.jobs.empty?
       job_conditions ||= user.jobs.all? { |j| j.institution_id == institution.id }
@@ -102,6 +102,8 @@ class Ability
     can :manage, Presentation # TODO: check for proper access
     can :manage, Page, institution_id: institution.id
     can :manage, Block
+    can :manage, Group, institution_id: institution.id
+    can :manage, Membership
   end
 
   def headmaster_rules(user, institution)

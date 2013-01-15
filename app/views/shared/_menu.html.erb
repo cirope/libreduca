@@ -25,6 +25,10 @@
               name: 'institutions', path: institutions_path,
               controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
             ) if can?(:read, Institution) && !current_institution %>
+              <%= show_menu_link(
+              name: 'groups', path: groups_path,
+              controllers: ['groups']
+            ) if can?(:read, Membership) && current_institution && current_user.has_job_in?(current_institution) %>
           </ul>
           <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">

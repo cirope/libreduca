@@ -1,0 +1,17 @@
+<%= simple_form_for(@group) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+
+    <h5><%= t('view.groups.user_list') %>:</h5>
+    <%= f.simple_fields_for(:memberships) do |f_m| %>
+      <%= render partial: "membership", locals: { f: f_m } %>
+    <% end %>
+    <%= link_to_add_fields t('view.groups.new_membership'), f, :memberships %>
+  </div>
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+    <%= f.button :submit, class: 'btn-primary' %>
+  </div>
+<% end %>

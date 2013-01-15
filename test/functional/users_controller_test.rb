@@ -257,7 +257,7 @@ class UsersControllerTest < ActionController::TestCase
   test 'should not find the user by email' do
     institution = login_into_institution
 
-    get :find_by_email, q: '', format: 'js'
+    get :find_by_email, q: '', format: 'html'
     assert_response :success
   end
 

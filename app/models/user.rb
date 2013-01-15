@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
     :avatar, :avatar_cache, :role, :remember_me, :kinships_attributes,
-    :jobs_attributes, :lock_version
+    :jobs_attributes, :memberships_attributes,:lock_version
 
   # Defaul order
   default_scope order("#{table_name}.lastname ASC")
@@ -30,10 +30,12 @@ class User < ActiveRecord::Base
   has_many :enrollments, dependent: :destroy
   has_many :teaches, through: :enrollments
   has_many :scores, dependent: :destroy
+
   has_many :kinships, dependent: :destroy
   has_many :inverse_kinships, class_name: 'Kinship', foreign_key: 'relative_id'
   has_many :relatives, through: :kinships
   has_many :dependents, through: :inverse_kinships, source: :user
+
   has_many :jobs, dependent: :destroy
   has_many :institutions, through: :jobs
   has_many :comments, dependent: :destroy
@@ -41,8 +43,10 @@ class User < ActiveRecord::Base
   has_many :replies, dependent: :destroy
   has_many :logins, dependent: :destroy
   has_many :presentations, dependent: :destroy
+
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
+
 
   accepts_nested_attributes_for :kinships, allow_destroy: true,
     reject_if: ->(attributes) {
@@ -52,6 +56,11 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :jobs, allow_destroy: true,
     reject_if: ->(attributes) {
       attributes['job'].blank? && attributes['institution_id'].blank?
+    }
+
+  accepts_nested_attributes_for :memberships, allow_destroy: true,
+    reject_if: ->(attributes) {
+      attributes['group_id'].blank?
     }
 
   def initialize(attributes = {}, options = {})

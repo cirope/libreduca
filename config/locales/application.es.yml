@@ -38,6 +38,9 @@
       grade:
         one: 'Grado'
         other: 'Grados'
+      group:
+        one: 'Grupo'
+        other: 'Grupos'
       homework:
         one: 'Tarea'
         other: 'Tareas'
@@ -56,6 +59,9 @@
       login:
         one: 'Ingreso'
         other: 'Ingresos'
+      membership:
+        one: 'Integrante'
+        other: 'Integrantes'
       presentation:
         one: 'Entrega'
         other: 'Entregas'
@@ -111,6 +117,9 @@
         user_id: 'Usuario'
       grade:
         name: 'Nombre'
+      group:
+        name: 'Nombre'
+        user_id: 'Usuario'
       homework:
         name: 'Nombre'
         description: 'Descripción'
@@ -237,6 +246,7 @@
     institutions: 'Instituciones'
     teaches: 'Cursos'
     users: 'Usuarios'
+    groups: 'Grupos'
 
   messages:
     confirmation: '¿Está seguro?'
@@ -362,6 +372,20 @@
         html:
           one: 'Grado de la institución %{institution}'
           other: 'Grados de la institución %{institution}'
+    groups:
+      new: 'Nuevo grupo'
+      new_membership: 'Nuevo integrante'
+      add_new: 'Agregar nueva membresia'
+      index_title: 'Grupos'
+      new_title: 'Nuevo Grupo'
+      show_title: 'Detalle de grupo'
+      edit_title: 'Modificar grupo'
+      edit: 'Editar grupo'
+      user_list: 'Listado'
+      correctly_created: 'Grupo agregado correctamente.'
+      correctly_updated: 'Grupo actualizado correctamente.'
+      empty_show:
+        html: 'No se ha encontrado ningun usuario que pertenezca a este grupo, editando el grupo podra agregar nuevos integrantes'
     images:
       index_title: 'Listado de imágenes'
       show_title: 'Detalle de imagen'
@@ -545,3 +569,5 @@
         admin: 'Administrador'
         regular: 'Normal'
       edit_on_new_institution: 'Atencion: El usuario comenzara a pertenecer a esta institucion!'
+      memberships:
+        html: 'Pertenece a %{group}'

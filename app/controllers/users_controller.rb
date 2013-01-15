@@ -122,10 +122,12 @@ class UsersController < ApplicationController
     @user = User.find_by_email(params[:q].strip.downcase)
 
     respond_to do |format|
-      if !@user.has_job_in?(current_institution)
-        format.js { @job = @user.jobs.build }
-      elsif @user.has_job_in?(current_institution)
-        format.js { render template: 'users/edit' }
+      if !@user.nil?
+        if @user.has_job_in?(current_institution)
+          format.js { render template: 'users/edit' }
+        else
+          format.js { @job = @user.jobs.build }
+        end
       else
         format.html { head :ok }
       end

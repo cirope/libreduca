@@ -111,6 +111,8 @@ Libreduca::Application.routes.draw do
       resources :users
     end
 
+    resources :groups
+
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
 
     Job::TYPES.each do |job_type|
@@ -143,6 +145,7 @@ Libreduca::Application.routes.draw do
       resources :blocks
       post :sort, controller: :blocks
     end
+
 
     root to: "pages#show"
   end

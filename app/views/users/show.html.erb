@@ -13,7 +13,7 @@
           <strong><%= t("view.users.roles.#{@user.role}") %></strong>
         </p>
       <% end %>
-        
+
       <% unless @user.jobs.empty? %>
         <h3><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h3>
         <ul>
@@ -28,7 +28,7 @@
           <% end %>
         </ul>
       <% end %>
-      
+
       <% unless @user.kinships.empty? %>
         <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size %></h3>
         <ul>
@@ -43,7 +43,7 @@
           <% end %>
         </ul>
       <% end %>
-      
+
       <% unless @user.inverse_kinships.empty? %>
         <h3>
           <%= User.human_attribute_name(
@@ -57,6 +57,20 @@
                 'view.users.inverse_kinship.html',
                 user: link_to_if(can?(:read, inverse_kinship.user), inverse_kinship.user.to_s, inverse_kinship.user),
                 kin: show_human_kinship_type(inverse_kinship.kin)
+              ) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <% unless @user.memberships.empty? %>
+        <h3><%= Group.model_name.human count: @user.groups.size %></h3>
+        <ul>
+          <% @user.memberships.each do |membership| %>
+            <li>
+              <%= t(
+                'view.users.memberships.html',
+                group: link_to_if(can?(:read, membership.group), membership.group.name, edit_group_path(membership.group_id)),
               ) %>
             </li>
           <% end %>

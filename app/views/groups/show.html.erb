@@ -1,0 +1,25 @@
+<div class="readonly-data">
+  <div class="page-header">
+    <h2><%= @group.name %></h2>
+  </div>
+
+  <% if @group.memberships.empty? %>
+    <div class="alert alert-info">
+      <%= t('view.groups.empty_show.html') %>
+    </div>
+  <% else %>
+    <h4>
+      <%= Membership.model_name.human(count: @group.memberships.size) %>
+    </h4>
+    <ul>
+      <% @group.memberships.each do |membership| %>
+        <li><%= link_to_if can?(:read, membership), membership.to_s, edit_user_path(membership.user_id) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_group_path(@group) if can? :update, @group %> |
+  <%= link_to t('label.list'), groups_path %>
+</div>
