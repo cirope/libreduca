@@ -3,7 +3,7 @@
 <% else %>
   <div class="row">
     <div class="span12">
-      <table class="table resource-list">
+      <table class="table resource-list" data-endless-container="true">
         <thead>
           <tr>
             <th><%= User.human_attribute_name 'name' %></th>
@@ -13,20 +13,18 @@
                 <%= User.human_attribute_name 'email' %>
               </span>
             </th>
-            <th colspan="2"></th>
+            <th colspan="2">
+              <%= link_to(
+                  t('view.users.new', default: :'label.new'),
+                  new_user_path, class: 'btn btn-mini'
+                ) if can? :create, User
+              %>
+            </th>
           </tr>
         </thead>
 
         <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= link_to user.name, user, title: t('label.show') %></td>
-              <td><%= link_to user.lastname, user, title: t('label.show') %></td>
-              <td><%= mail_to user.email, user.email, class: 'visible-desktop' %></td>
-              <td><%= link_to_edit edit_user_path(user) if can? :update, user %></td>
-              <td><%= link_to_destroy user if can? :destroy, user %></td>
-            </tr>
-          <% end %>
+          <%= render @users %>
         </tbody>
       </table>
     </div>
