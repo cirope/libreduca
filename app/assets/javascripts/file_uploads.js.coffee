@@ -29,27 +29,30 @@ class FileUploadHelper
     @data.context.find('.message').show() if @data.context
     @data.submit()
 
-App.Event.registerEvent
+new Rule
   condition: -> $('[data-fileupload]').length
-  type: 'click focus keydown drop'
-  selector: '[data-fileupload]:not([data-observed])'
-  handler: ->
-    $(this).fileupload(
-      dataType: 'script'
-      add: (e, data) ->
-        file = data.files[0]
-        element = $(e.target)
-        fileUploadHelper = new FileUploadHelper(file, element, data)
+  load: ->
+    @map.upload_function ||= ->
+      $(this).fileupload(
+        dataType: 'script'
+        add: (e, data) ->
+          file = data.files[0]
+          element = $(e.target)
+          fileUploadHelper = new FileUploadHelper(file, element, data)
 
-        if fileUploadHelper.allowType()
-          fileUploadHelper.drawTemplate()
-          fileUploadHelper.evalAutosubmit()
-        else
-          fileUploadHelper.showErrorMessage()
-      progress: (e, data) ->
-        if data.context
-          progress = parseInt(data.loaded / data.total * 100, 10)
-          data.context.find('.bar').css('width', "#{progress}%")
-      done: (e, data) ->
-        data.context.find('.bar').css('width', '100%') if data.context
-    ).attr('data-observed', true)
+          if fileUploadHelper.allowType()
+            fileUploadHelper.drawTemplate()
+            fileUploadHelper.evalAutosubmit()
+          else
+            fileUploadHelper.showErrorMessage()
+        progress: (e, data) ->
+          if data.context
+            progress = parseInt(data.loaded / data.total * 100, 10)
+            data.context.find('.bar').css('width', "#{progress}%")
+        done: (e, data) ->
+          data.context.find('.bar').css('width', '100%') if data.context
+      ).attr('data-observed', true)
+
+    $(document).on 'click focus keydown drop', '[data-fileupload]:not([data-observed])', @map.upload_function
+  unload: ->
+    $(document).off 'click focus keydown drop', '[data-fileupload]:not([data-observed])', @map.upload_function
