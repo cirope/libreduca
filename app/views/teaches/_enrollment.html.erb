@@ -9,7 +9,7 @@
         input_html: {
           id: "auto_user_#{id}",
           class: field_classes.join(' '),
-          value: f.object.user.try(:label),
+          value: f.object.enrollable.try(:label),
           autofocus: true,
           data: {
             'autocomplete-url' => users_path(format: :json),
@@ -17,11 +17,11 @@
           }
         }
       %>
-      <%= f.input :user_id, as: :hidden,
+      <%= f.input :enrollable_id, as: :hidden,
         input_html: { class: 'autocomplete_id', id: "auto_user_id_#{id}" }
       %>
     <% else %>
-      <p><%= f.object.user.label %></p>
+      <p><%= f.object.enrollable.label %></p>
     <% end %>
   </div>
   <div class="span2 nested-actions">

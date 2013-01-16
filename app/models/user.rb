@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     allow_blank: true
 
   # Relations
-  has_many :enrollments, dependent: :destroy
+  has_many :enrollments, as: :enrollable, dependent: :destroy
   has_many :teaches, through: :enrollments
   has_many :scores, dependent: :destroy
 

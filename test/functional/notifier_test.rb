@@ -3,24 +3,24 @@ require 'test_helper'
 class NotifierTest < ActionMailer::TestCase
   test 'enrollment status' do
     enrollment = Fabricate(:enrollment)
-    kinship = Fabricate(:kinship, user_id: enrollment.user_id)
+    kinship = Fabricate(:kinship, user_id: enrollment.enrollable_id)
     Fabricate(
-      :score, teach_id: enrollment.teach_id, user_id: enrollment.user_id
+      :score, teach_id: enrollment.teach_id, user_id: enrollment.enrollable_id
     )
     mail = Notifier.enrollment_status(enrollment)
-    
+
     assert_equal I18n.t(
       'notifier.enrollment_status.subject',
-      user: enrollment.user, course: enrollment.course
+      user: enrollment.enrollable, course: enrollment.course
     ), mail.subject
-    assert_equal [enrollment.user.email], mail.to
+    assert_equal [enrollment.enrollable.email], mail.to
     assert_equal [kinship.relative.email], mail.cc
     assert_equal [APP_CONFIG['support_email']], mail.from
     assert_match I18n.t(
       'notifier.enrollment_status.greeting.html',
-      users: [enrollment.user.name, kinship.relative.name].to_sentence
+      users: [enrollment.enrollable.name, kinship.relative.name].to_sentence
     ), mail.body.encoded
-    
+
     assert_difference 'ActionMailer::Base.deliveries.size' do
       mail.deliver
     end
@@ -47,7 +47,7 @@ class NotifierTest < ActionMailer::TestCase
       mail.deliver
     end
   end
-  
+
   test 'new comment' do
     institution = Fabricate(:institution)
     users = 3.times.map { Fabricate(:job, institution_id: institution.id).user }
@@ -74,22 +74,22 @@ class NotifierTest < ActionMailer::TestCase
   test 'new enrollment' do
     enrollment = Fabricate(:enrollment)
     Fabricate(
-      :score, teach_id: enrollment.teach_id, user_id: enrollment.user_id
+      :score, teach_id: enrollment.teach_id, user_id: enrollment.enrollable_id
     )
     mail = Notifier.new_enrollment(enrollment)
-    
+
     assert_equal I18n.t(
       'notifier.new_enrollment.subject',
-      user: enrollment.user.name, course: enrollment.course
+      user: enrollment.enrollable.name, course: enrollment.course
     ), mail.subject
-    assert_equal [enrollment.user.email], mail.to
+    assert_equal [enrollment.enrollable.email], mail.to
     assert_equal [], mail.cc
     assert_equal [APP_CONFIG['support_email']], mail.from
     assert_match I18n.t(
       'notifier.new_enrollment.greeting.html',
-      user: enrollment.user.name
+      user: enrollment.enrollable.name
     ), mail.body.encoded
-    
+
     assert_difference 'ActionMailer::Base.deliveries.size' do
       mail.deliver
     end

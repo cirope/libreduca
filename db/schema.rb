@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220134525) do
+ActiveRecord::Schema.define(:version => 20130115163203) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -94,16 +94,17 @@ ActiveRecord::Schema.define(:version => 20121220134525) do
   add_index "documents", ["owner_id", "owner_type"], :name => "index_documents_on_owner_id_and_owner_type"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "teach_id",                    :null => false
-    t.integer  "user_id",                     :null => false
-    t.string   "job",                         :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.integer  "teach_id",                            :null => false
+    t.integer  "enrollable_id",                       :null => false
+    t.string   "job",                                 :null => false
+    t.integer  "lock_version",    :default => 0,      :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "enrollable_type", :default => "User"
   end
 
+  add_index "enrollments", ["enrollable_id", "enrollable_type"], :name => "index_enrollments_on_enrollable_id_and_enrollable_type"
   add_index "enrollments", ["teach_id"], :name => "index_enrollments_on_teach_id"
-  add_index "enrollments", ["user_id"], :name => "index_enrollments_on_user_id"
 
   create_table "forums", :force => true do |t|
     t.string   "name",                        :null => false

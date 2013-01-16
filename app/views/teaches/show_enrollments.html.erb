@@ -8,7 +8,7 @@
         <li>
           <%= t(
             'view.teaches.enrollment_info.html',
-            user: link_to_if(can?(:read, enrollment.user), enrollment.user.to_s, enrollment.user),
+            user: link_to_if(can?(:read, enrollment.enrollable), enrollment.enrollable.to_s, enrollment.enrollable),
             date: l(enrollment.created_at, format: :long)
           ) %>
         </li>

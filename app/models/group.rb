@@ -18,7 +18,7 @@ class Group < ActiveRecord::Base
   # Relations
   belongs_to :institution
   has_many :memberships, dependent: :destroy
-  has_many :users, through: :memberships
+  has_many :users, through: :memberships, source: :enrollable, source_type: 'Membership'
 
   accepts_nested_attributes_for :memberships, allow_destroy: true,
     reject_if: ->(attributes) { attributes['user_id'].blank? }

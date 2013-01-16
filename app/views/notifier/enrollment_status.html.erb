@@ -8,7 +8,7 @@
   <%= t(
     'notifier.enrollment_status.teach.html',
     course: @enrollment.course,
-    user: @enrollment.user.name
+    user: @enrollment.enrollable.name
   ) %>
 </h3>
 
@@ -42,7 +42,7 @@
       <% end %>
     </tbody>
   </table>
-  
+
   <p>
     <%= t(
       'notifier.enrollment_status.score_average.html',

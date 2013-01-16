@@ -35,7 +35,7 @@ class Ability
     can :update_profile, User
     can :manage, Forum
     can :manage, Comment
-    can :read, Teach, enrollments: { user_id: user.id }
+    can :read, Teach, enrollments: { enrollable_id: user.id }
     can :read, Institution, workers: { user_id: user.id }
     can :read, Content
     can :read, Document
@@ -56,7 +56,7 @@ class Ability
 
   def teacher_rules(user, institution)
     enrollments_restrictions = {
-      enrollments: { user_id: user.id, job: 'teacher' }
+      enrollments: { enrollable_id: user.id, job: 'teacher' }
     }
     teach_restrictions = { teach: enrollments_restrictions }
 

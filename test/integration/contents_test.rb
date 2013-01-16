@@ -195,7 +195,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
     Fabricate(
       :enrollment,
-      user_id: @test_user.id,
+      enrollable_id: @test_user.id,
       teach_id: content.teach_id, job: 'student'
     )
 
@@ -218,7 +218,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
     homework = Fabricate(:homework)
     content = homework.content
     presentation = Fabricate.build(:presentation, homework_id: homework.id, user_id: nil)
-    Fabricate(:enrollment, user_id: @test_user.id, teach_id: content.teach_id)
+    Fabricate(:enrollment, enrollable_id: @test_user.id, teach_id: content.teach_id)
 
     visit teach_content_path(content.teach, content)
 

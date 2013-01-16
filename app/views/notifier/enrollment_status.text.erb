@@ -13,7 +13,7 @@
 <%= t(
   'notifier.enrollment_status.teach.text',
   course: @enrollment.course,
-  user: @enrollment.user.name
+  user: @enrollment.enrollable.name
 ) %>
 
   <% @enrollment.scores.each do |score| %>
@@ -22,11 +22,11 @@
     <%= Score.human_attribute_name 'multiplier' %>: <%= number_with_precision score.multiplier %>
     <%= Score.human_attribute_name 'created_at' %>: <%= l score.created_at, format: :short %>
     <%= Score.human_attribute_name 'whodunnit' %>: <%= User.find(score.originator) rescue '-' %>
-    
+
     ------------------------------------------------------------------------
-    
+
   <% end %>
-  
+
   <%= t(
     'notifier.enrollment_status.score_average.text',
     average: number_with_precision(@enrollment.score_average),
