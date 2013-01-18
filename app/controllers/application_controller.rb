@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   rescue_from Exception do |exception|
     begin
       @title = t('errors.title')
-
       if response.redirect_url.blank?
         render template: 'shared/show_error', locals: { error: exception }
       end

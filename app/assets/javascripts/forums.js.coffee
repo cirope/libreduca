@@ -1,6 +1,8 @@
-App.Event.registerEvent(
+new Rule
   condition: -> $('#c_forums').length
-  type: 'ajax:success'
-  selector: 'form[data-remote]'
-  handler: (event, data)-> $(this).replaceWith(data)
-)
+  load: ->
+    @map.replace_function ||= (event, data)-> $(this).replaceWith(data)
+
+    $(document).on 'ajax:success', 'form[data-remote]', @map.replace_function
+  unload: ->
+    $(document).off 'ajax:success', 'form[data-remote]', @map.replace_function
