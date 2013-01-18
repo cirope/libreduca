@@ -4,7 +4,9 @@ class Group < ActiveRecord::Base
   has_magick_columns name: :string
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :institution_id, :memberships_attributes
+  attr_accessible :name, :institution_id, :memberships_attributes, :enrollable_type
+
+  attr_accessor :enrollable_type
 
   # Defaul order
   default_scope order("#{table_name}.name ASC")
@@ -30,9 +32,11 @@ class Group < ActiveRecord::Base
   alias_method :label, :to_s
 
   def as_json(options = nil)
+    self.enrollable_type = 'Group'
+
     default_options = {
       only: [:id],
-      methods: [:label]
+      methods: [:label, :enrollable_type]
     }
 
     super(default_options.merge(options || {}))

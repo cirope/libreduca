@@ -3,29 +3,31 @@
   <div class="span5">
     <% if f.object.new_record? %>
       <% field_classes = ['autocomplete_field', 'span10'] %>
-      <% copy_attribute_errors(:user_id, :auto_user_name, f) %>
-      <%= f.input :auto_user_name, label: false,
+      <% copy_attribute_errors(:enrollable_id, :auto_enrollable_name, f) %>
+      <%= f.input :auto_enrollable_name, label: false,
         placeholder: Enrollment.human_attribute_name('user_id'),
         input_html: {
-          id: "auto_user_#{id}",
+          id: "auto_enrollable_#{id}",
           class: field_classes.join(' '),
-          value: f.object.enrollable.try(:label),
+          value: f.object.try(:label),
           autofocus: true,
           data: {
-            'autocomplete-url' => users_path(format: :json),
-            'autocomplete-id-target' => "#auto_user_id_#{id}"
+            'autocomplete-url' => find_user_or_group_path(format: :json),
+            'autocomplete-id-target' => "#auto_enrollable_id_#{id}"
           }
         }
       %>
       <%= f.input :enrollable_id, as: :hidden,
-        input_html: { class: 'autocomplete_id', id: "auto_user_id_#{id}" }
+        input_html: { class: 'autocomplete_id', id: "auto_enrollable_id_#{id}" }
+      %>
+      <%= f.input :enrollable_type, as: :hidden,
+        input_html: { class: 'autocomplete_id', id: "auto_enrollable_type", value: "User" }
       %>
     <% else %>
       <p><%= f.object.enrollable.label %></p>
     <% end %>
   </div>
   <div class="span2 nested-actions">
-    <%= f.input :id, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>
     <%= link_to_remove_nested_item(f) %>
   </div>

@@ -7,6 +7,7 @@ class Ability
     user ? user_rules(user, institution) : default_rules(user, institution)
 
     alias_action :find_by_email, to: :read
+    alias_action :find_user_or_group, to: :read
   end
 
   def user_rules(user, institution)
@@ -104,6 +105,7 @@ class Ability
     can :manage, Block
     can :manage, Group, institution_id: institution.id
     can :manage, Membership
+    can :read, Enrollment
   end
 
   def headmaster_rules(user, institution)

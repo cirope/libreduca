@@ -6,9 +6,9 @@ class Enrollment < ActiveRecord::Base
   scope :only_students, where(job: 'student')
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :teach_id, :job, :auto_user_name, :enrollable_id, :enrollable_type, :lock_version
+  attr_accessible :teach_id, :job, :auto_user_name, :enrollable_id, :enrollable_type, :lock_version, :auto_enrollable_name
 
-  attr_accessor :auto_user_name, :user
+  attr_accessor :auto_user_name, :auto_enrollable_name
 
   # Callbacks
   before_validation :set_job, on: :create
@@ -27,14 +27,34 @@ class Enrollment < ActiveRecord::Base
   has_one :course, through: :teach
   has_one :grade, through: :course
   has_one :institution, through: :grade
+  has_many :memberships, through: :groups, source: :enrollable, source_type: 'Membership'
 
   belongs_to :enrollable, polymorphic: true
+
+
+  def to_s
+    [self.enrollable].compact.join(' ')
+  end
+
+  alias_method :label, :to_s
+
+  def as_json(options = nil)
+    default_options = {
+      only: [:id],
+      methods: [:label]
+    }
+
+    super(default_options.merge(options || {}))
+  end
 
   def set_job
     if self.enrollable && self.teach
       institution = self.institution || self.teach.institution || self.teach.grade.institution
-
-      self.job = self.enrollable.jobs.in_institution(institution).first.try(:job)
+      if self.enrollable_type == 'User'
+        self.job = self.enrollable.jobs.in_institution(institution).first.try(:job)
+      else
+        self.job = 'student'
+      end
     end
   end
 

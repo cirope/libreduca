@@ -3,7 +3,11 @@ class Teach < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :start, :finish, :description, :course_id,
-    :enrollments_attributes, :scores_attributes, :lock_version
+    :enrollments_attributes, :scores_attributes, :lock_version,
+    :enrollable_id, :enrollable_type
+
+
+  attr_accessor :auto_enrollable_name
 
   # Default order
   default_scope order("#{table_name}.start DESC")
@@ -29,6 +33,7 @@ class Teach < ActiveRecord::Base
   has_many :surveys, through: :contents
   has_many :questions, through: :surveys
   has_many :forums, dependent: :destroy, as: :owner
+  has_many :groups, dependent: :destroy, through: :enrollments, source: :enrollable, source_type: 'Enrollment'
 
   accepts_nested_attributes_for :enrollments, allow_destroy: true,
     reject_if: ->(attributes) { attributes['enrollable_id'].blank? }

@@ -94,6 +94,8 @@ Libreduca::Application.routes.draw do
         end
       end
     end
+    match '/enrollments/find_user_or_group(.:format)' => 'enrollments#find_user_or_group',
+    as: 'find_user_or_group',  via: :get
 
     resources :grades, only: [] do
       resources :courses
@@ -137,6 +139,8 @@ Libreduca::Application.routes.draw do
 
       resources :teaches, only: [:index]
     end
+
+
 
     match 'private/:path', to: 'files#download',
       constraints: { path: /.+/ }, via: :get

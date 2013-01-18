@@ -120,6 +120,7 @@
       group:
         name: 'Nombre'
         user_id: 'Usuario'
+        group_id: 'Grupo'
       homework:
         name: 'Nombre'
         description: 'Descripción'
