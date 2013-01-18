@@ -83,6 +83,9 @@
       visit:
         one: 'Visita'
         other: 'Visitas'
+      vote:
+        one: 'Voto'
+        other: 'Votos'
       
     attributes:
       answer:
@@ -200,6 +203,8 @@
         roles:
           one: 'Perfil'
           other: 'Perfiles'
+      vote:
+        vote_flag: 'Votar'
 
   date:
     formats:
@@ -228,6 +233,8 @@
     sent: 'Enviado'
     show: 'Ver'
     zoom: 'Ampliar'
+    like: 'Me gusta'
+    dislike: 'No me gusta'
     
   menu:
     actions:
@@ -344,7 +351,7 @@
       invalid_comment: 'El comentario no se agregó, contenía errores'
       back_to_owner: 'Volver a %{owner}'
       created_by:
-        html: 'Creado hace %{distance_time} por <strong>%{user}</strong>'
+        html: '<span class="muted">Creado hace %{distance_time} por <strong>%{user}</strong></span>'
       from_owner:
         html:
           one: 'Foro de %{owner}'

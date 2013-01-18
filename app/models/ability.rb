@@ -43,6 +43,7 @@ class Ability
     can :update, Reply, user_id: user.id
     can :read, Image
     can :read, News
+    can :manage, Vote, user_id: user.id
   end
 
   def student_rules(user, institution)

@@ -1,4 +1,7 @@
 <%= content_for :form_actions do %>
+  <% if @news.persisted? %>
+    <%= link_to t('label.show'), @news %> |
+  <% end %>
   <%= link_to t('label.list'), news_index_path %>
 <% end %>
 

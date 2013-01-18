@@ -32,7 +32,11 @@ module UsersHelper
     avatar = user.avatar.send(version)
     dimensions = MiniMagick::Image.open(avatar.path)['dimensions']
 
-    image_tag avatar.url, size: dimensions.join('x'), alt: user, class: 'avatar'
+    image_tag avatar.url, size: dimensions.join('x'), alt: user, class: 'avatar img-rounded'
+  end
+
+  def show_user_default_avatar(version = :thumb)
+    content_tag(:span, '&#xe062;'.html_safe, class: "iconic well well-small avatar-#{version}")
   end
 
   def user_avatar_identifier(user)

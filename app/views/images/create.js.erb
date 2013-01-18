@@ -1,6 +1,9 @@
 <% if @image.persisted? %>
-  $('#image_show').append('<%= j render('image_show') %>');
-  $('#image_form').html('<%= j render('form', :@image => Image.new) %>');
+  $('#new_image').replaceWith('<%= j render('images/image_show', :image => @image) %>');
+  $("#<%= @image.anchor %>").effect('highlight', 'slow').after(
+    '<%= j render(template: 'images/new', format: :html, locals: { :@image => Image.new }) %>'
+  );
+  $('#image_name').focus();
 <% else %>
-  $('#image_form').html('<%= j render('form') %>');
+  $('#new_image').replaceWith('<%= j render(template: 'images/new', format: :html) %>');
 <% end %>

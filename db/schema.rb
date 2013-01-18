@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130101225315) do
+ActiveRecord::Schema.define(:version => 20130114182005) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -155,9 +155,12 @@ ActiveRecord::Schema.define(:version => 20130101225315) do
     t.integer  "lock_version",   :default => 0, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.integer  "owner_id"
+    t.string   "owner_type"
   end
 
   add_index "images", ["institution_id"], :name => "index_images_on_institution_id"
+  add_index "images", ["owner_id", "owner_type"], :name => "index_images_on_owner_id_and_owner_type"
 
   create_table "institutions", :force => true do |t|
     t.string   "name",                          :null => false
@@ -357,5 +360,18 @@ ActiveRecord::Schema.define(:version => 20130101225315) do
   add_index "visits", ["user_id", "visited_id", "visited_type"], :name => "index_visits_on_user_id_and_visited_id_and_visited_type", :unique => true
   add_index "visits", ["user_id"], :name => "index_visits_on_user_id"
   add_index "visits", ["visited_id", "visited_type"], :name => "index_visits_on_visited_id_and_visited_type"
+
+  create_table "votes", :force => true do |t|
+    t.boolean  "vote_flag",                   :null => false
+    t.integer  "user_id",                     :null => false
+    t.integer  "votable_id",                  :null => false
+    t.string   "votable_type",                :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
+  add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
 
 end

@@ -1,7 +1,6 @@
 <div class="readonly-data">
   <div class="page-header">
     <h1 class="text-info"><%= @news %></h1>
-
     <% if @news.description.present? %>
       <%= markdown @news.description %>
     <% end %>
@@ -19,17 +18,32 @@
     <% end %>
 
     <% if @news.body.present? %>
-      <p class="muted"><%= l @news.created_at, format: :longer %></p>
+      <p class="muted">
+        <%= l @news.created_at, format: :longer %>
+        <span>| <%= link_to_comments(@news, '#comments') %></span>
+      </p>
       <%= markdown @news.body %>
     <% end %>
   </div>
 
+  <div id="<%= @news.id %>">
+    <%= render 'votes/form', :@vote => @news.voted_by(current_user) || @news.votes.build, 
+      :@votable => @news %> 
+  </div>
+
+  <div id="comments"></div>
   <hr />
   <h3><%= Comment.model_name.human(count: @news.comments.size) %></h3>
 
-  <%= render partial: 'comments/comment', collection: @news.comments %>
+  <%= content_for :news_comments do 
+    render partial: 'comments/comment', collection: @news.comments.reverse_order
+  end %>
 
-  <%= render template: 'comments/new', locals: { :@comment => @news.comments.build, :@commentable => @news } %>
+  <%= render template: 'comments/new', 
+      locals: { :@comment => @news.comments.build, :@commentable => @news } %>
+
+  <%= yield :news_comments %>
+
 </div>
 
 <div class="form-actions">

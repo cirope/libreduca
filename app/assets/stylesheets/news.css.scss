@@ -1,4 +1,8 @@
 #c_news {
+  .news_columns { margin: 0 20px; }
+
+  .thumbnail { border: 0 none; box-shadow: none; }
+ 
   .carousel { margin: 0; }
 
   .launch-modal {
@@ -11,7 +15,7 @@
 
       a { 
         color: inherit; 
-        &:hover { text-decoration: none;}
+        &:hover { text-decoration: none; }
       }
     }
   }

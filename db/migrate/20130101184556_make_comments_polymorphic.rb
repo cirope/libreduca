@@ -6,6 +6,7 @@ class MakeCommentsPolymorphic < ActiveRecord::Migration
     change_column_default :comments, :commentable_type, nil
 
     rename_column :comments, :forum_id, :commentable_id
+    rename_column :comments, :info
 
     add_index :comments, [:commentable_id, :commentable_type]
   end

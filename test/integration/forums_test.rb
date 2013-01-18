@@ -51,7 +51,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
     visit institution_forum_path(institution, forum)
     
     assert_difference ['forum.comments.count', 'ActionMailer::Base.deliveries.size'] do
-      assert page.has_no_css?('blockquote[id]')
+      assert page.has_no_css?("div[id^=#{comment.anchor}]")
 
       within '#new_comment' do
         fill_in 'comment_comment', with: comment.comment
@@ -59,7 +59,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
         find('.btn').click
       end
 
-      assert page.has_css?('blockquote[id]')
+      assert page.has_css?("div[id^=#{comment.anchor}]")
     end
   end
 
@@ -77,7 +77,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
     # No send email if is a student
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       assert_difference 'forum.comments.count' do
-        assert page.has_no_css?('blockquote[id]')
+        assert page.has_no_css?("div[id^=#{comment.anchor}]")
 
         within '#new_comment' do
           fill_in 'comment_comment', with: comment.comment
@@ -85,7 +85,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
           find('.btn').click
         end
 
-        assert page.has_css?('blockquote[id]')
+        assert page.has_css?("div[id^=#{comment.anchor}]")
       end
     end
   end
@@ -109,7 +109,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
     
     assert_no_difference 'ActionMailer::Base.deliveries.size' do 
       assert_difference 'forum.comments.count' do
-        assert page.has_no_css?('blockquote[id]')
+        assert page.has_no_css?("div[id^=#{comment.anchor}]")
 
         within '#new_comment' do
           fill_in 'comment_comment', with: comment.comment
@@ -117,7 +117,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
           find('.btn').click
         end
 
-        assert page.has_css?('blockquote[id]')
+        assert page.has_css?("div[id^=#{comment.anchor}]")
       end
     end
   end

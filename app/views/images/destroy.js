@@ -1,1 +1,1 @@
-$('#<%= @image.id %>').remove();
+$('#<%= @image.anchor %>').remove();
