@@ -4,10 +4,8 @@ class VotesController < ApplicationController
   before_filter :authenticate_user!
 
   check_authorization
-
-  # Array doesn't work?
-  load_resource :news, shallow: true
-  load_resource :comment, shallow: true
+  load_and_authorize_resource :news, shallow: true
+  load_and_authorize_resource :comment, shallow: true
 
   before_filter :set_votable
 

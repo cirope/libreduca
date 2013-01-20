@@ -1,14 +1,15 @@
 class CommentsController < ApplicationController
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :forum
-  load_and_authorize_resource :news
-  load_and_authorize_resource through: [:forum, :news]
+  load_and_authorize_resource :forum, shallow: true
+  load_and_authorize_resource :news, shallow: true
 
   before_filter :set_commentable
 
-  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+  load_and_authorize_resource through: :commentable
   
   # GET /comments
   # GET /comments.json
@@ -54,7 +55,9 @@ class CommentsController < ApplicationController
       if @comment.save
         jobs = current_user.jobs.in_institution(current_institution)
 
-        Notifier.delay.new_comment(@comment, current_institution) unless jobs.all?(&:student?)
+        if @commentable.kind_of?(Forum) && !jobs.all?(&:student?)
+          Notifier.delay.new_comment(@comment, current_institution)
+        end
 
         format.html { redirect_to [@commentable, @comment], notice: t('view.comments.correctly_created') }
         format.json { render json: @comment, status: :created, location: @comment }

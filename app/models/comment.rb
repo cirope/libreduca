@@ -27,6 +27,10 @@ class Comment < ActiveRecord::Base
     "comment-#{self.id}"
   end
 
+  def anchor_vote
+    "comment-vote-#{self.id}"
+  end
+
   def voted_by(user)
     self.votes.where(user_id: user.id).first
   end

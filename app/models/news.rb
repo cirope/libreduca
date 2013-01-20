@@ -30,6 +30,10 @@ class News < ActiveRecord::Base
     "#{self.id}-#{self.title.parameterize}"
   end
 
+  def anchor_vote
+    "news-vote-#{self.id}"
+  end
+
   def voted_by(user)
     self.votes.where(user_id: user.id).first
   end

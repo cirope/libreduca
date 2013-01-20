@@ -17,18 +17,17 @@
       </div>
     <% end %>
 
-    <% if @news.body.present? %>
-      <p class="muted">
-        <%= l @news.created_at, format: :longer %>
-        <span>| <%= link_to_comments(@news, '#comments') %></span>
-      </p>
-      <%= markdown @news.body %>
-    <% end %>
+    <p class="muted">
+      <%= l @news.created_at, format: :longer %>
+      <span>| <%= link_to_comments(@news, '#comments') %></span>
+    </p>
+
+    <%= markdown @news.body if @news.body.present? %>
   </div>
 
-  <div id="<%= @news.id %>">
+  <div id="<%= @news.anchor_vote %>" style="margin-top: 10px;">
     <%= render 'votes/form', :@vote => @news.voted_by(current_user) || @news.votes.build, 
-      :@votable => @news %> 
+      :@votable => @news %>
   </div>
 
   <div id="comments"></div>

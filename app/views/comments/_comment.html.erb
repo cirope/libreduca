@@ -17,7 +17,7 @@
         ) %> 
       </small>
       
-      <span id="<%= comment.id %>" class="pull-right">
+      <span id="<%= comment.anchor_vote %>" class="pull-right">
         <%= render 'votes/form', :@vote => comment.voted_by(current_user) || comment.votes.build,
           :@votable => comment %>
       </span>
