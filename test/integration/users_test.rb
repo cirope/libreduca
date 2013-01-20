@@ -151,7 +151,6 @@ class UsersTest < ActionDispatch::IntegrationTest
     end
   end
 
-  
   test 'should delete all job inputs' do
     login
     
@@ -227,17 +226,16 @@ class UsersTest < ActionDispatch::IntegrationTest
 
     visit users_path
 
-    row_count = all('tr').size
+    row_count = all('tbody tr').size
 
     assert row_count < 101
 
     until row_count == 101
       page.execute_script 'window.scrollBy(0,10000)'
 
-      assert page.has_css?("tr:nth-child(#{row_count + 1})")
-      assert_equal row_count + WillPaginate.per_page, all('tr').size
+      assert page.has_css?("tbody tr:nth-child(#{row_count + 1})")
 
-      row_count = all('tr').size
+      row_count = all('tbody tr').size
     end
   end
 end

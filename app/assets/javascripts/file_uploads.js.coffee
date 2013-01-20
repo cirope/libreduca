@@ -8,7 +8,7 @@ class FileUploadHelper
 
     !types? || typesRegExp.test(@file.type) || typesRegExp.test(@file.name)
   drawTemplate: ->
-    @data.context = $(tmpl('template-upload', @file))
+    @data.context = $('<div></div>').html tmpl('template-upload', @file)
 
     @hideErrorMessage()
     @element.hide().before(@data.context)
@@ -29,30 +29,24 @@ class FileUploadHelper
     @data.context.find('.message').show() if @data.context
     @data.submit()
 
-new Rule
-  condition: -> $('[data-fileupload]').length
-  load: ->
-    @map.upload_function ||= ->
-      $(this).fileupload(
-        dataType: 'script'
-        add: (e, data) ->
-          file = data.files[0]
-          element = $(e.target)
-          fileUploadHelper = new FileUploadHelper(file, element, data)
+jQuery ($) ->
+  $(document).on 'click focus keydown drop', 'input[data-fileupload]:not([data-observed])', ->
+    $(this).fileupload(
+      dataType: 'script'
+      add: (e, data) ->
+        file = data.files[0]
+        element = $(e.target)
+        fileUploadHelper = new FileUploadHelper(file, element, data)
 
-          if fileUploadHelper.allowType()
-            fileUploadHelper.drawTemplate()
-            fileUploadHelper.evalAutosubmit()
-          else
-            fileUploadHelper.showErrorMessage()
-        progress: (e, data) ->
-          if data.context
-            progress = parseInt(data.loaded / data.total * 100, 10)
-            data.context.find('.bar').css('width', "#{progress}%")
-        done: (e, data) ->
-          data.context.find('.bar').css('width', '100%') if data.context
-      ).attr('data-observed', true)
-
-    $(document).on 'click focus keydown drop', '[data-fileupload]:not([data-observed])', @map.upload_function
-  unload: ->
-    $(document).off 'click focus keydown drop', '[data-fileupload]:not([data-observed])', @map.upload_function
+        if fileUploadHelper.allowType()
+          fileUploadHelper.drawTemplate()
+          fileUploadHelper.evalAutosubmit()
+        else
+          fileUploadHelper.showErrorMessage()
+      progress: (e, data) ->
+        if data.context
+          progress = parseInt(data.loaded / data.total * 100, 10)
+          data.context.find('.bar').css('width', "#{progress}%")
+      done: (e, data) ->
+        data.context.find('.bar').css('width', '100%') if data.context
+    ).attr('data-observed', true)
