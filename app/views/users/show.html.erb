@@ -13,7 +13,7 @@
           <strong><%= t("view.users.roles.#{@user.role}") %></strong>
         </p>
       <% end %>
-        
+
       <% unless @user.jobs.empty? %>
         <h3><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h3>
         <ul>
@@ -24,14 +24,16 @@
                 institution: link_to_if(can?(:read, job.institution), job.institution.name, job.institution),
                 role: show_human_job_type(job.job)
               ) %>
+              <% if job.description.present? %>
+                <small class="muted">(<%= job.description %>)</small>
+              <% end %>
             </li>
           <% end %>
         </ul>
       <% end %>
-      
+
       <% unless @user.kinships.empty? %>
-        <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size %></h3>
-        <ul>
+        <%= content_for :kinships do %>
           <% @user.kinships.each do |kinship| %>
             <li>
               <%= t(
@@ -41,16 +43,11 @@
               ) %>
             </li>
           <% end %>
-        </ul>
+        <% end %>
       <% end %>
       
       <% unless @user.inverse_kinships.empty? %>
-        <h3>
-          <%= User.human_attribute_name(
-            'inverse_kinships', count: @user.inverse_kinships.size
-          ) %>
-        </h3>
-        <ul>
+        <%= content_for :kinships do %>
           <% @user.inverse_kinships.each do |inverse_kinship| %>
             <li>
               <%= t(
@@ -60,6 +57,13 @@
               ) %>
             </li>
           <% end %>
+        <% end %>
+      <% end %>
+
+      <% if @user.kinships.present? || @user.inverse_kinships.present? %>
+        <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size + @user.inverse_kinships.size %></h3>
+        <ul>
+          <%= yield :kinships %>
         </ul>
       <% end %>
     </div>

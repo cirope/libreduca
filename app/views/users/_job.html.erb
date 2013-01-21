@@ -2,37 +2,46 @@
 <% if current_institution %>
   <%= f.input :institution_id, as: :hidden, input_html: { value: current_institution.id } %>
 <% end %>
-<fieldset class="row-fluid">
-  <% unless current_institution %>
-    <div class="span5">
-      <% field_classes = ['autocomplete_field', 'span10'] %>
-      <% copy_attribute_errors(:institution_id, :auto_institution_name, f) %>
-      <%= f.input :auto_institution_name, label: false,
-        placeholder: Job.human_attribute_name('institution_id'),
-        input_html: {
-          id: "auto_institution_#{id}",
-          class: field_classes.join(' '),
-          value: f.object.institution.try(:label),
-          autofocus: true,
-          data: {
-            'autocomplete-url' => institutions_path(format: :json),
-            'autocomplete-id-target' => "#auto_institution_id_#{id}"
+<fieldset>
+  <div class="row-fluid">
+    <% unless current_institution %>
+      <div class="span5">
+        <% field_classes = ['autocomplete_field', 'span10'] %>
+        <% copy_attribute_errors(:institution_id, :auto_institution_name, f) %>
+        <%= f.input :auto_institution_name, label: false,
+          placeholder: Job.human_attribute_name('institution_id'),
+          input_html: {
+            id: "auto_institution_#{id}",
+            class: field_classes.join(' '),
+            value: f.object.institution.try(:label),
+            autofocus: true,
+            data: {
+              'autocomplete-url' => institutions_path(format: :json),
+              'autocomplete-id-target' => "#auto_institution_id_#{id}"
+            }
           }
-        }
-      %>
-      <%= f.input :institution_id, as: :hidden,
-        input_html: { class: 'autocomplete_id', id: "auto_institution_id_#{id}" }
-      %>
-    </div>
-  <% end %>
-  <div class="<%= current_institution ? 'span10' : 'span5' %>">
-    <%= show_user_job_options(f) %>
-  </div>
-  <div class="span2 nested-actions">
-    <%= f.input :id, as: :hidden %>
-    <%= f.input :lock_version, as: :hidden %>
-    <% if current_institution.nil? || f.object.institution_id == current_institution.id %>
-      <%= link_to_remove_nested_item(f) %>
+        %>
+        <%= f.input :institution_id, as: :hidden,
+          input_html: { class: 'autocomplete_id', id: "auto_institution_id_#{id}" }
+        %>
+      </div>
     <% end %>
+    <div class="<%= current_institution ? 'span10' : 'span5' %>">
+      <%= show_user_job_options(f) %>
+    </div>
+    <div class="span2 nested-actions">
+      <%= f.input :id, as: :hidden %>
+      <%= f.input :lock_version, as: :hidden %>
+      <% if current_institution.nil? || f.object.institution_id == current_institution.id %>
+        <%= link_to_remove_nested_item(f) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span10">
+      <%= f.input :description, label: false, input_html: {
+        class: 'span11', placeholder: Job.human_attribute_name('description')
+      } %>
+    </div>
   </div>
 </fieldset>

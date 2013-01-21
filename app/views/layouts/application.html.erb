@@ -15,7 +15,7 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag %>
 </head>
-<body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged_in"' if user_signed_in? %>>
+<body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged-in"' if user_signed_in? %>>
   <%= render 'shared/menu' %>
   <div id="loading_caption" class="alert" style="display: none;">
     <strong><%= t('label.loading') %></strong>

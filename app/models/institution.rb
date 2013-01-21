@@ -27,6 +27,7 @@ class Institution < ActiveRecord::Base
   belongs_to :district
   has_many :workers, dependent: :destroy, class_name: 'Job'
   has_many :users, through: :workers
+  has_many :kinships, through: :users
   has_many :grades, dependent: :destroy
   has_many :courses, through: :grades
   has_many :teaches, through: :courses

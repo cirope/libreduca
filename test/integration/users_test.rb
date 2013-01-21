@@ -31,6 +31,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     within '#jobs fieldset' do
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
         from: find('select[name$="[job]"]')[:id]
+      fill_in find('input[name$="[description]"]')[:id], with: 'test'
     end
     
     assert page.has_no_css?('#jobs fieldset:nth-child(2)')
@@ -53,6 +54,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     within '#jobs fieldset:nth-child(2)' do
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
         from: find('select[name$="[job]"]')[:id]
+      fill_in find('input[name$="[description]"]')[:id], with: 'test'
     end
     
     assert_difference 'User.count' do
