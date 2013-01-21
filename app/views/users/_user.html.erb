@@ -1,0 +1,7 @@
+<tr>
+  <td><%= link_to_if can?(:read, user), user.name, user, title: t('label.show') %></td>
+  <td><%= link_to_if can?(:read, user), user.lastname, user, title: t('label.show') %></td>
+  <td><%= mail_to user.email, user.email, class: 'visible-desktop' %></td>
+  <td><%= link_to_edit edit_user_path(user) if can? :update, user %></td>
+  <td><%= link_to_destroy user if can? :destroy, user %></td>
+</tr>

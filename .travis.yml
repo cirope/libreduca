@@ -1,6 +1,9 @@
 language: ruby
 rvm:
   - 1.9.3
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq nodejs imagemagick graphviz
 before_script:
   - 'cp config/app_config.travis.yml config/app_config.yml'
   - "psql -c 'create database libreduca_test;' -U postgres"

@@ -1,5 +1,1 @@
 $('#news_form').replaceWith('<%= j render(template: 'news/new') %>');
-
-<% if @news.persisted? %>
-  App.Event.reloadEvents();
-<% end %>

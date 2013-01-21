@@ -58,7 +58,8 @@ class Ability
     
     can :read, Enrollment, teach_restrictions
     can :send_email_summary, Enrollment, teach_restrictions
-    can :update, Teach, enrollments_restrictions
+    can :manage, Teach, enrollments_restrictions
+    cannot :destroy, Teach, enrollments_restrictions
     can :manage, Content, teach_restrictions
     can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
     can :send_email_summary, Teach, enrollments_restrictions

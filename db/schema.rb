@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20130120190634) do
     t.integer  "institution_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.string   "description"
   end
 
   add_index "jobs", ["institution_id"], :name => "index_jobs_on_institution_id"

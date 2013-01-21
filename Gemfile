@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.11'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -17,6 +17,7 @@ gem 'roadie'
 gem 'redcarpet'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'ruby-graphviz'
 gem 'sidekiq'
 gem 'capistrano'
 gem 'newrelic_rpm'
@@ -26,8 +27,6 @@ gem 'jquery-fileupload-rails'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-  gem 'libv8'
-  gem 'therubyracer'
   gem 'uglifier'
 end
 
@@ -42,4 +41,5 @@ group :test do
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
+  gem 'timecop'
 end
