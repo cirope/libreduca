@@ -49,13 +49,17 @@ class JobTest < ActiveSupport::TestCase
   
   test 'validates length of _long_ attributes' do
     @job.job = 'abcde' * 52
+    @job.description = 'abcde' * 52
     
     assert @job.invalid?
-    assert_equal 2, @job.errors.count
+    assert_equal 3, @job.errors.count
     assert_equal [
       error_message_from_model(@job, :job, :too_long, count: 255),
       error_message_from_model(@job, :job, :inclusion)
     ].sort, @job.errors[:job].sort
+    assert_equal [
+      error_message_from_model(@job, :description, :too_long, count: 255),
+    ], @job.errors[:description]
   end
 
   test 'job type methods' do

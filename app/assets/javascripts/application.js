@@ -28,6 +28,7 @@
 //= require file_uploads
 //= require endless_pagination
 //= require mobile
+//= require chart
 //= require contents
 //= require courses
 //= require dashboard
