@@ -9,7 +9,7 @@
         <% news_row.each do |news| %>
           <li class="span4">
             <div class="thumbnail">
-              <%== news.images.first.try(:to_html, :normal) %>
+              <%== news.images.first.to_html(:normal) unless news.images.empty? %>
               <div class="caption">
                 <h4 class="text-info"><%= link_to news.title, news %></h4>
                 <p><small><%= markdown news.description %></small></p>

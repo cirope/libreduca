@@ -1,5 +1,8 @@
 class Comment < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail ignore: [
+    :votes_positives_count, :votes_negatives_count, :lock_version, 
+    :updated_at
+  ]
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :comment, :lock_version
@@ -16,7 +19,7 @@ class Comment < ActiveRecord::Base
   
   # Relations
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true
   has_many :votes, as: :votable, dependent: :destroy
 
   def to_s

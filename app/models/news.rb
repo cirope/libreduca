@@ -1,9 +1,12 @@
 class News < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail ignore: [
+    :comments_count, :votes_positives_count, 
+    :votes_negatives_count, :lock_version, :updated_at
+  ]
 
   has_magick_columns title: :string
 
-  attr_readonly :institution_id
+  attr_readonly :institution_id, :comments_count
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :title, :description, :body, :lock_version

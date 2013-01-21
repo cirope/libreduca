@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130114182005) do
+ActiveRecord::Schema.define(:version => 20130120190634) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -24,14 +24,15 @@ ActiveRecord::Schema.define(:version => 20130114182005) do
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
   create_table "comments", :force => true do |t|
-    t.text     "comment",                         :null => false
-    t.integer  "user_id",                         :null => false
-    t.integer  "commentable_id",                  :null => false
-    t.integer  "lock_version",     :default => 0, :null => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.text     "info"
-    t.string   "commentable_type",                :null => false
+    t.text     "comment",                              :null => false
+    t.integer  "user_id",                              :null => false
+    t.integer  "commentable_id",                       :null => false
+    t.integer  "lock_version",          :default => 0, :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.string   "commentable_type",                     :null => false
+    t.integer  "votes_positives_count", :default => 0, :null => false
+    t.integer  "votes_negatives_count", :default => 0, :null => false
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
@@ -97,15 +98,16 @@ ActiveRecord::Schema.define(:version => 20130114182005) do
   add_index "enrollments", ["user_id"], :name => "index_enrollments_on_user_id"
 
   create_table "forums", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.text     "topic",                       :null => false
-    t.integer  "user_id",                     :null => false
-    t.integer  "owner_id",                    :null => false
-    t.string   "owner_type",                  :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.string   "name",                          :null => false
+    t.text     "topic",                         :null => false
+    t.integer  "user_id",                       :null => false
+    t.integer  "owner_id",                      :null => false
+    t.string   "owner_type",                    :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.text     "info"
+    t.integer  "comments_count", :default => 0, :null => false
   end
 
   add_index "forums", ["name"], :name => "index_forums_on_name"
@@ -219,13 +221,16 @@ ActiveRecord::Schema.define(:version => 20130114182005) do
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
 
   create_table "news", :force => true do |t|
-    t.string   "title",                         :null => false
+    t.string   "title",                                :null => false
     t.text     "description"
     t.text     "body"
-    t.integer  "lock_version",   :default => 0, :null => false
+    t.integer  "lock_version",          :default => 0, :null => false
     t.integer  "institution_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "comments_count",        :default => 0, :null => false
+    t.integer  "votes_positives_count", :default => 0, :null => false
+    t.integer  "votes_negatives_count", :default => 0, :null => false
   end
 
   add_index "news", ["institution_id"], :name => "index_news_on_institution_id"

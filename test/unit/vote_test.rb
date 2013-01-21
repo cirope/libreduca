@@ -6,17 +6,21 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference 'Vote.count' do
-      @vote = Vote.create do |vote|
-        Fabricate.attributes_for(:vote).each do |attr, value|
-          vote.send "#{attr}=", value
+    vote_attributes = Fabricate.attributes_for(:vote, 
+      votable_id: @vote.votable_id, votable_type: @vote.votable_type
+    )
+    
+    assert_difference ['Vote.count', '@vote.votable.reload.votes_negatives_count'] do
+      Vote.create do |v|
+        vote_attributes.each do |attr, value|
+          v.send "#{attr}=", value
         end
       end
     end
   end
 
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference ['Version.count', '@vote.votable.votes_positives_count'] do
       assert_no_difference 'Vote.count' do
         assert @vote.update_attributes(vote_flag: true)
       end
