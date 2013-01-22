@@ -17,6 +17,7 @@
  *= require common
  *= require common-responsive
  *= require devise
+ *= require chart
  *= require comments
  *= require contents
  *= require courses

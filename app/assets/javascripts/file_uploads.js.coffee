@@ -8,7 +8,7 @@ class FileUploadHelper
 
     !types? || typesRegExp.test(@file.type) || typesRegExp.test(@file.name)
   drawTemplate: ->
-    @data.context = $(tmpl('template-upload', @file))
+    @data.context = $('<div></div>').html tmpl('template-upload', @file)
 
     @hideErrorMessage()
     @element.hide().before(@data.context)
@@ -29,11 +29,8 @@ class FileUploadHelper
     @data.context.find('.message').show() if @data.context
     @data.submit()
 
-App.Event.registerEvent
-  condition: -> $('[data-fileupload]').length
-  type: 'click focus keydown drop'
-  selector: '[data-fileupload]:not([data-observed])'
-  handler: ->
+jQuery ($) ->
+  $(document).on 'click focus keydown drop', 'input[data-fileupload]:not([data-observed])', ->
     $(this).fileupload(
       dataType: 'script'
       add: (e, data) ->

@@ -1,12 +1,15 @@
 class Kinship < ActiveRecord::Base
   has_paper_trail
   
-  TYPES = ['father', 'mother', 'tutor', 'other']
+  TYPES = ['father', 'mother', 'tutor', 'superior', 'other']
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :kin, :user_id, :relative_id, :auto_user_name, :lock_version
   
   attr_accessor :auto_user_name
+
+  # Scopes
+  scope :superiors, -> { where(kin: 'superior') }
   
   # Validations
   validates :kin, :relative_id, presence: true

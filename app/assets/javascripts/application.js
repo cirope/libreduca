@@ -17,6 +17,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require twitter/bootstrap
+//= require inspector
 //= require turboevents
 //= require turbolinks
 //= require common
@@ -25,7 +26,9 @@
 //= require effect_helper
 //= require date_pickers
 //= require file_uploads
+//= require endless_pagination
 //= require mobile
+//= require chart
 //= require comments
 //= require contents
 //= require courses
