@@ -41,7 +41,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     assert_difference 'News.count' do
       assert page.has_no_css?('form[id=new_image]')
       
-      find('#images_news').click
+      find('#new_image_btn').click
 
       assert page.has_css?('form[id=new_image]')
     end
@@ -68,7 +68,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     fill_in News.human_attribute_name('description'), with: @news.description
     fill_in News.human_attribute_name('body'), with: @news.body
       
-    find('#images_news').click
+    find('#new_image_btn').click
 
     assert_difference 'Image.count' do
       assert page.has_no_css?('div[id^=image]')

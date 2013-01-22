@@ -2,7 +2,9 @@
   <div class="page-header">
     <h1 class="text-info"><%= @news %></h1>
     <% if @news.description.present? %>
-      <%= markdown @news.description %>
+      <h5>
+        <%= markdown @news.description %>
+      </h5>
     <% end %>
   </div>
 

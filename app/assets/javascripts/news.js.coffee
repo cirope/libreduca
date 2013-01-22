@@ -1,9 +1,9 @@
 new Rule
-  condition: -> $('#c_news #images_news').length
+  condition: -> $('#c_news #new_image_btn').length
   load: ->
     @map.submit_function ||= ->
-      $(this).closest('form').attr('data-remote', 'true').submit()
+      $(this).closest('form').attr('data-remote', 'true').submit(); false
       
-    $(document).on 'click', '#images_news', @map.submit_function
+    $(document).on 'click', '#new_image_btn', @map.submit_function
   unload: ->
-    $(document).off 'click', '#images_news', @map.submit_function
+    $(document).off 'click', '#new_image_btn', @map.submit_function

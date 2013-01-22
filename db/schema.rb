@@ -225,13 +225,13 @@ ActiveRecord::Schema.define(:version => 20130120190634) do
     t.string   "title",                                :null => false
     t.text     "description"
     t.text     "body"
+    t.integer  "comments_count",        :default => 0, :null => false
+    t.integer  "votes_positives_count", :default => 0, :null => false
+    t.integer  "votes_negatives_count", :default => 0, :null => false
     t.integer  "lock_version",          :default => 0, :null => false
     t.integer  "institution_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
-    t.integer  "comments_count",        :default => 0, :null => false
-    t.integer  "votes_positives_count", :default => 0, :null => false
-    t.integer  "votes_negatives_count", :default => 0, :null => false
   end
 
   add_index "news", ["institution_id"], :name => "index_news_on_institution_id"

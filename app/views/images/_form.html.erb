@@ -26,6 +26,12 @@
     <%= f.button :submit, t('view.images.load') %>
   </div>
 
+  <% if controller_name == 'images' && !request.xhr? %>
+    <div class="form-actions">
+      <%= link_to t('label.list'), images_path, title: t('label.list') %>
+    </div>
+  <% end %>
+
   <%= render 'shared/template_upload' %>
 <% end %>
 
