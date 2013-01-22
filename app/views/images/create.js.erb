@@ -1,5 +1,9 @@
 <% if @image.persisted? %>
-  Turbolinks.visit('<%= image_url(@image) %>');
+  $('#new_image').replaceWith('<%= j render('images/image_show', :image => @image) %>');
+  $("#<%= @image.anchor %>").effect('highlight', 'slow').after(
+    '<%= j render(template: 'images/new', format: :html, locals: { :@image => Image.new }) %>'
+  );
+  $('#image_name').focus();
 <% else %>
-  $('.container .content').html('<%= j render(template: 'images/new') %>');
+  $('#new_image').replaceWith('<%= j render(template: 'images/new', format: :html) %>');
 <% end %>

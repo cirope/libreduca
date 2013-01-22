@@ -1,14 +1,15 @@
 class CommentsController < ApplicationController
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :forum
-  load_and_authorize_resource :news
-  load_and_authorize_resource through: [:forum, :news]
+  load_and_authorize_resource :forum, shallow: true
+  load_and_authorize_resource :news, shallow: true
 
   before_filter :set_commentable
 
-  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+  load_and_authorize_resource through: :commentable
   
   # GET /comments
   # GET /comments.json
@@ -44,13 +45,6 @@ class CommentsController < ApplicationController
     end
   end
 
-=begin
-  # GET /comments/1/edit
-  def edit
-    @title = t('view.comments.edit_title')
-  end
-=end
-
   # POST /comments
   # POST /comments.json
   def create
@@ -61,7 +55,9 @@ class CommentsController < ApplicationController
       if @comment.save
         jobs = current_user.jobs.in_institution(current_institution)
 
-        Notifier.delay.new_comment(@comment, current_institution) unless jobs.all?(&:student?)
+        if @commentable.kind_of?(Forum) && !jobs.all?(&:student?)
+          Notifier.delay.new_comment(@comment, current_institution)
+        end
 
         format.html { redirect_to [@commentable, @comment], notice: t('view.comments.correctly_created') }
         format.json { render json: @comment, status: :created, location: @comment }
@@ -73,37 +69,6 @@ class CommentsController < ApplicationController
       end
     end
   end
-
-=begin
-  # PUT /comments/1
-  # PUT /comments/1.json
-  def update
-    @title = t('view.comments.edit_title')
-
-    respond_to do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to [@commentable, @comment], notice: t('view.comments.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
-  rescue ActiveRecord::StaleObjectError
-    redirect_to edit_comment_url(@comment), alert: t('view.comments.stale_object_error')
-  end
-
-  # DELETE /comments/1
-  # DELETE /comments/1.json
-  def destroy
-    @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to polymorphic_url([@commentable, Comment]) }
-      format.json { head :ok }
-    end
-  end
-=end
 
   private
 

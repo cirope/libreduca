@@ -15,7 +15,7 @@
 
   <h3><%= t('view.images.versions') %></h3>
 
-  <% [nil, :thumb, :mini_thumb, :micro_thumb].each do |version| %>
+  <% [nil, :large, :normal, :thumb, :mini_thumb, :micro_thumb].each do |version| %>
     <p>
       <%== @image.to_html(version) %>
     </p>

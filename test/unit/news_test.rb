@@ -8,10 +8,14 @@ class NewsTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'News.count' do
-      @news = News.create(Fabricate.attributes_for(:news))
-    end 
+      @news = News.create do |news|
+        Fabricate.attributes_for(:news).each do |attr, value|
+          news.send "#{attr}=", value
+        end
+      end
+    end
   end
-    
+
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'News.count' do

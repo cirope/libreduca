@@ -4,6 +4,9 @@ class CreateNews < ActiveRecord::Migration
       t.string :title, null: false
       t.text :description
       t.text :body
+      t.integer :comments_count, null: false, default: 0
+      t.integer :votes_positives_count, null: false, default: 0
+      t.integer :votes_negatives_count, null: false, default: 0
       t.integer :lock_version, null: false, default: 0
       t.references :institution
 

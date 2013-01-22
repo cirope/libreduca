@@ -1,0 +1,13 @@
+<div class="readonly-data">
+  <h2><%= @vote %></h2>
+
+  <p>
+    <strong><%= Vote.human_attribute_name 'vote_flag' %></strong>:
+    <%= @vote.vote_flag %>
+  </p>
+  <p>
+    <strong><%= Vote.human_attribute_name 'user' %></strong>:
+    <%= @vote.user %>
+  </p>
+  
+</div>

@@ -99,8 +99,22 @@ Libreduca::Application.routes.draw do
       resources :comments, only: [:index, :show, :new, :create]
     end
 
-    resources :news, only: [] do
+    resources :news do
       resources :comments, only: [:index, :show, :new, :create]
+
+      resources :votes, only: :show do
+        post ':vote_flag' => 'votes#create', vote_flag: /positive|negative/, as: '', on: :collection 
+        put ':vote_flag' => 'votes#update', vote_flag: /positive|negative/, as: '', on: :member
+      end
+
+      resources :images
+    end
+
+    resources :comments, only: [] do
+      resources :votes, only: :show do
+        post ':vote_flag' => 'votes#create', vote_flag: /positive|negative/, as: '', on: :collection 
+        put ':vote_flag' => 'votes#update', vote_flag: /positive|negative/, as: '', on: :member
+      end
     end
 
     resources :institutions do

@@ -1,0 +1,23 @@
+<div id="modal-carousel" class="modal hide fade" aria-hidden="true">
+  <div class="modal-body">
+    <div id="carousel-show-images" class="carousel slide">
+      <div class="carousel-inner">
+        <% @images.each_with_index do |image, idx| %>
+          <div class="item <%= idx == 0 ? 'active' : '' %>">
+            <%== image.to_html(:large) %>
+            <div class="carousel-caption">
+              <p><%= image.name %></p>
+            </div>  
+          </div>
+        <% end %>
+      </div>
+      <% if @images.count > 1 %>
+        <a class="carousel-control left" href="#carousel-show-images" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#carousel-show-images" data-slide="next">&rsaquo;</a>
+      <% end %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><%= t('label.close') %></a>
+  </div>
+</div>

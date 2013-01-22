@@ -1,15 +1,32 @@
-<blockquote id="<%= comment.anchor %>">
-  <%= markdown comment.comment %>
-
-  <small>
-    <%= t(
-      'view.forums.created_by.html',
-      user: comment.user.to_s,
-      distance_time: distance_of_time_in_words_to_now(comment.created_at)
-    ) %>
-
-    <% if comment.info.present? %>
-      | <%= comment.info %>
+<div id="<%= comment.anchor %>" class="media">
+  <div class="pull-left">
+    <% if comment.user.avatar? %>
+      <%= show_user_avatar(comment.user, :micro_thumb) %>
+    <% else %>
+      <%= show_user_default_avatar(:micro) %>
     <% end %>
-  </small>
-</blockquote>
+  </div>
+
+  <div class="media-body">
+    <div class="well well-small">
+      <small>
+        <%= t(
+          'view.forums.created_by.html',
+          user: comment.user.to_s,
+          distance_time: distance_of_time_in_words_to_now(comment.created_at)
+        ) %> 
+      </small>
+      
+      <span id="<%= comment.anchor_vote %>" class="pull-right">
+        <%= render 'votes/form', :@vote => comment.voted_by(current_user) || comment.votes.build,
+          :@votable => comment %>
+      </span>
+    </div>
+
+    <blockquote>
+      <%= markdown comment.comment %>
+    </blockquote>
+  </div>
+
+  <hr />
+</div>

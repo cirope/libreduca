@@ -1,3 +1,9 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+new Rule
+  condition: -> $('#c_news #new_image_btn').length
+  load: ->
+    @map.submit_function ||= ->
+      $(this).closest('form').attr('data-remote', 'true').submit(); false
+      
+    $(document).on 'click', '#new_image_btn', @map.submit_function
+  unload: ->
+    $(document).off 'click', '#new_image_btn', @map.submit_function

@@ -22,9 +22,9 @@ class FileUploadHelper
         ':submit:not([data-observed])'
       ).click(-> _this.submit(); false).attr('data-observed', 'true')
   showErrorMessage: ->
-    $(@errorElement).removeClass('hide').alert() if @errorElement
+    $(@errorElement).show() if @errorElement
   hideErrorMessage: ->
-    $(@errorElement).alert('close') if @errorElement
+    $(@errorElement).hide() if @errorElement
   submit: ->
     @data.context.find('.message').show() if @data.context
     @data.submit()

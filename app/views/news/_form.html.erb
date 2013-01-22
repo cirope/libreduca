@@ -1,15 +1,36 @@
-<%= simple_form_for(@news, defaults: { input_html: { class: 'span11' } }) do |f| %>
-  <%= f.error_notification %>
+<div id="news_form">
+  <%= simple_form_for(@news, defaults: { input_html: { class: 'span11' } }) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :title, input_html: { autofocus: true, maxlength: 255 } %>
-    <%= f.input :description, input_html: { rows: 3 } %>
-    <%= f.input :body, input_html: { rows: 6 } %>
-  </div>
+    <div class="form-inputs">
+      <%= f.input :title, input_html: { autofocus: true, maxlength: 255 } %>
+      <%= f.input :description, input_html: { rows: 3 } %>
+      <%= f.input :body, input_html: { rows: 4 } %>
+      <%= f.input :lock_version, as: :hidden %>
+    </div>
 
-  <div class="form-actions">
-    <div class="pull-right"><%= yield :form_actions %></div>
-    <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, class: 'btn-primary' %>
-  </div>
-<% end %>
+    <% if @news.new_record? %>
+      <div class="form-actions">
+        <div class="pull-right"><%= yield :form_actions %></div>
+        <%= f.button :submit, class: 'btn-primary' %>
+        <%= link_to t('view.images.new'), '#new_image_btn', id: 'new_image_btn', class: 'btn' %>
+      </div>
+    <% else %>
+      <div class="form-inputs">
+        <%= f.button :submit, class: 'btn-primary' %> 
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if @news.persisted? %>
+    <hr />
+    <%= render partial: 'images/image_show', collection: @news.images, as: :image %>
+
+    <%= render template: 'images/new', 
+      locals: { :@image => @news.images.build, :@owner => @news } %>
+
+    <div class="form-actions">
+      <div class="pull-right"><%= yield :form_actions %></div>
+    </div>
+  <% end %>
+</div>

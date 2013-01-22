@@ -3,13 +3,13 @@ require 'test_helper'
 class NewsControllerTest < ActionController::TestCase
 
   setup do
-    institution = Fabricate(:institution)
-    @news = Fabricate(:news, institution_id: institution.id)
+    @news = Fabricate(:news)
+    @institution = @news.institution
     @user = Fabricate(:user, password: '123456', roles: [:normal])
     @job = Fabricate(
-      :job, user_id: @user.id, institution_id: institution.id, job: 'janitor'
+      :job, user_id: @user.id, institution_id: @institution.id, job: 'janitor'
     )
-    @request.host = "#{institution.identification}.lvh.me"
+    @request.host = "#{@institution.identification}.lvh.me"
 
     sign_in @user
   end
@@ -31,8 +31,10 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test "should create news" do
-    assert_difference('News.count') do
-      post :create, news: Fabricate.attributes_for(:news)
+    assert_difference 'News.count' do
+      post :create, news: Fabricate.attributes_for(
+        :news, institution_id: @institution.id
+      ).slice(*News.accessible_attributes)
     end
 
     assert_redirected_to news_url(assigns(:news))
@@ -55,8 +57,11 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test "should update news" do
-    put :update, id: @news, 
-      news: Fabricate.attributes_for(:news, title: 'new value')
+    assert_no_difference 'News.count' do
+      put :update, id: @news, news: Fabricate.attributes_for(:news, 
+        title: 'new value', institution_id: @institution.id
+      ).slice(*News.accessible_attributes)
+    end
 
     assert_redirected_to news_url(assigns(:news))
   end

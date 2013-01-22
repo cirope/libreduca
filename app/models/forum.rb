@@ -1,12 +1,15 @@
 class Forum < ActiveRecord::Base
-  has_paper_trail 
-  
+  has_paper_trail ignore: [
+    :comments_count, :lock_version, :updated_at
+  ]
+
   has_magick_columns name: :string
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :topic, :info, :lock_version
+
   # Attributes only writables in creation
-  attr_readonly :user_id
+  attr_readonly :user_id, :comments_count
   
   # Default order
   default_scope order("#{table_name}.name ASC")

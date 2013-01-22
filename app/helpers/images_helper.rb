@@ -25,4 +25,16 @@ module ImagesHelper
 
     out << content_tag(:div, content, class: 'modal hide fade', id: id)
   end
+
+  def link_to_zoom(*args)
+    options = args.extract_options!
+
+    link = content_tag('span', '&#xe04e;'.html_safe, class: 'iconic')
+    link << ' ' << t('label.zoom') 
+
+    options['title'] ||= t('label.zoom')
+    options['data-toggle'] ||= 'modal'
+
+    link_to link, *args, options
+  end
 end

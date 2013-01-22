@@ -48,6 +48,7 @@ class Ability
     can :read, News
     can :read, Page
     can :read, Block
+    can :manage, Vote, user_id: user.id
   end
 
   def student_rules(user, institution)
@@ -108,6 +109,7 @@ class Ability
     can :manage, Group, institution_id: institution.id
     can :manage, Membership
     can :read, Enrollment
+    can :manage, News, institution_id: institution.id # TODO: review duplicated
   end
 
   def headmaster_rules(user, institution)

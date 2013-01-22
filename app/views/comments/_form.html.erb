@@ -1,6 +1,6 @@
 <%= simple_form_for([@commentable, @comment], remote: true) do |f| %>
   <%= f.input :comment, label: false, input_html: {
-    rows: 5, class: 'span11',
+    rows: 3, class: 'span11',
     placeholder: Comment.human_attribute_name('comment')
   } %>
 

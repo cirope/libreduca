@@ -10,10 +10,11 @@ class Image < ActiveRecord::Base
   attr_readonly :institution_id
 
   # Defaul order
-  default_scope order("#{table_name}.name ASC")
+  default_scope order("#{table_name}.created_at ASC")
 
   # Callbacks
   before_save :update_file_attributes
+  after_save :recreate_versions
   
   # Validations
   validates :name, :file, :institution, presence: true
@@ -24,6 +25,10 @@ class Image < ActiveRecord::Base
 
   def to_s
     self.name
+  end
+
+  def anchor
+    "image-#{self.id}"
   end
 
   def as_json(options = nil)
@@ -56,7 +61,11 @@ class Image < ActiveRecord::Base
     MiniMagick::Image.open(get_version(version).path)['dimensions']
   end
 
-  private
+  def recreate_versions
+    self.file.recreate_versions!
+  end
+
+  private 
 
   def get_version(version = nil)
     version ? self.file.send(version) : self.file

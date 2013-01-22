@@ -1,27 +1,52 @@
 <div class="readonly-data">
   <div class="page-header">
     <h1 class="text-info"><%= @news %></h1>
-
-    <hr />
     <% if @news.description.present? %>
-      <h3><%= @news.description %></h3>
-    <% end %>
-    <% if @news.body.present? %>
-      <p><%= markdown @news.body %></p>
+      <h5>
+        <%= markdown @news.description %>
+      </h5>
     <% end %>
   </div>
 
-  <h4><%= @news.description %></h4>
+  <div class="media">
+    <% if @news.images.present? %>
+      <div class="pull-left launch-modal">
+        <a href="#modal-carousel" data-toggle="modal">
+          <%== @news.images.first.to_html(:normal) %>
+        </a>
+        <span class="badge zoom"><%= link_to_zoom '#modal-carousel' %></span>
+        <%= render 'images/modal_carousel', :@images => @news.images %>
+      </div>
+    <% end %>
 
-  <p><%= @news.body %></p>
+    <p class="muted">
+      <%= l @news.created_at, format: :longer %>
+      <span>| <%= link_to_comments(@news, '#comments') %></span>
+    </p>
 
+    <%= markdown @news.body if @news.body.present? %>
+  </div>
+
+  <div id="<%= @news.anchor_vote %>" style="margin-top: 10px;">
+    <%= render 'votes/form', :@vote => @news.voted_by(current_user) || @news.votes.build, 
+      :@votable => @news %>
+  </div>
+
+  <div id="comments"></div>
   <hr />
   <h3><%= Comment.model_name.human(count: @news.comments.size) %></h3>
 
-  <%= render partial: 'comments/comment', collection: @news.comments %>
+  <%= content_for :news_comments do 
+    render partial: 'comments/comment', collection: @news.comments.reverse_order
+  end %>
 
-  <%= render template: 'comments/new', locals: { :@comment => @news.comments.build, :@commentable => @news } %>
+  <%= render template: 'comments/new', 
+      locals: { :@comment => @news.comments.build, :@commentable => @news } %>
+
+  <%= yield :news_comments %>
+
 </div>
+
 <div class="form-actions">
   <%= link_to(
     t('label.edit'), edit_news_path(@news), class: 'btn btn-primary'

@@ -92,7 +92,10 @@
       visit:
         one: 'Visita'
         other: 'Visitas'
-
+      vote:
+        one: 'Voto'
+        other: 'Votos'
+      
     attributes:
       answer:
         content: 'Respuesta'
@@ -213,6 +216,8 @@
         roles:
           one: 'Perfil'
           other: 'Perfiles'
+      vote:
+        vote_flag: 'Votar'
 
   date:
     formats:
@@ -241,7 +246,10 @@
     sending: 'Enviando...'
     sent: 'Enviado'
     show: 'Ver'
-
+    zoom: 'Ampliar'
+    like: 'Me gusta'
+    dislike: 'No me gusta'
+    
   menu:
     actions:
       login: 'Ingresar'
@@ -368,7 +376,7 @@
       invalid_comment: 'El comentario no se agregó, contenía errores'
       back_to_owner: 'Volver a %{owner}'
       created_by:
-        html: 'Creado hace %{distance_time} por <strong>%{user}</strong>'
+        html: '<span class="muted">Creado hace %{distance_time} por <strong>%{user}</strong></span>'
       from_owner:
         html:
           one: 'Foro de %{owner}'
@@ -419,6 +427,7 @@
       new: 'Nueva imagen'
       modal: 'Con dialogo modal'
       versions: 'Versiones'
+      load: 'Cargar imagen'
       click_to_enlarge:
         html: 'Haga <strong>clic</strong> sobre la imagen para <strong>ampliar</strong>'
     institutions:
