@@ -17,6 +17,7 @@ gem 'roadie'
 gem 'redcarpet'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'ruby-graphviz'
 gem 'sidekiq'
 gem 'capistrano'
 gem 'newrelic_rpm'
@@ -40,4 +41,5 @@ group :test do
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
+  gem 'timecop'
 end

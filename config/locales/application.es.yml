@@ -54,8 +54,8 @@
         one: 'Trabajo'
         other: 'Trabajos'
       kinship:
-        one: 'Parentesco'
-        other: 'Parentescos'
+        one: 'Relación'
+        other: 'Relaciones'
       login:
         one: 'Ingreso'
         other: 'Ingresos'
@@ -135,12 +135,13 @@
         workers: 'Personal'
       job:
         job: 'Trabajo'
+        description: 'Descripción'
         institution_id: 'Institución'
         user_id: 'Usuario'
       kinship:
-        kin: 'Parentesco'
+        kin: 'Relación'
         user_id: 'Usuario'
-        relative_id: 'Pariente'
+        relative_id: 'Vinculado'
       login:
         ip: 'IP'
         user_agent: 'Navegador'
@@ -200,11 +201,8 @@
           one: 'Trabajo'
           other: 'Trabajos'
         kinships:
-          one: 'Parentesco'
-          other: 'Parentescos'
-        inverse_kinships:
-          one: 'Otro parentesco'
-          other: 'Otros parentescos'
+          one: 'Relación'
+          other: 'Relaciones'
         roles:
           one: 'Perfil'
           other: 'Perfiles'
@@ -270,6 +268,9 @@
       edit: 'Editar'
       sort: 'Mover'
       sorted: 'La posición fue actualizada correctamente'
+    charts:
+      index_title: 'Organigrama'
+      empty_index: 'No hay relaciones a graficar entre usuarios'
     contents:
       index_title: 'Listado de contenidos'
       new_title: 'Nuevo contenido'
@@ -432,6 +433,7 @@
         father: 'Padre'
         mother: 'Madre'
         tutor: 'Tutor'
+        superior: 'Superior'
         other: 'Otro'
     launchpad:
       index_title: 'Instituciones'
@@ -555,7 +557,7 @@
         html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
       new: 'Nuevo usuario'
       new_job: 'Agregar nuevo trabajo'
-      new_kinship: 'Agregar nuevo parentesco'
+      new_kinship: 'Agregar nueva relación'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'

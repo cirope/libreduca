@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115163203) do
+ActiveRecord::Schema.define(:version => 20130120190634) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -34,16 +34,18 @@ ActiveRecord::Schema.define(:version => 20130115163203) do
   end
 
   create_table "comments", :force => true do |t|
-    t.text     "comment",                     :null => false
-    t.integer  "user_id",                     :null => false
-    t.integer  "forum_id",                    :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.text     "info"
+    t.text     "comment",                              :null => false
+    t.integer  "user_id",                              :null => false
+    t.integer  "commentable_id",                       :null => false
+    t.integer  "lock_version",          :default => 0, :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.string   "commentable_type",                     :null => false
+    t.integer  "votes_positives_count", :default => 0, :null => false
+    t.integer  "votes_negatives_count", :default => 0, :null => false
   end
 
-  add_index "comments", ["forum_id"], :name => "index_comments_on_forum_id"
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "contents", :force => true do |t|
@@ -107,15 +109,16 @@ ActiveRecord::Schema.define(:version => 20130115163203) do
   add_index "enrollments", ["teach_id"], :name => "index_enrollments_on_teach_id"
 
   create_table "forums", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.text     "topic",                       :null => false
-    t.integer  "user_id",                     :null => false
-    t.integer  "owner_id",                    :null => false
-    t.string   "owner_type",                  :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.string   "name",                          :null => false
+    t.text     "topic",                         :null => false
+    t.integer  "user_id",                       :null => false
+    t.integer  "owner_id",                      :null => false
+    t.string   "owner_type",                    :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.text     "info"
+    t.integer  "comments_count", :default => 0, :null => false
   end
 
   add_index "forums", ["name"], :name => "index_forums_on_name"
@@ -165,9 +168,12 @@ ActiveRecord::Schema.define(:version => 20130115163203) do
     t.integer  "lock_version",   :default => 0, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.integer  "owner_id"
+    t.string   "owner_type"
   end
 
   add_index "images", ["institution_id"], :name => "index_images_on_institution_id"
+  add_index "images", ["owner_id", "owner_type"], :name => "index_images_on_owner_id_and_owner_type"
 
   create_table "institutions", :force => true do |t|
     t.string   "name",                          :null => false
@@ -189,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20130115163203) do
     t.integer  "institution_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.string   "description"
   end
 
   add_index "jobs", ["institution_id"], :name => "index_jobs_on_institution_id"
@@ -224,6 +231,22 @@ ActiveRecord::Schema.define(:version => 20130115163203) do
 
   add_index "memberships", ["group_id"], :name => "index_memberships_on_group_id"
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+
+  create_table "news", :force => true do |t|
+    t.string   "title",                                :null => false
+    t.text     "description"
+    t.text     "body"
+    t.integer  "comments_count",        :default => 0, :null => false
+    t.integer  "votes_positives_count", :default => 0, :null => false
+    t.integer  "votes_negatives_count", :default => 0, :null => false
+    t.integer  "lock_version",          :default => 0, :null => false
+    t.integer  "institution_id"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+  end
+
+  add_index "news", ["institution_id"], :name => "index_news_on_institution_id"
+  add_index "news", ["title"], :name => "index_news_on_title"
 
   create_table "pages", :force => true do |t|
     t.integer  "institution_id"
@@ -361,5 +384,18 @@ ActiveRecord::Schema.define(:version => 20130115163203) do
   add_index "visits", ["user_id", "visited_id", "visited_type"], :name => "index_visits_on_user_id_and_visited_id_and_visited_type", :unique => true
   add_index "visits", ["user_id"], :name => "index_visits_on_user_id"
   add_index "visits", ["visited_id", "visited_type"], :name => "index_visits_on_visited_id_and_visited_type"
+
+  create_table "votes", :force => true do |t|
+    t.boolean  "vote_flag",                   :null => false
+    t.integer  "user_id",                     :null => false
+    t.integer  "votable_id",                  :null => false
+    t.string   "votable_type",                :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
+  add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
 
 end

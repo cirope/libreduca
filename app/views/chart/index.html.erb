@@ -1,0 +1,17 @@
+<div class="readonly-data">
+  <div class="page-header">
+    <h2><%= @title %></h2>
+  </div>
+
+  <% if @kinships.empty? %>
+    <div class="alert">
+      <%= t('view.charts.empty_index') %>
+    </div>
+  <% else %>
+    <p>
+      <%= graph_users_relations(@kinships) %>
+    </p>
+  <% end %>
+</div>
+
+<div class="form-actions"></div>

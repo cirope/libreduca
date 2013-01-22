@@ -31,6 +31,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     within '#jobs fieldset' do
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
         from: find('select[name$="[job]"]')[:id]
+      fill_in find('input[name$="[description]"]')[:id], with: 'test'
     end
 
     assert page.has_no_css?('#jobs fieldset:nth-child(2)')
@@ -53,6 +54,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     within '#jobs fieldset:nth-child(2)' do
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
         from: find('select[name$="[job]"]')[:id]
+      fill_in find('input[name$="[description]"]')[:id], with: 'test'
     end
 
     assert_difference 'User.count' do
@@ -190,7 +192,6 @@ class UsersTest < ActionDispatch::IntegrationTest
     end
   end
 
-
   test 'should delete all job inputs' do
     login
 
@@ -266,17 +267,16 @@ class UsersTest < ActionDispatch::IntegrationTest
 
     visit users_path
 
-    row_count = all('tr').size
+    row_count = all('tbody tr').size
 
     assert row_count < 101
 
     until row_count == 101
       page.execute_script 'window.scrollBy(0,10000)'
 
-      assert page.has_css?("tr:nth-child(#{row_count + 1})")
-      assert_equal row_count + WillPaginate.per_page, all('tr').size
+      assert page.has_css?("tbody tr:nth-child(#{row_count + 1})")
 
-      row_count = all('tr').size
+      row_count = all('tbody tr').size
     end
   end
 end

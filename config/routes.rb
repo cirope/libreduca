@@ -56,7 +56,9 @@ Libreduca::Application.routes.draw do
   end
 
   constraints(SchoolSubdomain) do
-    match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
+    get '/launchpad' => 'launchpad#index', as: 'launchpad'
+
+    get '/chart' => 'chart#index', as: 'chart'
 
     resources :images
 
