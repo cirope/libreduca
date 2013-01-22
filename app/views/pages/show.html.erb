@@ -3,16 +3,24 @@
 <% else %>
   <% url = polymorphic_path([@page, :block], action: :new) %>
   <div id="blocks" class="sortable readonly-data" data-update-url="<%= page_sort_path(@page) %>">
+    <% if @page.blocks.empty? %>
+      <div class="alert">
+        <%= t('view.page.without_blocks.html', institution: current_institution) %>
+      </div>
+    <% else %>
       <% @page.blocks.each do |block| %>
         <%= render template: 'blocks/show', locals: { :@block => block, :@blockable => @page } %>
       <% end %>
-    <span class="con"></span>
+    <% end %>
   </div>
 
   <div class="readonly-data">
-    <%= link_to(t('view.blocks.new_block'), url, class: 'btn edit-btn', id: 'create-block',
-          remote: true, title: t('view.blocks.new_block'), data: { show_tooltip: true }) if current_user && (can? :create, Block)
-    %>
+    <%= link_to(
+      t('view.blocks.new_block'), url,
+      class: 'btn', id: 'create-block',
+      remote: true, title: t('view.blocks.new_block'),
+      data: { show_tooltip: true }
+    ) if current_user && (can? :create, Block) %>
   </div>
 
   <div class="form-actions">

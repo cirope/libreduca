@@ -1,34 +1,19 @@
-<div class="public_form_container span4 row fix-margins">
-  <h3>Inicio de sesión</h3>
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-inputs">
+    <%= f.input :email, input_html: { autofocus: true, class: 'span3' } %>
+    <%= f.input :password, input_html: { class: 'span3' } %>
+    <%= f.input :remember_me, as: :boolean, wrapper: :checkbox if devise_mapping.rememberable? %>
 
-  <div class="row-fuild">
-    <div class="">
-      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="form-inputs">
-          <%= f.input :email, input_html: { autofocus: true, class: 'span3' } %>
-          <%= f.input :password, input_html: { class: 'span3' } %>
-          <%= f.input :remember_me, as: :boolean, wrapper: :checkbox if devise_mapping.rememberable? %>
-        </div>
-
-        <div class="form-actions">
-          <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
-          <%= show_button_dropdown(
-            link_to('Ingresar', '#', class: 'btn btn-primary submit'),
-            devise_links_es
-          ) %>
-        </div>
-      <% end %>
-    </div>
+    <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
+    <%= link_to('Ingresar', '#', class: 'btn btn-primary submit') %>
   </div>
-</div>
+<% end %>
+
 <% if devise_mapping.recoverable? %>
-  <div class="">
-    <div class="span4">
-      <br />
-      <p>
-        <strong>Ayuda</strong>:
-        <%= link_to('¿Olvidaste tu contraseña?', new_password_path(resource_name), id: 'reset-password') %>
-      </p>
-    </div>
+  <div class="readonly-data">
+    <p>
+      <strong>Ayuda</strong>:
+      <%= link_to('¿Olvidaste tu contraseña?', new_password_path(resource_name), id: 'reset-password') %>
+    </p>
   </div>
 <% end %>

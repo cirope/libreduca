@@ -1,12 +1,10 @@
 <div class="readonly-data">
-  <div class="welcome-centered">
-    <%= markdown "## Bienvenido a #{@institution.name} ##" %>
-  </div>
-
-  <%= render file: "devise/sessions/new", :locals => {:resource => resource} %>
-
-  <div class="form-actions">
-    <div class="pull-right">
+  <div class="hidden-phone">
+    <br />
+    <div class="centered">
+      <h3><%= t('view.page.welcome_to', institution: @institution.to_s) %></h3>
     </div>
   </div>
+
+  <%= render template: 'devise/sessions/new', locals: { resource: resource } %>
 </div>
