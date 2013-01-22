@@ -1,11 +1,11 @@
 class EnrollmentsController < ApplicationController
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
-  #before_filter :authenticate_user!, except: [:find_user_or_group]
+  before_filter :authenticate_user!
 
-  #check_authorization
-  #load_and_authorize_resource :user
-  #load_and_authorize_resource :enrollment, through: :user
+  check_authorization except: [:find_user_or_group]
+  load_and_authorize_resource :user, except: [:find_user_or_group]
+  load_and_authorize_resource :enrollment, through: :user, except: [:find_user_or_group]
 
   # POST /users/1/enrollments/1/send_email_summary
   # POST /users/1/enrollments/1/send_email_summary.json
@@ -19,10 +19,8 @@ class EnrollmentsController < ApplicationController
   end
 
   def find_user_or_group
-    @enrolled = User.filtered_list(params[:q]).page(params[:page]).uniq('id')
-    @enrolled = Group.filtered_list(params[:q]).page(params[:page]).uniq('id') if @enrolled.empty?
-
-    logger.debug { @enrolled.inspect }
+    @enrolled = User.filtered_list(params[:q]).page(params[:page])
+    @enrolled = Group.filtered_list(params[:q]).page(params[:page]) if @enrolled.empty?
 
     respond_to do |format|
       format.json { render json: @enrolled }

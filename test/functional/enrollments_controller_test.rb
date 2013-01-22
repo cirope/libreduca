@@ -10,7 +10,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
     Fabricate(:kinship, user_id: enrollment.enrollable.id)
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      xhr :post, :send_email_summary, user_id: enrollment.enrollable, id: enrollment
+      xhr :post, :send_email_summary, user_id: enrollment.enrollable.id, id: enrollment.id
     end
 
     assert_response :success
