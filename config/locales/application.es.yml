@@ -612,6 +612,7 @@
       roles:
         admin: 'Administrador'
         regular: 'Normal'
-      edit_on_new_institution: 'Atencion: El usuario comenzara a pertenecer a esta institucion!'
+      add_to_institution:
+        html: '<strong>%{user}</strong> ya está cargado, para agregarlo a <strong>%{institution}</strong> elija un trabajo'
       memberships:
         html: 'Pertenece a %{group}'

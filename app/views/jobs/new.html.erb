@@ -1,7 +1,7 @@
 <%= simple_form_for([@user, @job], defaults: { input_html: { class: 'span5' } }) do |f| %>
 <% if user_not_in_institution? && editing_user? %>
   <div class="alert alert-info">
-    <%= t('view.users.edit_on_new_institution') %>
+    <%= t('view.users.add_to_institution.html', user: @user, institution: current_institution) %>
   </div>
 <% end %>
 
