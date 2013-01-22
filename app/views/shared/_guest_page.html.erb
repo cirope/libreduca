@@ -1,6 +1,6 @@
 <div class="readonly-data">
   <div class="welcome-centered">
-    <%= markdown "## Bienvenido a #{@institution.name} ##" %>
+    <%= markdown "## Bienvenido a #{current_institution.name} ##" %>
   </div>
 
   <%= render file: "devise/sessions/new", :locals => {:resource => resource} %>

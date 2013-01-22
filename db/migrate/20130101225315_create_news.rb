@@ -8,7 +8,7 @@ class CreateNews < ActiveRecord::Migration
       t.integer :votes_positives_count, null: false, default: 0
       t.integer :votes_negatives_count, null: false, default: 0
       t.integer :lock_version, null: false, default: 0
-      t.references :institution
+      t.references :institution, null: false
 
       t.timestamps
     end

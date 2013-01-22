@@ -101,6 +101,7 @@
         content: 'Respuesta'
       block:
         content: 'Contenido'
+        position: 'Posición'
       comment:
         comment: 'Comentario'
         info: 'Información adicional'

@@ -25,6 +25,7 @@ class Institution < ActiveRecord::Base
 
   # Relations
   belongs_to :district
+  has_one :page, dependent: :destroy
   has_many :workers, dependent: :destroy, class_name: 'Job'
   has_many :users, through: :workers
   has_many :kinships, through: :users
@@ -34,10 +35,7 @@ class Institution < ActiveRecord::Base
   has_many :forums, dependent: :destroy, as: :owner
   has_many :images, dependent: :destroy
   has_many :news, dependent: :destroy
-  has_many :pages, dependent: :destroy
   has_many :groups, dependent: :destroy
-
-  accepts_nested_attributes_for :pages, allow_destroy: true
 
   def to_s
     self.name

@@ -47,14 +47,11 @@ class Ability
     can :read, Image
     can :read, News
     can :read, Page
-    can :read, Block
     can :manage, Vote, user_id: user.id
   end
 
   def student_rules(user, institution)
     can :create, Presentation
-    can :read, Page
-    can :read, Block
   end
 
   def teacher_rules(user, institution)
@@ -75,8 +72,6 @@ class Ability
     can :read, User, enrollments_restrictions
     can :manage, Image, institution_id: institution.id
     can :read, Presentation # TODO: check for proper access
-    can :read, Page
-    can :read, Block
   end
 
   def janitor_rules(user, institution)
@@ -109,7 +104,7 @@ class Ability
     can :manage, Group, institution_id: institution.id
     can :manage, Membership
     can :read, Enrollment
-    can :manage, News, institution_id: institution.id # TODO: review duplicated
+    #can :manage, News, institution_id: institution.id # TODO: review duplicated
   end
 
   def headmaster_rules(user, institution)
@@ -120,7 +115,5 @@ class Ability
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
     can :manage, Image, jobs_restrictions
-    can :read, Page
-    can :read, Block
   end
 end

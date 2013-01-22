@@ -1,5 +1,4 @@
 Libreduca::Application.routes.draw do
-
   constraints(AdminSubdomain) do
     match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
 

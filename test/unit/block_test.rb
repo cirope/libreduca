@@ -3,19 +3,21 @@ require 'test_helper'
 class BlockTest < ActiveSupport::TestCase
   def setup
     @block = Fabricate(:block)
-    @institution = Fabricate(:institution)
-    @page = @institution.pages.first_or_initialize
   end
 
   test 'create' do
+    blockable = @block.blockable
+
     assert_difference 'Block.count' do
-      @block = @page.blocks.build(
-        Fabricate.attributes_for(:block).slice(
-          *Block.accessible_attributes
-        )
+      blockable.blocks.build(
+        Fabricate.attributes_for(:block, 
+          blockable_id: blockable.id, blockable_type: blockable, 
+          position: @block.position+1 ).slice(
+            *Block.accessible_attributes
+          )
       )
 
-      assert @page.save
+      assert blockable.save
     end
   end
 

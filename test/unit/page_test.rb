@@ -7,8 +7,12 @@ class PageTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Page.count'] do
-      @page = Page.create(Fabricate.attributes_for(:page))
+    assert_difference 'Page.count' do
+      @page = Page.create do |page|
+        Fabricate.attributes_for(:page).each do |attr, value|
+          page.send "#{attr}=", value
+        end
+      end
     end
   end
 

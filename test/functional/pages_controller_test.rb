@@ -5,7 +5,7 @@ class PagesControllerTest < ActionController::TestCase
     @institution = Fabricate(:institution)
     @page = Fabricate(:page, institution_id: @institution.id)
 
-    @request.host = "#{@institution.identification}.libreduca.com"
+    @request.host = "#{@institution.identification}.lvh.me"
   end
 
   test "should get show of page without blocks and no user" do

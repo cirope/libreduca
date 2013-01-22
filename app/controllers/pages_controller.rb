@@ -1,14 +1,10 @@
 class PagesController < ApplicationController
-  before_filter :load_resources, only: [:show]
-  before_filter :authenticate_user!, except: [:show]
-
-  check_authorization except: [:show]
-  load_and_authorize_resource except: [:show]
-
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
+  before_filter :load_resources, only: [:show]
+
   def show
-    @title = "#{@institution.name}"
+    @title = "#{current_institution.name}"
 
     respond_to do |format|
       format.html
@@ -18,8 +14,6 @@ class PagesController < ApplicationController
   private
 
   def load_resources
-    @institution = current_institution
-    @page = current_institution.pages.first_or_create!
-    @blockable = @page.blocks
+    @page = current_institution.page || current_institution.create_page
   end
 end

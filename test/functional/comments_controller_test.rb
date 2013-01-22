@@ -68,18 +68,6 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to [@commentable_forum, assigns(:comment)]
   end
 
-  # TODO: Dont work, Why?
-  #test 'should create news comment' do
-  #  assert_difference '@commentable_news.comments.count' do
-  #    post :create, news_id: @commentable_news.to_param,
-  #      comment: Fabricate.attributes_for(:comment_news).slice(
-  #        *Comment.accessible_attributes
-  #      )
-  #  end
-
-  #  assert_redirected_to [@commentable_news, assigns(:comment)]
-  #end
-
   test 'should create forum comment as student' do
     assert @job.update_attribute :job, 'student'
 

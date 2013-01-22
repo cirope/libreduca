@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
 
   def empty_page?(institution)
     if institution
-      institution.pages.first_or_create.blocks.empty?
+      (institution.page || institution.create_page).blocks.empty?
     end
   end
 end

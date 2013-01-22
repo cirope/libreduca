@@ -1,11 +1,14 @@
 class BlocksController < ApplicationController
-  before_filter :set_blockable
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+
   before_filter :authenticate_user!
 
   check_authorization
-  load_and_authorize_resource through: :blockable
+  load_and_authorize_resource :page
 
-  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+  before_filter :set_blockable
+
+  load_and_authorize_resource through: :blockable
 
   def new
     @title = t('view.blocks.new_title')
@@ -21,7 +24,6 @@ class BlocksController < ApplicationController
   # POST /blocks.json
   def create
     @title = t('view.blocks.new_title')
-    @page = @blockable
 
     respond_to do |format|
       if @block.save
@@ -100,6 +102,6 @@ class BlocksController < ApplicationController
   end
 
   def set_blockable
-    @blockable = current_institution.pages.find(params[:page_id])
+    @blockable = @page
   end
 end
