@@ -40,7 +40,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#enrollments_container fieldset:nth-child(1)')
 
     within '#enrollments_container fieldset' do
-      fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name
+      fill_in find('input[name$="[auto_enrollable_name]"]')[:id], with: user.name
     end
 
     find('.ui-autocomplete li.ui-menu-item a').click
@@ -59,7 +59,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     end
 
     within '#enrollments_container fieldset:nth-child(2)' do
-      fill_in find('input[name$="[auto_user_name]"]')[:id], with: user.name
+      fill_in find('input[name$="[auto_enrollable_name]"]')[:id], with: user.name
     end
 
     find('.ui-autocomplete li.ui-menu-item a').click

@@ -1,7 +1,7 @@
 new Rule
   condition: -> $('.nav-tabs[data-remote]').length
   load: ->
-    @map.remote_tab_function ||= (event)->
+    @map.remote_tab_function ||= (event) ->
       tab = $(event.target)
 
       if tab.data('remote-url')

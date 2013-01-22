@@ -22,14 +22,12 @@ class Enrollment < ActiveRecord::Base
     allow_blank: true
 
   # Relations
-  belongs_to :user
+  belongs_to :enrollable, polymorphic: true
+  belongs_to :group
   belongs_to :teach
   has_one :course, through: :teach
   has_one :grade, through: :course
   has_one :institution, through: :grade
-  has_many :memberships, through: :groups, source: :enrollable, source_type: 'Membership'
-
-  belongs_to :enrollable, polymorphic: true
 
 
   def to_s

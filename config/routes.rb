@@ -94,8 +94,6 @@ Libreduca::Application.routes.draw do
         end
       end
     end
-    match '/enrollments/find_user_or_group(.:format)' => 'enrollments#find_user_or_group',
-    as: 'find_user_or_group',  via: :get
 
     resources :grades, only: [] do
       resources :courses
@@ -149,7 +147,6 @@ Libreduca::Application.routes.draw do
       resources :blocks
       post :sort, controller: :blocks
     end
-
 
     root to: "pages#show"
   end

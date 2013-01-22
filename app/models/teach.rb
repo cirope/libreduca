@@ -6,7 +6,6 @@ class Teach < ActiveRecord::Base
     :enrollments_attributes, :scores_attributes, :lock_version,
     :enrollable_id, :enrollable_type
 
-
   attr_accessor :auto_enrollable_name
 
   # Default order

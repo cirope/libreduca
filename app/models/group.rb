@@ -8,9 +8,6 @@ class Group < ActiveRecord::Base
 
   attr_accessor :enrollable_type
 
-  # Defaul order
-  default_scope order("#{table_name}.name ASC")
-
   # Validations
   validates :name, :institution_id, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true
@@ -20,7 +17,8 @@ class Group < ActiveRecord::Base
   # Relations
   belongs_to :institution
   has_many :memberships, dependent: :destroy
-  has_many :users, through: :memberships, source: :enrollable, source_type: 'Membership'
+  has_many :users, through: :memberships
+  has_many :enrollments, as: :enrollable, dependent: :destroy
 
   accepts_nested_attributes_for :memberships, allow_destroy: true,
     reject_if: ->(attributes) { attributes['user_id'].blank? }
@@ -31,12 +29,16 @@ class Group < ActiveRecord::Base
 
   alias_method :label, :to_s
 
+  def informal
+    self.class.model_name.human
+  end
+
   def as_json(options = nil)
     self.enrollable_type = 'Group'
 
     default_options = {
       only: [:id],
-      methods: [:label, :enrollable_type]
+      methods: [:label, :informal, :enrollable_type]
     }
 
     super(default_options.merge(options || {}))

@@ -134,9 +134,9 @@ module TeachesHelper
 
       @teach.enrollments.only_students.each do |enrollment|
         csv << [
-          enrollment.user.to_s,
-          show_teach_visit_progress_to(@teach, enrollment.user),
-          show_teach_survey_progress_to(@teach, enrollment.user)
+          enrollment.enrollable.to_s,
+          show_teach_visit_progress_to(@teach, enrollment.enrollable),
+          show_teach_survey_progress_to(@teach, enrollment.enrollable)
         ]
       end
     end

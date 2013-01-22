@@ -1,15 +1,15 @@
 class TeachesController < ApplicationController
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
-  
+
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_resource :course
   load_resource :user
   load_and_authorize_resource through: [:course, :user], shallow: true
 
   before_filter :load_course
-  
+
   # GET /teaches
   # GET /teaches.json
   def index
@@ -81,7 +81,7 @@ class TeachesController < ApplicationController
         format.json { render json: @teach.errors, status: :unprocessable_entity }
       end
     end
-    
+
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.teaches.stale_object_error'
     redirect_to edit_teach_url(@teach)
@@ -97,12 +97,12 @@ class TeachesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   # POST /teaches/1/send_email_summary
   # POST /teaches/1/send_email_summary.json
   def send_email_summary
     @teach.send_email_summary
-    
+
     respond_to do |format|
       format.html # send_email_summary.html.erb
       format.json { render json: @enrollment }

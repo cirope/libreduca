@@ -12,7 +12,7 @@
           value: f.object.try(:label),
           autofocus: true,
           data: {
-            'autocomplete-url' => find_user_or_group_path(format: :json),
+            'autocomplete-url' => users_path(format: :json),
             'autocomplete-id-target' => "#auto_enrollable_id_#{id}"
           }
         }
