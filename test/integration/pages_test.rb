@@ -90,4 +90,21 @@ class PagesTest < ActionDispatch::IntegrationTest
     assert_equal first('.block'), find("#block-2")
     assert Block.where(content: '0').first.position > Block.where(content: '1').first.position
   end
+
+  private
+
+  def safe_drag_and_drop(source, target)
+    builder = page.driver.browser.action
+    source = source.native
+    target = target.native
+
+    builder.click_and_hold source
+    -1.downto -30 do |count|
+      builder.move_to target, count, -count
+    end
+
+    builder.move_to target
+    builder.release target
+    builder.perform
+  end
 end

@@ -2,10 +2,11 @@
   <%= render 'shared/guest_page', controller_name: 'pages' %>
 <% else %>
   <% url = polymorphic_path([@page, :block], action: :new) %>
-  <div id="sortable" class="readonly-data" data-update-url="<%= page_sort_path(@page) %>">
-    <% @page.blocks.each do |block| %>
-      <%= render template: 'blocks/show', locals: { :@block => block, :@blockable => @page } %>
-    <% end %>
+  <div id="blocks" class="sortable readonly-data" data-update-url="<%= page_sort_path(@page) %>">
+      <% @page.blocks.each do |block| %>
+        <%= render template: 'blocks/show', locals: { :@block => block, :@blockable => @page } %>
+      <% end %>
+    <span class="con"></span>
   </div>
 
   <div class="readonly-data">
