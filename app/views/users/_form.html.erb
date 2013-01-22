@@ -4,8 +4,12 @@
   <div class="row">
     <div class="span6">
       <div class="form-inputs">
-        <%= f.input :email, required: true, input_html: { autofocus: true, maxlength: 255,
-          data: { 'disabled-search' => current_institution.blank? } } %>
+        <%= f.input :email, required: true, input_html: {
+          autofocus: true, maxlength: 255, data: {
+            'disable-search' => current_institution.blank?,
+            'url' => find_by_email_users_path
+          }
+        } %>
         <%= f.input :name, input_html: { maxlength: 255 } %>
         <%= f.input :lastname, input_html: { maxlength: 255 } %>
 

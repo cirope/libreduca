@@ -1,9 +1,9 @@
 new Rule
-  condition: -> $('#c_users #user_email:not([data-disabled-search=true])').length
+  condition: -> $('#c_users #user_email:not([data-disable-search="true"])').length
   load: ->
     @map.replace_function ||= (event, data) ->
-      $.get('/users/find_by_email', q: $('form input#user_email').val())
+      $.get $(this).data('url'), q: $(this).val()
 
-    $(document).on 'change', @map.replace_function
+    $(document).on 'change', '#user_email', @map.replace_function
   unload: ->
-    $(document).off 'change', @map.replace_function
+    $(document).off 'change', '#user_email', @map.replace_function
