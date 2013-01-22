@@ -475,6 +475,10 @@
       empty_index:
         html: 'No se ha creado ninguna noticia hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva noticia</span>'
       new: 'Nueva noticia'
+    page:
+      welcome_to: 'Bienvenido a %{institution}'
+      without_blocks:
+        html: 'Aquí puedes definir el contenido de la página institucional de <strong>%{institution}</strong>, empieza creando secciones desde <span class="label label-info">Nueva sección</span>'
     presentations:
       index_title: 'Listado de entregas'
       show_title: 'Detalle de entrega'
@@ -609,6 +613,7 @@
       roles:
         admin: 'Administrador'
         regular: 'Normal'
-      edit_on_new_institution: 'Atencion: El usuario comenzara a pertenecer a esta institucion!'
+      add_to_institution:
+        html: '<strong>%{user}</strong> ya está cargado, para agregarlo a <strong>%{institution}</strong> elija un trabajo'
       memberships:
         html: 'Pertenece a %{group}'

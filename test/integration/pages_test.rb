@@ -38,7 +38,7 @@ class PagesTest < ActionDispatch::IntegrationTest
     visit page_path(institution)
 
     assert_no_difference('page_block.blocks.count') do
-      find('.edit-action').click
+      find('.content a[href$=edit]').click
 
       assert page.has_css?('#block_content')
 

@@ -1,18 +1,17 @@
 <div id="block-<%= @block.to_param %>" class="block" >
   <% if current_user && can?(:update, @block) %>
     <div class="pull-right">
-      <%=
-        link_to '&#x270e;'.html_safe, edit_polymorphic_path([@blockable, @block]),
-        class: 'iconic edit-btn edit-action',
-        remote: true, title: t('view.blocks.edit'), data: { show_tooltip: true }
-      %>
+      <%= link_to(
+        '&#x270e;'.html_safe, edit_polymorphic_path([@blockable, @block]),
+        class: 'iconic', remote: true,
+        title: t('view.blocks.edit'), data: { show_tooltip: true }
+      ) %>
       <%= link_to_destroy [@blockable, @block], remote: true if can? :destroy, @block %>
-      <%=
-        link_to '&#xe03b;'.html_safe, '#',
-        class: 'iconic handle',
-        remote: true, title: t('view.blocks.sort'),
-        data: { show_tooltip: true }
-      %>
+      <%= link_to(
+        '&#xe03b;'.html_safe, '#',
+        class: 'iconic handle', remote: true,
+        title: t('view.blocks.sort'), data: { show_tooltip: true }
+      ) %>
     </div>
   <% end %>
 
