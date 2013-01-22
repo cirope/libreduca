@@ -5,6 +5,9 @@ class Ability
     @job = user.jobs.in_institution(institution).first if user && institution
 
     user ? user_rules(user, institution) : default_rules(user, institution)
+
+    alias_action :find_by_email, to: :read
+    alias_action :find_user_or_group, to: :read
   end
 
   def user_rules(user, institution)
@@ -33,7 +36,7 @@ class Ability
     can :update_profile, User
     can :manage, Forum
     can :manage, Comment
-    can :read, Teach, enrollments: { user_id: user.id }
+    can :read, Teach, enrollments: { enrollable_id: user.id }
     can :read, Institution, workers: { user_id: user.id }
     can :read, Content
     can :read, Document
@@ -55,7 +58,7 @@ class Ability
 
   def teacher_rules(user, institution)
     enrollments_restrictions = {
-      enrollments: { user_id: user.id, job: 'teacher' }
+      enrollments: { enrollable_id: user.id, job: 'teacher' }
     }
     teach_restrictions = { teach: enrollments_restrictions }
 
@@ -87,6 +90,7 @@ class Ability
     can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
     can :manage, Image, jobs_restrictions
     can :read, Job, institution_id: institution.id
+    can :create, Job, institution_id: institution.id
     can :read, User, jobs: { institution_id: institution.id }
     can :create, User do |user|
       job_conditions = user.jobs.empty?
@@ -101,6 +105,9 @@ class Ability
     can :manage, News, jobs_restrictions
     can :manage, Page, institution_id: institution.id
     can :manage, Block
+    can :manage, Group, institution_id: institution.id
+    can :manage, Membership
+    can :read, Enrollment
   end
 
   def headmaster_rules(user, institution)

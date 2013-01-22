@@ -8,8 +8,8 @@ class CreateEnrollments < ActiveRecord::Migration
 
       t.timestamps
     end
-    
-    add_index :enrollments, :teach_id
+
     add_index :enrollments, :user_id
+    add_index :enrollments, :teach_id
   end
 end

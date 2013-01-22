@@ -22,7 +22,7 @@ class TeachTest < ActiveSupport::TestCase
         Fabricate.attributes_for(:teach, course_id: course.id).merge(
           enrollments_attributes: {
             new_1: Fabricate.attributes_for(
-              :enrollment, user_id: user.id, teach_id: nil
+              :enrollment, enrollable_id: user.id, enrollable_type: 'User', teach_id: nil
             )
           }
         )
@@ -118,8 +118,8 @@ class TeachTest < ActiveSupport::TestCase
   test 'enrollment for' do
     user = Fabricate(:user)
 
-    enrollment = Fabricate(:enrollment, teach_id: @teach.id, user_id: user.id)
-    user_2 = Fabricate(:enrollment, teach_id: @teach.id).user
+    enrollment = Fabricate(:enrollment, teach_id: @teach.id, enrollable_id: user.id)
+    user_2 = Fabricate(:enrollment, teach_id: @teach.id).enrollable
 
     assert_not_nil @teach.enrollment_for(user)
     assert_equal enrollment.id, @teach.enrollment_for(user).id
@@ -129,12 +129,12 @@ class TeachTest < ActiveSupport::TestCase
   test 'send email summary' do
     2.times do
       Fabricate(:enrollment, teach_id: @teach.id, with_job: 'student').tap do |enrollment|
-        Fabricate(:kinship, user_id: enrollment.user_id)
+        Fabricate(:kinship, user_id: enrollment.enrollable_id)
       end
     end
 
     Fabricate(:enrollment, teach_id: @teach.id, with_job: 'teacher').tap do |enrollment|
-      Fabricate(:kinship, user_id: enrollment.user_id)
+      Fabricate(:kinship, user_id: enrollment.enrollable_id)
     end
 
     # Teacher email should not be sent

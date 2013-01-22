@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20130120190634) do
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
+  create_table "blocks", :force => true do |t|
+    t.text     "content"
+    t.integer  "position",       :default => 0
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.integer  "blockable_id"
+    t.string   "blockable_type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "comments", :force => true do |t|
     t.text     "comment",                              :null => false
     t.integer  "user_id",                              :null => false
@@ -86,16 +96,17 @@ ActiveRecord::Schema.define(:version => 20130120190634) do
   add_index "documents", ["owner_id", "owner_type"], :name => "index_documents_on_owner_id_and_owner_type"
 
   create_table "enrollments", :force => true do |t|
-    t.integer  "teach_id",                    :null => false
-    t.integer  "user_id",                     :null => false
-    t.string   "job",                         :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.integer  "teach_id",                            :null => false
+    t.integer  "enrollable_id",                       :null => false
+    t.string   "job",                                 :null => false
+    t.integer  "lock_version",    :default => 0,      :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "enrollable_type", :default => "User"
   end
 
+  add_index "enrollments", ["enrollable_id", "enrollable_type"], :name => "index_enrollments_on_enrollable_id_and_enrollable_type"
   add_index "enrollments", ["teach_id"], :name => "index_enrollments_on_teach_id"
-  add_index "enrollments", ["user_id"], :name => "index_enrollments_on_user_id"
 
   create_table "forums", :force => true do |t|
     t.string   "name",                          :null => false
@@ -236,6 +247,13 @@ ActiveRecord::Schema.define(:version => 20130120190634) do
 
   add_index "news", ["institution_id"], :name => "index_news_on_institution_id"
   add_index "news", ["title"], :name => "index_news_on_title"
+
+  create_table "pages", :force => true do |t|
+    t.integer  "institution_id"
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "presentations", :force => true do |t|
     t.string   "file",                        :null => false

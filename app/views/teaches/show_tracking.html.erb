@@ -12,9 +12,9 @@
     <tbody>
       <% @teach.enrollments.only_students.each do |enrollment| %>
         <tr>
-          <td><%= enrollment.user %></td>
-          <td><%= show_teach_visit_progress_to(@teach, enrollment.user) %></td>
-          <td><%= show_teach_survey_progress_to(@teach, enrollment.user) %></td>
+          <td><%= enrollment.enrollable %></td>
+          <td><%= show_teach_visit_progress_to(@teach, enrollment.enrollable) %></td>
+          <td><%= show_teach_survey_progress_to(@teach, enrollment.enrollable) %></td>
         </tr>
       <% end %>
      </tbody>

@@ -8,9 +8,9 @@ class ForumsTest < ActionDispatch::IntegrationTest
     forum = Fabricate.build(:forum, owner_id: institution.id, owner_type: 'Institution')
 
     login_into_institution institution: institution, as: 'janitor'
-    
+
     visit new_institution_forum_path(institution)
-    
+
     fill_in Forum.human_attribute_name('name'), with: forum.name
     fill_in Forum.human_attribute_name('topic'), with: forum.topic
     fill_in Forum.human_attribute_name('info'), with: forum.info
@@ -26,9 +26,9 @@ class ForumsTest < ActionDispatch::IntegrationTest
     forum = Fabricate.build(:forum, owner_id: teach.id, owner_type: 'Teach')
 
     login_into_institution institution: institution, as: 'janitor'
-    
+
     visit new_teach_forum_path(teach)
-    
+
     fill_in Forum.human_attribute_name('name'), with: forum.name
     fill_in Forum.human_attribute_name('topic'), with: forum.topic
     fill_in Forum.human_attribute_name('info'), with: forum.info
@@ -38,7 +38,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  
+
   test 'should create a comment in institution as teacher' do
     institution = Fabricate(:institution)
     forum = Fabricate(:forum, owner_id: institution.id, owner_type: 'Institution')
@@ -47,9 +47,9 @@ class ForumsTest < ActionDispatch::IntegrationTest
     )
 
     login_into_institution institution: institution, as: 'teacher'
-    
+
     visit institution_forum_path(institution, forum)
-    
+
     assert_difference ['forum.comments.count', 'ActionMailer::Base.deliveries.size'] do
       assert page.has_no_css?('blockquote[id]')
 
@@ -71,9 +71,9 @@ class ForumsTest < ActionDispatch::IntegrationTest
     )
 
     login_into_institution institution: institution, as: 'student'
-    
+
     visit institution_forum_path(institution, forum)
-    
+
     # No send email if is a student
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       assert_difference 'forum.comments.count' do
@@ -101,13 +101,13 @@ class ForumsTest < ActionDispatch::IntegrationTest
 
     login_into_institution user: user, institution: institution
 
-    teach.tap  do |t| 
-      Fabricate :enrollment, teach_id: t.id, user_id: user.id, job: 'student'
+    teach.tap  do |t|
+      Fabricate :enrollment, teach_id: t.id, enrollable_id: user.id, job: 'student'
     end
-    
+
     visit teach_forum_path(teach, forum)
-    
-    assert_no_difference 'ActionMailer::Base.deliveries.size' do 
+
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       assert_difference 'forum.comments.count' do
         assert page.has_no_css?('blockquote[id]')
 

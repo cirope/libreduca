@@ -39,6 +39,7 @@
 //= require grades
 //= require images
 //= require institutions
+//= require jobs
 //= require launchpad
 //= require lazy_tabs
 //= require blocks

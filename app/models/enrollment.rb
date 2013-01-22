@@ -1,49 +1,69 @@
 class Enrollment < ActiveRecord::Base
   has_paper_trail
-  
+
   # Scopes
   scope :sorted_by_name, joins(:course).order("#{Course.table_name}.name ASC")
   scope :only_students, where(job: 'student')
-  
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :teach_id, :user_id, :job, :auto_user_name, :lock_version
-  
-  attr_accessor :auto_user_name
-  
+  attr_accessible :teach_id, :job, :auto_user_name, :enrollable_id, :enrollable_type, :lock_version, :auto_enrollable_name
+
+  attr_accessor :auto_user_name, :auto_enrollable_name
+
   # Callbacks
   before_validation :set_job, on: :create
-  
+
   # Validations
-  validates :job, :user_id, presence: true
-  validates :user_id, uniqueness: { scope: :teach_id }, allow_blank: true,
+  validates :job, :enrollable_id, presence: true
+  validates :enrollable_id, uniqueness: { scope: :teach_id }, allow_blank: true,
     allow_nil: true
   validates :job, length: { maximum: 255 }, allow_nil: true, allow_blank: true
   validates :job, inclusion: { in: Job::TYPES }, allow_nil: true,
     allow_blank: true
-  
+
   # Relations
-  belongs_to :user
+  belongs_to :enrollable, polymorphic: true
+  belongs_to :group
   belongs_to :teach
   has_one :course, through: :teach
   has_one :grade, through: :course
   has_one :institution, through: :grade
-  
+
+
+  def to_s
+    [self.enrollable].compact.join(' ')
+  end
+
+  alias_method :label, :to_s
+
+  def as_json(options = nil)
+    default_options = {
+      only: [:id],
+      methods: [:label]
+    }
+
+    super(default_options.merge(options || {}))
+  end
+
   def set_job
-    if self.user && self.teach
+    if self.enrollable && self.teach
       institution = self.institution || self.teach.institution || self.teach.grade.institution
-      
-      self.job = self.user.jobs.in_institution(institution).first.try(:job)
+      if self.enrollable_type == 'User'
+        self.job = self.enrollable.jobs.in_institution(institution).first.try(:job)
+      else
+        self.job = 'student'
+      end
     end
   end
-  
+
   def score_average
     self.scores.weighted_average
   end
-  
+
   def scores
-    self.teach.scores.of_user(self.user)
+    self.teach.scores.of_user(self.enrollable)
   end
-  
+
   def send_email_summary
     Notifier.delay.enrollment_status(self)
   end
@@ -55,17 +75,17 @@ class Enrollment < ActiveRecord::Base
       super
     end
   end
-  
+
   def self.for_user(user)
-    where("#{table_name}.user_id = ?", user.id)
+    where("#{table_name}.enrollable_id = ?", user.id)
   end
-  
+
   def self.in_institution(institution)
     joins(:institution).where(
       "#{Institution.table_name}.id = ?", institution.id
     )
   end
-  
+
   def self.in_current_teach
     joins(:teach).where(
       [

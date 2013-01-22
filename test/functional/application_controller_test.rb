@@ -6,14 +6,14 @@ class ApplicationControllerTest < ActionController::TestCase
     @controller.send 'response=', @response
     @controller.send 'request=', @request
   end
-  
+
   test 'should set the current institution from subdomain' do
     institution = Fabricate(:institution)
-    
+
     assert_nil @controller.send(:current_institution)
-    
+
     @request.host = "#{institution.identification}.libreduca.com"
-    
+
     assert_not_nil @controller.send(:set_current_institution)
     assert_equal institution.id, @controller.send(:current_institution).id
   end
@@ -26,14 +26,14 @@ class ApplicationControllerTest < ActionController::TestCase
       :job, user_id: user.id, institution_id: institution.id, job: 'student'
     )
 
-    teach.tap do |t| 
-      Fabricate :enrollment, teach_id: t.id, user_id: user.id, job: 'student'
+    teach.tap do |t|
+      Fabricate :enrollment, teach_id: t.id, enrollable_id: user.id, job: 'student'
     end
 
     sign_in user
 
     @request.host = "#{institution.identification}.libreduca.com"
-    
+
     assert_not_nil @controller.send(:set_current_institution)
     assert_not_nil @controller.send(:load_enrollments)
     assert @controller.send(:current_enrollments).size > 0

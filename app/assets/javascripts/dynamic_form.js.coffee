@@ -1,5 +1,5 @@
 window.DynamicFormEvent =
-  addNestedItem: (e)->
+  addNestedItem: (e) ->
     template = e.data('dynamic-template')
     regexp = new RegExp(e.data('id'), 'g')
 
@@ -7,28 +7,28 @@ window.DynamicFormEvent =
 
     e.trigger('dynamic-item.added', e)
 
-  hideItem: (e)->
+  hideItem: (e) ->
     EffectHelper.hide e.closest('fieldset')
 
     e.prev('input[type=hidden].destroy').val('1').trigger(
       'dynamic-item.hidden', e
     )
 
-  removeItem: (e)->
+  removeItem: (e) ->
     EffectHelper.remove e.closest('fieldset'), ->
       $(document).trigger('dynamic-item.removed', target)
 
 window.DynamicFormHelper =
   newIdCounter: 0,
 
-  replaceIds: (s, regex)->
+  replaceIds: (s, regex) ->
     s.replace(regex, new Date().getTime() + DynamicFormHelper.newIdCounter++)
 
-jQuery ($)->
+jQuery ($) ->
   linkSelector = 'a[data-dynamic-form-event]'
-  eventList = $.map DynamicFormEvent, (v, k)-> k
+  eventList = $.map DynamicFormEvent, (v, k) -> k
 
-  $(document).on 'click', linkSelector, (event)->
+  $(document).on 'click', linkSelector, (event) ->
     return if event.stopped
 
     eventName = $(this).data('dynamic-form-event')
@@ -39,7 +39,7 @@ jQuery ($)->
       event.preventDefault()
       event.stopPropagation()
 
-  $(document).on 'dynamic-item.added', linkSelector, (event, element)->
+  $(document).on 'dynamic-item.added', linkSelector, (event, element) ->
     $(element).prev('fieldset').find(
       '[autofocus]:not([readonly]):enabled:visible:first'
     ).focus()

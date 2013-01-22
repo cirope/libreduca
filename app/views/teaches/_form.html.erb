@@ -13,7 +13,7 @@
         <%= f.input :description, input_html: { rows: 5 } %>
       </div>
     </div>
-    
+
     <ul class="nav nav-tabs" <%= 'data-remote="true"' if @teach.persisted? %>>
       <% unless @teach.new_record? %>
         <li class="active">
@@ -41,7 +41,7 @@
         ) %>
       </li>
     </ul>
-    
+
     <div class="tab-content">
       <% unless @teach.new_record? %>
         <div id="contents_container" class="tab-pane active">
@@ -70,7 +70,7 @@
           <div class="alert"><%= t('label.loading') %></div>
         </div>
       <% end %>
-      
+
       <div id="enrollments_container" class="tab-pane <%= @teach.new_record? ? 'active' : '' %>">
         <% if @teach.new_record? %>
           <%= render template: 'teaches/edit_enrollments' %>

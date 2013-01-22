@@ -45,7 +45,7 @@
           <% end %>
         <% end %>
       <% end %>
-      
+
       <% unless @user.inverse_kinships.empty? %>
         <%= content_for :kinships do %>
           <% @user.inverse_kinships.each do |inverse_kinship| %>
@@ -64,6 +64,20 @@
         <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size + @user.inverse_kinships.size %></h3>
         <ul>
           <%= yield :kinships %>
+        </ul>
+      <% end %>
+
+      <% unless @user.memberships.empty? %>
+        <h3><%= Group.model_name.human count: @user.groups.size %></h3>
+        <ul>
+          <% @user.memberships.each do |membership| %>
+            <li>
+              <%= t(
+                'view.users.memberships.html',
+                group: link_to_if(can?(:read, membership.group), membership.group.name, edit_group_path(membership.group_id)),
+              ) %>
+            </li>
+          <% end %>
         </ul>
       <% end %>
     </div>

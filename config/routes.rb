@@ -111,6 +111,8 @@ Libreduca::Application.routes.draw do
 
     resources :news
 
+    resources :groups
+
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
 
     Job::TYPES.each do |job_type|
@@ -126,12 +128,17 @@ Libreduca::Application.routes.draw do
         put :update_profile
       end
 
+      get :find_by_email, on: :collection
+      resources :jobs, only: [:create]
+
       resources :enrollments, only: [] do
         post :send_email_summary, on: :member, as: 'send_email_summary'
       end
 
       resources :teaches, only: [:index]
     end
+
+
 
     match 'private/:path', to: 'files#download',
       constraints: { path: /.+/ }, via: :get

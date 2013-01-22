@@ -13,7 +13,7 @@
             <%= render 'shared/menu_dropdowns/institutions' if current_user.institutions.count > 1 %>
             <%= show_menu_link(
               name: 'dashboard', controllers: 'dashboard', path: dashboard_path
-            ) if current_institution %>
+            ) if current_institution && current_user.has_job_in?(current_institution) %>
             <%= render 'shared/menu_dropdowns/enrollments' if current_enrollments.present? %>
             <%= show_menu_link(
               name: 'users', controllers: 'users', path: users_path
@@ -25,6 +25,10 @@
               name: 'institutions', path: institutions_path,
               controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
             ) if can?(:read, Institution) && !current_institution %>
+              <%= show_menu_link(
+              name: 'groups', path: groups_path,
+              controllers: ['groups']
+            ) if can?(:read, Membership) && current_institution && current_user.has_job_in?(current_institution) %>
           </ul>
           <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">

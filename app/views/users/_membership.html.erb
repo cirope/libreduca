@@ -1,0 +1,26 @@
+<% id = f.object.object_id %>
+<fieldset class="row-fluid kinship">
+  <div class="span5">
+    <% field_classes = ['autocomplete_field', 'span10'] %>
+    <% copy_attribute_errors(:group_name, :auto_group_name, f) %>
+    <%= f.input :auto_group_name, label: false,
+      placeholder: Group.human_attribute_name('name'),
+      input_html: {
+        id: "auto_group_#{id}",
+        class: field_classes.join(' '),
+        value: f.object.group.try(:label),
+        data: {
+          'autocomplete-url' => groups_path(format: :json),
+          'autocomplete-id-target' => "#auto_group_id_#{id}"
+        }
+      }
+    %>
+    <%= f.input :group_id, as: :hidden,
+      input_html: { class: 'autocomplete_id', id: "auto_group_id_#{id}" }
+    %>
+  </div>
+  <div class="span2 nested-actions">
+    <%= f.input :id, as: :hidden %>
+    <%= link_to_remove_nested_item(f) %>
+  </div>
+</fieldset>

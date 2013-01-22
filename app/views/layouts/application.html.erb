@@ -15,11 +15,7 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag %>
 </head>
-<<<<<<< HEAD
-<body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged_in"' if user_signed_in? || upper_login_button? %>>
-=======
-<body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged-in"' if user_signed_in? %>>
->>>>>>> master
+<body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged-in"' if user_signed_in? || upper_login_button? %>>
   <%= render 'shared/menu' %>
   <div id="loading_caption" class="alert" style="display: none;">
     <strong><%= t('label.loading') %></strong>
