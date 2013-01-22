@@ -6,7 +6,7 @@ class News < ActiveRecord::Base
 
   has_magick_columns title: :string
 
-  attr_readonly :institution_id, :comments_count
+  attr_readonly :institution_id
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :title, :description, :body, :lock_version

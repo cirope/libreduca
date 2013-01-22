@@ -9,7 +9,7 @@ class Forum < ActiveRecord::Base
   attr_accessible :name, :topic, :info, :lock_version
 
   # Attributes only writables in creation
-  attr_readonly :user_id, :comments_count
+  attr_readonly :user_id
   
   # Default order
   default_scope order("#{table_name}.name ASC")
