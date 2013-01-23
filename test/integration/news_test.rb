@@ -12,12 +12,11 @@ class NewsTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create news without images' do
-
     visit new_news_path
 
-    fill_in News.human_attribute_name('title'), with: @news.title
-    fill_in News.human_attribute_name('description'), with: @news.description
-    fill_in News.human_attribute_name('body'), with: @news.body
+    fill_in 'news_title', with: @news.title
+    fill_in 'news_description', with: @news.description
+    fill_in 'news_body', with: @news.body
 
     assert_difference 'News.count' do
       assert page.has_no_css?('.page-header h1.text-info')
@@ -29,14 +28,13 @@ class NewsTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create news with images' do
-
     image_attributes = Fabricate.attributes_for(:image, raw_file_path: true)
 
     visit new_news_path
 
-    fill_in News.human_attribute_name('title'), with: @news.title
-    fill_in News.human_attribute_name('description'), with: @news.description
-    fill_in News.human_attribute_name('body'), with: @news.body
+    fill_in 'news_title', with: @news.title
+    fill_in 'news_description', with: @news.description
+    fill_in 'news_body', with: @news.body
 
     assert_difference 'News.count' do
       assert page.has_no_css?('form[id=new_image]')
@@ -59,7 +57,6 @@ class NewsTest < ActionDispatch::IntegrationTest
   end
 
   test 'should delete images in news' do
-
     image_attributes = Fabricate.attributes_for(:image, raw_file_path: true)
 
     visit new_news_path
