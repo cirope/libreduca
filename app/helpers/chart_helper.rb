@@ -31,7 +31,7 @@ module ChartHelper
 
   def node_for_user(graph, user)
     job = user.jobs.in_institution(current_institution).first
-    name_row = %{<TR><TD>#{user}<br/><font point-size="6">#{job.description || ' '}</font></TD></TR>}
+    name_row = %{<TR><TD>#{user}<br/><font point-size="6">#{job.description.blank? ? '' : job.description}</font></TD></TR>}
     image_row = %{<TR><TD><IMG SRC="#{user.avatar.micro_thumb.path}"/></TD></TR>} if user.avatar?
     label = %{<<TABLE border="0" cellborder="0">#{image_row}#{name_row}</TABLE>>}
 
