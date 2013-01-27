@@ -461,6 +461,7 @@
         mother: 'Madre'
         tutor: 'Tutor'
         superior: 'Superior'
+        functional: 'Superior funcional'
         other: 'Otro'
     launchpad:
       index_title: 'Instituciones'

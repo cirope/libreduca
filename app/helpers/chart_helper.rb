@@ -21,7 +21,7 @@ module ChartHelper
       parent_node = g.get_node(k.relative_id.to_s) || node_for_user(g, k.relative)
       child_node  = g.get_node(k.user_id.to_s) || node_for_user(g, k.user)
 
-      g.add_edges parent_node, child_node
+      g.add_edges parent_node, child_node, style: (k.kin == 'functional' ? 'dashed' : 'solid')
     end
 
     save_graph_as_image(g)
