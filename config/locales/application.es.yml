@@ -206,7 +206,8 @@
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
-        avatar: 'Imágen'
+        avatar: 'Imagen'
+        remove_avatar: 'Eliminar imagen actual'
         remember_me: 'Recordarme'
         jobs:
           one: 'Trabajo'
