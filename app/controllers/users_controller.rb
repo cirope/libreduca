@@ -112,7 +112,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
+    current_institution ? @user.drop_job_in(current_institution) : @user.destroy
 
     respond_to do |format|
       format.html { redirect_to users_url }

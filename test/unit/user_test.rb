@@ -132,6 +132,17 @@ class UserTest < ActiveSupport::TestCase
 
     assert @user.has_job_in?(institution)
   end
+
+  test 'drop job in' do
+    institution = Fabricate(:institution)
+    Fabricate(:job, user_id: @user.id, institution_id: institution.id)
+
+    assert @user.has_job_in?(institution)
+
+    @user.drop_job_in(institution)
+
+    assert !@user.reload.has_job_in?(institution)
+  end
   
   test 'magick search' do
     5.times { Fabricate(:user) { name { 'magick_name' } } }

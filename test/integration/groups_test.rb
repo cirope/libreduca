@@ -70,8 +70,9 @@ class GroupsTest < ActionDispatch::IntegrationTest
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: "#{user.name} #{user.lastname}"
     end
 
-    find('.ui-autocomplete li.ui-menu-item a').click
+    assert page.has_css?('.ui-autocomplete li.ui-menu-item a')
 
+    find('.ui-autocomplete li.ui-menu-item a').click
 
     assert_difference('Membership.count') do
       assert page.has_css?("#edit_group_#{group.id}")

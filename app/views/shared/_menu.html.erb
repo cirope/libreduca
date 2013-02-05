@@ -17,7 +17,7 @@
             <%= render 'shared/menu_dropdowns/enrollments' if current_enrollments.present? %>
             <%= show_menu_link(
               name: 'users', controllers: 'users', path: users_path
-            ) if can?(:read, User) && current_user.is?(:admin) && !current_institution %>
+            ) if can?(:read, User) && ((current_user.is?(:admin) && !current_institution) || (current_institution && current_user_is_janitor?)) %>
             <%= show_menu_link(
               name: 'regions', controllers: 'regions', path: regions_path
             ) if can?(:read, Region) && !current_institution %>
@@ -28,7 +28,7 @@
               <%= show_menu_link(
               name: 'groups', path: groups_path,
               controllers: ['groups']
-            ) if can?(:read, Membership) && current_institution && current_user.has_job_in?(current_institution) %>
+            ) if can?(:read, Group) && current_institution %>
           </ul>
           <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120190634) do
+ActiveRecord::Schema.define(:version => 20130205134914) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -191,13 +191,14 @@ ActiveRecord::Schema.define(:version => 20130120190634) do
   add_index "institutions", ["name"], :name => "index_institutions_on_name"
 
   create_table "jobs", :force => true do |t|
-    t.string   "job",                           :null => false
-    t.integer  "lock_version",   :default => 0, :null => false
+    t.string   "job",                              :null => false
+    t.integer  "lock_version",   :default => 0,    :null => false
     t.integer  "user_id"
     t.integer  "institution_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "description"
+    t.boolean  "active",         :default => true, :null => false
   end
 
   add_index "jobs", ["institution_id"], :name => "index_jobs_on_institution_id"

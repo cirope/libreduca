@@ -26,7 +26,8 @@ class Institution < ActiveRecord::Base
   # Relations
   belongs_to :district
   has_one :page, dependent: :destroy
-  has_many :workers, dependent: :destroy, class_name: 'Job'
+  has_many :workers, dependent: :destroy, class_name: 'Job',
+    conditions: { active: true }
   has_many :users, through: :workers
   has_many :kinships, through: :users
   has_many :grades, dependent: :destroy

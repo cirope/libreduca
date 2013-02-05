@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   has_many :relatives, through: :kinships
   has_many :dependents, through: :inverse_kinships, source: :user
 
-  has_many :jobs, dependent: :destroy
+  has_many :jobs, conditions: { active: true }, dependent: :destroy
   has_many :institutions, through: :jobs
   has_many :comments, dependent: :destroy
   has_many :visits, dependent: :destroy
@@ -105,6 +105,14 @@ class User < ActiveRecord::Base
 
   def has_job_in?(institution)
     self.institutions.exists?(institution.id)
+  end
+
+  def drop_job_in(institution)
+    self.jobs.in_institution(institution).first.tap do |job|
+      if job
+        job.active = false; job.save!
+      end
+    end
   end
 
   def self.filtered_list(query)

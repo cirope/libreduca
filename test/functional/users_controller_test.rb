@@ -182,6 +182,26 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to users_url
   end
 
+  test 'should destroy user in current institution' do
+    institution = Fabricate(:institution)
+    job = Fabricate(:job, user_id: @user.id, institution_id: institution.id, job: 'janitor')
+
+    @request.host = "#{institution.identification}.lvh.me"
+
+    sign_in @user
+
+    assert job.active
+
+    assert_no_difference('User.count') do
+      delete :destroy, id: @user
+    end
+
+    assert !job.reload.active
+
+    assert_redirected_to users_url
+  end
+
+
   test 'should get edit profile' do
     sign_in @user
 

@@ -88,6 +88,7 @@ class Ability
     can :read, Job, institution_id: institution.id
     can :create, Job, institution_id: institution.id
     can :read, User, jobs: { institution_id: institution.id }
+    can :destroy, User, jobs: { institution_id: institution.id }
     can :create, User do |user|
       job_conditions = user.jobs.empty?
       job_conditions ||= user.jobs.all? { |j| j.institution_id == institution.id }
