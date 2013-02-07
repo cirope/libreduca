@@ -112,7 +112,7 @@ GEM
     net-ssh (2.6.5)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.5.6.46)
+    newrelic_rpm (3.5.6.48.beta)
     nokogiri (1.5.6)
     orm_adapter (0.4.0)
     paper_trail (2.7.0)
@@ -229,7 +229,7 @@ DEPENDENCIES
   magick_columns
   mini_magick
   minitest
-  newrelic_rpm
+  newrelic_rpm (= 3.5.6.48.beta)
   paper_trail
   pg
   rails (= 3.2.11)
