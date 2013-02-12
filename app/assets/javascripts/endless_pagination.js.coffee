@@ -10,7 +10,7 @@ new Rule
           $('<div class="alert"></div>').html($('#loading_caption').html())
         )
 
-        $.getScript(url, -> $(document).scroll())
+        $.getScript(url, -> Inspector.instance().reload(); $(document).scroll())
 
     $(document).on 'scroll touchmove', @map.scroll_function
     $(document).scroll()
