@@ -350,7 +350,7 @@
       empty_scores:
         html: 'No hay notas cargadas para <strong>%{course}</strong>'
       footer:
-        html: 'Ingresa al contenido del dictado haciendo <strong>clic en su nombre</strong>. No es necesario completar todo en una sola visita.'
+        html: 'Ingresa al contenido del dictado haciendo <strong>clic en su nombre</strong>. Puedes completar el curso en más de una visita.'
       greetings:
         html: 'Hola %{user}<small>, este es tu resumen en <strong>%{institution}</strong></small>'
       score_average:
