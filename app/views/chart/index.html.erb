@@ -3,14 +3,12 @@
     <h2><%= @title %></h2>
   </div>
 
-  <% if @kinships.empty? %>
+  <% if @users.empty? %>
     <div class="alert">
       <%= t('view.charts.empty_index') %>
     </div>
   <% else %>
-    <p>
-      <%= graph_users_relations(@kinships) %>
-    </p>
+    <%= chart_users_row(@users) %>
   <% end %>
 </div>
 

@@ -17,10 +17,9 @@ gem 'roadie'
 gem 'redcarpet'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'ruby-graphviz'
 gem 'sidekiq'
 gem 'capistrano'
-gem 'newrelic_rpm', '3.5.6.48.beta'
+gem 'newrelic_rpm'
 # Must be outside assets because a constant is used in the initializers
 gem 'jquery-fileupload-rails'
 

@@ -288,6 +288,10 @@
     charts:
       index_title: 'Organigrama'
       empty_index: 'No hay relaciones a graficar entre usuarios'
+      user_inverse_kinships:
+        html:
+          one: '<p class="muted text-center"><small><span class="badge">Una</span> persona a cargo</small></p>'
+          other: '<p class="muted text-center"><small><span class="badge">%{count}</span> personas a cargo</small></p>'
     comments:
       index_title: 'Listado de comentarios'
       new_title: 'Nuevo comentario'

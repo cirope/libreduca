@@ -9,9 +9,9 @@ class ChartControllerTest < ActionController::TestCase
   test 'should get empty index' do
     get :index
     assert_response :success
-    assert_not_nil assigns(:kinships)
+    assert_not_nil assigns(:users)
     assert_select '#unexpected_error', false
-    assert_select 'img', false
+    assert_select '.users-row', false
     assert_template 'chart/index'
   end
 
@@ -21,15 +21,18 @@ class ChartControllerTest < ActionController::TestCase
       job2 = Fabricate(:job, institution_id: @institution.id)
 
       Fabricate(
-        :kinship, user_id: job1.user_id, relative_id: job2.user_id, kin: 'superior'
+        :kinship,
+        user_id: job1.user_id,
+        relative_id: job2.user_id,
+        kin: Kinship::CHART_KINDS.sample
       )
     end
 
     get :index
     assert_response :success
-    assert_not_nil assigns(:kinships)
+    assert_not_nil assigns(:users)
     assert_select '#unexpected_error', false
-    assert_select 'img', 1
+    assert_select '.users-row', 1
     assert_template 'chart/index'
   end
 end

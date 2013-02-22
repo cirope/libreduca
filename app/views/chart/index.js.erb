@@ -1,0 +1,8 @@
+link = $("a[data-user='<%= params[:id] %>']");
+thumbnailsContainer = link.closest('.users-row');
+kinshipsContainer = thumbnailsContainer.next('[data-kinship-container]');
+content = $('<div></div>').html('<%= j chart_users_row(@users) %>');
+
+thumbnailsContainer.find('[data-user]').css({ opacity: '.35' });
+link.css({ opacity: '1' });
+kinshipsContainer.html(content.effect('highlight', 'slow'));

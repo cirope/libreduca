@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Comparable
   include RoleModel
+  include Users::Chart
 
   roles :admin, :regular
 
@@ -83,6 +84,18 @@ class User < ActiveRecord::Base
       self_s <=> [other.lastname, other.name].join(' ')
     else
       self_s <=> other.to_s
+    end
+  end
+
+  def ==(other)
+    if other.kind_of?(User)
+      if self.persisted?
+        self.id == other.id
+      else
+        self.object_id == other.object_id
+      end
+    else
+      false
     end
   end
 

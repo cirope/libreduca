@@ -139,6 +139,7 @@ Libreduca::Application.routes.draw do
       member do
         get :edit_profile
         put :update_profile
+        get :chart, to: 'chart#index'
       end
 
       get :find_by_email, on: :collection

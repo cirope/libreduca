@@ -90,7 +90,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     find('.ui-autocomplete li.ui-menu-item a').click
 
     within '#kinships fieldset' do
-      select I18n.t("view.kinships.types.#{Kinship::TYPES.first}"),
+      select I18n.t("view.kinships.types.#{Kinship::KINDS.first}"),
         from: find('select[name$="[kin]"]')[:id]
     end
 
@@ -112,7 +112,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     find('.ui-autocomplete li.ui-menu-item a').click
 
     within '#kinships fieldset:nth-child(2)' do
-      select I18n.t("view.kinships.types.#{Kinship::TYPES.first}"),
+      select I18n.t("view.kinships.types.#{Kinship::KINDS.first}"),
         from: find('select[name$="[kin]"]')[:id]
     end
 
