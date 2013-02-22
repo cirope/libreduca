@@ -12,8 +12,8 @@ class KinshipTest < ActiveSupport::TestCase
   end
   
   test 'update' do
-    new_kin = @kinship.kin == Kinship::TYPES.first ?
-      Kinship::TYPES.last : Kinship::TYPES.first
+    new_kin = @kinship.kin == Kinship::KINDS.first ?
+      Kinship::KINDS.last : Kinship::KINDS.first
     
     assert_difference 'Version.count' do
       assert_no_difference 'Kinship.count' do
@@ -57,5 +57,35 @@ class KinshipTest < ActiveSupport::TestCase
       error_message_from_model(@kinship, :kin, :too_long, count: 255),
       error_message_from_model(@kinship, :kin, :inclusion)
     ].sort, @kinship.errors[:kin].sort
+  end
+
+  test 'update inverse kinship count' do
+    kinship = Fabricate(:kinship, kin: Kinship::CHART_KINDS.sample)
+    user = kinship.user
+    relative = kinship.relative
+
+    assert_equal 1, user.reload.kinships_in_chart_count
+    assert_equal 0, user.inverse_kinships_in_chart_count
+    assert_equal 0, relative.reload.kinships_in_chart_count
+    assert_equal 1, relative.inverse_kinships_in_chart_count
+
+    Fabricate(
+      :kinship,
+      user_id: user.id,
+      kin: (Kinship::KINDS - Kinship::CHART_KINDS).sample
+    )
+
+    # Do not alter the counts
+    assert_equal 1, user.reload.kinships_in_chart_count
+    assert_equal 0, user.inverse_kinships_in_chart_count
+    assert_equal 0, relative.reload.kinships_in_chart_count
+    assert_equal 1, relative.inverse_kinships_in_chart_count
+
+    assert kinship.destroy
+
+    assert_equal 0, user.reload.kinships_in_chart_count
+    assert_equal 0, user.inverse_kinships_in_chart_count
+    assert_equal 0, relative.reload.kinships_in_chart_count
+    assert_equal 0, relative.inverse_kinships_in_chart_count
   end
 end

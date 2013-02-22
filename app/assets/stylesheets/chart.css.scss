@@ -1,3 +1,37 @@
-// Place all the styles related to the chart controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#c_chart {
+  .users-row {
+    white-space: nowrap;
+
+    .badge {
+      font-size: 8px;
+      line-height: 10px;
+    }
+
+    *[class*="span"] {
+      vertical-align: top;
+      white-space: normal;
+
+      .thumbnail {
+        border-width: 2px;
+      }
+
+      .thumbnail.functional {
+        border-style: dotted;
+      }
+
+      h6 {
+        line-height: 1;
+
+        small {
+          color: inherit;
+        }
+      }
+
+      p {
+        font-size: .75em;
+        line-height: 1;
+        margin: 0px;
+      }
+    }
+  }
+}

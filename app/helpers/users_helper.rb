@@ -18,7 +18,7 @@ module UsersHelper
   end
 
   def show_user_kinship_options(form)
-    kinships = Kinship::TYPES.map { |t| [show_human_kinship_type(t), t] }
+    kinships = Kinship::KINDS.map { |t| [show_human_kinship_type(t), t] }
 
     form.input :kin, label: false, collection: kinships, prompt: true,
       input_html: { class: 'span10' }
