@@ -69,7 +69,7 @@ class KinshipTest < ActiveSupport::TestCase
     assert_equal 0, relative.reload.kinships_in_chart_count
     assert_equal 1, relative.inverse_kinships_in_chart_count
 
-    kinship = Fabricate(
+    Fabricate(
       :kinship,
       user_id: user.id,
       kin: (Kinship::KINDS - Kinship::CHART_KINDS).sample
