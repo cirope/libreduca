@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225042952) do
+ActiveRecord::Schema.define(:version => 20130225132100) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -297,6 +297,17 @@ ActiveRecord::Schema.define(:version => 20130225042952) do
 
   add_index "scores", ["teach_id"], :name => "index_scores_on_teach_id"
   add_index "scores", ["user_id"], :name => "index_scores_on_user_id"
+
+  create_table "settings", :force => true do |t|
+    t.string   "name",              :null => false
+    t.string   "value",             :null => false
+    t.integer  "configurable_id",   :null => false
+    t.string   "configurable_type", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "settings", ["configurable_id", "configurable_type"], :name => "index_settings_on_configurable_id_and_configurable_type"
 
   create_table "surveys", :force => true do |t|
     t.string   "name",                        :null => false
