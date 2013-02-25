@@ -5,7 +5,7 @@
       <div class="span5">
         <div class="well">
           <h3>
-            <%= link_to institution, go_to_page_or_dashboard(institution) %>
+            <%= link_to institution, dashboard_url(subdomain: institution.identification) %>
           </h3>
         </div>
       </div>

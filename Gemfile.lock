@@ -156,7 +156,7 @@ GEM
       sprockets
     role_model (0.8.1)
     rubyzip (0.9.9)
-    sass (3.2.5)
+    sass (3.2.6)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -166,7 +166,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    sidekiq (2.7.3)
+    sidekiq (2.7.4)
       celluloid (~> 0.12.0)
       connection_pool (~> 1.0)
       multi_json (~> 1)

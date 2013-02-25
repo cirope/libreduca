@@ -152,17 +152,10 @@ Libreduca::Application.routes.draw do
       resources :teaches, only: [:index]
     end
 
-
-
     match 'private/:path', to: 'files#download',
       constraints: { path: /.+/ }, via: :get
 
-    resources :pages, only: [:show] do
-      resources :blocks
-      post :sort, controller: :blocks
-    end
-
-    root to: "pages#show"
+    root to: redirect('/users/sign_in')
   end
 
   get 'errors/error_404'

@@ -46,7 +46,6 @@ class Ability
     can :update, Reply, user_id: user.id
     can :read, Image
     can :read, News
-    can :read, Page
     can :manage, Vote, user_id: user.id
   end
 
@@ -100,8 +99,6 @@ class Ability
     end
     can :manage, Presentation # TODO: check for proper access
     can :manage, News, jobs_restrictions
-    can :manage, Page, institution_id: institution.id
-    can :manage, Block
     can :manage, Group, institution_id: institution.id
     can :manage, Membership
     can :read, Enrollment
