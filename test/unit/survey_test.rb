@@ -61,7 +61,7 @@ class SurveyTest < ActiveSupport::TestCase
     ], @survey.errors[:name]
   end
 
-  test 'to csv' do
+  test 'index to csv' do
     Fabricate(:question, survey_id: @survey.id).tap do |question|
       Fabricate(:answer, question_id: question.id).tap do |answer|
         5.times {
@@ -72,6 +72,20 @@ class SurveyTest < ActiveSupport::TestCase
 
     CSV.parse(Survey.to_csv(@survey.teach)).tap do |result|
       assert_equal @survey.teach.contents.count, result.size
+    end
+  end
+
+  test 'show to csv' do
+    Fabricate(:question, survey_id: @survey.id).tap do |question|
+      Fabricate(:answer, question_id: question.id).tap do |answer|
+        5.times {
+          Fabricate(:reply, answer_id: answer.id, question_id: question.id)
+        }
+      end
+    end
+
+    CSV.parse(@survey.to_csv).tap do |result|
+      assert_equal 2 + @survey.questions.count + @survey.answers.count, result.size
     end
   end
 end

@@ -27,12 +27,19 @@ class SurveysController < ApplicationController
 
   # GET /surveys/1
   # GET /surveys/1.json
+  # GET /surveys/1.csv
   def show
     @title = t('view.surveys.show_title')
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @survey }
+      format.csv {
+        # Dear Explorer: ...
+        headers['Cache-Control'] = 'max-age=1'
+
+        render csv:  @survey.to_csv, filename: "\"#{@title}.csv\""
+      }
     end
   end
 

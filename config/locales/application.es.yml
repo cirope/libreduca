@@ -237,6 +237,7 @@
     close: 'Cerrar'
     delete: 'Eliminar'
     download: 'Descargar'
+    downloads: 'Descargas'
     download_with_format:
       html: 'Descargar en <strong>%{file_format}</strong>'
     edit: 'Editar'
