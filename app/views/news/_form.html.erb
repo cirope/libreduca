@@ -6,6 +6,19 @@
       <%= f.input :title, input_html: { autofocus: true, maxlength: 255 } %>
       <%= f.input :description, input_html: { rows: 3 } %>
       <%= f.input :body, input_html: { rows: 4 } %>
+      <%= f.input :published_at, as: :date_picker, input_html: { 
+        value: l(@news.published_at, format: :shorter), class: 'span3' } %>
+
+      <h5><%= News.human_attribute_name 'tags', count: @news.tags.size %></h5>
+      <div id="tags">
+        <% @news.taggings.build %>
+        <%= f.simple_fields_for :taggings do |j_f| %>
+          <%= render 'tags/tagging', :f => j_f, :@taggable => @news %>
+        <% end %>
+
+        <%= link_to_add_fields(t('view.news.new_tag'), f, :taggings, 'tags/tagging') %>
+      </div>
+
       <%= f.input :lock_version, as: :hidden %>
     </div>
 

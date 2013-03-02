@@ -1,7 +1,6 @@
 class Comment < ActiveRecord::Base
   has_paper_trail ignore: [
-    :votes_positives_count, :votes_negatives_count, :lock_version, 
-    :updated_at
+    :votes_count, :lock_version, :updated_at
   ]
 
   # Setup accessible (or protected) attributes for your model

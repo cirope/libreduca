@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row-fluid">
   <div class="span4 hidden-phone">
     &nbsp;
   </div>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="form-actions">
-        <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
+        <%= render 'shared/hidden_submit', f: f %>
         <%= show_button_dropdown(
           link_to('Cambiar mi contraseña', '#', class: 'btn btn-primary submit'),
           devise_links_es

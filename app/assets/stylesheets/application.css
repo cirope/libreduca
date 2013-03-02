@@ -17,6 +17,7 @@
  *= require common
  *= require common-responsive
  *= require devise
+ *= require blocks
  *= require chart
  *= require comments
  *= require contents
@@ -29,13 +30,13 @@
  *= require images
  *= require institutions
  *= require launchpad
- *= require blocks
+ *= require news
  *= require pages
  *= require presentations
  *= require regions
  *= require replies
  *= require surveys
+ *= require tags
  *= require teaches
  *= require users
- *= require news
 */

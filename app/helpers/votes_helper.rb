@@ -2,42 +2,33 @@ module VotesHelper
   def link_to_like(vote, *args)
     options = args.extract_options!
 
-    options['class'] ||= 'btn btn-mini text-success'
-    options['disabled'] ||= vote.vote_flag
+    options['class'] ||= 'btn btn-mini'
 
     text = content_tag(:span, '&#xe014'.html_safe, class: 'iconic')
-    link_text = text + ' ' + t('label.like') + ' ' + "(#{vote.votable.votes_positives_count})"
+    link_text = text + ' ' + "#{t('label.like')} #{vote.votable.votes_count}"
 
-    if vote.vote_flag
-      content_tag(:span, link_text, options)
-    else
-      options['data-remote'] ||= true
-      options['data-method'] ||= vote.new_record? ? 'post' : 'put'
+    options['data-remote'] ||= true
+    options['data-method'] ||= 'post'
 
-      link_path = polymorphic_path([vote.votable, vote], vote_flag: 'positive')
+    link_path = polymorphic_path([vote.votable, vote])
 
-      link_to link_text, link_path, options
-    end
+    link_to link_text, link_path, options
   end
 
   def link_to_dislike(vote, *args)
     options = args.extract_options!
 
-    options[:class] ||= 'btn btn-mini text-error'
-    options['disabled'] ||= !vote.vote_flag if vote.persisted?
+    options[:class] ||= 'btn btn-mini btn-success'
 
-    text = content_tag(:span, '&#xe016'.html_safe, class: 'iconic')
-    link_text = text + ' ' + t('label.dislike') + ' ' + "(#{vote.votable.votes_negatives_count})"
+    text = content_tag(:span, '&#xe014'.html_safe, class: 'iconic')
+    link_text = text + ' ' + "#{t('label.like')} #{vote.votable.votes_count}"
 
-    if vote.vote_flag == false
-      content_tag(:span, link_text, options) 
-    else
-      options['data-remote'] ||= true
-      options['data-method'] ||= vote.new_record? ? 'post' : 'put'
+    options['data-remote'] ||= true
+    options['data-method'] ||= 'delete'
+    options['data-original-title'] ||= t('label.dislike') 
 
-      link_path = polymorphic_path([vote.votable, vote], vote_flag: 'negative')
+    link_path = polymorphic_path([vote.votable, vote])
 
-      link_to link_text, link_path, options
-    end
+    link_to link_text, link_path, options
   end
 end

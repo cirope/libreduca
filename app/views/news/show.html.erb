@@ -1,58 +1,83 @@
 <div class="readonly-data">
-  <div class="page-header">
-    <h1 class="text-info"><%= @news %></h1>
-    <% if @news.description.present? %>
-      <h5>
-        <%= markdown @news.description %>
-      </h5>
-    <% end %>
-  </div>
+  <%= render 'navbar' %>
+  <div class="readonly-data">
+    <div class="badge badge-link">
+      <%= link_to t('label.back'), embedded_news_index_path %>
+    </div>
+    <div class="page-header">
+      <h1 class="text-info"><%= @news %></h1>
+      <%= markdown @news.description if @news.description.present? %>
+    </div>
 
-  <div class="media">
-    <% if @news.images.present? %>
-      <div class="pull-left launch-modal">
-        <a href="#modal-carousel" data-toggle="modal">
-          <%== @news.images.first.to_html(:normal) %>
-        </a>
-        <span class="badge zoom"><%= link_to_zoom '#modal-carousel' %></span>
-        <%= render 'images/modal_carousel', :@images => @news.images %>
+    <div class="media">
+      <% if user_signed_in? && @news.images.present? %>
+        <div class="pull-left launch-modal">
+          <a href="#modal-carousel" data-toggle="modal">
+            <%== @news.images.first.to_html(:normal) %>
+          </a>
+          <span class="badge zoom"><%= link_to_zoom '#modal-carousel' %></span>
+          <%= render 'images/modal_carousel', :@images => @news.images %>
+        </div>
+      <% end %>
+
+      <p class="muted">
+        <span><%= l @news.published_at.to_date, format: :long %></span>
+        <% if user_signed_in? %>
+          <span>| <%= link_to_comments(@news, '#comments') %></span>
+        <% end %>
+        <%= markdown @news.body if @news.body.present? %>
+      </p>
+    </div>
+
+    <div>
+      <% if user_signed_in? %>
+      <div class="news_info" id="<%= @news.anchor_vote %>">
+        <% vote = @news.voted_by(current_user) || @news.votes.build %>
+        <%= vote.new_record? ? link_to_like(vote) : link_to_dislike(vote) %>
+      </div>
+      <% end %>
+
+      <% unless @news.tags.empty? %>
+      <div class="news_info">
+        <span>
+          <strong><%= News.human_attribute_name 'tags', count: @news.tags.size %></strong>:
+          <%== show_tags_nav(@news, embedded: params[:embedded]) %>
+        </span>    
+      </div>
+      <% end %>
+    </div>
+    
+    <% if user_signed_in? %>
+      <div id="comments"></div>
+      <hr />
+      <h3><%= Comment.model_name.human(count: @news.comments.size) %></h3>
+
+      <%= content_for :news_comments do 
+        render partial: 'comments/comment', collection: @news.comments.reverse_order
+      end %>
+
+      <%= render template: 'comments/new', 
+          locals: { :@comment => @news.comments.build, :@commentable => @news } %>
+
+      <%= yield :news_comments %>
+    <% end %>
+
+    <div class="badge badge-link">
+      <%= link_to t('label.back'), embedded_news_index_path %>
+    </div>
+  </div>
+</div>
+
+<% unless is_embedded? %>
+  <div class="form-actions">
+    <% if user_signed_in? %>
+      <%= link_to(
+        t('label.edit'), edit_news_path(@news), class: 'btn btn-primary'
+      ) if can? :update, @news %>
+
+      <div class="pull-right">
+        <%= link_to t('label.list'), embedded_news_index_path %>
       </div>
     <% end %>
-
-    <p class="muted">
-      <%= l @news.created_at, format: :longer %>
-      <span>| <%= link_to_comments(@news, '#comments') %></span>
-    </p>
-
-    <%= markdown @news.body if @news.body.present? %>
   </div>
-
-  <div id="<%= @news.anchor_vote %>" style="margin-top: 10px;">
-    <%= render 'votes/form', :@vote => @news.voted_by(current_user) || @news.votes.build, 
-      :@votable => @news %>
-  </div>
-
-  <div id="comments"></div>
-  <hr />
-  <h3><%= Comment.model_name.human(count: @news.comments.size) %></h3>
-
-  <%= content_for :news_comments do 
-    render partial: 'comments/comment', collection: @news.comments.reverse_order
-  end %>
-
-  <%= render template: 'comments/new', 
-      locals: { :@comment => @news.comments.build, :@commentable => @news } %>
-
-  <%= yield :news_comments %>
-
-</div>
-
-<div class="form-actions">
-  <%= link_to(
-    t('label.edit'), edit_news_path(@news), class: 'btn btn-primary'
-  ) if can? :update, @news %>
-
-  <div class="pull-right">
-    <%= link_to t('label.list'), news_index_path %>
-  </div>
-</div>
+<% end %>

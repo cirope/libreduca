@@ -1,0 +1,13 @@
+Hola <%= @resource.name %>,
+================================================================================
+
+Para establecer tu primer contraseña, utiliza el siguiente enlace:
+
+<%= edit_password_url(
+  @resource,
+  reset_password_token: @resource.reset_password_token
+) %>
+
+--------------------------------------------------------------------------------
+
+Si no pediste establecerla, puedes ignorar este correo.

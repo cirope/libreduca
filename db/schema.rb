@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221160034) do
+ActiveRecord::Schema.define(:version => 20130225125955) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -36,15 +36,14 @@ ActiveRecord::Schema.define(:version => 20130221160034) do
   add_index "blocks", ["blockable_id", "blockable_type"], :name => "index_blocks_on_blockable_id_and_blockable_type"
 
   create_table "comments", :force => true do |t|
-    t.text     "comment",                              :null => false
-    t.integer  "user_id",                              :null => false
-    t.integer  "commentable_id",                       :null => false
-    t.integer  "lock_version",          :default => 0, :null => false
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
-    t.string   "commentable_type",                     :null => false
-    t.integer  "votes_positives_count", :default => 0, :null => false
-    t.integer  "votes_negatives_count", :default => 0, :null => false
+    t.text     "comment",                         :null => false
+    t.integer  "user_id",                         :null => false
+    t.integer  "commentable_id",                  :null => false
+    t.integer  "lock_version",     :default => 0, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.string   "commentable_type",                :null => false
+    t.integer  "votes_count",      :default => 0, :null => false
   end
 
   add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
@@ -237,19 +236,20 @@ ActiveRecord::Schema.define(:version => 20130221160034) do
   add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
 
   create_table "news", :force => true do |t|
-    t.string   "title",                                :null => false
+    t.string   "title",                         :null => false
     t.text     "description"
     t.text     "body"
-    t.integer  "comments_count",        :default => 0, :null => false
-    t.integer  "votes_positives_count", :default => 0, :null => false
-    t.integer  "votes_negatives_count", :default => 0, :null => false
-    t.integer  "lock_version",          :default => 0, :null => false
-    t.integer  "institution_id",                       :null => false
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.integer  "comments_count", :default => 0, :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.integer  "institution_id",                :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.datetime "published_at",                  :null => false
+    t.integer  "votes_count",    :default => 0, :null => false
   end
 
   add_index "news", ["institution_id"], :name => "index_news_on_institution_id"
+  add_index "news", ["published_at"], :name => "index_news_on_published_at"
   add_index "news", ["title"], :name => "index_news_on_title"
 
   create_table "pages", :force => true do |t|
@@ -329,6 +329,31 @@ ActiveRecord::Schema.define(:version => 20130221160034) do
 
   add_index "surveys", ["content_id"], :name => "index_surveys_on_content_id"
 
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id",        :null => false
+    t.integer  "taggable_id",   :null => false
+    t.string   "taggable_type", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+
+  create_table "tags", :force => true do |t|
+    t.string   "name",                          :null => false
+    t.string   "category",                      :null => false
+    t.string   "tagger_type",                   :null => false
+    t.integer  "institution_id",                :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "tags", ["institution_id"], :name => "index_tags_on_institution_id"
+  add_index "tags", ["name"], :name => "index_tags_on_name"
+  add_index "tags", ["tagger_type"], :name => "index_tags_on_tagger_type"
+
   create_table "teaches", :force => true do |t|
     t.date     "start",                       :null => false
     t.date     "finish",                      :null => false
@@ -394,7 +419,6 @@ ActiveRecord::Schema.define(:version => 20130221160034) do
   add_index "visits", ["visited_id", "visited_type"], :name => "index_visits_on_visited_id_and_visited_type"
 
   create_table "votes", :force => true do |t|
-    t.boolean  "vote_flag",                   :null => false
     t.integer  "user_id",                     :null => false
     t.integer  "votable_id",                  :null => false
     t.string   "votable_type",                :null => false

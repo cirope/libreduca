@@ -61,8 +61,12 @@ module Libreduca
     # Enable IdentityMap
     config.active_record.identity_map = true
     
-    # Defaul devise emails layout
-    config.to_prepare { Devise::Mailer.layout 'notifier_mailer' }
+    # Default devise layouts
+    config.to_prepare { 
+      Devise::Mailer.layout 'notifier_mailer' 
+      Devise::SessionsController.layout ->(c)  { is_embedded? ? 'embedded' : 'application' }
+      Devise::PasswordsController.layout ->(c) { is_embedded? ? 'embedded' : 'application' }
+    }
     
     # Fabrication configuration
     config.generators do |g|

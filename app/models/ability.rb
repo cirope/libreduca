@@ -4,7 +4,7 @@ class Ability
   def initialize(user, institution)
     @job = user.jobs.in_institution(institution).first if user && institution
 
-    user ? user_rules(user, institution) : default_rules(user, institution)
+    user ? user_rules(user, institution) : public_rules(institution)
 
     alias_action :find_by_email, to: :read
     alias_action :find_user_or_group, to: :read
@@ -44,10 +44,17 @@ class Ability
     can :read, Reply, user_id: user.id
     can :create, Reply, user_id: user.id
     can :update, Reply, user_id: user.id
-    can :read, Image
-    can :read, News
     can :read, Page
     can :manage, Vote, user_id: user.id
+    can :read, Image
+
+    public_rules(institution)
+  end
+
+  def public_rules(institution)
+    can :read, Institution
+    can :read, News, institution_id: institution.id
+    can :read, Tag, institution_id: institution.id
   end
 
   def student_rules(user, institution)
@@ -99,13 +106,13 @@ class Ability
       user.jobs.in_institution(institution).exists?
     end
     can :manage, Presentation # TODO: check for proper access
-    can :manage, News, jobs_restrictions
+    can :manage, News, institution_id: institution.id
     can :manage, Page, institution_id: institution.id
     can :manage, Block
     can :manage, Group, institution_id: institution.id
     can :manage, Membership
     can :read, Enrollment
-    #can :manage, News, institution_id: institution.id # TODO: review duplicated
+    can :manage, Tag, institution_id: institution.id
   end
 
   def headmaster_rules(user, institution)

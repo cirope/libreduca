@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
+
   test 'should ask for login' do
     visit new_user_session_path
 
@@ -87,38 +88,47 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_page_has_no_errors!
 
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: '123456'
+    within '.login' do
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: '123456'
 
-    find('.btn-primary.submit').click
+      find('.btn.btn-primary').click
+    end
 
     assert_equal student_dashboard_path, current_path
   end
 
   test 'should login via _menu dropdown_' do
-    @test_institution = Fabricate(:institution)
-    Capybara.app_host = "http://#{@test_institution.identification}.lvh.me:54163"
 
+    institution = Fabricate(:institution)
+    Fabricate(:news, institution_id: institution.id)
     user = Fabricate(:user, password: '123456', roles: [:normal])
     job = Fabricate(
-      :job, user_id: user.id, institution_id: @test_institution.id, job: 'student'
+      :job, user_id: user.id, institution_id: institution.id, job: 'student'
     )
 
-    page_block = Fabricate(:page, institution_id: @test_institution.id)
-    block = Fabricate(:block, blockable_id: page_block.id, blockable_type: 'Page')
+    Capybara.app_host = "http://#{institution.identification}.lvh.me:54163"
 
-    visit root_path
+    visit news_index_path
 
     assert_page_has_no_errors!
 
-    click_link 'login'
+    within '.content .navbar' do
+      click_link 'Ingresar'
 
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: '123456'
+      within '#login' do
+        fill_in 'user_email', with: user.email
+        fill_in 'user_password', with: '123456'
 
-    find('.btn-primary.submit').click
+        find('.btn.btn-primary').click
+      end
+    end
 
-    assert_equal page_path(page_block), current_path
+    assert page.has_css?('.alert.alert-info')
+
+    within '.alert.alert-info' do
+      assert page.has_content?(I18n.t('devise.sessions.signed_in'))
+    end
   end
 
   test 'should login with two jobs' do
@@ -141,10 +151,12 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_page_has_no_errors!
 
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: '123456'
+    within '.login' do
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: '123456'
 
-    find('.btn-primary.submit').click
+      find('.btn.btn-primary').click
+    end
 
     assert_equal launchpad_path, current_path
 

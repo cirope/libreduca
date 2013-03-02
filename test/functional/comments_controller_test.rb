@@ -105,39 +105,4 @@ class CommentsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'comments/show'
   end
-
-  # TODO: Don't work, Why ?
-  #test 'should show news comment' do
-  #  get :show, news_id: @commentable_news.to_param, id: @comment
-  #  assert_response :success
-  #  assert_not_nil assigns(:comment)
-  #  assert_select '#unexpected_error', false
-  #  assert_template 'comments/show'
-  #end
-
-=begin
-  test 'should get edit' do
-    get :edit, forum_id: @commentable_forum.to_param, id: @comment
-    assert_response :success
-    assert_not_nil assigns(:comment)
-    assert_select '#unexpected_error', false
-    assert_template 'comments/edit'
-  end
-
-  test 'should update comment' do
-    put :update, forum_id: @commentable_forum.to_param, id: @comment, 
-      comment: { comment: 'Updated' }
-    
-    assert_equal 'Updated', @comment.reload.comment
-    assert_redirected_to [@commentable_forum, assigns(:comment)]
-  end
-
-  test 'should destroy comment' do
-    assert_difference('Comment.count', -1) do
-      delete :destroy, forum_id: @commentable_forum.to_param, id: @comment
-    end
-
-    assert_redirected_to [@commentable_forum, Comment]
-  end
-=end
 end
