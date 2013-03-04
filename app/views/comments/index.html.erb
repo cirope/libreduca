@@ -1,18 +1,10 @@
-<% if @comments.empty? %>
-  <%= render 'shared/empty_index' %>
-<% else %>
-  <div class="row">
-    <div class="span12">
-      <%= render @comments %>
-    </div>
-  </div>
+<div id="comments"></div>
+<hr />
+<h3><%= Comment.model_name.human(count: @comments.size) %></h3>
 
-  <%= pagination_links(@comments) %>
-<% end %>
+<%= render @comments %>
 
-<div class="form-actions">
-  <%= link_to(
-    t('view.comments.new', default: :'label.new'),
-    new_polymorphic_path([@commentable, Comment]), class: 'btn btn-primary'
-  ) if can? :create, @commentable.comments.build %>
-</div>
+<%= render 'comments/pagination', :@comments => @comments %>
+
+<%= render template: 'comments/new',                                                                                                                
+    locals: { :@comment => @commentable.comments.build, :@commentable => @commentable } %>

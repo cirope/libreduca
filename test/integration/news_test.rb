@@ -115,6 +115,22 @@ class NewsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'should paginate comments en news' do
+    news = Fabricate(:news, institution_id: @institution.id)
+    6.times { Fabricate(:comment, commentable_id: news.id, commentable_type: 'News') }
+    
+    visit news_path(news)
+
+    assert page.has_no_css?('#comment-6')
+
+    within '#pagination_container' do
+      find('.btn').click
+    end
+
+    assert page.has_css?('#comment-6')
+    assert page.has_no_css?('#pagination_container')
+  end
+
   test 'should create a vote in news' do
     news = Fabricate(:news, institution_id: @institution.id)
 

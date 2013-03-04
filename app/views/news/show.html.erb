@@ -32,22 +32,11 @@
       :@votable => @news %>
   </div>
 
-  <div id="comments"></div>
-  <hr />
-  <h3><%= Comment.model_name.human(count: @news.comments.size) %></h3>
-
-  <%= content_for :news_comments do 
-    render partial: 'comments/comment', collection: @news.comments.reverse_order
-  end %>
-
-  <%= render template: 'comments/new', 
-      locals: { :@comment => @news.comments.build, :@commentable => @news } %>
-
-  <%= yield :news_comments %>
-
+  <%= render template: 'comments/index', 
+    locals: { :@comments => @news.comments.page(1), :@commentable => @news } %>
 </div>
 
-<div class="form-actions">
+<nav class="form-actions">
   <%= link_to(
     t('label.edit'), edit_news_path(@news), class: 'btn btn-primary'
   ) if can? :update, @news %>
@@ -55,4 +44,4 @@
   <div class="pull-right">
     <%= link_to t('label.list'), news_index_path %>
   </div>
-</div>
+</nav>

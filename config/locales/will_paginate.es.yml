@@ -14,3 +14,6 @@
         zero: 'Sin resultados'
     page_gap: '&hellip;'
     previous_label: '&laquo; Anterior'
+    comment:
+      page_entries_info:
+        multi_page_html: 'Viendo %{to} de un total de %{count}'

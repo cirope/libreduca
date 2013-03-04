@@ -4,6 +4,8 @@ class Comment < ActiveRecord::Base
     :updated_at
   ]
 
+  self.per_page = 5
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :comment, :lock_version
 
@@ -12,7 +14,6 @@ class Comment < ActiveRecord::Base
 
   # Default order
   default_scope order("#{table_name}.created_at ASC")
-  scope :reverse_order, order("#{table_name}.created_at DESC")
 
   # Validations
   validates :comment, :user_id, :commentable_id, presence: true

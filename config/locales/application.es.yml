@@ -300,6 +300,7 @@
       correctly_created: 'Comentario agregado correctamente.'
       correctly_updated: 'Comentario actualizado correctamente.'
       stale_object_error: 'El comentario no pudo ser actualizado, intente nuevamente.'
+      more_comments: 'Mostrar más comentarios'
       new: 'Nuevo comentario'
       empty_index:
         html: 'No se ha creado ningún comentario, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo comentario</span>'
