@@ -54,6 +54,12 @@
     mailer:
       confirmation_instructions:
         subject: 'Instrucciones de confirmación'
+      token_instructions:
+        subject: 'Código de seguridad'
+      embedded_reset_password_instructions:
+        subject: 'Código de seguridad'
+      welcome_instructions: 
+        subject: 'Bienvenido a Libreduca'
       reset_password_instructions:
         subject: 'Instrucciones para cambiar su contraseña'
       unlock_instructions:

@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   has_paper_trail
 
+  attr_accessor :welcome
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
     :avatar, :avatar_cache, :remove_avatar, :role, :remember_me,
@@ -40,5 +42,9 @@ class User < ActiveRecord::Base
 
   def self.find_for_authentication(conditions = {})
     custom_find_for_authentication(conditions) # Defined in DeviseCustomization
+  end
+
+  def self.send_reset_password_instructions(attributes = {})
+    custom_send_reset_password_instructions(attributes) # Defined in DeviseCustomization
   end
 end

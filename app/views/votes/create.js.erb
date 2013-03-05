@@ -1,1 +1,1 @@
-$('#<%= @votable.anchor_vote %>').html('<%= j render('votes/form', :@vote => @vote, :@votable => @votable) %>');
+$('#<%= @votable.anchor_vote %>').html('<%= j link_to_dislike(@vote) %>').find('a').tooltip();

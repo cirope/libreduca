@@ -83,6 +83,9 @@
       survey:
         one: 'Encuesta'
         other: 'Encuestas'
+      tag:
+        one: 'Etiqueta'
+        other: 'Etiquetas'
       teach:
         one: 'Dictado'
         other: 'Dictados'
@@ -156,6 +159,10 @@
         title: 'Título'
         description: 'Descripción'
         body: 'Contenido'
+        published_at: 'Publicación'
+        tags:
+          one: 'Etiqueta'
+          other: 'Etiquetas'
       presentation:
         file: 'Archivo'
       question:
@@ -180,6 +187,10 @@
         content: 'Pregunta'
       survey/question/answer:
         content: 'Respuesta'
+      tag:
+        name: 'Nombre'
+      tagging:
+        tag_id: 'Etiqueta'
       teach:
         start: 'Inicio'
         finish: 'Finalización'
@@ -209,6 +220,7 @@
         avatar: 'Imagen'
         remove_avatar: 'Eliminar imagen actual'
         remember_me: 'Recordarme'
+        reset_password_token: 'Código de seguridad'
         jobs:
           one: 'Trabajo'
           other: 'Trabajos'
@@ -251,7 +263,7 @@
     show: 'Ver'
     zoom: 'Ampliar'
     like: 'Me gusta'
-    dislike: 'No me gusta'
+    dislike: 'Elimina tu Me gusta'
     
   menu:
     actions:
@@ -483,6 +495,9 @@
       empty_index:
         html: 'No se ha creado ninguna noticia hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva noticia</span>'
       new: 'Nueva noticia'
+      new_tag: 'Agregar nueva etiqueta'
+      news: 'Portada'
+      previous_news: 'Noticias anteriores'
     page:
       welcome_to: 'Bienvenido a %{institution}'
       without_blocks:
@@ -526,7 +541,7 @@
       correctly_updated: 'Encuesta actualizada correctamente.'
       stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna encuesta hasta el momento'
+        html: 'No se ha creado ninguna encuesta hasta el momento'  
     teaches:
       index_title: 'Listado de dictados'
       show_title: 'Detalle de dictado'

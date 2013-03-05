@@ -1,19 +1,24 @@
 class NewsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:index, :show]
 
   check_authorization
-  load_and_authorize_resource through: :current_institution
+  load_and_authorize_resource :tag, through: :current_institution, 
+    shallow: true, only: :index
 
-  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+  before_filter :set_news_loader
+
+  load_and_authorize_resource through: :news_loader
+
+  layout ->(c) { c.send(:is_embedded?) ? 'embedded' : 'application' }
 
   # GET /news
   # GET /news.json
   def index
     @title = t('view.news.index_title')
-    @news = @news.page(params[:page]).uniq('id')
-  
+    @news = @news.page(params[:page])
+
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html.erb 
       format.json { render json: @news }
     end  
   end
@@ -23,10 +28,10 @@ class NewsController < ApplicationController
   def show
     @title = t('view.news.show_title')
 
-    @news.visited_by(current_user)
+    @news.visited_by(current_user) if user_signed_in?
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.erb 
       format.json { render json: @news }
     end
   end
@@ -95,5 +100,11 @@ class NewsController < ApplicationController
       format.html { redirect_to news_index_url }
       format.json { head :ok }
     end
+  end
+
+  private
+
+  def set_news_loader
+    @news_loader = @tag || current_institution
   end
 end
