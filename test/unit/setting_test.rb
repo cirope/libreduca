@@ -9,7 +9,7 @@ class SettingTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference ['Setting.count', '@configurable.settings.count'] do
       @setting = @configurable.settings.create(
-        Fabricate.attributes_for(:setting).slice(
+        Fabricate.attributes_for(:setting, configurable_id: nil).slice(
           *Setting.accessible_attributes
         )
       )
@@ -34,27 +34,39 @@ class SettingTest < ActiveSupport::TestCase
     
   test 'validates blank attributes' do
     @setting.name = ''
-    @setting.value = ''
+    @setting.kind = ''
     
     assert @setting.invalid?
-    assert_equal 2, @setting.errors.size
+    assert_equal 3, @setting.errors.size
     assert_equal [error_message_from_model(@setting, :name, :blank)],
       @setting.errors[:name]
-    assert_equal [error_message_from_model(@setting, :value, :blank)],
-      @setting.errors[:value]
+    assert_equal [
+      error_message_from_model(@setting, :kind, :blank),
+      error_message_from_model(@setting, :kind, :inclusion)
+    ].sort, @setting.errors[:kind].sort
   end
 
   test 'validates attributes lenght' do
     @setting.name = 'abcde' * 52
-    @setting.value = 'abcde' * 52
+    @setting.kind = 'abcde' * 52
 
     assert @setting.invalid?
-    assert_equal 2, @setting.errors.size
+    assert_equal 3, @setting.errors.size
     assert_equal [
       error_message_from_model(@setting, :name, :too_long, count: 255)
     ], @setting.errors[:name]
     assert_equal [
-      error_message_from_model(@setting, :value, :too_long, count: 255)
-    ], @setting.errors[:value]
+      error_message_from_model(@setting, :kind, :too_long, count: 255),
+      error_message_from_model(@setting, :kind, :inclusion)
+    ].sort, @setting.errors[:kind].sort
+  end
+  
+  test 'validates included attributes' do
+    @setting.kind = 'wrong'
+
+    assert @setting.invalid?
+    assert_equal 1, @setting.errors.size
+    assert_equal [error_message_from_model(@setting, :kind, :inclusion)],
+      @setting.errors[:kind]
   end
 end

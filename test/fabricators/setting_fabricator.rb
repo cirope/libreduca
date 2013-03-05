@@ -1,6 +1,7 @@
 Fabricator(:setting) do
   name { Faker::Name.name }
-  value { Faker::Lorem.sentence }
+  kind 'String'
+  value 'Test'
   configurable_id { Fabricate(:institution).id }
   configurable_type 'Institution'
 end

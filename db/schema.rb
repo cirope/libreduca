@@ -300,7 +300,8 @@ ActiveRecord::Schema.define(:version => 20130225132100) do
 
   create_table "settings", :force => true do |t|
     t.string   "name",              :null => false
-    t.string   "value",             :null => false
+    t.string   "kind",              :null => false
+    t.text     "value",             :null => false
     t.integer  "configurable_id",   :null => false
     t.string   "configurable_type", :null => false
     t.datetime "created_at",        :null => false

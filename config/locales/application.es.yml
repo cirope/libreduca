@@ -452,6 +452,8 @@
       hints:
         identification:
           html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
+      settings:
+        show_news: 'Mostrar noticias en la portada'
     jobs:
       types:
         headmaster: 'Director'

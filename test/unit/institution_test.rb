@@ -22,7 +22,7 @@ class InstitutionTest < ActiveSupport::TestCase
   end
   
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'Version.count', 2 do
       assert_difference('Institution.count', -1) { @institution.destroy }
     end
   end
@@ -101,9 +101,9 @@ class InstitutionTest < ActiveSupport::TestCase
       end
     end
     
-    Fabricate(
-      :institution, name: 'magick_name', identification: 'magick-identification-10'
-    )
+    Fabricate(:institution, name: 'magick_name') do
+      identification { "magick-identification-#{sequence(:institution_identification)}" }
+    end
     
     institutions = Institution.magick_search('magick')
     
@@ -130,5 +130,19 @@ class InstitutionTest < ActiveSupport::TestCase
     institutions = Institution.magick_search('noinstitution')
     
     assert institutions.empty?
+  end
+
+  test 'settings' do
+    assert Institution::DEFAULT_SETTINGS.size > 0
+
+    Institution::DEFAULT_SETTINGS.each do |name, value|
+      assert_equal name, @institution.send(name).name
+    end
+
+    assert_equal true, @institution.show_news.converted_value
+
+    assert @institution.show_news.update_attributes(value: false)
+
+    assert_equal false, @institution.reload.show_news.converted_value
   end
 end
