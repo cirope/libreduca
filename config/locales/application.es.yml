@@ -83,6 +83,9 @@
       survey:
         one: 'Encuesta'
         other: 'Encuestas'
+      tag:
+        one: 'Etiqueta'
+        other: 'Etiquetas'
       teach:
         one: 'Dictado'
         other: 'Dictados'
@@ -156,6 +159,10 @@
         title: 'Título'
         description: 'Descripción'
         body: 'Contenido'
+        published_at: 'Publicación'
+        tags:
+          one: 'Etiqueta'
+          other: 'Etiquetas'
       presentation:
         file: 'Archivo'
       question:
@@ -180,6 +187,10 @@
         content: 'Pregunta'
       survey/question/answer:
         content: 'Respuesta'
+      tag:
+        name: 'Nombre'
+      tagging:
+        tag_id: 'Etiqueta'
       teach:
         start: 'Inicio'
         finish: 'Finalización'
@@ -209,6 +220,7 @@
         avatar: 'Imagen'
         remove_avatar: 'Eliminar imagen actual'
         remember_me: 'Recordarme'
+        reset_password_token: 'Código de seguridad'
         jobs:
           one: 'Trabajo'
           other: 'Trabajos'
@@ -237,6 +249,7 @@
     close: 'Cerrar'
     delete: 'Eliminar'
     download: 'Descargar'
+    downloads: 'Descargas'
     download_with_format:
       html: 'Descargar en <strong>%{file_format}</strong>'
     edit: 'Editar'
@@ -250,7 +263,7 @@
     show: 'Ver'
     zoom: 'Ampliar'
     like: 'Me gusta'
-    dislike: 'No me gusta'
+    dislike: 'Elimina tu Me gusta'
     
   menu:
     actions:
@@ -299,6 +312,7 @@
       correctly_created: 'Comentario agregado correctamente.'
       correctly_updated: 'Comentario actualizado correctamente.'
       stale_object_error: 'El comentario no pudo ser actualizado, intente nuevamente.'
+      more_comments: 'Mostrar más comentarios'
       new: 'Nuevo comentario'
       empty_index:
         html: 'No se ha creado ningún comentario, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo comentario</span>'
@@ -483,10 +497,9 @@
       empty_index:
         html: 'No se ha creado ninguna noticia hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva noticia</span>'
       new: 'Nueva noticia'
-    page:
-      welcome_to: 'Bienvenido a %{institution}'
-      without_blocks:
-        html: 'Aquí puedes definir el contenido de la página institucional de <strong>%{institution}</strong>, empieza creando secciones desde <span class="label label-info">Nueva sección</span>'
+      new_tag: 'Agregar nueva etiqueta'
+      news: 'Portada'
+      previous_news: 'Noticias anteriores'
     presentations:
       index_title: 'Listado de entregas'
       show_title: 'Detalle de entrega'
@@ -526,7 +539,7 @@
       correctly_updated: 'Encuesta actualizada correctamente.'
       stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna encuesta hasta el momento'
+        html: 'No se ha creado ninguna encuesta hasta el momento'  
     teaches:
       index_title: 'Listado de dictados'
       show_title: 'Detalle de dictado'

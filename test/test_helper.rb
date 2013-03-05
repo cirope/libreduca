@@ -54,10 +54,12 @@ class ActionDispatch::IntegrationTest
 
     assert_page_has_no_errors!
 
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: clean_password
+    within '.login' do
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: clean_password
 
-    find('.btn-primary.submit').click
+      find('.btn.btn-primary').click
+    end
 
     assert_equal expected_path, current_path
 

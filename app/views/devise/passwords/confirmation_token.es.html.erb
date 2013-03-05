@@ -1,0 +1,56 @@
+<div class="row-fluid">
+  <div class="span3 hidden-phone">
+    &nbsp;
+  </div>
+  <div class="public_form_container span6">
+    <h3>Código de seguridad</h3>
+
+    <% if resource.persisted? %>
+      <p>
+        Se envió un correo a <span class="text-success"><%= resource.email %></span>
+        con su código de seguridad, como el siguiente ejemplo:
+      </p>
+      <div class="well well-small">
+        <p>
+          Hola <%= resource.name %>,
+        </p>
+        <% if resource.welcome %>
+          <p>
+            Bienvenido a Libreduca, su código de seguridad es el siguiente:
+          </p>
+        <% else %>
+          <p>
+            Alguien ha pedido cambiar tu contraseña, su código de seguridad es:
+          </p>
+        <% end %>
+        <p><strong>XXXXxxxxxXXxxXxxxXXX</strong></p>
+        <p>Si no lo pediste, puedes ignorar este correo.</p>
+      </div>
+      <p>
+        <strong>Copie</strong> y pegue su código debajo
+      </p>
+    <% else %>
+      <p>Se encontraron algunos problemas:</p>
+    <% end %>
+
+    <%= simple_form_for(resource, as: resource_name, 
+      url: edit_password_path(resource), html: { method: :get }) do |f| %>
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="form-inputs">
+            <%= f.input :reset_password_token, as: :string, 
+              input_html: { autofocus: true, class: 'span12' } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= render 'shared/hidden_submit', f: f %>
+        <%= show_button_dropdown(
+          link_to('Confirmar', '#', class: 'btn btn-primary submit'),
+            devise_links_es
+        ) %>
+      </div>
+    <% end %>
+  </div>
+</div>

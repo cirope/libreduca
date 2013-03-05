@@ -72,10 +72,12 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     
     assert_page_has_no_errors!
     
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: clean_password
-    
-    find('.btn.btn-primary.submit').click
+    within '.login' do
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: clean_password
+      
+      find('.btn.btn-primary').click
+    end
     
     assert_equal new_user_session_path, current_path
     

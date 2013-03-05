@@ -41,6 +41,7 @@ class Institution < ActiveRecord::Base
   has_many :images, dependent: :destroy
   has_many :news, dependent: :destroy
   has_many :groups, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   def institution
     self

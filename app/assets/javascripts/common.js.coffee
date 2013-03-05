@@ -13,7 +13,7 @@ new Rule
   unload: -> clearTimeout timer for i, timer of @map.timers
 
 jQuery ($) ->
-  $(document).on 'click', 'a.submit', -> $('form').submit(); false
+  $(document).on 'click', 'a.submit', -> $(this).closest('form').submit(); false
   
   $(document).on 'click', 'a[data-remote][data-loading-text]', ->
     $(this).button('loading')

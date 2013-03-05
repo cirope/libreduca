@@ -1,7 +1,7 @@
 jQuery ($) ->
   $(document).on 'change', 'input.autocomplete_field', ->
     if /^\s*$/.test($(this).val())
-      $(this).next('input.autocomplete_id:first').val('')
+      $($(this).data('autocompleteIdTarget')).val('')
 
   $(document).on 'focus', 'input.autocomplete_field:not([data-observed])', ->
     input = $(this)
@@ -23,6 +23,7 @@ jQuery ($) ->
 
               { label: content.html(), value: item.label, item: item }
       type: 'get'
+      minLength: input.data('autocompleteMinLength')
       select: (event, ui) ->
         selected = ui.item
 

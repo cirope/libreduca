@@ -1,0 +1,6 @@
+$('<%= @comments.map { |c| "##{c.anchor}" }.join(', ') %>').remove();
+$('#pagination_container').after('<div id="new_pagination_container"></div>');
+$('#pagination_container').replaceWith('<%= j render(@comments) %>');
+$('#new_pagination_container').effect('highlight', 'slow').replaceWith(
+    '<%= j render('comments/pagination', :@comments => @comments) %>'
+);

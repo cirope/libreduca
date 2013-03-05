@@ -29,11 +29,12 @@
  *= require images
  *= require institutions
  *= require launchpad
+ *= require news
  *= require presentations
  *= require regions
  *= require replies
  *= require surveys
+ *= require tags
  *= require teaches
  *= require users
- *= require news
 */

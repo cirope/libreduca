@@ -13,7 +13,7 @@ form {
   }
 }
 
-html, body {
+body {
   background-color: #eee;
 }
 
@@ -29,8 +29,22 @@ html, body {
   z-index: 1100;
 }
 
+.badge-link {
+  a { color: #fff; }
+}
+
 .centered {
   text-align: center;
+}
+
+.enter {
+  display: block;
+  padding: 10px 15px;
+}
+
+.embedded {
+  padding: 10px 0;
+  background-color: #fff;
 }
 
 .iconic {
@@ -48,7 +62,7 @@ html, body {
   cursor: help;
 }
 
-.logged-in, #c_chart {
+.logged-in, #c_chart, #c_news {
   .container > .content {
     background-color: #fff;
     padding-top: 20px;
@@ -72,15 +86,21 @@ html, body {
   }
 }
 
-.logged-in[data-action="index"], .logged-in[data-action="show"], #c_chart {
+.logged-in[data-action="index"], 
+  .logged-in[data-action="show"], 
+    #c_chart, #c_news, #c_pages, #c_sessions, #c_passwords {
   .form-actions {
     padding-left: 20px;
   }
   
   .readonly-data {
     margin: 0px 20px;
+
+    p { padding: 0; }
   }
 }
+
+.login_footer { margin-bottom: 0; }
 
 .ui-autocomplete {
   small {
@@ -98,4 +118,14 @@ html, body {
   color: #999;
   width: 20px;
   font-size: 30px;
+}
+
+.tag_color_chooser {
+  input[type="radio"] { display: none; }
+
+  span { visibility: hidden; }
+
+  &.selected {
+    span { visibility: visible; }
+  }
 }

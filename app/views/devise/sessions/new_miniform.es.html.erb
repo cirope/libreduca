@@ -1,19 +1,12 @@
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email, input_html: { autofocus: true, class: 'span3' } %>
-    <%= f.input :password, input_html: { class: 'span3' } %>
-    <%= f.input :remember_me, as: :boolean, wrapper: :checkbox if devise_mapping.rememberable? %>
-
-    <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
-    <%= link_to('Ingresar', '#', class: 'btn btn-primary submit') %>
+<ul class="custom-nav nav nav-tabs">
+  <li class="active"><a href="#login" data-toggle="tab">Ingreso</a></li>
+  <li><a href="#welcome" data-toggle="tab">Bienvenido</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="login">
+    <%= render 'devise/sessions/login', span_class: 'span3' %>
   </div>
-<% end %>
-
-<% if devise_mapping.recoverable? %>
-  <div class="readonly-data">
-    <p>
-      <strong>Ayuda</strong>:
-      <%= link_to('¿Olvidaste tu contraseña?', new_password_path(resource_name), id: 'reset-password') %>
-    </p>
+  <div class="tab-pane" id="welcome">
+    <%= render 'devise/sessions/welcome', span_class: 'span3' %>
   </div>
-<% end %>
+</div>

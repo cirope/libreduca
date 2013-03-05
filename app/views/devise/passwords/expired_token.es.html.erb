@@ -1,0 +1,31 @@
+<div class="row-fluid">
+  <div class="span4 hidden-phone">
+    &nbsp;
+  </div>
+  <div class="public_form_container span4">
+    <h3>Código de seguridad</h3>
+
+    <p class="text-error">
+      Su código de seguridad ha caducado, por favor pida uno nuevo.
+    </p>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <%= simple_form_for(resource, as: resource_name,
+            url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <div class="form-inputs">
+            <%= f.input :email, input_html: { autofocus: true, class: 'span12' } %>
+          </div>
+
+          <div class="form-actions">
+            <%= render 'shared/hidden_submit', f: f %>
+            <%= show_button_dropdown(
+              link_to('Enviarme las instrucciones', '#', class: 'btn btn-primary submit'),
+              devise_links_es
+            ) %>
+          </div>
+        <% end %>         
+      </div>
+    </div>
+  </div>
+</div>

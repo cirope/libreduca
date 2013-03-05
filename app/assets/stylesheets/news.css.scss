@@ -1,9 +1,32 @@
-#c_news {
-  .news_columns { margin: 0 20px; }
+#c_news, #c_pages {
+  .news_info { margin: 10px 0; }
 
-  .thumbnail { border: 0 none; box-shadow: none; }
+  .tag { margin: 0 10px 10px 0 }
+
+  .thumbnail { 
+    border: 0 none; box-shadow: none; 
+    .caption { padding: 0px; }
+  }
  
   .carousel { margin: 0; }
+  .dropdown-menu { padding: 9px; }
+
+  .custom-nav {
+    float: none;  
+
+    a { color: #0088DD; }
+
+    > li > a:hover, > li > a:focus {
+      color: #005580;
+      background-color: #eee; 
+    }
+
+    > .active > a, > .active > a:hover, > .active > a:focus { 
+      background-color: #fff; 
+      color: #555; 
+      box-shadow: none;
+    }
+  }
 
   .launch-modal {
     position: relative;

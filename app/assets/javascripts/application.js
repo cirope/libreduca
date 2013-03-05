@@ -42,10 +42,11 @@
 //= require jobs
 //= require launchpad
 //= require lazy_tabs
+//= require news
 //= require presentations
 //= require regions
 //= require replies
 //= require surveys
+//= require tags
 //= require teaches
 //= require users
-//= require news

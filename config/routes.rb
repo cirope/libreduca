@@ -35,7 +35,7 @@ Libreduca::Application.routes.draw do
       resources :users
     end
 
-    devise_for :users
+    devise_for :users, controllers: { passwords: 'passwords' }
 
     resources :users do
       member do
@@ -101,19 +101,12 @@ Libreduca::Application.routes.draw do
     resources :news do
       resources :comments, only: [:index, :show, :new, :create]
 
-      resources :votes, only: :show do
-        post ':vote_flag' => 'votes#create', vote_flag: /positive|negative/, as: '', on: :collection 
-        put ':vote_flag' => 'votes#update', vote_flag: /positive|negative/, as: '', on: :member
-      end
-
+      resources :votes, only: [:create, :destroy]
       resources :images
     end
 
     resources :comments, only: [] do
-      resources :votes, only: :show do
-        post ':vote_flag' => 'votes#create', vote_flag: /positive|negative/, as: '', on: :collection 
-        put ':vote_flag' => 'votes#update', vote_flag: /positive|negative/, as: '', on: :member
-      end
+      resources :votes, only: [:create, :destroy]
     end
 
     resources :institutions do
@@ -122,9 +115,11 @@ Libreduca::Application.routes.draw do
       resources :forums
     end
 
-    resources :news
-
     resources :groups
+
+    resources :tags, only: [:index] do
+      resources :news, only: [:index]
+    end
 
     match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
 
@@ -133,7 +128,7 @@ Libreduca::Application.routes.draw do
         as: "#{job_type}_dashboard", via: :get
     end
 
-    devise_for :users
+    devise_for :users, controllers: { passwords: 'passwords' }
 
     resources :users do
       member do

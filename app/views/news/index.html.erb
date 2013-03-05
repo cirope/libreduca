@@ -1,38 +1,58 @@
-<% columns = 3 %>
-<% if @news.empty? %>
+<% columns = 2 %>
+<% if @news.empty? && !is_embedded? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="news_columns">
-  <% @news.each_slice(columns) do |news_row| %>
-    <div class="row-fluid">
-      <ul class="thumbnails">
-        <% news_row.each do |news| %>
-          <li class="span4">
-            <div class="thumbnail">
-              <%== news.images.first.to_html(:normal) unless news.images.empty? %>
-              <div class="caption">
-                <h4 class="text-info"><%= link_to news.title, news %></h4>
-                <p><small><%= markdown news.description %></small></p>
-                <p><%= link_to_comments(news, 
-                      news_path(news, anchor: 'comments'), data: { 'no-turbolink' => true }) %></p>
-              </div>
-            </div>
-            <hr />
-          </li>
-        <% end %>
-      </ul>
+  <div class="readonly-data">
+    <%= render 'navbar' %>
+    <div class="readonly-data">
+      <% @news.each_slice(columns) do |news_row| %>
+        <div class="row-fluid">
+          <ul class="thumbnails">
+            <% news_row.each do |news| %>
+              <li class="span6">
+                <div class="thumbnail">
+                  <div class="clearfix">
+                    <% unless news.tags.empty? %>
+                    <div class="pull-left tag badge badge-<%= @tag.try(:category) || news.taggings.first.tag.category %>">
+                      <%= @tag || news.taggings.first.tag %>
+                    </div>
+                    <% end %>
+                    <p class="muted"><small><%= l news.published_at.to_date, format: :long %></small></p>
+                  </div>
+                  <% if user_signed_in? && !news.images.empty? %>
+                  <div>
+                    <%= link_to image_tag(news.images.first.file_url(:normal)), embedded_news_path(news) %>
+                  </div>
+                  <% end %>
+                  <div class="caption">
+                    <h4 class="text-info"><%= link_to news.title, embedded_news_path(news) %></h4>
+                    <%= markdown news.description %>
+                    <% if user_signed_in? %>
+                      <p><%= link_to_comments(news, 
+                        news_path(news, embedded: params[:embedded], anchor: 'comments'), 
+                        data: { 'no-turbolink' => true }) %>
+                      </p>
+                    <% end %>
+                  </div>
+                </div>
+                <hr />
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <% if @news.current_page > 1 %>
+        <%= pagination_links(@news) %>
+      <% end %>
     </div>
-  <% end %>
   </div>
 <% end %>
 
-<% unless request.xhr? %>
-  <%= pagination_links(@news) %>
-
+<% unless is_embedded? %>
   <div class="form-actions">
-    <%= link_to(
-      t('view.news.new', default: :'label.new'),
-      new_news_path, class: 'btn btn-primary'
-    ) if can? :create, News %>
+  <%= link_to(
+    t('view.news.new', default: :'label.new'),
+    new_news_path, class: 'btn btn-primary'
+  ) if can? :create, News %>
   </div>
 <% end %>

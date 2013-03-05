@@ -52,6 +52,14 @@ class SurveysControllerTest < ActionController::TestCase
     assert_template 'surveys/show'
   end
 
+  test 'should show survey in csv' do
+    get :show, teach_id: @teach, id: @survey, format: :csv
+    assert_response :success
+    assert_not_nil assigns(:survey)
+
+    assert CSV.parse(@response.body).size > 0
+  end
+
   test 'should get edit' do
     get :edit, teach_id: @teach, id: @survey
     assert_response :success

@@ -20,18 +20,8 @@
     <%= markdown @forum.topic %>
   </blockquote>
 
-  <hr />
-  <h3><%= Comment.model_name.human(count: @forum.comments.size) %></h3>
-
-  <%= content_for :forum_comments do
-    render partial: 'comments/comment', collection: @forum.comments 
-  end %>
-
-  <%= render template: 'comments/new', 
-    locals: { :@comment => @forum.comments.build, :@commentable => @forum } %>
-
-  <%= yield :forum_comments %>
-
+  <%= render template: 'comments/index', 
+    locals: { :@comments => @forum.comments.page(1), :@commentable => @forum } %>
 </div>
 
 <div class="form-actions">

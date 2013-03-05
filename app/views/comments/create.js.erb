@@ -3,7 +3,7 @@
 
   window.location.hash = '<%= @comment.anchor %>';
   
-  $("#<%= @comment.anchor %>").effect('highlight', 'slow').before(
+  $("#<%= @comment.anchor %>").effect('highlight', 'slow').after(
     '<%= j render(template: 'comments/new', format: :html, locals: { :@comment => Comment.new }) %>'
   );
 <% else %>

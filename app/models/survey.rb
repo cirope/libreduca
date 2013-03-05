@@ -18,6 +18,8 @@ class Survey < ActiveRecord::Base
   belongs_to :content
   has_one :teach, through: :content
   has_many :questions, dependent: :destroy
+  has_many :answers, through: :questions 
+  has_many :replies, through: :questions
 
   accepts_nested_attributes_for :questions, allow_destroy: true,
     reject_if: ->(attrs) { attrs['content'].blank? }
@@ -43,6 +45,21 @@ class Survey < ActiveRecord::Base
         end
 
         csv << row.flatten
+      end
+    end
+  end
+
+  def to_csv
+    CSV.generate(col_sep: ';') do |csv|
+      csv << [self.content.to_s]
+      csv << [self.to_s]
+
+      self.questions.map do |question|
+        csv << ["#{question}"]
+
+        question.answers.map do |answer| 
+          csv << [nil, answer.to_s, answer.replies.count]
+        end
       end
     end
   end

@@ -16,6 +16,30 @@ class NewsTest < ActiveSupport::TestCase
     end
   end
 
+  test 'create with tags' do
+    assert_difference ['News.count','Tagging.count','Tag.count'] do
+      @news = @institution.news.build(
+        (
+          Fabricate.attributes_for(:news, institution_id: nil).slice(
+            *News.accessible_attributes
+          )
+        ).merge(
+          taggings_attributes: {
+            tagging_1: { 
+              tag_attributes: (
+                Fabricate.attributes_for(:tag, institution_id: nil).slice(
+                  *Tag.accessible_attributes
+                )
+              )
+            }
+          }
+        )
+      )
+
+      @news.save
+    end
+  end
+
   test 'update' do
     assert_difference 'Version.count' do
       assert_no_difference 'News.count' do
@@ -34,14 +58,14 @@ class NewsTest < ActiveSupport::TestCase
     
   test 'validates blank attributes' do
     @news.title = ''
-    @news.institution_id = nil
+    @news.published_at = nil
 
     assert @news.invalid?
     assert_equal 2, @news.errors.size
     assert_equal [error_message_from_model(@news, :title, :blank)],
       @news.errors[:title]
-    assert_equal [error_message_from_model(@news, :institution_id, :blank)],
-      @news.errors[:institution_id]
+    assert_equal [error_message_from_model(@news, :published_at, :blank)],
+      @news.errors[:published_at]
   end
     
   test 'validates length of _long_ attributes' do
@@ -52,6 +76,17 @@ class NewsTest < ActiveSupport::TestCase
     assert_equal [
       error_message_from_model(@news, :title, :too_long, count: 255)
     ], @news.errors[:title]
+  end
+
+  test 'validates well formated attributes' do
+    @news.published_at = '13/13/13 25:61:61'
+
+    assert @news.invalid?
+    assert_equal 2, @news.errors.size
+    assert_equal [
+      error_message_from_model(@news, :published_at, :blank),
+      I18n.t('errors.messages.invalid_datetime')
+    ].sort, @news.errors[:published_at].sort
   end
 
   test 'magick search' do

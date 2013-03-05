@@ -1,3 +1,5 @@
+<% vote = comment.voted_by(current_user) || comment.votes.build %>
+
 <div id="<%= comment.anchor %>" class="media">
   <div class="pull-left">
     <% if comment.user.avatar? %>
@@ -18,8 +20,7 @@
       </small>
       
       <span id="<%= comment.anchor_vote %>" class="pull-right">
-        <%= render 'votes/form', :@vote => comment.voted_by(current_user) || comment.votes.build,
-          :@votable => comment %>
+        <%= vote.new_record? ? link_to_like(vote) : link_to_dislike(vote) %>
       </span>
     </div>
 

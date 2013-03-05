@@ -11,7 +11,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     login_into_institution institution: @institution, as: 'janitor'
   end
 
-  test 'should create news without images' do
+  test 'should create a news' do
     visit new_news_path
 
     fill_in 'news_title', with: @news.title
@@ -61,9 +61,9 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     visit new_news_path
 
-    fill_in News.human_attribute_name('title'), with: @news.title
-    fill_in News.human_attribute_name('description'), with: @news.description
-    fill_in News.human_attribute_name('body'), with: @news.body
+    fill_in 'news_title', with: @news.title
+    fill_in 'news_description', with: @news.description
+    fill_in 'news_body', with: @news.body
       
     find('#new_image_btn').click
 
@@ -115,19 +115,128 @@ class NewsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should create a vote in news' do
+  test 'should paginate comments en news' do
+    news = Fabricate(:news, institution_id: @institution.id)
+    6.times { Fabricate(:comment, commentable_id: news.id, commentable_type: 'News') }
+    
+    visit news_path(news)
+
+    assert page.has_no_css?('#comment-6')
+
+    within '#pagination_container' do
+      find('.btn').click
+    end
+
+    assert page.has_css?('#comment-6')
+    assert page.has_no_css?('#pagination_container')
+  end
+
+  test 'should create and delete vote in news' do
     news = Fabricate(:news, institution_id: @institution.id)
 
     visit news_path(news)
 
-    assert_difference 'news.votes.positives.count' do
+    assert_difference 'news.reload.votes_count' do
       assert page.has_css?("div[id=#{news.anchor_vote}]")
 
       within "##{news.anchor_vote}" do
         click_link(I18n.t('label.like'))
       end
 
-      assert page.has_css?("div[id=#{news.anchor_vote}] span.btn.btn-mini.text-success")
+      assert page.has_css?("div[id=#{news.anchor_vote}] .btn.btn-mini.btn-success")
     end 
+
+    assert_difference 'news.reload.votes_count', - 1 do
+      within "##{news.anchor_vote}" do
+        click_link(I18n.t('label.like'))
+      end
+
+      assert page.has_no_css?("div[id=#{news.anchor_vote}] .btn.btn-mini.btn-success")
+    end
+  end
+
+  test 'should create news with tags' do
+    news = Fabricate.build(:news)
+    tag_build = Fabricate.build(:tag)
+    tag_persisted = Fabricate(:tag, name: 'New tag', 
+      institution_id: @institution.id, category: 'important'
+    )
+
+    visit new_news_path
+
+    fill_in 'news_title', with: news.title
+    fill_in 'news_description', with: news.description
+    fill_in 'news_body', with: news.body
+    
+    within '#tags fieldset' do
+      fill_in find('input[name$="[tag_attributes][name]"]')[:id], with: tag_build.name
+    end
+
+    assert page.has_no_css?('#tags fieldset:nth-child(2)')
+
+    click_link I18n.t('view.news.new_tag')
+
+    assert page.has_css?('#tags fieldset:nth-child(2)')
+
+    within '#tags fieldset:nth-child(2)' do
+      fill_in find('input[name$="[tag_attributes][name]"]')[:id], with: tag_persisted.name
+    end
+
+    assert page.has_no_checked_field?(find('#tags fieldset:nth-child(2) input[value="important"]')[:id])
+
+    find('.ui-autocomplete li.ui-menu-item a').click
+
+    assert page.has_checked_field?(find('#tags fieldset:nth-child(2) input[value="important"]')[:id])
+
+    assert_difference ['News.count', 'Tag.count'] do
+      assert_difference 'Tagging.count', 2 do
+        find('.btn.btn-primary').click
+      end
+    end
+  end
+
+  test 'should not create duplicate tags' do
+    @news.save
+
+    tag = Fabricate(:tag, name: 'duplicate_name', institution_id: @institution.id)
+
+    @news.taggings.create(tag_id: tag.id)
+  
+    visit edit_news_path(@news)
+
+    assert page.has_css?('#tags fieldset:nth-child(3)')
+
+    within '#tags fieldset:nth-child(3)' do
+      fill_in find('input[name$="[tag_attributes][name]"]')[:id], with: tag.name
+    end
+
+    find('.ui-autocomplete li.ui-menu-item a').click
+
+    assert_no_difference ['News.count', 'Tagging.count', 'Tag.count'] do
+      find('.btn.btn-primary').click
+    end
+
+  end
+
+  test 'should delete tags' do
+    @news.save
+
+    @news.taggings.create(
+      tag_id: Fabricate(:tag, institution_id: @institution.id).id
+    )
+
+    visit edit_news_path(@news)
+  
+    assert page.has_css?('#tags fieldset')
+
+    within '#tags fieldset:nth-child(1)' do
+      click_link '✘' # Destroy link
+    end
+
+    assert_no_difference ['News.count', 'Tag.count'] do
+      assert_difference 'Tagging.count', -1 do
+        find('.btn.btn-primary').click
+      end
+    end
   end
 end

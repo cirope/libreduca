@@ -9,11 +9,29 @@ class NewsControllerTest < ActionController::TestCase
       :job, user_id: @user.id, institution_id: @institution.id, job: 'janitor'
     )
     @request.host = "#{@institution.identification}.lvh.me"
+  end
 
-    sign_in @user
+  test 'should get embedded index news' do
+    get :index, embedded: true
+    assert_response :success
+    assert_not_nil assigns(:news) 
+    assert_select '#unexpected_error', false
+    assert_template "news/index"
+    assert_template layout: 'layouts/embedded', partial: 'shared/_hidden_submit'
+  end
+
+  test 'should get public index' do
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:news)
+    assert_select '#unexpected_error', false
+    assert_template "news/index"
+    assert_template layout: 'layouts/application', partial: 'shared/_hidden_submit'
   end
 
   test 'should get index' do
+    sign_in @user
+
     get :index
     assert_response :success
     assert_not_nil assigns(:news)
@@ -22,6 +40,8 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
+    sign_in @user
+
     get :new
     assert_response :success
     assert_not_nil assigns(:news)
@@ -30,6 +50,8 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test 'should create news' do
+    sign_in @user
+
     assert_difference 'News.count' do
       post :create, news: Fabricate.attributes_for(
         :news, institution_id: @institution.id
@@ -39,7 +61,27 @@ class NewsControllerTest < ActionController::TestCase
     assert_redirected_to news_url(assigns(:news))
   end
 
+  test 'should show embedded news' do
+    get :show, id: @news, embedded: true
+    assert_response :success
+    assert_not_nil assigns(:news)
+    assert_select '#unexpected_error', false
+    assert_template "news/show"
+    assert_template layout: 'layouts/embedded', partial: 'shared/_hidden_submit'
+  end
+
+  test 'should show public news' do
+    get :show, id: @news
+    assert_response :success
+    assert_not_nil assigns(:news)
+    assert_select '#unexpected_error', false
+    assert_template "news/show"
+    assert_template layout: 'layouts/application', partial: 'shared/_hidden_submit'
+  end
+
   test 'should show news' do
+    sign_in @user
+
     get :show, id: @news
     assert_response :success
     assert_not_nil assigns(:news)
@@ -48,6 +90,8 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test 'should get edit' do
+    sign_in @user
+
     get :edit, id: @news
     assert_response :success
     assert_not_nil assigns(:news)
@@ -56,6 +100,8 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test 'should update news' do
+    sign_in @user
+
     assert_no_difference 'News.count' do
       put :update, id: @news, news: Fabricate.attributes_for(:news, 
         title: 'new value', institution_id: @institution.id
@@ -66,6 +112,8 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy news' do
+    sign_in @user
+
     assert_difference('News.count', -1) do
       delete :destroy, id: @news
     end
