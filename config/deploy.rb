@@ -6,7 +6,7 @@ set :repository,  'https://github.com/francocatena/libreduca.git'
 set :deploy_to, '/var/rails/libreduca'
 set :user, 'deployer'
 set :group_writable, false
-set :shared_children, %w(log private)
+set :shared_children, %w(log private public/system)
 set :use_sudo, false
 
 set :scm, :git
