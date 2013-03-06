@@ -301,6 +301,8 @@
     charts:
       index_title: 'Organigrama'
       empty_index: 'No hay relaciones a graficar entre usuarios'
+      root_users_hint:
+        html: 'Haga <strong>clic</strong> sobre <strong>%{users}</strong> para expandir el árbol'
       user_inverse_kinships:
         html:
           one: '<p class="muted text-center"><small><span class="badge">Una</span> persona a cargo</small></p>'
