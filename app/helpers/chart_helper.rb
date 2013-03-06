@@ -18,7 +18,7 @@ module ChartHelper
     result << content_tag(:p, content_tag(:small, job.description, class: 'text-center muted')) if job && job.description.present?
 
     if user.inverse_kinships_in_chart_count > 0
-      result << content_tag(:span, '', class: 'divider')
+      result << '<hr />'.html_safe
       result << t('view.charts.user_inverse_kinships.html', count: user.inverse_kinships_in_chart_count)
     end
 
