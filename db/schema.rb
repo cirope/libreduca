@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225125955) do
+ActiveRecord::Schema.define(:version => 20130305133203) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -59,6 +59,18 @@ ActiveRecord::Schema.define(:version => 20130225125955) do
   end
 
   add_index "contents", ["teach_id"], :name => "index_contents_on_teach_id"
+
+  create_table "conversations", :force => true do |t|
+    t.integer  "user_id",                         :null => false
+    t.integer  "conversable_id",                  :null => false
+    t.string   "conversable_type",                :null => false
+    t.integer  "lock_version",     :default => 0, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "conversations", ["conversable_id", "conversable_type"], :name => "index_conversations_on_conversable_id_and_conversable_type"
+  add_index "conversations", ["user_id"], :name => "index_conversations_on_user_id"
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -260,6 +272,16 @@ ActiveRecord::Schema.define(:version => 20130225125955) do
   end
 
   add_index "pages", ["institution_id"], :name => "index_pages_on_institution_id"
+
+  create_table "participants", :force => true do |t|
+    t.integer  "user_id",         :null => false
+    t.integer  "conversation_id", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "participants", ["conversation_id"], :name => "index_participants_on_conversation_id"
+  add_index "participants", ["user_id"], :name => "index_participants_on_user_id"
 
   create_table "presentations", :force => true do |t|
     t.string   "file",                        :null => false

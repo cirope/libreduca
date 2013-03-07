@@ -55,6 +55,7 @@ Libreduca::Application.routes.draw do
   end
 
   constraints(SchoolSubdomain) do
+
     get '/launchpad' => 'launchpad#index', as: 'launchpad'
 
     get '/chart' => 'chart#index', as: 'chart'
@@ -69,6 +70,14 @@ Libreduca::Application.routes.draw do
       resources :forums
       resources :contents
       resources :surveys
+    end
+
+    resources :presentations, only: [] do
+      resources :conversations, only: [:index, :show, :new, :create]
+    end
+
+    resources :conversations, only: [] do
+      resources :comments, only: [:create]
     end
 
     resources :contents, only: [] do

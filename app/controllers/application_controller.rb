@@ -125,6 +125,6 @@ class ApplicationController < ActionController::Base
   end
 
   def is_embedded?
-    params[:embedded].present?
+    params[:embedded] == 'true'
   end
 end

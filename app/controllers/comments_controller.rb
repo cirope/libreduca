@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
   check_authorization
   load_and_authorize_resource :forum, shallow: true
   load_and_authorize_resource :news, shallow: true
+  load_and_authorize_resource :conversation, shallow: true
 
   before_filter :set_commentable
 
@@ -74,6 +75,6 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    @commentable = @forum || @news
+    @commentable = @forum || @news || @conversation
   end
 end

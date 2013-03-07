@@ -47,6 +47,7 @@ class Ability
     can :read, Page
     can :manage, Vote, user_id: user.id
     can :read, Image
+    can :manage, Conversation
 
     public_rules(institution)
   end
@@ -58,7 +59,7 @@ class Ability
   end
 
   def student_rules(user, institution)
-    can :create, Presentation
+    can [:read, :create], Presentation
   end
 
   def teacher_rules(user, institution)

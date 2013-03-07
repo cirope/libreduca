@@ -2,3 +2,8 @@
   'view.contents.presentations.presented.html',
   link: link_to(@presentation.file.file.identifier, @presentation.file.url)
 ) %>
+
+<% if @presentation.try(:conversation).try(:has_new_messages?, current_user) %>
+  <span class="badge">Tiene <%= @presentation.conversation.new_messages_count(current_user) %> mensajes nuevos</span>
+  <%= link_to "Ver mensajes", presentation_conversation_path(@presentation), remote: true, id: @presentation.anchor %>
+<% end %>

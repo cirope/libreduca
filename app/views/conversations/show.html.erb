@@ -1,0 +1,9 @@
+<div class="readonly-data">
+  <h2><%= @conversation %></h2>
+
+  
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_conversation_path(@conversation) if can? :update, @conversation %> |
+  <%= link_to t('label.list'), conversations_path %>
+</div>

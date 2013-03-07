@@ -23,9 +23,14 @@ class Presentation < ActiveRecord::Base
   belongs_to :user
   belongs_to :homework
   has_one :content, through: :homework
+  has_one :conversation, as: :conversable, dependent: :destroy
 
   def to_s
     self.file.present? ? self.file.file.identifier : '-'
+  end
+
+  def anchor
+    "presentation-#{self.id}"
   end
 
   def check_current_teach
