@@ -24,13 +24,15 @@
           data: { toggle: 'tab' }
         ) %>
       </li>
-      <li>
-        <%= link_to(
-          Survey.model_name.human(count: 0),
-          '#surveys_content',
-          data: { toggle: 'tab' }
-        ) %>
-      </li>
+      <% unless @teach.past? %>
+        <li>
+          <%= link_to(
+            Survey.model_name.human(count: 0),
+            '#surveys_content',
+            data: { toggle: 'tab' }
+          ) %>
+        </li>
+      <% end %>
     </ul>
 
     <div class="tab-content">
@@ -50,13 +52,15 @@
         <%= link_to_add_fields t('view.contents.homeworks.new'), f, :homeworks %>
       </div>
 
-      <div class="tab-pane" id="surveys_content">
-        <%= f.simple_fields_for :surveys do |sf| %>
-          <%= render partial: 'survey', locals: { f: sf } %>
-        <% end %>
+      <% unless @teach.past? %>
+        <div class="tab-pane" id="surveys_content">
+          <%= f.simple_fields_for :surveys do |sf| %>
+            <%= render partial: 'survey', locals: { f: sf } %>
+          <% end %>
 
-        <%= link_to_add_fields t('view.contents.surveys.new'), f, :surveys %>
-      </div>
+          <%= link_to_add_fields t('view.contents.surveys.new'), f, :surveys %>
+        </div>
+      <% end %>
     </div>
   </div>
 

@@ -8,7 +8,7 @@ class Survey < ActiveRecord::Base
   default_scope order("#{table_name}.name ASC")
 
   # Callbacks
-  before_save :check_current_teach
+  before_save :check_past_teach
 
   # Validations
   validates :name, presence: true
@@ -28,8 +28,8 @@ class Survey < ActiveRecord::Base
     self.name
   end
 
-  def check_current_teach
-    raise 'You can not do this' unless self.content.try(:teach).try(:current?)
+  def check_past_teach
+    raise 'You can not do this' if self.content.try(:teach).try(:past?)
   end
 
   def self.to_csv(teach)
