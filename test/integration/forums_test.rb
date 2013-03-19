@@ -16,7 +16,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
     fill_in Forum.human_attribute_name('info'), with: forum.info
 
     assert_difference ['institution.forums.count', 'ActionMailer::Base.deliveries.size'] do
-      find('.btn.btn-primary').click
+      find('.btn-primary').click
     end
   end
 
@@ -33,8 +33,10 @@ class ForumsTest < ActionDispatch::IntegrationTest
     fill_in Forum.human_attribute_name('topic'), with: forum.topic
     fill_in Forum.human_attribute_name('info'), with: forum.info
 
+    Fabricate(:enrollment, with_job: 'student', teach_id: teach.id)
+
     assert_difference ['teach.forums.count', 'ActionMailer::Base.deliveries.size'] do
-      find('.btn.btn-primary').click
+      find('.btn-primary').click
     end
   end
 
