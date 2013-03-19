@@ -58,7 +58,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
-        Notifier.delay.new_forum(@forum, current_institution)
+        Notifier.delay.new_forum(@forum, current_institution) unless @forum.users.empty?
 
         format.html { redirect_to [@owner, @forum], notice: t('view.forums.correctly_created') }
         format.json { render json: @forum, status: :created, location: [@owner, @forum] }

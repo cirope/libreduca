@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
         jobs = current_user.jobs.in_institution(current_institution)
 
         if @commentable.kind_of?(Forum) && !jobs.all?(&:student?)
-          Notifier.delay.new_comment(@comment, current_institution)
+          Notifier.delay.new_comment(@comment, current_institution) unless @commentable.users.empty?
         end
 
         format.html { redirect_to [@commentable, @comment], notice: t('view.comments.correctly_created') }
