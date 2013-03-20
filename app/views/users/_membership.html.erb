@@ -7,6 +7,7 @@
       placeholder: Group.human_attribute_name('name'),
       input_html: {
         id: "auto_group_#{id}",
+        autofocus: true,
         class: field_classes.join(' '),
         value: f.object.group.try(:label),
         data: {

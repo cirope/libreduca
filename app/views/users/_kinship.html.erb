@@ -7,6 +7,7 @@
       placeholder: Kinship.human_attribute_name('relative_id'),
       input_html: {
         id: "auto_user_#{id}",
+        autofocus: true,
         class: field_classes.join(' '),
         value: f.object.relative.try(:label),
         data: {

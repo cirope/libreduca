@@ -1,4 +1,4 @@
-window.DynamicFormEvent =
+@DynamicFormEvent =
   addNestedItem: (e) ->
     template = e.data('dynamic-template')
     regexp = new RegExp(e.data('id'), 'g')
@@ -16,9 +16,9 @@ window.DynamicFormEvent =
 
   removeItem: (e) ->
     EffectHelper.remove e.closest('fieldset'), ->
-      $(document).trigger('dynamic-item.removed', target)
+      e.trigger('dynamic-item.removed', e)
 
-window.DynamicFormHelper =
+@DynamicFormHelper =
   newIdCounter: 0,
 
   replaceIds: (s, regex) ->
