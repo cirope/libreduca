@@ -38,4 +38,12 @@ class Comment < ActiveRecord::Base
   def voted_by(user)
     self.votes.where(user_id: user.id).first
   end
+
+  def to_partial_path
+    if self.commentable.respond_to?(:comments_partial_path)
+      self.commentable.comments_partial_path
+    else
+      super
+    end
+  end
 end

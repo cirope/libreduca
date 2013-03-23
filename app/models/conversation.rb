@@ -30,4 +30,8 @@ class Conversation < ActiveRecord::Base
       "#{Visit.table_name}.user_id is null AND #{Comment.table_name}.user_id != ?", user
     )
   end
+
+  def comments_partial_path
+    'conversations/comment'
+  end
 end

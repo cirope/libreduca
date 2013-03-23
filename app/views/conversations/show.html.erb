@@ -1,9 +1,14 @@
-<div class="readonly-data">
-  <h2><%= @conversation %></h2>
+<% conversation = @conversable.conversation %>
 
-  
-</div>
-<div class="form-actions">
-  <%= link_to t('label.edit'), edit_conversation_path(@conversation) if can? :update, @conversation %> |
-  <%= link_to t('label.list'), conversations_path %>
-</div>
+<% if conversation %>
+  <% if conversation.has_new_messages?(current_user) %>
+    <span class="badge badge-important"><%= conversation.new_messages_count(current_user) %></span>
+  <% end %>
+  <%= link_to content_tag(:span, '&#xe05e;'.html_safe, class: 'iconic'), 
+    polymorphic_path([@conversable, :conversation]),
+    remote: true, id: @conversable.anchor, class: 'messages' if can? :read, conversation %>
+<% else %>
+  <%= link_to content_tag(:span, '&#xe05e;'.html_safe, class: 'iconic'), 
+    new_polymorphic_path([@conversable, :conversation]), 
+    remote: true, id: @conversable.anchor, class: 'messages' if can? :create, Conversation %>
+<% end %>

@@ -1,3 +1,12 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+new Rule
+  condition: -> $('#c_contents .messages').length
+  load: ->
+    @map.popover_actions ||= ->
+      $(this).removeAttr('data-remote')
+      $(this).siblings('.popover').find('textarea').focus
+      $(this).click ->
+        return false
+
+    $(document).on 'click', '.messages', @map.popover_actions
+  unload: ->
+    $(document).off 'click', '.messages', @map.popover_actions

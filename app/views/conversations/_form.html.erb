@@ -1,17 +1,20 @@
 <% @conversation.comments.build %>
 
-<%= simple_form_for([@presentation, @conversation], remote: true) do |f| %>
-  <%= f.error_notification %>
+<div class="row-fluid">
+  <div class="span12">
+    <%= simple_form_for([@presentation, @conversation], remote: true) do |f| %>
+      <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.simple_fields_for :comments do |f_c| %>
-      <%= f_c.input :comment, label: false,  input_html: {
-        rows: 3, class: 'span4',
-        placeholder: 'Mensaje'
-      } %>
+      <div class="form-inputs">
+        <%= f.simple_fields_for :comments do |f_c| %>
+          <%= f_c.input :comment, label: false,  input_html: {
+            rows: 3, class: 'span12',
+            placeholder: 'Mensaje'
+          } %>
+        <% end %>
+
+        <%= f.button :submit, 'Enviar Mensaje', class: 'btn btn-primary' %>
+      </div>
     <% end %>
-
-
-    <%= f.button :submit, 'Enviar Mensaje', class: 'btn btn-primary' %>
   </div>
-<% end %>
+</div>  

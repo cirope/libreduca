@@ -18,10 +18,7 @@
             <tr>
               <td><%= presentation.user %></td>
               <td><%= link_to presentation.file.file.identifier, presentation.file.url %></td>
-              <td>
-                <%= link_to 'Mensaje Privado', new_presentation_conversation_path(presentation), 
-                  remote: true, id: presentation.anchor if can? :create, Conversation %>
-              </td>
+              <td><%= render template: 'conversations/show', locals: { :@conversable => presentation } %></td>
               <td><%= link_to_destroy [@content, @homework, presentation] if can? :destroy, presentation %></td>
             </tr>
           <% end %>

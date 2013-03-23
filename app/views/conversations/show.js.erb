@@ -4,7 +4,3 @@ $('#<%= @conversable.anchor %>').popover({
   content: '<%= j render("conversations/messages") %>',
   placement: 'top'
 }).popover('show');
-
-$('#<%= @conversable.anchor %>').removeAttr('data-remote');
-$('#<%= @conversable.anchor %>').click(function(){ return false; });
-$('#<%= @conversable.anchor %>').siblings('.popover').find('textarea').focus();
