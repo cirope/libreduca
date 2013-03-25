@@ -72,7 +72,7 @@ class Ability
     can :manage, Teach, enrollments_restrictions
     cannot :destroy, Teach, enrollments_restrictions
     can :manage, Content, teach_restrictions
-    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
+    can :manage, Survey, enrollments_restrictions
     can :send_email_summary, Teach, enrollments_restrictions
     can :read, Course, teaches: enrollments_restrictions
     can :read, Grade, courses: { teaches: enrollments_restrictions }
@@ -90,7 +90,7 @@ class Ability
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
-    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
+    can :manage, Survey, content: { teach: { course: { grade: jobs_restrictions } } }
     can :manage, Image, jobs_restrictions
     can :read, Job, institution_id: institution.id
     can :create, Job, institution_id: institution.id

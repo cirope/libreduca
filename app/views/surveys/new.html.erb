@@ -1,5 +1,5 @@
 <%= content_for :form_actions do %>
-  <%= link_to t('label.list'), teach_surveys_path(@teach) %>
+  <%= link_to t('label.back'), edit_teach_content_path(@content.teach, @content) %>
 <% end %>
 
 <%= render 'form' %>

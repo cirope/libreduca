@@ -12,7 +12,7 @@ class Teach < ActiveRecord::Base
   default_scope order("#{table_name}.start DESC")
 
   # Scopes
-  scope :historic, -> { where("#{table_name}.start <= ?", Date.today) }
+  scope :historic, -> { where("#{table_name}.start <= ?", Time.zone.today) }
 
   # Validations
   validates :start, :finish, :course_id, presence: true
@@ -52,11 +52,11 @@ class Teach < ActiveRecord::Base
   end
 
   def current?
-    Date.today.between?(self.start, self.finish)
+    Time.zone.today.between?(self.start, self.finish)
   end
 
   def next?
-    self.start > Date.today
+    self.start > Time.zone.today
   end
 
   def past?

@@ -14,38 +14,6 @@ class ContentsTest < ActionDispatch::IntegrationTest
     fill_in Content.human_attribute_name('title'), with: content.title
     fill_in Content.human_attribute_name('content'), with: content.content
 
-    survey = Fabricate.build(:survey, content_id: nil)
-
-    click_link Survey.model_name.human(count: 0)
-
-    assert page.has_no_css?('#surveys_content fieldset')
-
-    click_link I18n.t('view.contents.surveys.new')
-
-    within '#surveys_content fieldset' do
-      fill_in find('input[name$="[name]"]')[:id], with: survey.name
-
-      question = Fabricate.build(:question, survey_id: nil)
-
-      assert page.has_no_css?('fieldset')
-
-      click_link I18n.t('view.contents.surveys.new_question')
-
-      within 'fieldset' do
-        fill_in find('input[name$="[content]"]')[:id], with: question.content
-
-        answer = Fabricate.build(:answer, question_id: nil)
-
-        assert page.has_no_css?('fieldset')
-
-        click_link I18n.t('view.contents.surveys.new_answer')
-
-        within 'fieldset' do
-          fill_in find('input[name$="[content]"]')[:id], with: answer.content
-        end
-      end
-    end
-
     document = Fabricate.build(:document, owner_id: nil)
 
     click_link Document.model_name.human(count: 0)
@@ -93,12 +61,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
       find('a.ui-state-default.ui-state-highlight').click
      end
 
-    counts = [
-      'Content.count', 'Survey.count', 'Question.count', 'Answer.count',
-      'Homework.count'
-    ]
-
-    assert_difference counts do
+    assert_difference ['Content.count', 'Homework.count'] do
       assert_difference 'Document.count', 2 do
         find('.btn.btn-primary').click
       end
@@ -144,39 +107,6 @@ class ContentsTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Content.count' do
       assert_difference 'Document.count', -1 do
         find('.btn.btn-primary').click
-      end
-    end
-  end
-
-  test 'should hide and mark for destruction a survey' do
-    login
-
-    content = Fabricate(:content)
-    survey = Fabricate(:survey, content_id: content.id)
-
-    2.times do
-      question = Fabricate(:question, survey_id: survey.id)
-
-      3.times { Fabricate(:answer, question_id: question.id) }
-    end
-
-    visit edit_teach_content_path(content.teach, content)
-
-    click_link Survey.model_name.human(count: 0)
-
-    assert page.has_css?('#surveys_content fieldset')
-
-    within '#surveys_content fieldset:first-child' do
-      first('a[data-dynamic-target=".survey"]').click # Destroy link
-    end
-
-    assert_no_difference 'Content.count' do
-      assert_difference 'content.surveys.count', -1 do
-        assert_difference 'Question.count', -2 do
-          assert_difference 'Answer.count', -6 do
-            find('.btn.btn-primary').click
-          end
-        end
       end
     end
   end

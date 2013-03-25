@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     :kinships_attributes, :jobs_attributes, :memberships_attributes,
     :lock_version
 
-  # Defaul order
+  # Default order
   default_scope order("#{table_name}.lastname ASC")
 
   # Validations

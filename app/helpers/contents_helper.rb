@@ -40,4 +40,8 @@ module ContentsHelper
 
     render template: 'presentations/index'
   end
+
+  def show_content_survey?
+    @content.persisted? && !@teach.past? && current_institution
+  end
 end

@@ -13,7 +13,7 @@
     </thead>
 
     <tbody>
-      <% @teach.surveys.each do |survey| %>
+      <% (@teach || @content).surveys.each do |survey| %>
         <tr>
           <td><%= survey.content %></td>
           <td><%= survey %></td>
@@ -22,7 +22,7 @@
           <td>
             <%= link_to(
               t('label.download_with_format.html', file_format: 'CSV'),
-              teach_survey_path(@teach, survey, format: :csv),
+              polymorphic_path([@teach || @content, survey], format: :csv),
               class: 'btn btn-mini'
             ) %>
           </td>
@@ -31,9 +31,11 @@
     </tbody>
   </table>
 
-  <%= link_to(
-    t('label.download_with_format.html', file_format: 'CSV'),
-    teach_surveys_path(@teach, format: :csv),
-    class: 'btn'
-  ) %>
+  <% if @teach %>
+    <%= link_to(
+      t('label.download_with_format.html', file_format: 'CSV'),
+      teach_surveys_path(@teach, format: :csv),
+      class: 'btn'
+    ) %>
+  <% end %>
 <% end %>

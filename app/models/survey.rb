@@ -20,6 +20,8 @@ class Survey < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :answers, through: :questions 
   has_many :replies, through: :questions
+  # Only for ability check
+  has_many :enrollments, through: :teach
 
   accepts_nested_attributes_for :questions, allow_destroy: true,
     reject_if: ->(attrs) { attrs['content'].blank? }

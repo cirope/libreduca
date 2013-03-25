@@ -4,6 +4,6 @@
   
 </div>
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_teach_survey_path(@teach, @survey) if can? :update, @survey %> |
-  <%= link_to t('label.list'), teach_surveys_path(@teach) %>
+  <%= link_to t('label.edit'), polymorphic_path([@teach || @content, @survey], action: :edit) if can? :update, @survey %> |
+  <%= link_to t('label.list'), polymorphic_path([@teach || @content, Survey]) %>
 </div>
