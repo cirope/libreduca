@@ -10,7 +10,7 @@
   <% unless @content.documents.empty? %>
     <h3><%= Document.model_name.human(count: @content.documents.size) %></h3>
 
-    <ul>
+    <ul data-no-turbolink>
       <% @content.documents.each do |document| %>
         <li>
           <%= link_to_if can?(:read, document), document, document.file_url %>
