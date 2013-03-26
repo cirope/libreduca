@@ -91,7 +91,7 @@ class Ability
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
     can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
-    can :manage, Image, jobs_restrictions
+    can :manage, Image, institution_id: institution.id
     can :read, Job, institution_id: institution.id
     can :create, Job, institution_id: institution.id
     can :read, User, jobs: { institution_id: institution.id }
@@ -120,6 +120,6 @@ class Ability
 
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
-    can :manage, Image, jobs_restrictions
+    can :manage, Image, institution_id: institution.id
   end
 end
