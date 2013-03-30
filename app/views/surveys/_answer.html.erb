@@ -1,12 +1,14 @@
-<fieldset class="row-fluid">
-  <div class="span10">
-    <%= f.input :content, label: false, input_html: {
-      autofocus: true, class: 'span11', placeholder: Answer.human_attribute_name('content')
-    } %>
-  </div>
-  <div class="span2 nested-actions">
-    <%= f.input :id, as: :hidden %>
-    <%= f.input :lock_version, as: :hidden %> 
-    <%= link_to_remove_nested_item(f) %>
+<fieldset>
+  <div class="row-fluid">
+    <div class="span10">
+      <%= f.input :content, label: false, input_html: {
+        autofocus: true, class: 'span11', placeholder: Answer.human_attribute_name('content')
+      } %>
+    </div>
+    <div class="span2 nested-actions">
+      <%= f.input :id, as: :hidden %>
+      <%= f.input :lock_version, as: :hidden %> 
+      <%= link_to_remove_nested_item(f) %>
+    </div>
   </div>
 </fieldset>
