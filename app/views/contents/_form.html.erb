@@ -54,7 +54,11 @@
 
       <% if show_content_survey? %>
         <div class="tab-pane" id="surveys_content">
-          <%= link_to t('view.contents.surveys.new'), new_content_survey_path(@content), class: 'btn btn-small' %>
+          <%= link_to(
+            t('view.contents.surveys.new'),
+            new_content_survey_path(@content),
+            class: 'btn btn-small'
+          ) if can? :create, @content.surveys.build %>
         </div>
       <% end %>
     </div>
