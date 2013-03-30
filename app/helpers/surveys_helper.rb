@@ -1,6 +1,6 @@
 module SurveysHelper
   def survey_path(survey)
-    [@content || @teach, survey]
+    [@content || survey.content, survey]
   end
 
   def edit_survey_path(survey)
