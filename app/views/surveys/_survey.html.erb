@@ -1,0 +1,15 @@
+<tr>
+  <td><%= survey.content %></td>
+  <td><%= link_to_if can?(:read, survey), survey.to_s, survey_path(survey) %></td>
+  <td><%= survey.questions.count %></td>
+  <td><%= survey.replies.count %></td>
+  <td><%= link_to_edit edit_survey_path(survey) if can? :update, survey %></td>
+  <td><%= link_to_destroy survey_path(survey) if can? :destroy, survey %></td>
+  <td>
+    <%= link_to(
+      t('label.download_with_format.html', file_format: 'CSV'),
+      polymorphic_path(survey_path(survey), format: :csv),
+      class: 'btn btn-mini'
+    ) %>
+  </td>
+</tr>
