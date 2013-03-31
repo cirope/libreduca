@@ -15,12 +15,8 @@
     </div>
   </div>
   <div class="row-fluid">
-    <div class=span10"">
-      <%= f.simple_fields_for :answers do |qf| %>
-        <%= render partial: 'answer', locals: { f: qf } %>
-      <% end %>
-
-      <%= link_to_add_fields t('view.contents.surveys.new_answer'), f, :answers %>
+    <div class="span10">
+      <%= render "surveys/question_type_templates/#{f.object.question_type}", f: f %>
     </div>
   </div>
 </fieldset>

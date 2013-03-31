@@ -1,0 +1,5 @@
+<%= f.simple_fields_for :answers do |qf| %>
+  <%= render partial: 'answer', locals: { f: qf } %>
+<% end %>
+
+<%= link_to_add_fields t('view.contents.surveys.new_answer'), f, :answers %>

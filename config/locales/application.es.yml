@@ -176,6 +176,7 @@
       reply:
         question: 'Pregunta'
         answer: 'Opción'
+        response: 'Respuesta'
       score:
         score: 'Calificación'
         multiplier: 'Multiplicador'
@@ -232,6 +233,13 @@
           other: 'Perfiles'
       vote:
         vote_flag: 'Votar'
+
+    errors:
+      models:
+        reply:
+          attributes:
+            base:
+              invalid_answer: 'Debe elegir una opción o contestar'
 
   date:
     formats:

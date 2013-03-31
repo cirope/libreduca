@@ -23,6 +23,8 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :answers, allow_destroy: true,
     reject_if: ->(attrs) { attrs['content'].blank? }
+  accepts_nested_attributes_for :replies, allow_destroy: true,
+    reject_if: ->(attrs) { attrs['content'].blank? || attrs['answer_id'].blank? }
 
   def to_s
     self.content
