@@ -1,5 +1,22 @@
-<%= content_for :form_actions do %>
-  <%= link_to t('label.list'), conversations_path %>
+<% if @conversable.content && @conversable.teach %>
+  <%= render 'contents/breadcrumb', 
+    :@content => @conversable.content, :@teach => @conversable.teach %>
 <% end %>
 
-<%= render 'form' %>
+<div class="row-fluid">
+  <div class="readonly-data">
+    <%= render @conversable %>
+
+    <div id="comments">
+      <hr />
+      <h3 id="comments-header">
+        <%= Comment.model_name.human(count: @conversation.comments.size) %>
+      </h3>
+    </div>
+
+    <%= render 'form' %>
+  </div>
+</div>
+
+<div class="form-actions">
+</div>

@@ -23,6 +23,7 @@ class Presentation < ActiveRecord::Base
   belongs_to :user
   belongs_to :homework
   has_one :content, through: :homework
+  has_one :teach, through: :content
   has_one :conversation, as: :conversable, dependent: :destroy
 
   def to_s

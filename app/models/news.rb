@@ -80,6 +80,10 @@ class News < ActiveRecord::Base
     self.votes.where(user_id: user.id).first
   end
 
+  def can_vote_comments?
+    true
+  end
+
   def visited_by?(user)
     self.visits.where(user_id: user.id).exists?
   end

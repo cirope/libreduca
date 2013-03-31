@@ -28,7 +28,6 @@
 //= require file_uploads
 //= require endless_pagination
 //= require mobile
-//= require blocks
 //= require chart
 //= require comments
 //= require contents
@@ -45,7 +44,6 @@
 //= require launchpad
 //= require lazy_tabs
 //= require news
-//= require pages
 //= require presentations
 //= require regions
 //= require replies

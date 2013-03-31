@@ -3,4 +3,4 @@
   link: link_to(@presentation.file.file.identifier, @presentation.file.url)
 ) %>
 
-<%= render template: 'conversations/show', locals: { :@conversable => @presentation } %>
+<%= render 'conversations/info', :@conversable => @presentation %>

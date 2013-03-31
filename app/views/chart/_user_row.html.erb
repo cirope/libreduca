@@ -44,4 +44,10 @@
   </div>
 <% end %>
 
-<div data-kinship-container="true"></div>
+<div data-kinship-container="true">
+  <% if @users.all? { |u| u.kinships_in_chart_count == 0 } %>
+    <div class="alert text-center">
+      <%= t('view.charts.root_users_hint.html', users: @users.select { |u| u.inverse_kinships_in_chart_count > 0 }.to_sentence) %>
+    </div>
+  <% end %>
+</div>

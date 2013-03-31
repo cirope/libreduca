@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
 
   after_filter -> { expires_now if user_signed_in? }
 
-  helper_method :current_institution, :current_enrollments,
-    :empty_page?, :go_to_page_or_dashboard, :is_embedded?
+  helper_method :current_institution, :current_enrollments, :is_embedded?
 
   rescue_from Exception do |exception|
     begin
@@ -79,12 +78,13 @@ class ApplicationController < ActionController::Base
         institutions_url
       else
         count = resource.institutions.count
+
         if count > 1
           launchpad_url
         elsif count == 1
-          go_to_page_or_dashboard(resource.institutions.first)
+          dashboard_url(subdomain: resource.institutions.first.identification)
         else
-          root_url
+          dashboard_url
         end
       end
     end
@@ -108,20 +108,6 @@ class ApplicationController < ActionController::Base
 
   def set_js_format_in_iframe_request
     request.format = :js if params['X-Requested-With'] == 'IFrame'
-  end
-
-  def go_to_page_or_dashboard(institution)
-    if !empty_page?(institution)
-      page_url(institution.id)
-    else
-      dashboard_url(subdomain: institution.identification)
-    end
-  end
-
-  def empty_page?(institution)
-    if institution
-      (institution.page || institution.create_page).blocks.empty?
-    end
   end
 
   def is_embedded?

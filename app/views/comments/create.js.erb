@@ -1,11 +1,9 @@
 <% if @comment.persisted? %>
-  $('#new_comment').replaceWith('<%= j render(template: 'comments/show', format: :html) %>');
+  $('#comments').append('<%= j render(template: 'comments/show', format: :html) %>');
+
+  $("#<%= @comment.anchor %>").effect('highlight', 'slow');
 
   window.location.hash = '<%= @comment.anchor %>';
-  
-  $("#<%= @comment.anchor %>").effect('highlight', 'slow').after(
-    '<%= j render(template: 'comments/new', format: :html, locals: { :@comment => Comment.new }) %>'
-  );
-<% else %>
-  $('#new_comment').replaceWith('<%= j render(template: 'comments/new', format: :html) %>');
 <% end %>
+
+$("#new_comment").replaceWith('<%= j render(template: 'comments/new', format: :html) %>');

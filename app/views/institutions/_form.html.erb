@@ -3,6 +3,10 @@
     <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
     <%= f.input :identification, hint: t('view.institutions.hints.identification.html', domain: request.domain), input_html: { maxlength: 255 } %>
     <%= f.input :district_id, collection: @regions, as: :grouped_select, group_method: :districts %>
+
+    <%= f.simple_fields_for :settings, f.object.build_settings do |s_f| %>
+      <%= render 'setting', f: s_f %>
+    <% end %>
   </div>
 
   <div class="form-actions">

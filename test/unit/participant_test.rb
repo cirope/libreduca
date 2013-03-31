@@ -6,19 +6,13 @@ class ParticipantTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Participant.count', 'Version.count'] do
-      @participant = Participant.create(Fabricate.attributes_for(:participant))
-    end 
-  end
-    
-  test 'update' do
-    assert_difference 'Version.count' do
-      assert_no_difference 'Participant.count' do
-        assert @participant.update_attributes(attr: 'Updated')
+    assert_difference 'Participant.count' do
+      Participant.create do |participant|
+        Fabricate.attributes_for(:participant).each do |attr, value|
+          participant.send "#{attr}=", value
+        end
       end
     end
-
-    assert_equal 'Updated', @participant.reload.attr
   end
     
   test 'destroy' do 
@@ -28,21 +22,14 @@ class ParticipantTest < ActiveSupport::TestCase
   end
     
   test 'validates blank attributes' do
-    @participant.attr = ''
+    @participant.user = nil
+    @participant.conversation = nil
     
     assert @participant.invalid?
-    assert_equal 1, @participant.errors.size
-    assert_equal [error_message_from_model(@participant, :attr, :blank)],
-      @participant.errors[:attr]
-  end
-    
-  test 'validates unique attributes' do
-    new_participant = Fabricate(:participant)
-    @participant.attr = new_participant.attr
-
-    assert @participant.invalid?
-    assert_equal 1, @participant.errors.size
-    assert_equal [error_message_from_model(@participant, :attr, :taken)],
-      @participant.errors[:attr]
+    assert_equal 2, @participant.errors.size
+    assert_equal [error_message_from_model(@participant, :user, :blank)],
+      @participant.errors[:user]
+    assert_equal [error_message_from_model(@participant, :conversation, :blank)],
+      @participant.errors[:conversation]
   end
 end

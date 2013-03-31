@@ -8,14 +8,11 @@ class Conversation < ActiveRecord::Base
   default_scope order("#{table_name}.created_at DESC")
 
   # Relations
-  belongs_to :conversable, polymorphic: true #, counter_cache: true
+  belongs_to :conversable, polymorphic: true
   has_many :participants, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  has_many :visits, as: :visited, dependent: :destroy
 
-  accepts_nested_attributes_for :comments, reject_if: ->(attrs) { 
-    attrs['comment'].blank? 
-  }
+  accepts_nested_attributes_for :comments
 
   def new_messages_count(user)
     new_messages(user).count
@@ -31,7 +28,11 @@ class Conversation < ActiveRecord::Base
     )
   end
 
-  def comments_partial_path
-    'conversations/comment'
+  def visited_by(user)
+    self.comments.each { |c| c.visits.create!(user: user) unless c.visited_by?(user) }
+  end
+ 
+  def can_vote_comments?
+    false
   end
 end

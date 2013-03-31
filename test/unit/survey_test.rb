@@ -31,7 +31,7 @@ class SurveyTest < ActiveSupport::TestCase
     end
   end
 
-  test 'can not create for not current teach' do
+  test 'can not create for past teach' do
     teach = Fabricate(:teach, start: 5.days.ago, finish: 2.day.ago)
     content = Fabricate(:content, teach_id: teach.id)
 

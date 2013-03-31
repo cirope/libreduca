@@ -1,10 +1,15 @@
 class Institution < ActiveRecord::Base
+  include Configurable
+  include Institutions::Overrides
+  include Institutions::Settings
+
   has_paper_trail
 
   has_magick_columns name: :string, identification: :string
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :identification, :district_id, :lock_version, :pages_attributes
+  attr_accessible :name, :identification, :district_id, :settings_attributes,
+    :lock_version
 
   alias_attribute :label, :name
   alias_attribute :informal, :identification
@@ -25,7 +30,6 @@ class Institution < ActiveRecord::Base
 
   # Relations
   belongs_to :district
-  has_one :page, dependent: :destroy
   has_many :workers, dependent: :destroy, class_name: 'Job',
     conditions: { active: true }
   has_many :users, through: :workers
@@ -38,25 +42,6 @@ class Institution < ActiveRecord::Base
   has_many :news, dependent: :destroy
   has_many :groups, dependent: :destroy
   has_many :tags, dependent: :destroy
-
-  def to_s
-    self.name
-  end
-
-  def inspect
-    [
-      ("[#{self.identification}]" if self.identification.present?), self.name
-    ].compact.join(' ')
-  end
-
-  def as_json(options = nil)
-    default_options = {
-      only: [:id],
-      methods: [:label, :informal]
-    }
-
-    super(default_options.merge(options || {}))
-  end
 
   def institution
     self

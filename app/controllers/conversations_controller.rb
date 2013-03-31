@@ -10,27 +10,16 @@ class ConversationsController < ApplicationController
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
-  # GET /conversations
-  # GET /conversations.json
-  def index
-    @title = t('view.conversations.index_title')
-    @conversations = @conversations.page(params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @conversations }
-    end
-  end
-
   # GET /conversations/1
   # GET /conversations/1.json
   def show
     @title = t('view.conversations.show_title')
 
+    @conversation.visited_by(current_user)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @conversation }
-      format.js   # show.js.erb
     end
   end
 
@@ -39,22 +28,24 @@ class ConversationsController < ApplicationController
   def new
     @title = t('view.conversations.new_title')
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @conversation }
-      format.js   # new.js.erb
-    end
-  end
+    @commentable = @conversation 
 
-  # GET /conversations/1/edit
-  def edit
-    @title = t('view.conversations.edit_title')
+    unless @conversable.conversation
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @conversation }
+      end
+    else
+      redirect_to polymorphic_url([@conversable, @conversable.conversation])
+    end
   end
 
   # POST /conversations
   # POST /conversations.json
   def create
     @title = t('view.conversations.new_title')
+
+    @commentable = @conversation
     @conversation.comments.first.user = current_user if @conversation.comments.present?
 
     respond_to do |format|
@@ -69,35 +60,6 @@ class ConversationsController < ApplicationController
         format.json { render json: @conversation.errors, status: :unprocessable_entity }
         format.js
       end
-    end
-  end
-
-  # PUT /conversations/1
-  # PUT /conversations/1.json
-  def update
-    @title = t('view.conversations.edit_title')
-
-    respond_to do |format|
-      if @conversation.update_attributes(params[:conversation])
-        format.html { redirect_to @conversation, notice: t('view.conversations.correctly_updated') }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @conversation.errors, status: :unprocessable_entity }
-      end
-    end
-  rescue ActiveRecord::StaleObjectError
-    redirect_to edit_conversation_url(@conversation), alert: t('view.conversations.stale_object_error')
-  end
-
-  # DELETE /conversations/1
-  # DELETE /conversations/1.json
-  def destroy
-    @conversation.destroy
-
-    respond_to do |format|
-      format.html { redirect_to conversations_url }
-      format.json { head :ok }
     end
   end
 

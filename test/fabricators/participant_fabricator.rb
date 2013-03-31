@@ -1,3 +1,4 @@
 Fabricator(:participant) do
-  conversation { references }
+  user_id { Fabricate(:user).id }
+  conversation_id { Fabricate(:conversation).id }
 end

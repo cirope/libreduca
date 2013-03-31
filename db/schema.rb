@@ -23,18 +23,6 @@ ActiveRecord::Schema.define(:version => 20130305133203) do
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
-  create_table "blocks", :force => true do |t|
-    t.text     "content",                       :null => false
-    t.integer  "position",       :default => 0, :null => false
-    t.integer  "blockable_id",                  :null => false
-    t.string   "blockable_type",                :null => false
-    t.integer  "lock_version",   :default => 0, :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
-  add_index "blocks", ["blockable_id", "blockable_type"], :name => "index_blocks_on_blockable_id_and_blockable_type"
-
   create_table "comments", :force => true do |t|
     t.text     "comment",                         :null => false
     t.integer  "user_id",                         :null => false
@@ -61,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20130305133203) do
   add_index "contents", ["teach_id"], :name => "index_contents_on_teach_id"
 
   create_table "conversations", :force => true do |t|
-    t.integer  "user_id",                         :null => false
+    t.integer  "comments_count",   :default => 0, :null => false
     t.integer  "conversable_id",                  :null => false
     t.string   "conversable_type",                :null => false
     t.integer  "lock_version",     :default => 0, :null => false
@@ -70,7 +58,6 @@ ActiveRecord::Schema.define(:version => 20130305133203) do
   end
 
   add_index "conversations", ["conversable_id", "conversable_type"], :name => "index_conversations_on_conversable_id_and_conversable_type"
-  add_index "conversations", ["user_id"], :name => "index_conversations_on_user_id"
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -264,15 +251,6 @@ ActiveRecord::Schema.define(:version => 20130305133203) do
   add_index "news", ["published_at"], :name => "index_news_on_published_at"
   add_index "news", ["title"], :name => "index_news_on_title"
 
-  create_table "pages", :force => true do |t|
-    t.integer  "institution_id",                :null => false
-    t.integer  "lock_version",   :default => 0, :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
-  add_index "pages", ["institution_id"], :name => "index_pages_on_institution_id"
-
   create_table "participants", :force => true do |t|
     t.integer  "user_id",         :null => false
     t.integer  "conversation_id", :null => false
@@ -340,6 +318,18 @@ ActiveRecord::Schema.define(:version => 20130305133203) do
 
   add_index "scores", ["teach_id"], :name => "index_scores_on_teach_id"
   add_index "scores", ["user_id"], :name => "index_scores_on_user_id"
+
+  create_table "settings", :force => true do |t|
+    t.string   "name",              :null => false
+    t.string   "kind",              :null => false
+    t.text     "value",             :null => false
+    t.integer  "configurable_id",   :null => false
+    t.string   "configurable_type", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "settings", ["configurable_id", "configurable_type"], :name => "index_settings_on_configurable_id_and_configurable_type"
 
   create_table "surveys", :force => true do |t|
     t.string   "name",                        :null => false

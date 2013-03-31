@@ -1,6 +1,6 @@
-<div class="readonly-data">
-  <%= render 'navbar' %>
+<div class="row-fluid">
   <div class="readonly-data">
+    <%= render 'navbar' %>
     <div class="badge badge-link">
       <%= link_to t('label.back'), embedded_news_index_path %>
     </div>
@@ -23,7 +23,7 @@
       <p class="muted">
         <span><%= l @news.published_at.to_date, format: :long %></span>
         <% if user_signed_in? %>
-          <span>| <%= link_to_comments(@news, '#comments') %></span>
+          <span>| <%= link_to_comments(@news, '#comments-header') %></span>
         <% end %>
       </p>
       <%= markdown @news.body if @news.body.present? %>

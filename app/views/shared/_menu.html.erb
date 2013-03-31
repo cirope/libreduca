@@ -49,21 +49,6 @@
             </li>
           </ul>
         </div>
-      <% else %>
-        <div class="nav-collapse">
-          <ul class="nav pull-right">
-            <li class="dropdown">
-              <% if upper_login_button? %>
-                <%= link_to('#', id: 'login', class: 'dropdown-toggle', data: { toggle: 'dropdown' } ) do %>
-                   <%= t('menu.actions.login') %> <strong class="caret"></strong>
-                <% end %>
-                  <div class="dropdown-menu">
-                  <%= render template: 'devise/sessions/new_miniform', locals: { resource: resource} %>
-                  </div>
-              <% end %>
-            </li>
-          </ul>
-        </div>
       <% end %>
     </div>
   </div>

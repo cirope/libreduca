@@ -39,11 +39,8 @@ class Comment < ActiveRecord::Base
     self.votes.where(user_id: user.id).first
   end
 
-  def to_partial_path
-    if self.commentable.respond_to?(:comments_partial_path)
-      self.commentable.comments_partial_path
-    else
-      super
-    end
+  def visited_by?(user)
+    self.visits.where(user_id: user.id).exists?
   end
+
 end

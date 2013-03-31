@@ -11,15 +11,15 @@
       answer:
         one: 'Opción'
         other: 'Opciones'
-      block:
-        one: 'Sección'
-        other: 'Secciones'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
       content:
         one: 'Contenido'
         other: 'Contenidos'
+      conversation:
+        one: 'Conversación'
+        other: 'Conversaciones'
       course:
         one: 'Asignatura'
         other: 'Asignaturas'
@@ -102,9 +102,6 @@
     attributes:
       answer:
         content: 'Respuesta'
-      block:
-        content: 'Contenido'
-        position: 'Posición'
       comment:
         comment: 'Comentario'
         info: 'Información adicional'
@@ -125,6 +122,9 @@
         topic: 'Tema'
         info: 'Información adicional'
         user_id: 'Usuario'
+        comments:
+          one: 'Comentario'
+          other: 'Comentarios'
       grade:
         name: 'Nombre'
       group:
@@ -160,6 +160,9 @@
         description: 'Descripción'
         body: 'Contenido'
         published_at: 'Publicación'
+        comments:
+          one: 'Comentario'
+          other: 'Comentarios'
         tags:
           one: 'Etiqueta'
           other: 'Etiquetas'
@@ -292,15 +295,11 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
-    blocks:
-      new_block: 'Nueva seccion'
-      save: 'Guardar'
-      edit: 'Editar'
-      sort: 'Mover'
-      sorted: 'La posición fue actualizada correctamente'
     charts:
       index_title: 'Organigrama'
       empty_index: 'No hay relaciones a graficar entre usuarios'
+      root_users_hint:
+        html: 'Haga <strong>clic</strong> sobre <strong>%{users}</strong> para expandir el árbol'
       user_inverse_kinships:
         html:
           one: '<p class="muted text-center"><small><span class="badge">Una</span> persona a cargo</small></p>'
@@ -343,6 +342,14 @@
         new: 'Agregar encuesta'
         new_question: 'Agregar pregunta'
         new_answer: 'Agregar opción'
+    conversations:
+      index_title: 'Listado de conversaciones'
+      show_title: 'Detalle de conversación'
+      new_title: 'Nueva conversación'
+      edit_title: 'Modificar conversación'
+      correctly_created: 'Conversación agregada correctamente.'
+      correctly_updated: 'Conversación actualizada correctamente.'
+      stale_object_error: 'La conversación no pudo ser actualizada, intente nuevamente.'
     courses:
       index_title: 'Listado de asignaturas'
       show_title: 'Detalle de asignatura'
@@ -466,6 +473,8 @@
       hints:
         identification:
           html: 'Ejemplo: <strong>nombre-colegio</strong>.%{domain}'
+      settings:
+        show_news: 'Mostrar noticias en la portada'
     jobs:
       types:
         headmaster: 'Director'
@@ -498,10 +507,6 @@
       new_tag: 'Agregar nueva etiqueta'
       news: 'Portada'
       previous_news: 'Noticias anteriores'
-    page:
-      welcome_to: 'Bienvenido a %{institution}'
-      without_blocks:
-        html: 'Aquí puedes definir el contenido de la página institucional de <strong>%{institution}</strong>, empieza creando secciones desde <span class="label label-info">Nueva sección</span>'
     presentations:
       index_title: 'Listado de entregas'
       show_title: 'Detalle de entrega'

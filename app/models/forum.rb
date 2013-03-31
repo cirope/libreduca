@@ -38,4 +38,8 @@ class Forum < ActiveRecord::Base
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
   end
+
+  def can_vote_comments?
+    true                                                                                                                                              
+  end
 end

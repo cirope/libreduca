@@ -15,10 +15,10 @@ module ChartHelper
 
     result << user_micro_avatar(user) if user.avatar?
     result << content_tag(:h6, content_tag(:small, user.to_s), class: 'text-center')
-    result << content_tag(:p, content_tag(:small, job.description, class: 'text-center muted')) if job && job.description.present?
+    result << content_tag(:p, content_tag(:small, job.description, class: 'muted'), class: 'text-center') if job && job.description.present?
 
     if user.inverse_kinships_in_chart_count > 0
-      result << content_tag(:span, '', class: 'divider')
+      result << '<hr />'.html_safe
       result << t('view.charts.user_inverse_kinships.html', count: user.inverse_kinships_in_chart_count)
     end
 

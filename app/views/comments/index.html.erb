@@ -1,10 +1,12 @@
-<div id="comments"></div>
-<hr />
-<h3><%= Comment.model_name.human(count: @comments.size) %></h3>
+<div id="comments">
+  <hr />
+  <h3 id="comments-header">
+    <%= Comment.model_name.human(count: @comments.size) %>
+  </h3>
 
-<%= render @comments %>
+  <%= render @comments %>
 
-<%= render 'comments/pagination', :@comments => @comments %>
+  <%= render 'comments/pagination', :@comments => @comments %>
+</div>
 
-<%= render template: 'comments/new',                                                                                                                
-    locals: { :@comment => @commentable.comments.build, :@commentable => @commentable } %>
+<%= render template: 'comments/new', locals: { :@commentable => @commentable } %>

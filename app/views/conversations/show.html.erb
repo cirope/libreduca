@@ -1,14 +1,16 @@
-<% conversation = @conversable.conversation %>
-
-<% if conversation %>
-  <% if conversation.has_new_messages?(current_user) %>
-    <span class="badge badge-important"><%= conversation.new_messages_count(current_user) %></span>
-  <% end %>
-  <%= link_to content_tag(:span, '&#xe05e;'.html_safe, class: 'iconic'), 
-    polymorphic_path([@conversable, :conversation]),
-    remote: true, id: @conversable.anchor, class: 'messages' if can? :read, conversation %>
-<% else %>
-  <%= link_to content_tag(:span, '&#xe05e;'.html_safe, class: 'iconic'), 
-    new_polymorphic_path([@conversable, :conversation]), 
-    remote: true, id: @conversable.anchor, class: 'messages' if can? :create, Conversation %>
+<% if @conversable.content && @conversable.teach %>
+  <%= render 'contents/breadcrumb', 
+    :@content => @conversable.content, :@teach => @conversable.teach %>
 <% end %>
+
+<div class="row-fluid">                                                                                                                               
+  <div class="readonly-data">
+    <%= render @conversable %>
+
+    <%= render template: 'comments/index', 
+      locals: { :@comments => @conversation.comments.page(1), :@commentable => @conversation } %>
+  </div>
+</div>
+
+<div class="form-actions">
+</div>
