@@ -1,25 +1,16 @@
 {
-  "uploader": {
-    "format": "app/uploaders/%s_uploader.rb",
-    "template": [
-      "class %SUploader < CarrierWave::Uploader::Base",
-      "end"
-    ],
-    "alternate": "test/unit/%s_uploader_test.rb",
+  "app/uploaders/*_uploader.rb": {
+    "command": "uploader",
+    "template": "class %SUploader < CarrierWave::Uploader::Basenend",
+    "test": "test/unit/%s_uploader_test.rb",
     "keywords": "process version"
   },
-  "fabricator": {
-    "format": [
-      "test/fabricators/%s_fabricator.rb",
-      "spec/fabricators/%s_fabricator.rb"
-    ],
+  "test/fabricators/*_fabricator.rb": {
+    "command": "fabricator",
     "affinity": "model",
-    "template": "Fabricator :%s donend",
     "alternate": "app/models/%s.rb",
     "related": "db/schema.rb#%p",
-    "test": [
-      "test/models/%s_test.rb",
-      "spec/models/%s_spec.rb"
-    ]
+    "test": "spec/models/%s_spec.rb",
+    "template": "Fabricator :%s donend"
   }
 }

@@ -13,13 +13,20 @@ module SurveysHelper
     end
 
     form.input(
-      :question_type,
-      collection: options,
-      as: :select,
-      label: false,
+      :question_type, collection: options, as: :select, label: false, include_blank: false,
       input_html: {
-        class: 'span11', data: { 'templates-url' => 'holder' }
+        class: 'span11', data: {
+          'question-type-templates' => question_type_templates_in_json(form)
+        }
       }
     )
+  end
+
+  def question_type_templates_in_json(form)
+    templates = Question::TYPES.map do |t|
+      [t, render("surveys/question_type_templates/#{t}", f: form)]
+    end
+
+    Hash[templates].to_json
   end
 end

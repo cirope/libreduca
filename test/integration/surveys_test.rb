@@ -1,12 +1,12 @@
 require 'test_helper'
 
 class SurveysTest < ActionDispatch::IntegrationTest
-  test 'should create a survey' do
+  setup do
     institution = Fabricate(:institution)
 
     login_into_institution institution: institution, as: 'janitor'
 
-    content = Fabricate(:content) do
+    @content = Fabricate(:content) do
       teach_id do
         Fabricate(:teach) do
           course_id do
@@ -18,11 +18,13 @@ class SurveysTest < ActionDispatch::IntegrationTest
       end
     end
 
-    survey = Fabricate.build(:survey, content_id: content.id)
+    @survey = Fabricate(:survey, content_id: @content.id)
+  end
 
-    visit new_content_survey_path(content)
+  test 'should create a survey' do
+    visit new_content_survey_path(@content)
 
-    fill_in 'survey_name', with: survey.name
+    fill_in 'survey_name', with: @survey.name
 
     question = Fabricate.build(:question, survey_id: nil)
 
@@ -46,6 +48,23 @@ class SurveysTest < ActionDispatch::IntegrationTest
 
     assert_difference ['Survey.count', 'Question.count', 'Answer.count'] do
       find('.btn-primary').click
+    end
+  end
+
+  test 'should add questions of different types' do
+    visit edit_content_survey_path(@content, @survey)
+
+    click_link I18n.t('view.contents.surveys.new_question')
+
+    Question::TYPES.reverse_each do |t|
+      assert page.has_no_css?("[data-question-type=\"#{t}\"]")
+
+      select(
+        I18n.t("view.surveys.question_types.#{t}"),
+        from: find('select[data-question-type-templates]')[:id]
+      )
+
+      assert page.has_css?("[data-question-type=\"#{t}\"]")
     end
   end
 end
