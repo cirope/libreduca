@@ -56,6 +56,12 @@ class SurveysControllerTest < ActionController::TestCase
   end
 
   test 'should show survey' do
+    3.times do
+      Fabricate(:question, survey_id: @survey.id).tap do |question|
+        3.times { Fabricate(:answer, question_id: question.id) } unless question.text?
+      end
+    end
+
     get :show, content_id: @content, id: @survey
     assert_response :success
     assert_not_nil assigns(:survey)

@@ -1,0 +1,28 @@
+<ul class="breadcrumb">
+  <li>
+    <%= link_to_if can?(:read, @teach.institution) && !current_user_is_student?, @teach.institution.to_s, @teach.institution %>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to_if can?(:read, @teach.grade), @teach.grade.to_s, [@teach.institution, @teach.grade] %>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to_if can?(:read, @teach.course), @teach.course.to_s, [@teach.grade, @teach.course] %>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to_if can?(:read, @teach), @teach.to_s, @teach %>
+    <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to_if can?(:read, @content), @content.to_s, [@teach, @content] %>
+    <% unless @survey.new_record? %>
+      <span class="divider">/</span>
+    <% end %>
+  </li>
+
+  <% unless @survey.new_record? %>
+    <li class="active"><%= @survey %></li>
+  <% end %>
+</ul>

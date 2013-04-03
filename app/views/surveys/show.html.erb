@@ -1,9 +1,17 @@
+<%= render 'breadcrumb', :@teach => @content.teach if @content %>
+
 <div class="readonly-data">
   <h2><%= @survey %></h2>
 
-  
+  <% @survey.questions.each do |question| %>
+    <%= question %>
+    <%= render "surveys/question_type_show_templates/#{question.question_type}", :@question => question %>
+  <% end %>
 </div>
 <div class="form-actions">
-  <%= link_to t('label.edit'), polymorphic_path([@teach || @content, @survey], action: :edit) if can? :update, @survey %> |
-  <%= link_to t('label.list'), polymorphic_path([@teach || @content, Survey]) %>
+  <%= link_to @content.to_s, [@content.teach, @content] if @content %>
+  <div class="pull-right">
+    <%= link_to t('label.edit'), polymorphic_path([@teach || @content, @survey], action: :edit) if can? :update, @survey %> |
+    <%= link_to t('label.list'), polymorphic_path([@teach || @content, Survey]) %>
+  </div>
 </div>
