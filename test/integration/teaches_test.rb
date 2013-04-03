@@ -258,7 +258,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     teach = Fabricate(:teach, course_id: course.id)
 
     Fabricate(
-      :enrollment, enrollable_id: user.id, teach_id: teach.id
+      :enrollment, enrollable_id: user.id, enrollable_type: 'User', teach_id: teach.id
     )
 
     Fabricate(:content, teach_id: teach.id).tap do |content|
@@ -270,11 +270,12 @@ class TeachesTest < ActionDispatch::IntegrationTest
                 :reply, answer_id: answer.id, question_id: question.id
               )
 
-              Fabricate(:job, user_id: reply.user_id, institution_id: institution.id)
+              Fabricate(:job, user_id: reply.user_id, institution_id: institution.id, job: 'student')
               Fabricate(
                 :enrollment,
                 teach_id: teach.id,
-                enrollable_id: reply.user_id
+                enrollable_id: reply.user_id,
+                enrollable_type: 'User'
               )
             end
           end
