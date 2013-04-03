@@ -18,7 +18,7 @@ class SurveysController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @surveys }
       if @teach
-        format.csv  { render csv: @surveys.to_csv(@teach), filename: @title }
+        format.csv  { render csv: @surveys.unscoped.to_csv(@teach), filename: @title }
       end
     end
   end

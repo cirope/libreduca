@@ -75,6 +75,6 @@ class ReplyTest < ActiveSupport::TestCase
       @reply.errors[:base]
 
     @reply.answer = nil
-    assert_valid @reply
+    assert @reply.valid?
   end
 end

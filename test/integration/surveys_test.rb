@@ -4,7 +4,7 @@ class SurveysTest < ActionDispatch::IntegrationTest
   setup do
     institution = Fabricate(:institution)
 
-    login_into_institution institution: institution, as: 'janitor'
+    login_into_institution institution: institution, as: 'teacher'
 
     @content = Fabricate(:content) do
       teach_id do
@@ -17,6 +17,14 @@ class SurveysTest < ActionDispatch::IntegrationTest
         end.id
       end
     end
+
+    Fabricate(
+      :enrollment,
+      teach_id: @content.teach_id,
+      with_job: 'teacher',
+      enrollable_id: @test_user.id,
+      enrollable_type: @test_user.class.name
+    )
 
     @survey = Fabricate(:survey, content_id: @content.id)
   end

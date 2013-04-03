@@ -208,7 +208,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
         fill_in find('textarea')[:id], with: 'Some updated response'
       end
 
-      find('form.edit_reply .btn.btn-small').click
+      find('form.edit_reply input.btn').click
 
       assert page.has_no_css?('form.edit_reply')
     end

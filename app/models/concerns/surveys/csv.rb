@@ -10,7 +10,9 @@ module Surveys::CSV
           row << content.questions.joins(survey: :content).map do |question|
             [
               "[#{question.survey}] #{question}",
-              question.answers.map { |answer| [answer.to_s, answer.replies.count] }
+              question.text? ?
+                question.replies.map { |reply| [reply.response] } :
+                question.answers.map { |answer| [answer.to_s, answer.replies.count] }
             ]
           end
 
@@ -28,8 +30,14 @@ module Surveys::CSV
       self.questions.map do |question|
         csv << ["#{question}"]
 
-        question.answers.map do |answer| 
-          csv << [nil, answer.to_s, answer.replies.count]
+        if question.text?
+          question.replies.each do |reply|
+            csv << [nil, reply.response]
+          end
+        else
+          question.answers.each do |answer| 
+            csv << [nil, answer.to_s, answer.replies.count]
+          end
         end
       end
     end
