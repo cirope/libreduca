@@ -76,7 +76,7 @@ class SurveyTest < ActiveSupport::TestCase
   end
 
   test 'show to csv' do
-    Fabricate(:question, survey_id: @survey.id).tap do |question|
+    Fabricate(:question, survey_id: @survey.id, question_type: 'list').tap do |question|
       Fabricate(:answer, question_id: question.id).tap do |answer|
         5.times {
           Fabricate(:reply, answer_id: answer.id, question_id: question.id)

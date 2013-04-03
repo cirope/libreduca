@@ -92,7 +92,7 @@ class Ability
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
     can :create, Survey # TODO: fix
-    can [:read, :update, :destroy], Survey, institution: { id: institution.id }
+    can [:read, :update, :destroy], Survey, grade: { institution_id: institution.id }
     can :manage, Image, institution_id: institution.id
     can :read, Job, institution_id: institution.id
     can :create, Job, institution_id: institution.id

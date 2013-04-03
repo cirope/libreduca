@@ -263,7 +263,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
 
     Fabricate(:content, teach_id: teach.id).tap do |content|
       Fabricate(:survey, content_id: content.id).tap do |survey|
-        Fabricate(:question, survey_id: survey.id).tap do |question|
+        Fabricate(:question, survey_id: survey.id, question_type: 'list').tap do |question|
           Fabricate(:answer, question_id: question.id).tap do |answer|
             5.times do
               reply = Fabricate(

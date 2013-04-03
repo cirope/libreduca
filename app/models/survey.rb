@@ -19,7 +19,7 @@ class Survey < ActiveRecord::Base
   has_one :teach, through: :content
   has_one :course, through: :teach
   has_one :grade, through: :course
-  has_one :institution, through: :grade
+  has_one :institution, through: :course
   has_many :questions, dependent: :destroy
   has_many :answers, through: :questions 
   has_many :replies, through: :questions
