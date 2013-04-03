@@ -248,10 +248,13 @@ class TeachesTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show teach surveys' do
+    institution = Fabricate(:institution)
     user = Fabricate(:user, password: '123456', roles: [:normal])
-    login_into_institution user: user, as: 'teacher'
+    login_into_institution institution: institution, user: user, as: 'teacher'
 
-    course = Fabricate(:course)
+    course = Fabricate(:course) do
+      grade_id { Fabricate(:grade, institution_id: institution.id).id }
+    end
     teach = Fabricate(:teach, course_id: course.id)
 
     Fabricate(
@@ -262,9 +265,18 @@ class TeachesTest < ActionDispatch::IntegrationTest
       Fabricate(:survey, content_id: content.id).tap do |survey|
         Fabricate(:question, survey_id: survey.id).tap do |question|
           Fabricate(:answer, question_id: question.id).tap do |answer|
-            5.times {
-              Fabricate(:reply, answer_id: answer.id, question_id: question.id)
-            }
+            5.times do
+              reply = Fabricate(
+                :reply, answer_id: answer.id, question_id: question.id
+              )
+
+              Fabricate(:job, user_id: reply.user_id, institution_id: institution.id)
+              Fabricate(
+                :enrollment,
+                teach_id: teach.id,
+                enrollable_id: reply.user_id
+              )
+            end
           end
         end
       end
@@ -273,6 +285,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     visit teach_path(teach)
 
     assert page.has_no_css?('#surveys_container table.table')
+    assert page.has_css?('a[href="#surveys_container"]')
 
     find('a[href="#surveys_container"]').click
 

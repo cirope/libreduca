@@ -10,6 +10,7 @@ class Conversation < ActiveRecord::Base
   # Relations
   belongs_to :conversable, polymorphic: true
   has_many :participants, dependent: :destroy
+  has_many :users, through: :participants
   has_many :comments, as: :commentable, dependent: :destroy
 
   accepts_nested_attributes_for :comments
@@ -34,5 +35,9 @@ class Conversation < ActiveRecord::Base
  
   def can_vote_comments?
     false
+  end
+
+  def users_to_notify(user, institution)
+    self.users.is_not(user)
   end
 end

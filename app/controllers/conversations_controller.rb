@@ -46,11 +46,18 @@ class ConversationsController < ApplicationController
     @title = t('view.conversations.new_title')
 
     @commentable = @conversation
-    @conversation.comments.first.user = current_user if @conversation.comments.present?
+
+    if @conversation.comments.present?
+      @comment = @conversation.comments.first
+      @comment.user = current_user
+    end
 
     respond_to do |format|
       if @conversation.save
         [current_user, @conversable.user].each { |user| @conversation.participants.create(user: user) }
+
+        users = @commentable.users_to_notify(current_user)
+        Notifier.delay.new_comment(@comment, current_institution) unless users.empty?
 
         format.html { redirect_to @conversation, notice: t('view.conversations.correctly_created') }
         format.json { render json: @conversation, status: :created, location: @conversation }

@@ -131,8 +131,8 @@ class EnrollmentTest < ActiveSupport::TestCase
   end
 
   test 'self in current teach' do
-    assert @enrollment.teach.start <= Date.today
-    assert @enrollment.teach.finish >= Date.today
+    assert @enrollment.teach.start <= Time.zone.today
+    assert @enrollment.teach.finish >= Time.zone.today
 
     Enrollment.in_current_teach.map(&:id).tap do |enrollment_ids|
       assert enrollment_ids.include?(@enrollment.id)

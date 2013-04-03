@@ -179,6 +179,7 @@
       reply:
         question: 'Pregunta'
         answer: 'Opción'
+        response: 'Respuesta'
       score:
         score: 'Calificación'
         multiplier: 'Multiplicador'
@@ -236,6 +237,13 @@
       vote:
         vote_flag: 'Votar'
 
+    errors:
+      models:
+        reply:
+          attributes:
+            base:
+              invalid_answer: 'Debe elegir una opción o contestar'
+
   date:
     formats:
       minimal: '%d/%m/%y'
@@ -243,6 +251,11 @@
   errors:
     title: 'Error'
     access_denied: 'No tiene permisos para acceder al contenido'
+
+  helpers:
+    submit:
+      reply:
+        create: 'Enviar %{model}'
 
   label:
     'yes': 'Si'
@@ -547,6 +560,10 @@
       stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
       empty_index:
         html: 'No se ha creado ninguna encuesta hasta el momento'  
+      question_types:
+        multiple_choice: 'Opciones'
+        list: 'Lista'
+        text: 'Texto'
     teaches:
       index_title: 'Listado de dictados'
       show_title: 'Detalle de dictado'

@@ -2,38 +2,20 @@
   <%= render 'shared/empty_index' %>
 <% else %>
   <table class="table">
-    <thead>
-      <tr>
-        <th><%= Content.model_name.human(count: 1) %></th>
-        <th><%= Survey.model_name.human(count: 1) %></th>
-        <th><%= Question.model_name.human(count: 0) %></th>
-        <th><%= Reply.model_name.human(count: 0) %></th>
-        <th><%= t('label.downloads') %></th>
-      </tr>
-    </thead>
+    <%= render 'survey_headers' %>
 
     <tbody>
-      <% @teach.surveys.each do |survey| %>
-        <tr>
-          <td><%= survey.content %></td>
-          <td><%= survey %></td>
-          <td><%= survey.questions.count %></td>
-          <td><%= survey.replies.count %></td>
-          <td>
-            <%= link_to(
-              t('label.download_with_format.html', file_format: 'CSV'),
-              teach_survey_path(@teach, survey, format: :csv),
-              class: 'btn btn-mini'
-            ) %>
-          </td>
-        </tr>
+      <% (@teach || @content).surveys.each do |survey| %>
+        <%= render survey %>
       <% end %>
     </tbody>
   </table>
 
-  <%= link_to(
-    t('label.download_with_format.html', file_format: 'CSV'),
-    teach_surveys_path(@teach, format: :csv),
-    class: 'btn'
-  ) %>
+  <% if @teach %>
+    <%= link_to(
+      t('label.download_with_format.html', file_format: 'CSV'),
+      teach_surveys_path(@teach, format: :csv),
+      class: 'btn'
+    ) %>
+  <% end %>
 <% end %>

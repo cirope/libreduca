@@ -1,0 +1,6 @@
+<div class="form-inputs">
+  <%= f.input :response, label: false, input_html: {
+    placeholder: Reply.human_attribute_name('response'), rows: 4
+  } %>
+</div>
+<%= f.button :submit, class: 'btn-small' %>

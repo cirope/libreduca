@@ -1,0 +1,10 @@
+<% if @reply.errors.empty? %>
+  <% template = render(@reply, :@question => @reply.question) %>
+<% else %>
+  <% template = render('form', :@question => @reply.question) %>
+<% end %>
+
+<% id = "reply_#{@reply.object_id}" %>
+
+$('#question_<%= @reply.question.to_param %>_form').replaceWith('<div id="<%= id %>"></div>');
+$('#<%= id %>').html('<%= j template %>').effect('highlight', 'slow');

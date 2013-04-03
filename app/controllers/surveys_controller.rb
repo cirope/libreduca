@@ -4,8 +4,9 @@ class SurveysController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :teach
-  load_and_authorize_resource through: :teach
+  load_resource :teach
+  load_resource :content
+  load_and_authorize_resource through: [:teach, :content]
   
   # GET /surveys
   # GET /surveys.json
@@ -16,12 +17,9 @@ class SurveysController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @surveys }
-      format.csv  {
-        # Dear Explorer: ...
-        headers['Cache-Control'] = 'max-age=1'
-
-        render csv:  @surveys.to_csv(@teach), filename: @title
-      }
+      if @teach
+        format.csv  { render csv: @surveys.unscoped.to_csv(@teach), filename: @title }
+      end
     end
   end
 
@@ -34,12 +32,7 @@ class SurveysController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @survey }
-      format.csv {
-        # Dear Explorer: ...
-        headers['Cache-Control'] = 'max-age=1'
-
-        render csv:  @survey.to_csv, filename: "\"#{@title}.csv\""
-      }
+      format.csv  { render csv: @survey, filename: @title }
     end
   end
 
@@ -66,7 +59,7 @@ class SurveysController < ApplicationController
 
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to [@teach, @survey], notice: t('view.surveys.correctly_created') }
+        format.html { redirect_to [@content, @survey], notice: t('view.surveys.correctly_created') }
         format.json { render json: @survey, status: :created, location: @survey }
       else
         format.html { render action: 'new' }
@@ -82,7 +75,7 @@ class SurveysController < ApplicationController
 
     respond_to do |format|
       if @survey.update_attributes(params[:survey])
-        format.html { redirect_to [@teach, @survey], notice: t('view.surveys.correctly_updated') }
+        format.html { redirect_to [@content, @survey], notice: t('view.surveys.correctly_updated') }
         format.json { head :ok }
       else
         format.html { render action: 'edit' }
@@ -90,7 +83,7 @@ class SurveysController < ApplicationController
       end
     end
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_teach_survey_url(@teach, @survey), alert: t('view.surveys.stale_object_error')
+    redirect_to edit_content_survey_url(@content, @survey), alert: t('view.surveys.stale_object_error')
   end
 
   # DELETE /surveys/1
@@ -99,7 +92,7 @@ class SurveysController < ApplicationController
     @survey.destroy
 
     respond_to do |format|
-      format.html { redirect_to teach_surveys_url(@teach) }
+      format.html { redirect_to content_surveys_url(@content) }
       format.json { head :ok }
     end
   end

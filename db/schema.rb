@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130305133203) do
+ActiveRecord::Schema.define(:version => 20130402234354) do
 
   create_table "answers", :force => true do |t|
     t.string   "content",                     :null => false
@@ -276,11 +276,13 @@ ActiveRecord::Schema.define(:version => 20130305133203) do
   add_index "presentations", ["user_id"], :name => "index_presentations_on_user_id"
 
   create_table "questions", :force => true do |t|
-    t.string   "content",                     :null => false
-    t.integer  "survey_id",                   :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.string   "content",                                      :null => false
+    t.integer  "survey_id",                                    :null => false
+    t.integer  "lock_version",  :default => 0,                 :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.string   "question_type", :default => "multiple_choice", :null => false
+    t.boolean  "required",      :default => false,             :null => false
   end
 
   add_index "questions", ["survey_id"], :name => "index_questions_on_survey_id"
@@ -296,9 +298,10 @@ ActiveRecord::Schema.define(:version => 20130305133203) do
 
   create_table "replies", :force => true do |t|
     t.integer  "question_id", :null => false
-    t.integer  "answer_id",   :null => false
+    t.integer  "answer_id"
     t.integer  "user_id",     :null => false
     t.datetime "created_at",  :null => false
+    t.text     "response"
   end
 
   add_index "replies", ["answer_id"], :name => "index_replies_on_answer_id"

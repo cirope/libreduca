@@ -11,6 +11,6 @@ Fabricator(:enrollment) do
     }
     job_args[:job] = attrs[:with_job] if attrs[:with_job]
 
-    institution ? Fabricate(:job, job_args).job : nil
+    attrs[:enrollable_type] == 'User' && institution ? Fabricate(:job, job_args).job : nil
   end
 end

@@ -22,6 +22,7 @@
 //= require turbolinks
 //= require common
 //= require autocomplete
+//= require autosubmit
 //= require dynamic_form
 //= require effect_helper
 //= require date_pickers

@@ -39,7 +39,7 @@ class Ability
     can :update_profile, User
     can :manage, Forum
     can :manage, Comment
-    can :read, Teach, enrollments: { enrollable_id: user.id }
+    can :read, Teach, enrollments: { enrollable_id: user.id, enrollable_type: 'User' }
     can :read, Institution, workers: { user_id: user.id }
     can :read, Content
     can :read, Document
@@ -64,7 +64,7 @@ class Ability
 
   def teacher_rules(user, institution)
     enrollments_restrictions = {
-      enrollments: { enrollable_id: user.id, job: 'teacher' }
+      enrollments: { enrollable_id: user.id, enrollable_type: 'User', job: 'teacher' }
     }
     teach_restrictions = { teach: enrollments_restrictions }
 
@@ -73,7 +73,8 @@ class Ability
     can :manage, Teach, enrollments_restrictions
     cannot :destroy, Teach, enrollments_restrictions
     can :manage, Content, teach_restrictions
-    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
+    can :create, Survey # TODO: fix
+    can [:read, :update, :destroy], Survey, institution: { id: institution.id }
     can :send_email_summary, Teach, enrollments_restrictions
     can :read, Course, teaches: enrollments_restrictions
     can :read, Grade, courses: { teaches: enrollments_restrictions }
@@ -92,7 +93,8 @@ class Ability
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
-    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
+    can :create, Survey # TODO: fix
+    can [:read, :update, :destroy], Survey, institution: { id: institution.id }
     can :manage, Image, institution_id: institution.id
     can :read, Job, institution_id: institution.id
     can :create, Job, institution_id: institution.id
@@ -123,6 +125,6 @@ class Ability
 
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
-    can :manage, Image, jobs_restrictions
+    can :manage, Image, institution_id: institution.id
   end
 end
