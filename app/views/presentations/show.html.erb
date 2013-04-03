@@ -2,3 +2,5 @@
   'view.contents.presentations.presented.html',
   link: link_to(@presentation.file.file.identifier, @presentation.file.url)
 ) %>
+
+<%= render 'conversations/info', :@conversable => @presentation %>

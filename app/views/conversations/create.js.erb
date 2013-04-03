@@ -1,0 +1,13 @@
+<% if @conversation.persisted? %>
+  <% @comment = @conversation.comments.first %>
+
+  $('#comments').append('<%= j render(template: 'comments/show', format: :html) %>');
+
+  $("#<%= @comment.anchor %>").effect('highlight', 'slow');
+
+  window.location.hash = '<%= @comment.anchor %>';
+  
+  $("#new_conversation").replaceWith('<%= j render(template: 'comments/new', format: :html) %>');
+<% else %>
+  $('#new_conversation').replaceWith('<%= j render( 'form', format: :html) %>');
+<% end %>

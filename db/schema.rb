@@ -48,6 +48,17 @@ ActiveRecord::Schema.define(:version => 20130402234354) do
 
   add_index "contents", ["teach_id"], :name => "index_contents_on_teach_id"
 
+  create_table "conversations", :force => true do |t|
+    t.integer  "comments_count",   :default => 0, :null => false
+    t.integer  "conversable_id",                  :null => false
+    t.string   "conversable_type",                :null => false
+    t.integer  "lock_version",     :default => 0, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "conversations", ["conversable_id", "conversable_type"], :name => "index_conversations_on_conversable_id_and_conversable_type"
+
   create_table "courses", :force => true do |t|
     t.string   "name"
     t.integer  "lock_version", :default => 0, :null => false
@@ -239,6 +250,16 @@ ActiveRecord::Schema.define(:version => 20130402234354) do
   add_index "news", ["institution_id"], :name => "index_news_on_institution_id"
   add_index "news", ["published_at"], :name => "index_news_on_published_at"
   add_index "news", ["title"], :name => "index_news_on_title"
+
+  create_table "participants", :force => true do |t|
+    t.integer  "user_id",         :null => false
+    t.integer  "conversation_id", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "participants", ["conversation_id"], :name => "index_participants_on_conversation_id"
+  add_index "participants", ["user_id"], :name => "index_participants_on_user_id"
 
   create_table "presentations", :force => true do |t|
     t.string   "file",                        :null => false

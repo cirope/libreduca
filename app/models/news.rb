@@ -80,6 +80,14 @@ class News < ActiveRecord::Base
     self.votes.where(user_id: user.id).first
   end
 
+  def can_vote_comments?
+    true
+  end
+
+  def users_to_notify(user, institution)
+    []
+  end
+
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
   end

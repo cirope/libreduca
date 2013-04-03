@@ -47,4 +47,8 @@ class User < ActiveRecord::Base
   def self.send_reset_password_instructions(attributes = {})
     custom_send_reset_password_instructions(attributes) # Defined in DeviseCustomization
   end
+
+  def self.is_not(user)
+    where("#{table_name}.id <> ?", user.id)
+  end
 end

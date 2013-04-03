@@ -56,6 +56,7 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test 'should create forum comment' do
+    3.times.map { Fabricate(:job, institution_id: @commentable_forum.owner_id) }
     counts = ['@commentable_forum.comments.count', 'ActionMailer::Base.deliveries.size']
 
     assert_difference counts do

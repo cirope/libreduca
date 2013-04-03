@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
   check_authorization
   load_and_authorize_resource :forum, shallow: true
   load_and_authorize_resource :news, shallow: true
+  load_and_authorize_resource :conversation, shallow: true
 
   before_filter :set_commentable
 
@@ -54,11 +55,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        jobs = current_user.jobs.in_institution(current_institution)
+        users = @commentable.users_to_notify(current_user, current_institution)
 
-        if @commentable.kind_of?(Forum) && !jobs.all?(&:student?)
-          Notifier.delay.new_comment(@comment, current_institution) unless @commentable.users.empty?
-        end
+        Notifier.delay.new_comment(@comment, current_institution, users.to_a) unless users.empty?
 
         format.html { redirect_to [@commentable, @comment], notice: t('view.comments.correctly_created') }
         format.json { render json: @comment, status: :created, location: @comment }
@@ -74,6 +73,6 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    @commentable = @forum || @news
+    @commentable = @forum || @news || @conversation
   end
 end

@@ -31,11 +31,10 @@ class Notifier < ActionMailer::Base
     )
   end
 
-  def new_comment(comment, institution)
+  def new_comment(comment, institution, users)
     @institution = institution
     @comment = comment
     @commentable = @comment.commentable
-    users = @commentable.users
 
     mail(
       subject: t(

@@ -39,6 +39,7 @@ Libreduca::Application.routes.draw do
     draw :common, :devise
     draw :school, :user
     draw :common, :file
+    draw :school, :conversation
 
     root to: redirect('/users/sign_in')
   end

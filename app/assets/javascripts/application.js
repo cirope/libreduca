@@ -32,6 +32,7 @@
 //= require chart
 //= require comments
 //= require contents
+//= require conversations
 //= require courses
 //= require dashboard
 //= require enrollments

@@ -5,6 +5,8 @@ class Forum < ActiveRecord::Base
 
   has_magick_columns name: :string
 
+  delegate :institution, :users, to: :owner, allow_nil: true
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :topic, :info, :lock_version
 
@@ -27,15 +29,15 @@ class Forum < ActiveRecord::Base
     self.name
   end
 
-  def users
-    self.owner.try(:users)
-  end
-
-  def institution
-    self.owner.try(:institution)
-  end
-  
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
+  end
+
+  def can_vote_comments?
+    true
+  end
+
+  def users_to_notify(user, institution)
+    self.users.blank? || user.jobs.in_institution(institution).all?(&:student?) ? [] : self.users.is_not(user)
   end
 end

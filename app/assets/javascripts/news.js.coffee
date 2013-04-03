@@ -12,7 +12,7 @@ new Rule
   condition: -> $('.custom-nav').length
   load: ->
     @map.login_tabs ||= ->
-      return false;
+      return false
 
     $(document).on 'click', '.custom-nav', @map.login_tabs
   unload: ->

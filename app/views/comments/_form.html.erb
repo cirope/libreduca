@@ -1,8 +1,13 @@
+<% @comment = @commentable.comments.select(&:new_record?).try(:first) || @commentable.comments.build %>
 <%= simple_form_for([@commentable, @comment], remote: true) do |f| %>
-  <%= f.input :comment, label: false, input_html: {
-    rows: 3, class: 'span11',
-    placeholder: Comment.human_attribute_name('comment')
-  } %>
+  <%= f.error_notification %>
 
-  <%= f.button :submit %>
+  <div class="form-inputs">
+    <%= f.input :comment, label: false, input_html: {
+      rows: 2, class: 'span12',
+      placeholder: Comment.human_attribute_name('comment') 
+    } %>
+
+    <%= f.button :submit %>
+  </div>
 <% end %>
