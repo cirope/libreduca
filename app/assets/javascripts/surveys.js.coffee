@@ -1,7 +1,7 @@
 new Rule
   condition: -> $('#c_surveys [data-action="edit"]')
   load: ->
-    @map.replace_template = ->
+    @map.replace_template ||= ->
       container = $(this).closest('fieldset').find('[data-question-type-template]')
       templates = $(this).data('question-type-templates')
       type = $(this).val()

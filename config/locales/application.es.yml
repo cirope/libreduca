@@ -249,6 +249,11 @@
     title: 'Error'
     access_denied: 'No tiene permisos para acceder al contenido'
 
+  helpers:
+    submit:
+      reply:
+        create: 'Enviar %{model}'
+
   label:
     'yes': 'Si'
     'no': 'No'

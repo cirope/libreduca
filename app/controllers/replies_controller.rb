@@ -27,6 +27,7 @@ class RepliesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @reply }
+      format.js   # show.js.erb
     end
   end
 
@@ -56,9 +57,11 @@ class RepliesController < ApplicationController
       if @reply.save
         format.html { redirect_to [@question, @reply], notice: t('view.replies.correctly_created') }
         format.json { render json: @reply, status: :created, location: @reply }
+        format.js   # create.js.erb
       else
         format.html { render action: 'new' }
         format.json { render json: @reply.errors, status: :unprocessable_entity }
+        format.js   # create.js.erb
       end
     end
   end
@@ -72,9 +75,11 @@ class RepliesController < ApplicationController
       if @reply.update_attributes(params[:reply])
         format.html { redirect_to [@question, @reply], notice: t('view.replies.correctly_updated') }
         format.json { head :ok }
+        format.js   # update.js.erb
       else
         format.html { render action: 'edit' }
         format.json { render json: @reply.errors, status: :unprocessable_entity }
+        format.js   # update.js.erb
       end
     end
   rescue ActiveRecord::StaleObjectError

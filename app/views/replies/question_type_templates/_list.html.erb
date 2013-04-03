@@ -1,0 +1,5 @@
+<div class="form-inputs">
+  <%= f.input :answer_id, label: false, collection: @question.answers, as: :select, input_html: {
+    data: { 'autosubmit-on-change' => true }
+  } %>
+</div>

@@ -30,17 +30,13 @@
           <li>
             <% if current_user_is_student? %>
               <% if question.has_been_answered_by? current_user %>
-                <%= render template: 'replies/show', locals: { question: question } %>
+                <%= render template: 'replies/show', locals: { :@question => question } %>
               <% else %>
-                <%= render 'replies/form', question: question %>
+                <%= render 'replies/form', :@question => question, :@reply => question.replies.build %>
               <% end %>
             <% else %>
               <%= question %>
-              <ul>
-                <% question.answers.each do |answer| %>
-                  <li><%= answer %></li>
-                <% end %>
-              </ul>
+              <%= render "surveys/question_type_show_templates/#{question.question_type}", :@question => question %>
             <% end %>
           </li>
         <% end %>

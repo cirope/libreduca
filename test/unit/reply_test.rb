@@ -73,5 +73,8 @@ class ReplyTest < ActiveSupport::TestCase
     assert_equal 1, @reply.errors.count
     assert_equal [error_message_from_model(@reply, :base, :invalid_answer)],
       @reply.errors[:base]
+
+    @reply.answer = nil
+    assert_valid @reply
   end
 end

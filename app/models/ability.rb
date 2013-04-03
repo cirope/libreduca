@@ -90,7 +90,7 @@ class Ability
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
-    can :manage, Survey, content: { teach: { course: { grade: jobs_restrictions } } }
+    can :manage, Survey, jobs_restrictions
     can :manage, Image, institution_id: institution.id
     can :read, Job, institution_id: institution.id
     can :create, Job, institution_id: institution.id
