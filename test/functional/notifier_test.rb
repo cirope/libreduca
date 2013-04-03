@@ -60,7 +60,7 @@ class NotifierTest < ActionMailer::TestCase
       commentable_id: commentable.id,
       commentable_type: commentable.class.name
     )
-    mail = Notifier.new_comment(comment, institution)
+    mail = Notifier.new_comment(comment, institution, users)
 
     assert_equal I18n.t(
       'notifier.new_comment.subject',

@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
       if @comment.save
         users = @commentable.users_to_notify(current_user, current_institution)
 
-        Notifier.delay.new_comment(@comment, current_institution) unless users.empty?
+        Notifier.delay.new_comment(@comment, current_institution, users.to_a) unless users.empty?
 
         format.html { redirect_to [@commentable, @comment], notice: t('view.comments.correctly_created') }
         format.json { render json: @comment, status: :created, location: @comment }
