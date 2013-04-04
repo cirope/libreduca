@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class ChartTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should interact with chart' do
     institution = Fabricate(:institution)
     job1 = Fabricate(:job, institution_id: institution.id)

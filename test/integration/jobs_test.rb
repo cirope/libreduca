@@ -2,7 +2,9 @@
 
 require 'test_helper'
 
-class PagesTest < ActionDispatch::IntegrationTest
+class JobsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create existing user in a new institution that does belongs' do
     institution = Fabricate(:institution)
     user = Fabricate(:user, password: '123456', role: :normal)
@@ -16,7 +18,7 @@ class PagesTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: another_user.email
     find('#user_name').click
 
-    select('Alumno', :from => 'job_job')
+    select(I18n.t('view.jobs.types.student'), from: 'job_job')
 
     assert_difference('Job.count') do
       assert page.has_css?('#new_job')
@@ -42,7 +44,7 @@ class PagesTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: another_user.email
     find('#user_name').click
 
-    select('Alumno', :from => 'job_job')
+    select(I18n.t('view.jobs.types.student'), from: 'job_job')
 
     assert_no_difference('Job.count') do
 
@@ -55,5 +57,4 @@ class PagesTest < ActionDispatch::IntegrationTest
       assert page.has_css?('.alert-error')
     end
   end
-
 end
