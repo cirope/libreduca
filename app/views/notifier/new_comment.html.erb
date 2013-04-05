@@ -9,14 +9,7 @@
 </blockquote>
 
 <p>
-  <%= link_to(
-    t('notifier.new_comment.view'),
-    polymorphic_url(
-      [@commentable.owner, @commentable],
-      anchor: @comment.anchor,
-      subdomain: @commentable.institution.identification
-    )
-  ) %>
+  <%= link_to(t('notifier.new_comment.view'), comment_url) %>
 </p>
 
 <%= render 'footer' %>

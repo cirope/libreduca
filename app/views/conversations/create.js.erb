@@ -1,6 +1,4 @@
 <% if @conversation.persisted? %>
-  <% @comment = @conversation.comments.first %>
-
   $('#comments').append('<%= j render(template: 'comments/show', format: :html) %>');
 
   $("#<%= @comment.anchor %>").effect('highlight', 'slow');

@@ -8,6 +8,6 @@
   | <%= l.chomp %>
 <% end %>
 
-<%= t('notifier.new_comment.view') %>: <%= polymorphic_url([@commentable.owner, @commentable], anchor: @comment.anchor) %>
+<%= t('notifier.new_comment.view') %>: comment_url
 
 <%= render 'footer' %>

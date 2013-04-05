@@ -26,9 +26,14 @@ class ConversationsControllerTest < ActionController::TestCase
 
   test "should create conversation" do
     presentation = Fabricate(:presentation)
-
-    assert_difference('Conversation.count') do
-      post :create, presentation_id: presentation.id, format: :js
+  
+    assert_difference ['Conversation.count', 'Comment.count'] do
+      post :create, presentation_id: presentation.id, 
+        conversation: { 
+          comments_attributes: { 
+            comment_1: { comment: Faker::Lorem.sentences(4).join("\n") }
+          }
+        }, format: :js
     end
 
     assert_response :success

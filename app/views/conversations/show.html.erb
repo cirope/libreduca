@@ -3,12 +3,12 @@
     :@content => @conversable.content, :@teach => @conversable.teach %>
 <% end %>
 
-<div class="row-fluid">                                                                                                                               
+<div class="row-fluid">
   <div class="readonly-data">
     <%= render @conversable %>
 
     <%= render template: 'comments/index', 
-      locals: { :@comments => @conversation.comments.page(1), :@commentable => @conversation } %>
+      locals: { :@comments => @conversation.comments, :@commentable => @conversation } %>
   </div>
 </div>
 

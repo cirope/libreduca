@@ -6,7 +6,8 @@
 
   <%= render @comments %>
 
-  <%= render 'comments/pagination', :@comments => @comments %>
+  <%= render 'comments/pagination', 
+    :@comments => @comments if @comments.respond_to?(:next_page) %>
 </div>
 
 <%= render template: 'comments/new', locals: { :@commentable => @commentable } %>

@@ -38,9 +38,4 @@ class Comment < ActiveRecord::Base
   def voted_by(user)
     self.votes.where(user_id: user.id).first
   end
-
-  def visited_by?(user)
-    self.visits.where(user_id: user.id).exists?
-  end
-
 end

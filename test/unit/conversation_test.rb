@@ -15,9 +15,9 @@ class ConversationTest < ActiveSupport::TestCase
     end 
   end
     
-  test 'destroy' do 
-    assert_difference 'Version.count' do
-      assert_difference('Conversation.count', -1) { @conversation.destroy }
+  test 'can not destroy' do
+    assert_no_difference ['Version.count', 'Conversation.count'] do
+      @conversation.destroy
     end
   end
 end 

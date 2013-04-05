@@ -1,9 +1,6 @@
 <% conversation = @conversable.conversation %>
 
 <% if conversation && can?(:read, conversation) %>
-  <% if conversation.has_new_messages?(current_user) %>
-    <span class="badge badge-important"><%= conversation.new_messages_count(current_user) %></span>
-  <% end %>
   <%= link_to_conversation(
     polymorphic_path([@conversable, :conversation]),
     conversation.comments.size
