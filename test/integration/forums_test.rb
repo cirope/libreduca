@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class ForumsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create a new forum in institution' do
     institution = Fabricate(:institution)
     forum = Fabricate.build(:forum, owner_id: institution.id, owner_type: 'Institution')

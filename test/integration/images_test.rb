@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class ImagesTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create image' do
     login_into_institution as: 'teacher'
     

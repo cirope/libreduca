@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class GroupsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create new group' do
     institution = Fabricate(:institution)
     user = Fabricate(:user, password: '123456', role: :normal)

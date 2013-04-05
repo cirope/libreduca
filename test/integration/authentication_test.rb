@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class AuthenticationTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   setup do
     @institution = Fabricate(:institution)
   end

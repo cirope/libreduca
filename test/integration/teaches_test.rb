@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class TeachesTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create a new teach' do
     login
 
@@ -248,38 +250,43 @@ class TeachesTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show teach surveys' do
-    institution = Fabricate(:institution)
-    user = Fabricate(:user, password: '123456', roles: [:normal])
-    login_into_institution institution: institution, user: user, as: 'teacher'
+    login_into_institution as: 'teacher'
 
-    course = Fabricate(:course) do
-      grade_id { Fabricate(:grade, institution_id: institution.id).id }
-    end
+    course = Fabricate(
+      :course,
+      grade_id: Fabricate(:grade, institution_id: @test_institution.id).id
+    )
+
     teach = Fabricate(:teach, course_id: course.id)
 
     Fabricate(
-      :enrollment, enrollable_id: user.id, teach_id: teach.id
+      :enrollment,
+      enrollable_id: @test_user.id,
+      enrollable_type: @test_user.class.name,
+      teach_id: teach.id,
+      with_job: 'teacher'
     )
 
-    Fabricate(:content, teach_id: teach.id).tap do |content|
-      Fabricate(:survey, content_id: content.id).tap do |survey|
-        Fabricate(:question, survey_id: survey.id, question_type: 'list').tap do |question|
-          Fabricate(:answer, question_id: question.id).tap do |answer|
-            5.times do
-              reply = Fabricate(
-                :reply, answer_id: answer.id, question_id: question.id
-              )
+    content = Fabricate(:content, teach_id: teach.id)
+    survey = Fabricate(:survey, content_id: content.id)
+    question = Fabricate(:question, survey_id: survey.id, question_type: 'list')
+    answer = Fabricate(:answer, question_id: question.id)
 
-              Fabricate(:job, user_id: reply.user_id, institution_id: institution.id)
-              Fabricate(
-                :enrollment,
-                teach_id: teach.id,
-                enrollable_id: reply.user_id
-              )
-            end
-          end
-        end
-      end
+    5.times do
+      reply = Fabricate(
+        :reply, answer_id: answer.id, question_id: question.id
+      )
+
+      Fabricate(
+        :job, user_id: reply.user_id, institution_id: @test_institution.id, job: 'student'
+      )
+      Fabricate(
+        :enrollment,
+        teach_id: teach.id,
+        enrollable_id: reply.user_id,
+        enrollable_type: reply.user.class.name,
+        with_job: 'student'
+      )
     end
 
     visit teach_path(teach)

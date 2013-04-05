@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class NewsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
 
   setup do
     @institution = Fabricate(:institution)

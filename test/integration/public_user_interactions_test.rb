@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
 
   test 'should ask for login' do
     visit new_user_session_path

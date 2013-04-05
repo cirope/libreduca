@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class ContentsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create a new content' do
     login
 
