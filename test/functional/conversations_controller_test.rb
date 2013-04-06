@@ -26,8 +26,9 @@ class ConversationsControllerTest < ActionController::TestCase
 
   test "should create conversation" do
     presentation = Fabricate(:presentation)
-  
-    assert_difference ['Conversation.count', 'Comment.count'] do
+    counters = ['Conversation.count', 'Comment.count', 'ActionMailer::Base.deliveries.size']
+
+    assert_difference counters do
       post :create, presentation_id: presentation.id, 
         conversation: { 
           comments_attributes: { 

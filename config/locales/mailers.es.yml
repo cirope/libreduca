@@ -36,7 +36,7 @@
         text: 'Se ha creado un nuevo foro en el que puedes participar,'
       view: 'Visitar el nuevo foro'
     new_comment:
-      subject: 'Hay un nuevo comentario en el %{commentable_name} [%{commentable}]'
+      subject: 'Hay un nuevo comentario en %{commentable_name} [%{commentable}]'
       greeting:
         html: 'Agregaron un nuevo comentario en [<strong>%{commentable}</strong>],'
         text: 'Agregaron un nuevo comentario en [%{commentable}],'

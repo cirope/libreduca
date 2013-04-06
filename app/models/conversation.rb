@@ -4,6 +4,8 @@ class Conversation < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :comments_attributes, :lock_version
 
+  delegate :to_s, to: :conversable
+
   # Callbacks
   before_destroy -> { false }
 
