@@ -1,5 +1,6 @@
 class News < ActiveRecord::Base
   include Visitable
+  include Commentable
 
   self.per_page = 6 
 
@@ -30,7 +31,6 @@ class News < ActiveRecord::Base
   # Relations
   belongs_to :institution
   has_many :images, as: :owner, dependent: :destroy
-  has_many :comments, as: :commentable, dependent: :destroy
   has_many :votes, as: :votable, dependent: :destroy
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
@@ -78,10 +78,6 @@ class News < ActiveRecord::Base
 
   def voted_by(user)
     self.votes.where(user_id: user.id).first
-  end
-
-  def can_vote_comments?
-    true
   end
 
   def users_to_notify(user, institution)

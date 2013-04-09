@@ -1,9 +1,9 @@
 <% if @comment.persisted? %>
-  $('#comments').append('<%= j render(template: 'comments/show', format: :html) %>');
+  $('#comments').append('<%= j render(@comment) %>');
 
   $("#<%= @comment.anchor %>").effect('highlight', 'slow');
 
   window.location.hash = '<%= @comment.anchor %>';
 <% end %>
 
-$("#new_comment").replaceWith('<%= j render(template: 'comments/new', format: :html) %>');
+$("#new_comment").replaceWith('<%= j render('comments/form') %>');

@@ -3,4 +3,6 @@
   link: link_to(@presentation.file.file.identifier, @presentation.file.url)
 ) %>
 
-<%= render 'conversations/info', :@conversable => @presentation %>
+<%= link_to_comments(
+  @presentation, presentation_comments_path(@presentation)
+) if can? :read, @presentation %>

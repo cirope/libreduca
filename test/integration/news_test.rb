@@ -96,7 +96,7 @@ class NewsTest < ActionDispatch::IntegrationTest
   test 'should create a comment in news' do
     news = Fabricate(:news, institution_id: @institution.id)
     comment = Fabricate.build(
-      :comment, commentable_id: news.id, commentable_type: 'News', user_id: nil
+      :comment, commentable_id: news.id, commentable_type: news.class.model_name, user_id: nil
     )
 
     visit news_path(news)
@@ -118,7 +118,7 @@ class NewsTest < ActionDispatch::IntegrationTest
 
   test 'should paginate comments en news' do
     news = Fabricate(:news, institution_id: @institution.id)
-    6.times { Fabricate(:comment, commentable_id: news.id, commentable_type: 'News') }
+    6.times { Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name) }
     
     visit news_path(news)
 

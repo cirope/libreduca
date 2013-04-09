@@ -16,7 +16,6 @@
  *= require fonts
  *= require common
  *= require common-responsive
- *= require conversations
  *= require devise
  *= require chart
  *= require comments

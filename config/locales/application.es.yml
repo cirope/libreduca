@@ -17,9 +17,6 @@
       content:
         one: 'Contenido'
         other: 'Contenidos'
-      conversation:
-        one: 'Conversación'
-        other: 'Conversaciones'
       course:
         one: 'Asignatura'
         other: 'Asignaturas'
@@ -319,11 +316,7 @@
           other: '<p class="muted text-center"><small><span class="badge">%{count}</span> personas a cargo</small></p>'
     comments:
       index_title: 'Listado de comentarios'
-      new_title: 'Nuevo comentario'
-      edit_title: 'Modificar comentario'
       correctly_created: 'Comentario agregado correctamente.'
-      correctly_updated: 'Comentario actualizado correctamente.'
-      stale_object_error: 'El comentario no pudo ser actualizado, intente nuevamente.'
       more_comments: 'Mostrar más comentarios'
       new: 'Nuevo comentario'
       empty_index:
@@ -355,14 +348,6 @@
         new: 'Agregar encuesta'
         new_question: 'Agregar pregunta'
         new_answer: 'Agregar opción'
-    conversations:
-      index_title: 'Listado de conversaciones'
-      show_title: 'Detalle de conversación'
-      new_title: 'Nueva conversación'
-      edit_title: 'Modificar conversación'
-      correctly_created: 'Conversación agregada correctamente.'
-      correctly_updated: 'Conversación actualizada correctamente.'
-      stale_object_error: 'La conversación no pudo ser actualizada, intente nuevamente.'
     courses:
       index_title: 'Listado de asignaturas'
       show_title: 'Detalle de asignatura'

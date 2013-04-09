@@ -1,19 +1,24 @@
-<div class="alert alert-warning">
-  <h3><%= @presentation.homework %></h3>
-  <p><%= @presentation.homework.description %></p>
-  <p>
-    <strong><%= Presentation.human_attribute_name(:file) %>:</strong>
-    <%= link_to @presentation.file.file.identifier, @presentation.file.url %>
-  </p>
-  <p>
-    <strong><%= Homework.human_attribute_name(:closing_at) %>:</strong>
-    <%= l @presentation.homework.closing_at %>
-  </p>
+<%= render 'contents/breadcrumb',
+    :@content => @presentation.content, :@teach => @presentation.teach %>
 
-  <% unless current_user_is_student? %>
-  <p>
-    <strong><%= User.model_name.human %>:</strong>
-    <%= @presentation.user %>
-  </p>
-  <% end %>
+<div class="readonly-data">
+  <div class="alert alert-warning">
+    <h3><%= @presentation.homework %></h3>
+    <p><%= @presentation.homework.description %></p>
+    <p>
+      <strong><%= Presentation.human_attribute_name(:file) %>:</strong>
+      <%= link_to @presentation.file.file.identifier, @presentation.file.url %>
+    </p>
+    <p>
+      <strong><%= Homework.human_attribute_name(:closing_at) %>:</strong>
+      <%= l @presentation.homework.closing_at %>
+    </p>
+
+    <% unless current_user_is_student? %>
+    <p>
+      <strong><%= User.model_name.human %>:</strong>
+      <%= @presentation.user %>
+    </p>
+    <% end %>
+  </div>
 </div>

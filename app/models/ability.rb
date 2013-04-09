@@ -38,7 +38,7 @@ class Ability
     can :edit_profile, User
     can :update_profile, User
     can :manage, Forum
-    can :manage, Comment
+    can [:read, :create], Comment
     can :read, Teach, enrollments: { enrollable_id: user.id, enrollable_type: 'User' }
     can :read, Institution, workers: { user_id: user.id }
     can :read, Content
@@ -48,8 +48,7 @@ class Ability
     can :create, Reply, user_id: user.id
     can :update, Reply, user_id: user.id
     can :read, Image
-    can :manage, Vote, user_id: user.id
-    can :read, Conversation, participants: { user_id: user.id }
+    can [:read, :create, :destroy], Vote, user_id: user.id
   end
 
   def public_rules(institution)
@@ -81,7 +80,6 @@ class Ability
     can :read, User, enrollments_restrictions
     can :manage, Image, institution_id: institution.id
     can :read, Presentation # TODO: check for proper access
-    can [:read, :create], Conversation
   end
 
   def janitor_rules(user, institution)
@@ -115,7 +113,6 @@ class Ability
     can :manage, Membership
     can :read, Enrollment
     can :manage, Tag, institution_id: institution.id
-    can [:read, :create], Conversation
   end
 
   def headmaster_rules(user, institution)

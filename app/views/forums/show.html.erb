@@ -22,9 +22,10 @@
         <%= markdown @forum.topic %>
       </blockquote>
 
-      <%= render template: 'comments/index', 
-        locals: { :@comments => @forum.comments.page(1), :@commentable => @forum } %>
     </div>
+
+    <%= render template: 'comments/index',
+      locals: { :@comments => @forum.comments.page(1), :@commentable => @forum } %>
   </div>
 </div>
 

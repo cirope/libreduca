@@ -1,4 +1,6 @@
 class Forum < ActiveRecord::Base
+  include Commentable
+
   has_paper_trail ignore: [
     :comments_count, :lock_version, :updated_at
   ]
@@ -23,7 +25,6 @@ class Forum < ActiveRecord::Base
   # Relations
   belongs_to :user
   belongs_to :owner, polymorphic: true
-  has_many :comments, as: :commentable, dependent: :destroy
 
   def to_s
     self.name
@@ -31,10 +32,6 @@ class Forum < ActiveRecord::Base
 
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
-  end
-
-  def can_vote_comments?
-    true
   end
 
   def users_to_notify(user, institution)
