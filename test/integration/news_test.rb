@@ -183,12 +183,12 @@ class NewsTest < ActionDispatch::IntegrationTest
       fill_in find('input[name$="[tag_attributes][name]"]')[:id], with: tag_persisted.name
     end
 
-    assert page.has_no_checked_field?(find('#tags fieldset:nth-child(2) input[value="important"]')[:id])
+    assert !find('#tags fieldset:nth-child(2) input[value="important"]', visible: false).checked?
 
-    find('.ui-autocomplete li.ui-menu-item a').click
+    find('.ui-autocomplete li.ui-menu-item a', visible: false).click
 
-    assert page.has_checked_field?(find('#tags fieldset:nth-child(2) input[value="important"]')[:id])
-
+    assert find('#tags fieldset:nth-child(2) input[value="important"]', visible: false).checked?
+ 
     assert_difference ['News.count', 'Tag.count'] do
       assert_difference 'Tagging.count', 2 do
         find('.btn.btn-primary').click
