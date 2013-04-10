@@ -20,11 +20,11 @@ class NewsTest < ActionDispatch::IntegrationTest
     fill_in 'news_body', with: @news.body
 
     assert_difference 'News.count' do
-      assert page.has_no_css?('.page-header h1.text-info')
+      assert page.has_no_css?('.page-header h2.text-info')
       
       find('.btn.btn-primary').click
 
-      assert page.has_css?('.page-header h1.text-info')
+      assert page.has_css?('.page-header h2.text-info')
     end
   end
 
