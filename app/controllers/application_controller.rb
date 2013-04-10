@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   after_filter -> { expires_now if user_signed_in? }
 
-  helper_method :current_enrollments, :is_embedded?
+  helper_method :is_embedded?
 
   def user_for_paper_trail
     current_user.try(:id)

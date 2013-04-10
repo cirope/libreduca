@@ -16,6 +16,7 @@ Libreduca::Application.routes.draw do
     draw :common, :devise
     draw :admin,  :user
     draw :common, :file
+    draw :common, :router
 
     root to: redirect('/users/sign_in')
   end
@@ -40,8 +41,9 @@ Libreduca::Application.routes.draw do
     draw :school, :user
     draw :common, :file
     draw :school, :presentation
+    draw :common, :router
 
-    root to: redirect('/users/sign_in')
+    root to: 'router#index'
   end
 
   draw :common, :'404'

@@ -2,7 +2,7 @@ module Application::Institutions
   extend ActiveSupport::Concern
 
   included do
-    helper_method :current_enrollments
+    helper_method :current_institution
 
     before_filter :set_current_institution
   end
