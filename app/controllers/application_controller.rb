@@ -1,37 +1,15 @@
 class ApplicationController < ActionController::Base
+  include Application::Enrollments
+  include Application::Exceptions
+  include Application::Institutions
+
   protect_from_forgery
 
-  before_filter :set_current_institution, :load_enrollments,
-    :set_js_format_in_iframe_request
+  before_filter :set_js_format_in_iframe_request
 
   after_filter -> { expires_now if user_signed_in? }
 
-  helper_method :current_institution, :current_enrollments, :is_embedded?
-
-  rescue_from Exception do |exception|
-    begin
-      @title = t('errors.title')
-      if response.redirect_url.blank?
-        render template: 'shared/show_error', locals: { error: exception }
-      end
-
-      logger.error(([exception, ''] + exception.backtrace).join("\n"))
-
-    # In case the rescue explodes itself =)
-    rescue => ex
-      logger.error(([ex, ''] + ex.backtrace).join("\n"))
-    end
-  end
-
-  rescue_from ::ActionController::RoutingError, ::ActiveRecord::RecordNotFound do |exception|
-    @title = t('errors.title')
-
-    render template: 'shared/show_404', locals: { error: exception }
-  end
-
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: t('errors.access_denied')
-  end
+  helper_method :current_enrollments, :is_embedded?
 
   def user_for_paper_trail
     current_user.try(:id)
@@ -39,14 +17,6 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @_current_ability ||= Ability.new(current_user, current_institution)
-  end
-
-  def current_institution
-    @_current_institution
-  end
-
-  def current_enrollments
-    @_enrollments
   end
 
   def redirect_to_back_or(default_url, *args)
@@ -87,22 +57,6 @@ class ApplicationController < ActionController::Base
           dashboard_url
         end
       end
-    end
-  end
-
-  def set_current_institution
-    unless RESERVED_SUBDOMAINS.include?(request.subdomains.first)
-      @_current_institution ||= Institution.find_by_identification(
-        request.subdomains.first
-      )
-    end
-  end
-
-  def load_enrollments
-    if current_user && current_institution
-      @_enrollments = current_user.enrollments.in_institution(
-        current_institution
-      ).sorted_by_name.in_current_teach
     end
   end
 
