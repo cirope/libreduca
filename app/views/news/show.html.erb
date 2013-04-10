@@ -5,7 +5,7 @@
       <%= link_to t('label.back'), embedded_news_index_path %>
     </div>
     <div class="page-header">
-      <h1 class="text-info"><%= @news %></h1>
+      <h2 class="text-info"><%= @news %></h2>
       <%= markdown @news.description if @news.description.present? %>
     </div>
 
