@@ -41,7 +41,7 @@ class TagTest < ActiveSupport::TestCase
   end
     
   test 'validates unique attributes' do
-    new_tag = Fabricate(:tag)
+    new_tag = Fabricate(:tag, institution_id: @tag.institution.id)
     @tag.name = new_tag.name
 
     assert @tag.invalid?
