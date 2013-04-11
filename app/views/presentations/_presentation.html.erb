@@ -9,10 +9,12 @@
       <strong><%= Presentation.human_attribute_name(:file) %>:</strong>
       <%= link_to @presentation.file.file.identifier, @presentation.file.url %>
     </p>
-    <p>
-      <strong><%= Homework.human_attribute_name(:closing_at) %>:</strong>
-      <%= l @presentation.homework.closing_at %>
-    </p>
+    <% if @presentation.homework.closing_at %>
+      <p>
+        <strong><%= Homework.human_attribute_name(:closing_at) %>:</strong>
+        <%= l @presentation.homework.closing_at %>
+      </p>
+    <% end %>
 
     <% unless current_user_is_student? %>
     <p>
