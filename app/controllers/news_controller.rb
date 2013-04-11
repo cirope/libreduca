@@ -16,6 +16,7 @@ class NewsController < ApplicationController
   def index
     @title = t('view.news.index_title')
     @news = @news.page(params[:page])
+    session[:user_return_to] ||= news_index_url unless current_user
 
     respond_to do |format|
       format.html # index.html.erb 

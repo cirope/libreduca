@@ -23,8 +23,9 @@ class NewsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:news)
+    assert_equal news_index_url, session[:user_return_to]
     assert_select '#unexpected_error', false
-    assert_template "news/index", layout: 'layouts/application'
+    assert_template 'news/index', layout: 'layouts/application'
   end
 
   test 'should get index' do
