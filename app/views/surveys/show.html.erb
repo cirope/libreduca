@@ -4,7 +4,7 @@
   <h2><%= @survey %></h2>
 
   <% @survey.questions.each do |question| %>
-    <%= question %>
+    <p><strong><%= question %></strong></p>
     <%= render "surveys/question_type_show_templates/#{question.question_type}", :@question => question %>
   <% end %>
 </div>

@@ -1,5 +1,5 @@
 <%= simple_form_for([@question, @reply], reply_form_options) do |f| %>
-  <p><%= @question %></p>
+  <p><strong><%= @question %></strong></p>
 
   <%= render "replies/question_type_templates/#{@question.question_type}", f: f %>
 
