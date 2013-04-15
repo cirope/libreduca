@@ -533,6 +533,7 @@
       correctly_created: 'Respuesta agregada correctamente.'
       correctly_updated: 'Respuesta actualizada correctamente.'
       stale_object_error: 'La respuesta no pudo ser actualizada, intente nuevamente.'
+      dashboard_title: 'Tablero de respuesta'
       empty_index:
         html: 'No se ha creado ninguna respuesta hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva respuesta</span>'
       new: 'Nueva respuesta'

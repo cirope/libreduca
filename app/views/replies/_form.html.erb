@@ -6,7 +6,7 @@
   <% if reply_rendered_inline? %>
     <%= link_to(
       t('label.cancel'),
-      [@question, @reply],
+      dashboard_question_reply_path(@question, @reply),
       class: 'btn btn-mini',
       data: { remote: true }
     ) if @reply.persisted? %>

@@ -44,9 +44,7 @@ class Ability
     can :read, Content
     can :read, Document
     can :read, Question
-    can :read, Reply, user_id: user.id
-    can :create, Reply, user_id: user.id
-    can :update, Reply, user_id: user.id
+    can [:read, :create, :update, :dashboard], Reply, user_id: user.id
     can :read, Image
     can [:read, :create, :destroy], Vote, user_id: user.id
   end

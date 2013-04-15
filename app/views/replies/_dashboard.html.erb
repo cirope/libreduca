@@ -1,0 +1,11 @@
+<div id="reply_<%= @reply.id %>">
+  <%= @question %>
+  <blockquote>
+    <%= @reply.response.present? ? @reply.response : @reply.answer %>
+    <% if reply_rendered_inline? && can?(:update, @reply) %>
+      <span class="muted">
+        | <%= link_to_edit edit_question_reply_path(@question, @reply), data: { remote: true } %>
+      </span>
+    <% end %>
+  </blockquote>
+</div>

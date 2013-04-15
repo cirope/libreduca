@@ -1,6 +1,6 @@
 <% @reply = @question.reply_by(current_user) || @reply %>
 
-<%= render @reply %>
+<%= render 'replies/dashboard' %>
 
 <% unless reply_rendered_inline? %>
   <div class="form-actions">
