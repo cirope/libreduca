@@ -3,3 +3,4 @@
     data: { 'autosubmit-on-change' => true }
   } %>
 </div>
+<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>

@@ -167,6 +167,7 @@
         file: 'Archivo'
       question:
         content: 'Pregunta'
+        hint: 'Indicio o aclaración'
       question/answer:
         content: 'Respuesta'
       region:

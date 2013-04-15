@@ -1,13 +1,17 @@
 #c_surveys {
-  .nested-actions {
-    margin-top: .5em;
-  }
-
   fieldset fieldset, fieldset .btn {
     margin-left: 2em;
   }
 
   fieldset .btn {
     margin-bottom: 1em;
+  }
+
+  .nested-actions {
+    margin-top: .5em;
+  }
+
+  .well.muted {
+    font-size: 85%;
   }
 }
