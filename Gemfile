@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -23,14 +23,16 @@ group :assets do
 end
 
 group :development do
-  gem 'thin'
+  gem 'unicorn'
+  gem 'unicorn-rails'
 end
 
 group :test do
   gem 'turn', require: false
   gem 'minitest', require: false
+  gem 'selenium-webdriver', require: false
   gem 'capybara', require: false
-  gem 'database_cleaner' # For Capybara
+  gem 'database_cleaner'
   gem 'fabrication'
   gem 'faker'
 end
