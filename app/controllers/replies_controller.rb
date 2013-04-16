@@ -89,7 +89,8 @@ class RepliesController < ApplicationController
     redirect_to edit_question_reply_url(@question, @reply), alert: t('view.replies.stale_object_error')
   end
 
-  # GET /survey/1/replies/dashboard
+  # GET /survey/1/replies/1/dashboard
   def dashboard
+    @title = t('view.replies.dashboard_title')
   end
 end

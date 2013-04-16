@@ -5,3 +5,4 @@
     <% end %>
   </select>
 </div>
+<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>

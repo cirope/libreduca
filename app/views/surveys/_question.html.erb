@@ -15,6 +15,13 @@
     </div>
   </div>
   <div class="row-fluid">
+    <div class="span10">
+      <%= f.input :hint, label: false, input_html: {
+        class: 'span11', placeholder: Question.human_attribute_name('hint'), rows: 2
+      } %>
+    </div>
+  </div>
+  <div class="row-fluid">
     <div class="span10" data-question-type-template>
       <%= render "surveys/question_type_templates/#{f.object.question_type}", f: f %>
     </div>

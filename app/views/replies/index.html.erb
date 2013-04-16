@@ -30,5 +30,5 @@
 </div>
 
 <div class="form-actions">
-  
+  <%= link_to_if can?(:read, @survey.content), @survey.content.to_s, [@survey.teach, @survey.content] %> 
 </div>

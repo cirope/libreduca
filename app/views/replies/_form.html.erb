@@ -1,12 +1,12 @@
 <%= simple_form_for([@question, @reply], reply_form_options) do |f| %>
-  <p><%= @question %></p>
+  <p><strong><%= @question %></strong></p>
 
   <%= render "replies/question_type_templates/#{@question.question_type}", f: f %>
 
   <% if reply_rendered_inline? %>
     <%= link_to(
       t('label.cancel'),
-      [@question, @reply],
+      dashboard_question_reply_path(@question, @reply),
       class: 'btn btn-mini',
       data: { remote: true }
     ) if @reply.persisted? %>

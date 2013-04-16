@@ -167,6 +167,7 @@
         file: 'Archivo'
       question:
         content: 'Pregunta'
+        hint: 'Indicio o aclaración'
       question/answer:
         content: 'Respuesta'
       region:
@@ -505,7 +506,7 @@
         html: 'No se ha creado ninguna noticia hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva noticia</span>'
       new: 'Nueva noticia'
       new_tag: 'Agregar nueva etiqueta'
-      news: 'Portada'
+      news: 'Noticias de %{institution}'
       previous_news: 'Noticias anteriores'
     presentations:
       index_title: 'Listado de entregas'
@@ -534,6 +535,7 @@
       correctly_created: 'Respuesta agregada correctamente.'
       correctly_updated: 'Respuesta actualizada correctamente.'
       stale_object_error: 'La respuesta no pudo ser actualizada, intente nuevamente.'
+      dashboard_title: 'Tablero de respuesta'
       empty_index:
         html: 'No se ha creado ninguna respuesta hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva respuesta</span>'
       new: 'Nueva respuesta'
