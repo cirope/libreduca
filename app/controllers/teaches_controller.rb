@@ -1,4 +1,9 @@
 class TeachesController < ApplicationController
+  include Teaches::EmailSummary
+  include Teaches::Enrollments
+  include Teaches::Scores
+  include Teaches::Tracking
+
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
   before_filter :authenticate_user!
@@ -95,77 +100,6 @@ class TeachesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to course_teaches_url(@course) }
       format.json { head :no_content }
-    end
-  end
-
-  # POST /teaches/1/send_email_summary
-  # POST /teaches/1/send_email_summary.json
-  def send_email_summary
-    @teach.send_email_summary
-
-    respond_to do |format|
-      format.html # send_email_summary.html.erb
-      format.json { render json: @enrollment }
-    end
-  end
-
-  # GET /teaches/1/show_scores
-  # GET /teaches/1/show_scores.json
-  def show_scores
-    @title = t 'view.teaches.show_scores_title'
-
-    respond_to do |format|
-      format.html # show_scores.html.erb
-      format.json { render json: @teach }
-    end
-  end
-
-  # GET /teaches/1/show_enrollments
-  # GET /teaches/1/show_enrollments.json
-  def show_enrollments
-    @title = t 'view.teaches.show_enrollments_title'
-
-    respond_to do |format|
-      format.html # show_enrollments.html.erb
-      format.json { render json: @teach }
-    end
-  end
-
-  # GET /teaches/1/show_tracking
-  # GET /teaches/1/show_tracking.json
-  def show_tracking
-    @title = t 'view.teaches.show_tracking_title'
-
-    respond_to do |format|
-      format.html # show_tracking.html.erb
-      format.json { render json: @teach }
-      format.csv  {
-        response.headers['Cache-Control'] = 'private, no-store'
-        response.headers['Content-Disposition'] = "attachment; filename=\"#{@title}.csv\""
-      }
-    end
-  end
-
-
-  # GET /teaches/1/edit_scores
-  # GET /teaches/1/edit_scores.json
-  def edit_scores
-    @title = t 'view.teaches.edit_scores_title'
-
-    respond_to do |format|
-      format.html # edit_scores.html.erb
-      format.json { render json: @teach }
-    end
-  end
-
-  # GET /teaches/1/edit_enrollments
-  # GET /teaches/1/edit_enrollments.json
-  def edit_enrollments
-    @title = t 'view.teaches.edit_enrollments_title'
-
-    respond_to do |format|
-      format.html # edit_enrollments.html.erb
-      format.json { render json: @teach }
     end
   end
 
