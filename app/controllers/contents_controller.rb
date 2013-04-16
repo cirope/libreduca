@@ -5,6 +5,8 @@ class ContentsController < ApplicationController
   load_and_authorize_resource :teach
   load_and_authorize_resource :content, through: :teach
   
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
+
   # GET /contents
   # GET /contents.json
   def index

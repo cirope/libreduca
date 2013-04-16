@@ -40,8 +40,8 @@ Libreduca::Application.routes.draw do
     draw :common, :devise
     draw :school, :user
     draw :common, :file
-    draw :school, :presentation
     draw :common, :router
+    draw :school, :survey
 
     root to: 'router#index'
   end

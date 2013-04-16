@@ -11,7 +11,7 @@
 <div class="form-actions">
   <%= link_to @content.to_s, [@content.teach, @content] if @content %>
   <div class="pull-right">
-    <%= link_to t('label.edit'), polymorphic_path([@teach || @content, @survey], action: :edit) if can? :update, @survey %> |
+    <%= link_to t('label.edit'), polymorphic_path([@content || @teach, @survey], action: :edit) if can? :update, @survey %> |
     <%= link_to t('label.list'), polymorphic_path([@teach || @content, Survey]) %>
   </div>
 </div>

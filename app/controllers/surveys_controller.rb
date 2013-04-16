@@ -4,8 +4,9 @@ class SurveysController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_resource :teach
-  load_resource :content
+  load_and_authorize_resource :teach, shallow: true
+  load_and_authorize_resource :content, shallow: true
+
   load_and_authorize_resource through: [:teach, :content]
   
   # GET /surveys

@@ -1,34 +1,34 @@
-<% if @replies.empty? %>
-  <%= render 'shared/empty_index' %>
-<% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <thead>
-          <tr>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
+<%= render 'breadcrumb', :@teach => @survey.teach, :@content => @survey.content %>
 
-        <tbody>
-          <% @replies.each do |reply| %>
-            <tr>
-              <td><%= link_to_show [@question, reply] %></td>
-              <td><%= link_to_edit edit_question_reply_path(@question, reply) if can? :update, reply %></td>
-              <td><%= link_to_destroy [@question, reply] if can? :destroy, reply %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="readonly-data">
+  <h3><%= @survey %></h3>
+  <p>
+    <%= User.model_name.human(count: 1) %>: 
+    <%= @user %>
+  </p>
 
-  <%= pagination_links(@replies) %>
-<% end %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= Question.model_name.human(count: 1) %></th>
+        <th><%= Reply.model_name.human(count: 1) %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @replies.where(user_id: @user.id).each do |reply| %>
+      <tr>
+        <td><%= reply.question %></td>
+        <td><%= reply.response.present? ? reply.response : reply.answer %></td>
+        <td><%= link_to_comments(reply, reply_comments_path(reply)) if can? :read, reply %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
 
 <div class="form-actions">
-  <%= link_to(
-    t('view.replies.new', default: :'label.new'),
-    new_question_reply_path(@question), class: 'btn btn-primary'
-  ) if can? :create, Reply %>
+  
 </div>

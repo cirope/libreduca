@@ -2,8 +2,11 @@ class RepliesController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :question
-  load_and_authorize_resource through: :question
+  load_resource :survey, only: [:index, :dashboard]
+  load_resource :question, except: [:index, :dashboard]
+  load_resource :user, only: [:index]
+  load_and_authorize_resource through: :survey, only: [:index, :dashboard]
+  load_and_authorize_resource through: :question, except: [:index, :dashboard]
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
   
@@ -84,5 +87,9 @@ class RepliesController < ApplicationController
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_question_reply_url(@question, @reply), alert: t('view.replies.stale_object_error')
+  end
+
+  # GET /survey/1/replies/dashboard
+  def dashboard
   end
 end

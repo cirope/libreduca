@@ -1,7 +1,8 @@
 class Reply < ActiveRecord::Base
+  include Commentable
   include Replies::ValidReply
 
-  has_paper_trail
+  has_paper_trail ignore: :comments_count
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :answer_id, :question_id, :response
@@ -26,8 +27,21 @@ class Reply < ActiveRecord::Base
   belongs_to :user
   has_one :survey, through: :question
   has_one :content, through: :survey
+  has_many :users, through: :comments
+
+  def to_s
+    Reply.model_name.human(count: 1)
+  end
 
   def self.of_questions(*args)
     joins(:question).where("#{Question.table_name}.id" => args)
+  end
+
+  def can_vote_comments?
+    false
+  end
+
+  def users_to_notify(user, institution)
+    self.users.is_not(user)
   end
 end

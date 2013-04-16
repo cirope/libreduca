@@ -3,6 +3,8 @@
   link: link_to(@presentation.file.file.identifier, @presentation.file.url)
 ) %>
 
-<%= link_to_comments(
-  @presentation, presentation_comments_path(@presentation)
-) if can? :read, @presentation %>
+<span class="muted">
+  | <%= link_to_comments(
+    @presentation, presentation_comments_path(@presentation)
+  ) if can? :read, @presentation %>
+</span>
