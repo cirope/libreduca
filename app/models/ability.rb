@@ -70,7 +70,7 @@ class Ability
 
     can :read, Enrollment, teach_restrictions
     can :send_email_summary, Enrollment, teach_restrictions
-    can :manage, Teach, enrollments_restrictions
+    can :manage, Teach, jobs_restrictions # TODO: check access
     cannot :destroy, Teach, enrollments_restrictions
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
     can :create, Survey # TODO: fix
