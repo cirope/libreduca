@@ -501,7 +501,7 @@
       correctly_updated: 'Noticia actualizada correctamente.'
       stale_object_error: 'La noticia no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna noticia hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva noticia</span>'
+        html: 'No se ha creado ninguna noticia hasta el momento.'
       new: 'Nueva noticia'
       new_tag: 'Agregar nueva etiqueta'
       news: 'Noticias de %{institution}'
