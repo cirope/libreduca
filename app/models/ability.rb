@@ -115,7 +115,7 @@ class Ability
     can :manage, Membership
     can :read, Enrollment
     can :manage, Tag, institution_id: institution.id
-    can [:read, :dashboard], Reply, content: { teach: { institution: { id: institution.id } } }
+    can [:read, :dashboard], Reply # TODO: fix
   end
 
   def headmaster_rules(user, institution)

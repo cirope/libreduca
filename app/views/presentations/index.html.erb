@@ -26,7 +26,7 @@
                     presentation, presentation_comments_path(presentation)
                   ) if can? :read, presentation %>
                 </td>
-                <td><%= link_to_destroy [@content, @homework, presentation] if can? :destroy, presentation %></td>
+                <td><%= link_to_destroy [@content, presentation.homework, presentation] if can? :destroy, presentation %></td>
               </tr>
             </tbody>
           </table>
