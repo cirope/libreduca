@@ -1,9 +1,7 @@
 class Presentation < ActiveRecord::Base
   include Commentable
 
-  has_paper_trail ignore: [
-    :comments_count
-  ]
+  has_paper_trail ignore: :comments_count
 
   mount_uploader :file, FileUploader
 

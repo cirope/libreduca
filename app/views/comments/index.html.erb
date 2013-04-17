@@ -1,4 +1,7 @@
 <% if controller_name == 'comments' %>
+  <%= render 'breadcrumb',
+    :@content => @commentable.content, :@teach => @commentable.content.teach %>
+
   <%= render @commentable %>
 <% end %>
 
@@ -24,5 +27,7 @@
 </div>
 
 <% if controller_name == 'comments' %>
-  <div class="form-actions"></div>
+  <div class="form-actions">
+    <%= link_to @content.to_s, [@content.teach, @content] if @content %>
+  </div>
 <% end %>

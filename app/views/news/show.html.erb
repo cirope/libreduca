@@ -5,30 +5,29 @@
       <div class="badge badge-link">
         <%= link_to t('label.back'), embedded_news_index_path %>
       </div>
+
       <div class="page-header">
         <h2 class="text-info"><%= @news %></h2>
         <%= markdown @news.description if @news.description.present? %>
       </div>
 
-      <div class="media">
-        <% if user_signed_in? && @news.images.present? %>
-          <div class="pull-left launch-modal">
-            <a href="#modal-carousel" data-toggle="modal">
-              <%== @news.images.first.to_html(:normal) %>
-            </a>
-            <span class="badge zoom"><%= link_to_zoom '#modal-carousel' %></span>
-            <%= render 'images/modal_carousel', :@images => @news.images %>
-          </div>
-        <% end %>
+      <% if user_signed_in? && @news.images.present? %>
+        <div class="pull-left launch-modal tag">
+          <a href="#modal-carousel" data-toggle="modal">
+            <%== @news.images.first.to_html(:normal) %>
+          </a>
+          <span class="badge zoom"><%= link_to_zoom '#modal-carousel' %></span>
+          <%= render 'images/modal_carousel', :@images => @news.images %>
+        </div>
+      <% end %>
 
-        <p class="muted">
-          <span><%= l @news.published_at.to_date, format: :long %></span>
-          <% if user_signed_in? %>
-            <span>| <%= link_to_comments(@news, '#comments-header') %></span>
-          <% end %>
-        </p>
-        <%= markdown @news.body if @news.body.present? %>
-      </div>
+      <p class="muted">
+        <span><%= l @news.published_at.to_date, format: :long %></span>
+        <% if user_signed_in? %>
+          <span>| <%= link_to_comments(@news, '#comments-header') %></span>
+        <% end %>
+      </p>
+      <%= markdown @news.body if @news.body.present? %>
 
       <% unless @news.tags.empty? %>
         <div class="news_info">

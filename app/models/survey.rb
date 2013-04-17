@@ -23,6 +23,7 @@ class Survey < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :answers, through: :questions 
   has_many :replies, through: :questions
+  has_many :reply_users, through: :replies, source: :user
   # Only for ability check
   has_many :enrollments, through: :teach
 

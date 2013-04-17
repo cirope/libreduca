@@ -2,8 +2,9 @@ class CommentsController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :forum, shallow: true
   load_and_authorize_resource :news, shallow: true
+  load_and_authorize_resource :reply, shallow: true
+  load_and_authorize_resource :forum, shallow: true
   load_and_authorize_resource :presentation, shallow: true
 
   before_filter :set_commentable
@@ -52,7 +53,7 @@ class CommentsController < ApplicationController
   private
 
   def set_commentable
-    @commentable = @forum || @news || @presentation
+    @commentable = @forum || @news || @presentation || @reply
   end
 
   def set_comment_anchor

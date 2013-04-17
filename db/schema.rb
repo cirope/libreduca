@@ -278,11 +278,12 @@ ActiveRecord::Schema.define(:version => 20130415154716) do
   add_index "regions", ["name"], :name => "index_regions_on_name", :unique => true
 
   create_table "replies", :force => true do |t|
-    t.integer  "question_id", :null => false
+    t.integer  "question_id",                   :null => false
     t.integer  "answer_id"
-    t.integer  "user_id",     :null => false
-    t.datetime "created_at",  :null => false
+    t.integer  "user_id",                       :null => false
+    t.datetime "created_at",                    :null => false
     t.text     "response"
+    t.integer  "comments_count", :default => 0, :null => false
   end
 
   add_index "replies", ["answer_id"], :name => "index_replies_on_answer_id"

@@ -335,6 +335,8 @@
         html: '<span class="label label-info">Atención</span> dentro del contenido puedes utilizar %{link}'
       empty_index:
         html: 'No se ha creado ningún contenido para este dictado, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo contenido</span>'
+      empty_show:
+        html: 'El contenido está vacio.'
       from_teach:
         html:
           one: 'Contenido de %{teach}'
@@ -513,6 +515,7 @@
       correctly_created: 'Entrega agregada correctamente.'
       empty_index:
         html: 'No se ha encontrado ninguna entrega para este contenido'
+      homeworks: 'Presentación de tareas'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'
@@ -537,6 +540,7 @@
       empty_index:
         html: 'No se ha creado ninguna respuesta hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva respuesta</span>'
       new: 'Nueva respuesta'
+      surveys: 'Respuestas de encuestas'
     surveys:
       index_title: 'Listado de encuestas'
       show_title: 'Detalle de encuesta'

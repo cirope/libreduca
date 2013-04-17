@@ -9,7 +9,7 @@ class RepliesControllerTest < ActionController::TestCase
   end
 
   test 'should get index' do
-    get :index, question_id: @question
+    get :index, survey_id: Fabricate(:survey).id, user_id: Fabricate(:user).id
     assert_response :success
     assert_not_nil assigns(:replies)
     assert_select '#unexpected_error', false

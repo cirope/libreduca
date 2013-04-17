@@ -1,33 +1,37 @@
-<% if @presentations.empty? %>
-  <%= render 'shared/empty_index', controller_name: 'presentations' %>
-<% else %>
-  <div class="row">
-    <div class="span11">
-      <table class="table resource-list">
-        <thead>
-          <tr>
-            <th><%= User.model_name.human %></th>
-            <th><%= Presentation.human_attribute_name 'file' %></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
+<div class="readonly-data">
+  <% if @presentations.empty? %>
+    <%= render 'shared/empty_index', controller_name: 'presentations' %>
+  <% else %>
+    <div class="row-fluid">
+      <div class="span12">
+        <% @presentations.each do |presentation| %>
+          <h4><%= presentation.homework %></h4>
 
-        <tbody>
-          <% @presentations.each do |presentation| %>
-            <tr>
-              <td><%= presentation.user %></td>
-              <td><%= link_to presentation.file.file.identifier, presentation.file.url %></td>
-              <td>
-                <%= link_to_comments(
-                  presentation, presentation_comments_path(presentation)
-                ) if can? :read, presentation %>
-              </td>
-              <td><%= link_to_destroy [@content, @homework, presentation] if can? :destroy, presentation %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+          <table class="table resource-list">
+            <thead>
+              <tr>
+                <th><%= User.model_name.human %></th>
+                <th><%= Presentation.human_attribute_name 'file' %></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><%= presentation.user %></td>
+                <td><%= link_to presentation.file.file.identifier, presentation.file.url %></td>
+                <td>
+                  <%= link_to_comments(
+                    presentation, presentation_comments_path(presentation)
+                  ) if can? :read, presentation %>
+                </td>
+                <td><%= link_to_destroy [@content, @homework, presentation] if can? :destroy, presentation %></td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

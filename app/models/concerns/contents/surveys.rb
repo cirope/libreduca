@@ -6,5 +6,6 @@ module Contents::Surveys
     has_many :questions, through: :surveys
     has_many :answers, through: :questions
     has_many :replies, through: :answers
+    has_many :presentations, through: :homeworks
   end
 end

@@ -64,12 +64,15 @@ class Ability
       enrollments: { enrollable_id: user.id, enrollable_type: 'User', job: 'teacher' }
     }
     teach_restrictions = { teach: enrollments_restrictions }
+    jobs_restrictions = {
+      institution: { workers: { user_id: user.id, job: 'teacher' } }
+    }
 
     can :read, Enrollment, teach_restrictions
     can :send_email_summary, Enrollment, teach_restrictions
     can :manage, Teach, enrollments_restrictions
     cannot :destroy, Teach, enrollments_restrictions
-    can :manage, Content, teach_restrictions
+    can :manage, Content, teach: { course: { grade: jobs_restrictions } }
     can :create, Survey # TODO: fix
     can [:read, :update, :destroy], Survey, institution: { id: institution.id }
     can :send_email_summary, Teach, enrollments_restrictions
@@ -78,6 +81,7 @@ class Ability
     can :read, User, enrollments_restrictions
     can :manage, Image, institution_id: institution.id
     can :read, Presentation # TODO: check for proper access
+    can [:read, :dashboard], Reply
   end
 
   def janitor_rules(user, institution)
@@ -111,6 +115,7 @@ class Ability
     can :manage, Membership
     can :read, Enrollment
     can :manage, Tag, institution_id: institution.id
+    can [:read, :dashboard], Reply, content: { teach: { institution: { id: institution.id } } }
   end
 
   def headmaster_rules(user, institution)
