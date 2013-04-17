@@ -3,10 +3,6 @@ module ApplicationHelper
     [t('app_name'), @title].compact.join(' | ')
   end
 
-  def markdown(text)
-    MARKDOWN_RENDERER.render(text).html_safe
-  end
-
   def show_menu_link(options = {})
     name = t("menu.#{options[:name]}")
     classes = []

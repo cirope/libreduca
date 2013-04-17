@@ -1,4 +1,11 @@
 module TeachesHelper
+  def translate_teach_enrollment_type(job, count = 0)
+    t(
+      "view.teaches.enrollment_types.#{job}",
+      count: count
+    )
+  end
+
   def teach_splited_enrollments(teach)
     splited_enrollments = teach.enrollments.group_by(&:job)
 
@@ -7,10 +14,7 @@ module TeachesHelper
 
       enrollments ?
         [
-          t(
-            "view.teaches.enrollment_types.#{job}",
-            count: enrollments.last.size
-          ),
+          translate_teach_enrollment_type(job, enrollments.last.size),
           enrollments.last.sort
         ] : nil
     end.compact
@@ -62,32 +66,12 @@ module TeachesHelper
 
   def show_teach_score_details(score)
     if score
-      content = content_tag(
-        :ul, [
-          content_tag(
-            :li, [
-              content_tag(:strong, Score.human_attribute_name('multiplier')),
-              number_with_precision(score.multiplier)
-            ].join(' ').html_safe
-          ),
-          content_tag(
-            :li, [
-              content_tag(:strong, Score.human_attribute_name('created_at')),
-              l(score.created_at, format: :long)
-            ].join(' ').html_safe
-          ),
-          content_tag(
-            :li, [
-              content_tag(:strong, Score.human_attribute_name('whodunnit')),
-              (User.find(score.originator) rescue '-')
-            ].join(' ').html_safe
-          )
-        ].join('').html_safe
-      )
-
       content_tag(
         :abbr, number_with_precision(score.score), title: score.description,
-        data: { 'show-popover' => true, 'content' => raw(content) }
+        data: {
+          'show-popover' => true,
+          'content' => render('teaches/score_details', score: score)
+        }
       )
     else
       '-'
@@ -127,7 +111,7 @@ module TeachesHelper
   def generate_teach_tracking_csv
     CSV.generate(col_sep: ';') do |csv|
       csv << [
-        t('view.teaches.enrollment_types.student', count: 1),
+        translate_teach_enrollment_type('student', 1),
         t('view.teaches.visited_content'),
         t('view.teaches.questions_answered')
       ]
