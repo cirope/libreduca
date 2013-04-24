@@ -4,27 +4,31 @@ module Application::Exceptions
   included do
     rescue_from Exception do |exception|
       begin
-        @title = t('errors.title')
-        if response.redirect_url.blank?
-          render template: 'shared/show_error', locals: { error: exception }
+        if exception.kind_of? CanCan::AccessDenied
+          redirect_to root_url, alert: t('errors.access_denied')
+        else
+          render_error_page
+          log_exception(exception)
         end
-
-        logger.error(([exception, ''] + exception.backtrace).join("\n"))
 
       # In case the rescue explodes itself =)
       rescue => ex
-        logger.error(([ex, ''] + ex.backtrace).join("\n"))
+        log_exception(ex)
       end
     end
+  end
 
-    rescue_from ::ActionController::RoutingError, ::ActiveRecord::RecordNotFound do |exception|
-      @title = t('errors.title')
+  private
 
-      render template: 'shared/show_404', locals: { error: exception }
+  def render_error_page
+    @title = t('errors.title')
+    
+    if response.redirect_url.blank?
+      render template: 'shared/show_error', locals: { error: exception }
     end
+  end
 
-    rescue_from CanCan::AccessDenied do |exception|
-      redirect_to root_url, alert: t('errors.access_denied')
-    end
+  def log_exception(exception)
+    logger.error(([exception, ''] + exception.backtrace).join("\n"))
   end
 end
