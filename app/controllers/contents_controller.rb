@@ -3,7 +3,7 @@ class ContentsController < ApplicationController
   
   check_authorization
   load_and_authorize_resource :teach
-  load_and_authorize_resource :content, through: :teach
+  load_and_authorize_resource through: :teach
   
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 

@@ -2,108 +2,66 @@
 
 <div class="readonly-data">
   <h3><%= @content %></h3>
+
   <%= markdown @content.content if @content.content.present? %>
-    
-  <ul class="nav nav-tabs" data-remote="true">
-    <li class="active">
-      <%= link_to(Content.model_name.human(count: 1),
+
+  <%= content_next_and_prev_links %>
+
+  <% unless content_has_no_relations? %>
+    <ul class="nav nav-tabs" data-remote="true">
+      <li class="active">
+        <%= link_to(
+          t('view.contents.activities'),
           '#contents_container', data: { toggle: 'tab' }
-      ) %>
-    </li> 
-    <% unless current_user_is_student? %>
-      <li>
-      <%= link_to(t('view.presentations.homeworks'), '#presentations_container', 
-          data: { 
-            'toggle' => 'tab', 
-            'remote-url' => content_presentations_path(@content) 
-          }
         ) %>
-      </li>
-      <li>
-        <%= link_to(t('view.replies.surveys'), '#replies_container',
-          data: {
-            'toggle' => 'tab',
-            'remote-url' => content_surveys_path(@content) 
-          }
-        ) %>
-      </li>
-    <% end %>
-  </ul>
+      </li> 
+      <% unless current_user_is_student? %>
+        <li>
+          <%= link_to(
+            t('view.presentations.homeworks'), '#presentations_container', 
+            data: { 
+              'toggle' => 'tab', 
+              'remote-url' => content_presentations_path(@content) 
+            }
+          ) %>
+        </li>
+        <li>
+          <%= link_to(
+            t('view.replies.surveys'), '#replies_container',
+            data: {
+              'toggle' => 'tab',
+              'remote-url' => content_surveys_path(@content) 
+            }
+          ) %>
+        </li>
+      <% end %>
+    </ul>
 
-  <div class="tab-content">
-    <div id="contents_container" class="tab-pane active">
-      <% if @content.documents.empty? && @content.surveys.empty? && @content.homeworks.empty? %>
-        <div class="alert"><%= t('view.contents.empty_show.html') %></div>  
-      <% else %>
+    <div class="tab-content">
+      <div id="contents_container" class="tab-pane active">
         <% unless @content.documents.empty? %>
-          <h3><%= Document.model_name.human(count: @content.documents.size) %></h3>
-
-          <ul data-no-turbolink>
-            <% @content.documents.each do |document| %>
-              <li>
-                <%= link_to_if can?(:read, document), document, document.file_url %>
-                (<%= number_to_human_size document.file_size %>)
-              </li>
-            <% end %>
-          </ul>
+          <%= render 'documents' %>
         <% end %>
 
         <% if @content.surveys.present? && @teach.current? %>
-          <hr />
-          <% @content.surveys.each do |survey| %>
-            <h3><%= survey %></h3>
-
-            <ul>
-              <% survey.questions.each do |question| %>
-                <li>
-                  <% if current_user_is_student? %>
-                    <% if question.has_been_answered_by? current_user %>
-                      <%= render template: 'replies/show', locals: { :@question => question } %>
-                    <% else %>
-                      <%= render 'replies/form', :@question => question, :@reply => question.replies.build %>
-                    <% end %>
-                  <% else %>
-                    <%= question %>
-                    <%= render "surveys/question_type_show_templates/#{question.question_type}", :@question => question %>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
+          <%= render 'surveys' %>
         <% end %>
 
         <% if @content.homeworks.present? && @teach.current? %>
-          <hr />
-          <% @content.homeworks.each do |homework| %>
-            <h3><%= homework %></h3>
-            <%= markdown homework.description if homework.description.present? %>
-
-            <% if current_user_is_student? %>
-              <% presentation = current_user.presentations.for_homework(homework) %>
-
-              <% if presentation %>
-                <%= render template: 'presentations/show', locals: { :@presentation => presentation } %>
-              <% elsif can?(:create, homework.presentations.build) %>
-                <%= render_new_homework_presentation_form(homework) %>
-              <% end %>
-            <% else %>
-              <%= render_new_homework_presentation_form(homework) %>
-            <% end %>
-          <% end %>
+          <%= render 'homeworks' %>
         <% end %>
-      <% end %>
+      </div>
 
-      <%= content_next_and_prev_links %>
+      <% unless current_user_is_student? %>
+        <div id="presentations_container" class="tab-pane">
+          <div class="alert"><%= t('label.loading') %></div>
+        </div>
+        <div id="replies_container" class="tab-pane">
+          <div class="alert"><%= t('label.loading') %></div>
+        </div>
+      <% end %>
     </div>
-    <% unless current_user_is_student? %>
-      <div id="presentations_container" class="tab-pane">
-        <div class="alert"><%= t('label.loading') %></div>
-      </div>
-      <div id="replies_container" class="tab-pane">
-        <div class="alert"><%= t('label.loading') %></div>
-      </div>
-    <% end %>
-  </div>
+  <% end %>
 </div>
 
 <div class="form-actions">

@@ -7,7 +7,7 @@ module Application::Exceptions
         if exception.kind_of? CanCan::AccessDenied
           redirect_to root_url, alert: t('errors.access_denied')
         else
-          render_error_page
+          render_error_page(exception)
           log_exception(exception)
         end
 
@@ -20,7 +20,7 @@ module Application::Exceptions
 
   private
 
-  def render_error_page
+  def render_error_page(exception)
     @title = t('errors.title')
     
     if response.redirect_url.blank?

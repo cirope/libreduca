@@ -40,4 +40,8 @@ module ContentsHelper
   def show_content_survey?
     @content.persisted? && !@teach.past? && current_institution
   end
+
+  def content_has_no_relations?
+    @content.documents.empty? && @content.surveys.empty? && @content.homeworks.empty?
+  end
 end

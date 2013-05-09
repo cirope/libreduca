@@ -331,12 +331,11 @@
       stale_object_error: 'El contenido no pudo ser actualizado, intente nuevamente.'
       new: 'Nuevo contenido'
       new_document: 'Adjuntar archivo'
+      activities: 'Actividades'
       markdown_help:
         html: '<span class="label label-info">Atención</span> dentro del contenido puedes utilizar %{link}'
       empty_index:
         html: 'No se ha creado ningún contenido para este dictado, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo contenido</span>'
-      empty_show:
-        html: 'El contenido está vacio.'
       from_teach:
         html:
           one: 'Contenido de %{teach}'
