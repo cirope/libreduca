@@ -1,13 +1,9 @@
-#c_contents {
-  .nested-actions {
-    margin-top: .5em;
+#c_contents[data-action="show"] #contents_container {
+  .btn-small, .btn-mini {
+    margin: -1em 0em 1em 0em;
   }
 
-  fieldset fieldset, fieldset .btn {
-    margin-left: 2em;
-  }
-
-  fieldset .btn {
-    margin-bottom: 1em;
+  .well.muted {
+    font-size: 85%;
   }
 }

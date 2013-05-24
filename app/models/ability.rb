@@ -28,57 +28,60 @@ class Ability
       headmaster_rules(user, institution) if @job.headmaster?
     end
 
-    default_rules(user, institution) if institution
+    if institution
+      default_rules(user, institution)
+      public_rules(institution)
+    end
   end
 
   def default_rules(user, institution)
     can :edit_profile, User
     can :update_profile, User
     can :manage, Forum
-    can :manage, Comment
-    can :read, Teach, enrollments: { enrollable_id: user.id }
+    can [:read, :create], Comment
+    can :read, Teach, enrollments: { enrollable_id: user.id, enrollable_type: 'User' }
     can :read, Institution, workers: { user_id: user.id }
     can :read, Content
     can :read, Document
     can :read, Question
-    can :read, Reply, user_id: user.id
-    can :create, Reply, user_id: user.id
-    can :update, Reply, user_id: user.id
+    can [:read, :create, :update, :dashboard], Reply, user_id: user.id
     can :read, Image
-    can :read, News
-    can :manage, Vote, user_id: user.id
-
-    public_rules(institution)
+    can [:read, :create, :destroy], Vote, user_id: user.id
   end
 
   def public_rules(institution)
     can :read, Institution
-    can :read, News, institution_id: institution.id
+    can :read, News
     can :read, Tag, institution_id: institution.id
   end
 
   def student_rules(user, institution)
-    can :create, Presentation
+    can [:read, :create], Presentation
   end
 
   def teacher_rules(user, institution)
     enrollments_restrictions = {
-      enrollments: { enrollable_id: user.id, job: 'teacher' }
+      enrollments: { enrollable_id: user.id, enrollable_type: 'User', job: 'teacher' }
     }
     teach_restrictions = { teach: enrollments_restrictions }
+    jobs_restrictions = {
+      institution: { workers: { user_id: user.id, job: 'teacher' } }
+    }
 
     can :read, Enrollment, teach_restrictions
     can :send_email_summary, Enrollment, teach_restrictions
-    can :manage, Teach, enrollments_restrictions
+    can :manage, Teach, jobs_restrictions # TODO: check access
     cannot :destroy, Teach, enrollments_restrictions
-    can :manage, Content, teach_restrictions
-    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
+    can :manage, Content, teach: { course: { grade: jobs_restrictions } }
+    can :create, Survey # TODO: fix
+    can [:read, :update, :destroy], Survey, institution: { id: institution.id }
     can :send_email_summary, Teach, enrollments_restrictions
     can :read, Course, teaches: enrollments_restrictions
     can :read, Grade, courses: { teaches: enrollments_restrictions }
     can :read, User, enrollments_restrictions
     can :manage, Image, institution_id: institution.id
     can :read, Presentation # TODO: check for proper access
+    can [:read, :dashboard], Reply
   end
 
   def janitor_rules(user, institution)
@@ -90,8 +93,9 @@ class Ability
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
     can :manage, Content, teach: { course: { grade: jobs_restrictions } }
-    can :read, Survey # TODO: really check if can read, now is through teaches, so is checked from there...
-    can :manage, Image, jobs_restrictions
+    can :create, Survey # TODO: fix
+    can [:read, :update, :destroy], Survey, grade: { institution_id: institution.id }
+    can :manage, Image, institution_id: institution.id
     can :read, Job, institution_id: institution.id
     can :create, Job, institution_id: institution.id
     can :read, User, jobs: { institution_id: institution.id }
@@ -106,11 +110,12 @@ class Ability
       user.jobs.in_institution(institution).exists?
     end
     can :manage, Presentation # TODO: check for proper access
-    can :manage, News, jobs_restrictions
+    can :manage, News, institution_id: institution.id 
     can :manage, Group, institution_id: institution.id
     can :manage, Membership
     can :read, Enrollment
     can :manage, Tag, institution_id: institution.id
+    can [:read, :dashboard], Reply # TODO: fix
   end
 
   def headmaster_rules(user, institution)
@@ -120,6 +125,6 @@ class Ability
 
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
-    can :manage, Image, jobs_restrictions
+    can :manage, Image, institution_id: institution.id
   end
 end

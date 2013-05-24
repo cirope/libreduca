@@ -27,18 +27,6 @@ class ReplyTest < ActiveSupport::TestCase
     assert_equal new_answer_id, @reply.reload.answer_id
   end
   
-  test 'can not update' do
-    old_answer_id = @reply.answer_id
-
-    @reply.update_column :created_at, 2.days.ago
-
-    assert_no_difference 'Reply.count' do
-      assert !@reply.update_attributes(answer_id: Fabricate(:answer).id)
-    end
-    
-    assert_equal old_answer_id, @reply.reload.answer_id
-  end
-  
   test 'can not destroy' do
     assert_no_difference ['Version.count', 'Reply.count'] do
       @reply.destroy
@@ -51,13 +39,17 @@ class ReplyTest < ActiveSupport::TestCase
     @reply.user = nil
     
     assert @reply.invalid?
-    assert_equal 3, @reply.errors.size
+    assert_equal 5, @reply.errors.size
     assert_equal [error_message_from_model(@reply, :user, :blank)],
       @reply.errors[:user]
     assert_equal [error_message_from_model(@reply, :question, :blank)],
       @reply.errors[:question]
     assert_equal [error_message_from_model(@reply, :answer, :blank)],
       @reply.errors[:answer]
+    assert_equal [error_message_from_model(@reply, :response, :blank)],
+      @reply.errors[:response]
+    assert_equal [error_message_from_model(@reply, :base, :invalid_answer)],
+      @reply.errors[:base]
   end
 
   test 'validates unique attributes' do
@@ -72,5 +64,17 @@ class ReplyTest < ActiveSupport::TestCase
     assert_equal 1, new_reply.errors.size
     assert_equal [error_message_from_model(new_reply, :question, :taken)],
       new_reply.errors[:question]
+  end
+
+  test 'validates reply consistency' do
+    @reply.response = 'Some content'
+
+    assert @reply.invalid?
+    assert_equal 1, @reply.errors.count
+    assert_equal [error_message_from_model(@reply, :base, :invalid_answer)],
+      @reply.errors[:base]
+
+    @reply.answer = nil
+    assert @reply.valid?
   end
 end

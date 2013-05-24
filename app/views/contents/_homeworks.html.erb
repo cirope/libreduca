@@ -1,0 +1,16 @@
+<% @content.homeworks.each do |homework| %>
+  <h3><%= homework %></h3>
+  <%= markdown homework.description if homework.description.present? %>
+
+  <% if current_user_is_student? %>
+    <% presentation = current_user.presentations.for_homework(homework) %>
+
+    <% if presentation %>
+      <%= render template: 'presentations/show', locals: { :@presentation => presentation } %>
+    <% elsif can?(:create, homework.presentations.build) %>
+      <%= render_new_homework_presentation_form(homework) %>
+    <% end %>
+  <% else %>
+    <%= render_new_homework_presentation_form(homework) %>
+  <% end %>
+<% end %>

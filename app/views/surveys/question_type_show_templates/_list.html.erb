@@ -1,0 +1,8 @@
+<div class="form-inputs">
+  <select>
+    <% @question.answers.each do |answer| %>
+      <option><%= answer %></option>
+    <% end %>
+  </select>
+</div>
+<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>

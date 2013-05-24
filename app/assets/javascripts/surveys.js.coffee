@@ -1,3 +1,14 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+new Rule
+  condition: -> $('#c_surveys [data-action="edit"]')
+  load: ->
+    @map.replace_template ||= ->
+      container = $(this).closest('fieldset').find('[data-question-type-template]')
+      templates = $(this).data('question-type-templates')
+      type = $(this).val()
+
+      container.html(templates[type]).effect('highlight', 'slow')
+      container.attr('data-question-type', type) # For integration test purposes
+
+    $(document).on 'change', 'select[data-question-type-templates]', @map.replace_template
+  unload: ->
+    $(document).off 'change', 'select[data-question-type-templates]', @map.replace_template

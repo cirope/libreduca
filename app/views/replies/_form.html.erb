@@ -1,19 +1,19 @@
-<% inline = controller_name != 'replies' %>
-<% question = inline ? question : @question %>
-<% reply = inline ? question.replies.build : @reply %>
-<%= simple_form_for([question, reply], html: { id: "reply_#{reply.object_id}", data: { type: 'html' } }, remote: inline) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for([@question, @reply], reply_form_options) do |f| %>
+  <p><strong><%= @question %></strong></p>
 
-  <p><%= question %></p>
+  <%= render "replies/question_type_templates/#{@question.question_type}", f: f %>
 
-  <div class="form-inputs">
-    <%= f.input :answer_id, label: false, collection: question.answers, as: :radio_buttons %>
-  </div>
-
-  <% unless inline %>
+  <% if reply_rendered_inline? %>
+    <%= link_to(
+      t('label.cancel'),
+      [@question, @reply],
+      class: 'btn btn-mini',
+      data: { remote: true }
+    ) if @reply.persisted? %>
+  <% else %>
     <div class="form-actions">
       <div class="pull-right"><%= yield :form_actions %></div>
-      <%= f.button :submit, class: 'btn btn-primary' %>
+      <%= f.button :submit, class: 'btn-primary' %>
     </div>
   <% end %>
 <% end %>

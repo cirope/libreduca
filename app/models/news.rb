@@ -1,4 +1,6 @@
 class News < ActiveRecord::Base
+  include Visitable
+  include Commentable
 
   self.per_page = 6 
 
@@ -29,9 +31,7 @@ class News < ActiveRecord::Base
   # Relations
   belongs_to :institution
   has_many :images, as: :owner, dependent: :destroy
-  has_many :comments, as: :commentable, dependent: :destroy
   has_many :votes, as: :votable, dependent: :destroy
-  has_many :visits, as: :visited, dependent: :destroy
   has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
 
@@ -80,12 +80,8 @@ class News < ActiveRecord::Base
     self.votes.where(user_id: user.id).first
   end
 
-  def visited_by?(user)
-    self.visits.where(user_id: user.id).exists?
-  end
-
-  def visited_by(user)
-    self.visits.create!(user: user) unless self.visited_by?(user)
+  def users_to_notify(user, institution)
+    []
   end
 
   def self.filtered_list(query)

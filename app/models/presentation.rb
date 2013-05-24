@@ -1,5 +1,7 @@
 class Presentation < ActiveRecord::Base
-  has_paper_trail
+  include Commentable
+
+  has_paper_trail ignore: :comments_count
 
   mount_uploader :file, FileUploader
 
@@ -23,9 +25,15 @@ class Presentation < ActiveRecord::Base
   belongs_to :user
   belongs_to :homework
   has_one :content, through: :homework
+  has_one :teach, through: :content
+  has_many :users, through: :comments
 
   def to_s
     self.file.present? ? self.file.file.identifier : '-'
+  end
+
+  def anchor
+    "presentation-#{self.id}"
   end
 
   def check_current_teach
@@ -40,6 +48,14 @@ class Presentation < ActiveRecord::Base
 
   def self.for_homework(homework)
     self.where(homework_id: homework.id).first
+  end
+
+  def can_vote_comments?
+    false
+  end
+
+  def users_to_notify(user, institution)
+    self.users.is_not(user)
   end
 
   private

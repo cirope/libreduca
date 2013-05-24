@@ -1,3 +1,17 @@
-// Place all the styles related to the surveys controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#c_surveys {
+  fieldset fieldset, fieldset .btn {
+    margin-left: 2em;
+  }
+
+  fieldset .btn {
+    margin-bottom: 1em;
+  }
+
+  .nested-actions {
+    margin-top: .5em;
+  }
+
+  .well.muted {
+    font-size: 85%;
+  }
+}

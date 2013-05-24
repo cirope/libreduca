@@ -55,7 +55,7 @@ class HomeworkTest < ActiveSupport::TestCase
     assert @homework.invalid?
     assert_equal 1, @homework.errors.size
     assert_equal [
-      I18n.t('errors.messages.on_or_after', restriction: I18n.l(Date.today))
+      I18n.t('errors.messages.on_or_after', restriction: I18n.l(Time.zone.today))
     ], @homework.errors[:closing_at].sort
   end
 

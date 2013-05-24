@@ -1,0 +1,1 @@
+$('#question_<%= @reply.question.to_param %>_form').replaceWith('<%= j render('replies/panel', :@question => @reply.question) %>');

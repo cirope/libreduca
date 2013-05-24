@@ -1,27 +1,32 @@
-<div class="readonly-data">
-  <div class="page-header">
-    <h1>
-      <%= @forum %>
-    </h1>
-      <p>
-        <%= t(
-          'view.forums.created_by.html',
-          user: @forum.user.to_s,
-          distance_time: distance_of_time_in_words_to_now(@forum.created_at) 
-        ) %>
-        
-        <% if @forum.info.present? %>
-          | <%= @forum.info %>
-        <% end %>
-      </p>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="readonly-data">
+      <div class="page-header">
+        <h1>
+          <%= @forum %>
+        </h1>
+          <p>
+            <%= t(
+              'view.forums.created_by.html',
+              user: @forum.user.to_s,
+              distance_time: distance_of_time_in_words_to_now(@forum.created_at) 
+            ) %>
+            
+            <% if @forum.info.present? %>
+              | <%= @forum.info %>
+            <% end %>
+          </p>
+      </div>
+
+      <blockquote>
+        <%= markdown @forum.topic %>
+      </blockquote>
+
+    </div>
+
+    <%= render template: 'comments/index',
+      locals: { :@comments => @forum.comments.page(1), :@commentable => @forum } %>
   </div>
-
-  <blockquote>
-    <%= markdown @forum.topic %>
-  </blockquote>
-
-  <%= render template: 'comments/index', 
-    locals: { :@comments => @forum.comments.page(1), :@commentable => @forum } %>
 </div>
 
 <div class="form-actions">

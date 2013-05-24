@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
   setup do
-    @comment = Fabricate(:comment_forum)
+    @comment = Fabricate(:comment)
     @commentable = @comment.commentable
     @user = @comment.user
   end
@@ -10,7 +10,7 @@ class CommentTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference 'Comment.count' do
       @comment = @commentable.comments.build(
-        Fabricate.attributes_for(:comment_forum).slice(
+        Fabricate.attributes_for(:comment).slice(
           *Comment.accessible_attributes
         )
       )

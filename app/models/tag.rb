@@ -18,8 +18,8 @@ class Tag < ActiveRecord::Base
 
   # Validations
   validates :name, :category, :tagger_type, presence: true
-  validates :name, uniqueness: { case_sensitive: false }, allow_nil: true,
-    allow_blank: true
+  validates :name, uniqueness: { case_sensitive: false, scope: :institution_id }, 
+    allow_nil: true, allow_blank: true
   validates :name, length: { maximum: 255 }, allow_nil: true, 
     allow_blank: true
   validates :category, inclusion: { in: CATEGORIES }, allow_nil: true,

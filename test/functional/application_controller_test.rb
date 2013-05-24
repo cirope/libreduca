@@ -35,7 +35,6 @@ class ApplicationControllerTest < ActionController::TestCase
     @request.host = "#{institution.identification}.libreduca.com"
 
     assert_not_nil @controller.send(:set_current_institution)
-    assert_not_nil @controller.send(:load_enrollments)
     assert @controller.send(:current_enrollments).size > 0
     assert_equal user.enrollments.sorted_by_name.to_a,
       @controller.send(:current_enrollments).to_a

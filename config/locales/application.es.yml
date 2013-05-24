@@ -11,9 +11,6 @@
       answer:
         one: 'Opción'
         other: 'Opciones'
-      block:
-        one: 'Sección'
-        other: 'Secciones'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
@@ -102,9 +99,6 @@
     attributes:
       answer:
         content: 'Respuesta'
-      block:
-        content: 'Contenido'
-        position: 'Posición'
       comment:
         comment: 'Comentario'
         info: 'Información adicional'
@@ -125,6 +119,9 @@
         topic: 'Tema'
         info: 'Información adicional'
         user_id: 'Usuario'
+        comments:
+          one: 'Comentario'
+          other: 'Comentarios'
       grade:
         name: 'Nombre'
       group:
@@ -160,6 +157,9 @@
         description: 'Descripción'
         body: 'Contenido'
         published_at: 'Publicación'
+        comments:
+          one: 'Comentario'
+          other: 'Comentarios'
         tags:
           one: 'Etiqueta'
           other: 'Etiquetas'
@@ -167,6 +167,7 @@
         file: 'Archivo'
       question:
         content: 'Pregunta'
+        hint: 'Indicio o aclaración'
       question/answer:
         content: 'Respuesta'
       region:
@@ -176,6 +177,7 @@
       reply:
         question: 'Pregunta'
         answer: 'Opción'
+        response: 'Respuesta'
       score:
         score: 'Calificación'
         multiplier: 'Multiplicador'
@@ -233,6 +235,13 @@
       vote:
         vote_flag: 'Votar'
 
+    errors:
+      models:
+        reply:
+          attributes:
+            base:
+              invalid_answer: 'Debe elegir una opción o contestar'
+
   date:
     formats:
       minimal: '%d/%m/%y'
@@ -240,6 +249,11 @@
   errors:
     title: 'Error'
     access_denied: 'No tiene permisos para acceder al contenido'
+
+  helpers:
+    submit:
+      reply:
+        create: 'Enviar %{model}'
 
   label:
     'yes': 'Si'
@@ -292,12 +306,6 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
-    blocks:
-      new_block: 'Nueva seccion'
-      save: 'Guardar'
-      edit: 'Editar'
-      sort: 'Mover'
-      sorted: 'La posición fue actualizada correctamente'
     charts:
       index_title: 'Organigrama'
       empty_index: 'No hay relaciones a graficar entre usuarios'
@@ -309,11 +317,7 @@
           other: '<p class="muted text-center"><small><span class="badge">%{count}</span> personas a cargo</small></p>'
     comments:
       index_title: 'Listado de comentarios'
-      new_title: 'Nuevo comentario'
-      edit_title: 'Modificar comentario'
       correctly_created: 'Comentario agregado correctamente.'
-      correctly_updated: 'Comentario actualizado correctamente.'
-      stale_object_error: 'El comentario no pudo ser actualizado, intente nuevamente.'
       more_comments: 'Mostrar más comentarios'
       new: 'Nuevo comentario'
       empty_index:
@@ -327,6 +331,7 @@
       stale_object_error: 'El contenido no pudo ser actualizado, intente nuevamente.'
       new: 'Nuevo contenido'
       new_document: 'Adjuntar archivo'
+      activities: 'Actividades'
       markdown_help:
         html: '<span class="label label-info">Atención</span> dentro del contenido puedes utilizar %{link}'
       empty_index:
@@ -497,10 +502,10 @@
       correctly_updated: 'Noticia actualizada correctamente.'
       stale_object_error: 'La noticia no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna noticia hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva noticia</span>'
+        html: 'No se ha creado ninguna noticia hasta el momento.'
       new: 'Nueva noticia'
       new_tag: 'Agregar nueva etiqueta'
-      news: 'Portada'
+      news: 'Noticias de %{institution}'
       previous_news: 'Noticias anteriores'
     presentations:
       index_title: 'Listado de entregas'
@@ -509,6 +514,7 @@
       correctly_created: 'Entrega agregada correctamente.'
       empty_index:
         html: 'No se ha encontrado ninguna entrega para este contenido'
+      homeworks: 'Presentación de tareas'
     regions:
       index_title: 'Listado de regiones'
       show_title: 'Detalle de región'
@@ -529,9 +535,11 @@
       correctly_created: 'Respuesta agregada correctamente.'
       correctly_updated: 'Respuesta actualizada correctamente.'
       stale_object_error: 'La respuesta no pudo ser actualizada, intente nuevamente.'
+      dashboard_title: 'Tablero de respuesta'
       empty_index:
         html: 'No se ha creado ninguna respuesta hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva respuesta</span>'
       new: 'Nueva respuesta'
+      surveys: 'Respuestas de encuestas'
     surveys:
       index_title: 'Listado de encuestas'
       show_title: 'Detalle de encuesta'
@@ -542,6 +550,10 @@
       stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
       empty_index:
         html: 'No se ha creado ninguna encuesta hasta el momento'  
+      question_types:
+        multiple_choice: 'Opciones'
+        list: 'Lista'
+        text: 'Texto'
     teaches:
       index_title: 'Listado de dictados'
       show_title: 'Detalle de dictado'

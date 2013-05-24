@@ -3,28 +3,24 @@ module ContentsHelper
     document.file.identifier || document.file_identifier if document.file?
   end
 
-  def content_next_and_prev_links(teach, content)
-    prev_content = teach.prev_content_for(content)
-    next_content = teach.next_content_for(content)
-    prev_link = link_to(
-      raw(t('will_paginate.previous_label')),
-      prev_content ? [teach, prev_content] : '#',
-      title: prev_content.try(:title), data: { 'show-tooltip' => true }
-    )
-    next_link = link_to(
-      raw(t('will_paginate.next_label')),
-      next_content ? [teach, next_content] : '#',
-      title: next_content.try(:title), data: { 'show-tooltip' => true }
-    )
+  def content_next_and_prev_links
+    prev_content = @teach.prev_content_for(@content)
+    next_content = @teach.next_content_for(@content)
 
-    content =  content_tag(
-      :li, prev_link, class: "previous #{'disabled' unless prev_content}"
-    )
-    content << content_tag(
-      :li, next_link, class: "next #{'disabled' unless next_content}"
-    )
+    content = navigate_to_content_link(prev_content, 'previous')
+    content << navigate_to_content_link(next_content)
 
     content_tag(:ul, content, class: 'pager')
+  end
+
+  def navigate_to_content_link(content, label = 'next')
+    link = link_to(
+      raw(t("will_paginate.#{label}_label")),
+      content ? [@teach, content] : '#',
+      title: content.try(:title), data: { 'show-tooltip' => true }
+    )
+
+    content_tag(:li, link, class: "#{label} #{'disabled' unless content}")
   end
   
   def render_new_homework_presentation_form(homework)
@@ -39,5 +35,13 @@ module ContentsHelper
     @presentations = homework.presentations
 
     render template: 'presentations/index'
+  end
+
+  def show_content_survey?
+    @content.persisted? && !@teach.past? && current_institution
+  end
+
+  def content_has_no_relations?
+    @content.documents.empty? && @content.surveys.empty? && @content.homeworks.empty?
   end
 end

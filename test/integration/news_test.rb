@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class NewsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
 
   setup do
     @institution = Fabricate(:institution)
@@ -19,11 +20,11 @@ class NewsTest < ActionDispatch::IntegrationTest
     fill_in 'news_body', with: @news.body
 
     assert_difference 'News.count' do
-      assert page.has_no_css?('.page-header h1.text-info')
+      assert page.has_no_css?('.page-header h2.text-info')
       
       find('.btn.btn-primary').click
 
-      assert page.has_css?('.page-header h1.text-info')
+      assert page.has_css?('.page-header h2.text-info')
     end
   end
 
@@ -95,7 +96,7 @@ class NewsTest < ActionDispatch::IntegrationTest
   test 'should create a comment in news' do
     news = Fabricate(:news, institution_id: @institution.id)
     comment = Fabricate.build(
-      :comment, commentable_id: news.id, commentable_type: 'News', user_id: nil
+      :comment, commentable_id: news.id, commentable_type: news.class.model_name, user_id: nil
     )
 
     visit news_path(news)
@@ -117,7 +118,7 @@ class NewsTest < ActionDispatch::IntegrationTest
 
   test 'should paginate comments en news' do
     news = Fabricate(:news, institution_id: @institution.id)
-    6.times { Fabricate(:comment, commentable_id: news.id, commentable_type: 'News') }
+    6.times { Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name) }
     
     visit news_path(news)
 
@@ -182,12 +183,12 @@ class NewsTest < ActionDispatch::IntegrationTest
       fill_in find('input[name$="[tag_attributes][name]"]')[:id], with: tag_persisted.name
     end
 
-    assert page.has_no_checked_field?(find('#tags fieldset:nth-child(2) input[value="important"]')[:id])
+    assert !find('#tags fieldset:nth-child(2) input[value="important"]', visible: false).checked?
 
-    find('.ui-autocomplete li.ui-menu-item a').click
+    find('.ui-autocomplete li.ui-menu-item a', visible: false).click
 
-    assert page.has_checked_field?(find('#tags fieldset:nth-child(2) input[value="important"]')[:id])
-
+    assert find('#tags fieldset:nth-child(2) input[value="important"]', visible: false).checked?
+ 
     assert_difference ['News.count', 'Tag.count'] do
       assert_difference 'Tagging.count', 2 do
         find('.btn.btn-primary').click

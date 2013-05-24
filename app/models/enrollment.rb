@@ -91,7 +91,7 @@ class Enrollment < ActiveRecord::Base
         "#{Teach.table_name}.start <= :today",
         "#{Teach.table_name}.finish >= :today"
       ].join(' AND '),
-      today: Date.today
+      today: Time.zone.today
     )
   end
 end

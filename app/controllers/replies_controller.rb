@@ -2,8 +2,11 @@ class RepliesController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource :question
-  load_and_authorize_resource through: :question
+  load_resource :survey, only: [:index, :dashboard]
+  load_resource :question, except: [:index, :dashboard]
+  load_resource :user, only: [:index]
+  load_and_authorize_resource through: :survey, only: [:index, :dashboard]
+  load_and_authorize_resource through: :question, except: [:index, :dashboard]
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
   
@@ -27,6 +30,7 @@ class RepliesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @reply }
+      format.js   # show.js.erb
     end
   end
 
@@ -56,9 +60,11 @@ class RepliesController < ApplicationController
       if @reply.save
         format.html { redirect_to [@question, @reply], notice: t('view.replies.correctly_created') }
         format.json { render json: @reply, status: :created, location: @reply }
+        format.js   # create.js.erb
       else
         format.html { render action: 'new' }
         format.json { render json: @reply.errors, status: :unprocessable_entity }
+        format.js   # create.js.erb
       end
     end
   end
@@ -72,12 +78,19 @@ class RepliesController < ApplicationController
       if @reply.update_attributes(params[:reply])
         format.html { redirect_to [@question, @reply], notice: t('view.replies.correctly_updated') }
         format.json { head :ok }
+        format.js   # update.js.erb
       else
         format.html { render action: 'edit' }
         format.json { render json: @reply.errors, status: :unprocessable_entity }
+        format.js   # update.js.erb
       end
     end
   rescue ActiveRecord::StaleObjectError
     redirect_to edit_question_reply_url(@question, @reply), alert: t('view.replies.stale_object_error')
+  end
+
+  # GET /survey/1/replies/1/dashboard
+  def dashboard
+    @title = t('view.replies.dashboard_title')
   end
 end

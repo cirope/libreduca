@@ -1,10 +1,13 @@
 class Content < ActiveRecord::Base
+  include Visitable
+  include Contents::MagickColumns
+  include Contents::Navigation
+  include Contents::Surveys
+
   has_paper_trail
   
-  has_magick_columns title: :string
-  
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :title, :content, :surveys_attributes, :documents_attributes,
+  attr_accessible :title, :content, :documents_attributes,
     :homeworks_attributes, :lock_version
 
   # Default order
@@ -16,17 +19,10 @@ class Content < ActiveRecord::Base
 
   # Relations
   belongs_to :teach
-  has_many :surveys, dependent: :destroy
   has_many :homeworks, dependent: :destroy
-  has_many :questions, through: :surveys
-  has_many :answers, through: :questions
-  has_many :replies, through: :answers
   has_many :documents, as: :owner, dependent: :destroy
-  has_many :visits, as: :visited, dependent: :destroy
   has_one :institution, through: :teach
 
-  accepts_nested_attributes_for :surveys, allow_destroy: true,
-    reject_if: ->(attrs) { attrs['name'].blank? }
   accepts_nested_attributes_for :homeworks, allow_destroy: true,
     reject_if: ->(attrs) { attrs['name'].blank? }
   accepts_nested_attributes_for :documents, allow_destroy: true,
@@ -36,25 +32,5 @@ class Content < ActiveRecord::Base
 
   def to_s
     self.title
-  end
-
-  def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
-  end
-
-  def visited_by?(user)
-    self.visits.where(user_id: user.id).exists?
-  end
-
-  def visited_by(user)
-    self.visits.create!(user: user) unless self.visited_by?(user)
-  end
-
-  def self.prev_for(content)
-    where("#{table_name}.title < ?", content.title).last
-  end
-
-  def self.next_for(content)
-    where("#{table_name}.title > ?", content.title).first
   end
 end

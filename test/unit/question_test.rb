@@ -33,11 +33,16 @@ class QuestionTest < ActiveSupport::TestCase
   
   test 'validates blank attributes' do
     @question.content = ''
+    @question.question_type = ''
     
     assert @question.invalid?
-    assert_equal 1, @question.errors.size
+    assert_equal 3, @question.errors.size
     assert_equal [error_message_from_model(@question, :content, :blank)],
       @question.errors[:content]
+    assert_equal [
+      error_message_from_model(@question, :question_type, :blank),
+      error_message_from_model(@question, :question_type, :inclusion)
+    ].sort, @question.errors[:question_type].sort
   end
 
   test 'validates length of _long_ attributes' do
@@ -48,5 +53,15 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal [
       error_message_from_model(@question, :content, :too_long, count: 255)
     ], @question.errors[:content]
+  end
+
+  test 'validates attributes inclusion' do
+    @question.question_type = 'wrong'
+    
+    assert @question.invalid?
+    assert_equal 1, @question.errors.size
+    assert_equal [
+      error_message_from_model(@question, :question_type, :inclusion)
+    ], @question.errors[:question_type]
   end
 end

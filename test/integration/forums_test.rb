@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class ForumsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create a new forum in institution' do
     institution = Fabricate(:institution)
     forum = Fabricate.build(:forum, owner_id: institution.id, owner_type: 'Institution')
@@ -44,6 +46,7 @@ class ForumsTest < ActionDispatch::IntegrationTest
   test 'should create a comment in institution as teacher' do
     institution = Fabricate(:institution)
     forum = Fabricate(:forum, owner_id: institution.id, owner_type: 'Institution')
+    3.times.map { Fabricate(:job, institution_id: forum.owner_id) }
     comment = Fabricate.build(
       :comment, commentable_id: forum.id, commentable_type: 'Forum', user_id: nil
     )

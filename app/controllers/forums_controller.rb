@@ -7,6 +7,7 @@ class ForumsController < ApplicationController
   load_and_authorize_resource through: [:institution, :teach]
 
   before_filter :set_owner
+  before_filter :set_comment_anchor, only: :show
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
   
@@ -102,5 +103,9 @@ class ForumsController < ApplicationController
 
   def set_owner
     @owner = @institution || @teach
+  end
+
+  def set_comment_anchor
+    @comment_anchor = Comment.find(params[:show_comment_id]) if params[:show_comment_id].present?
   end
 end

@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
 
   test 'should ask for login' do
     visit new_user_session_path
@@ -10,7 +11,6 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_equal new_user_session_path, current_path
 
     assert_page_has_no_errors!
-    assert page.has_css?('.alert')
   end
 
   test 'should send reset password instructions' do

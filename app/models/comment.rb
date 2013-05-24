@@ -15,12 +15,13 @@ class Comment < ActiveRecord::Base
   default_scope order("#{table_name}.created_at ASC")
 
   # Validations
-  validates :comment, :user_id, :commentable_id, presence: true
+  validates :comment, :user_id, presence: true
   
   # Relations
   belongs_to :user
   belongs_to :commentable, polymorphic: true, counter_cache: true
   has_many :votes, as: :votable, dependent: :destroy
+  has_many :visits, as: :visited, dependent: :destroy
 
   def to_s
     self.comment

@@ -16,17 +16,16 @@ class NewsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:news) 
     assert_select '#unexpected_error', false
-    assert_template "news/index"
-    assert_template layout: 'layouts/embedded', partial: 'shared/_hidden_submit'
+    assert_template "news/index", layout: 'layouts/embedded'
   end
 
   test 'should get public index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:news)
+    assert_equal news_index_url, session[:user_return_to]
     assert_select '#unexpected_error', false
-    assert_template "news/index"
-    assert_template layout: 'layouts/application', partial: 'shared/_hidden_submit'
+    assert_template 'news/index', layout: 'layouts/application'
   end
 
   test 'should get index' do
@@ -66,8 +65,7 @@ class NewsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:news)
     assert_select '#unexpected_error', false
-    assert_template "news/show"
-    assert_template layout: 'layouts/embedded', partial: 'shared/_hidden_submit'
+    assert_template "news/show", layout: 'layouts/embedded'
   end
 
   test 'should show public news' do
@@ -75,8 +73,7 @@ class NewsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:news)
     assert_select '#unexpected_error', false
-    assert_template "news/show"
-    assert_template layout: 'layouts/application', partial: 'shared/_hidden_submit'
+    assert_template "news/show", layout: 'layouts/application'
   end
 
   test 'should show news' do

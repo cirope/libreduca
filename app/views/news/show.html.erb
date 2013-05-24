@@ -1,17 +1,18 @@
 <div class="readonly-data">
   <%= render 'navbar' %>
-  <div class="readonly-data">
-    <div class="badge badge-link">
-      <%= link_to t('label.back'), embedded_news_index_path %>
-    </div>
-    <div class="page-header">
-      <h1 class="text-info"><%= @news %></h1>
-      <%= markdown @news.description if @news.description.present? %>
-    </div>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="badge badge-link">
+        <%= link_to t('label.back'), embedded_news_index_path %>
+      </div>
 
-    <div class="media">
+      <div class="page-header">
+        <h2 class="text-info"><%= @news %></h2>
+        <%= markdown @news.description if @news.description.present? %>
+      </div>
+
       <% if user_signed_in? && @news.images.present? %>
-        <div class="pull-left launch-modal">
+        <div class="pull-left launch-modal tag">
           <a href="#modal-carousel" data-toggle="modal">
             <%== @news.images.first.to_html(:normal) %>
           </a>
@@ -23,31 +24,31 @@
       <p class="muted">
         <span><%= l @news.published_at.to_date, format: :long %></span>
         <% if user_signed_in? %>
-          <span>| <%= link_to_comments(@news, '#comments') %></span>
+          <span>| <%= link_to_comments(@news, '#comments-header') %></span>
         <% end %>
       </p>
       <%= markdown @news.body if @news.body.present? %>
-    </div>
 
-    <% unless @news.tags.empty? %>
-      <div class="news_info">
-        <strong><%= News.human_attribute_name 'tags', count: @news.tags.size %></strong>:
-        <%== show_tags_nav(@news, embedded: params[:embedded]) %>
-      </div>
-    <% end %>
+      <% unless @news.tags.empty? %>
+        <div class="news_info">
+          <strong><%= News.human_attribute_name 'tags', count: @news.tags.size %></strong>:
+          <%== show_tags_nav(@news, embedded: params[:embedded]) %>
+        </div>
+      <% end %>
 
-    <% if user_signed_in? %>
-      <div class="news_info" id="<%= @news.anchor_vote %>">
-        <% vote = @news.voted_by(current_user) || @news.votes.build %>
-        <%= vote.new_record? ? link_to_like(vote) : link_to_dislike(vote) %>
-      </div>
+      <% if user_signed_in? %>
+        <div class="news_info" id="<%= @news.anchor_vote %>">
+          <% vote = @news.voted_by(current_user) || @news.votes.build %>
+          <%= vote.new_record? ? link_to_like(vote) : link_to_dislike(vote) %>
+        </div>
+      
+        <%= render template: 'comments/index', 
+          locals: { :@comments => @news.comments.page(1), :@commentable => @news } %>
+      <% end %>
     
-      <%= render template: 'comments/index', 
-        locals: { :@comments => @news.comments.page(1), :@commentable => @news } %>
-    <% end %>
-  
-    <div class="badge badge-link">
-      <%= link_to t('label.back'), embedded_news_index_path %>
+      <div class="badge badge-link">
+        <%= link_to t('label.back'), embedded_news_index_path %>
+      </div>
     </div>
   </div>
 </div>

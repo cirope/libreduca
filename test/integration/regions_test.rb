@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class RegionsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should add districts to region' do
     login
     

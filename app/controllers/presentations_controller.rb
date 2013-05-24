@@ -5,8 +5,8 @@ class PresentationsController < ApplicationController
   
   check_authorization
   load_resource :content
-  load_resource :homework, through: :content
-  load_and_authorize_resource through: :homework
+  load_resource :homework, through: :content, shallow: true
+  load_and_authorize_resource through: [:homework, :content]
 
   
   # GET /presentations

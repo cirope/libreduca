@@ -1,0 +1,4 @@
+<div class="form-inputs">
+  <%= content_tag :textarea, Reply.human_attribute_name('response'), disabled: true, rows: 4, class: 'span11' %>
+</div>
+<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>

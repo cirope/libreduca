@@ -2,10 +2,12 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :file, input_html: {
-      id: "presentation_file_#{@homework.to_param}",
-      data: { 'fileupload' => true, 'fileupload-autosubmit' => true }
-    } %>
+    <%= f.input :file, disabled: !current_user_is_student?,
+      input_html: {
+        id: "presentation_file_#{@homework.to_param}",
+        data: { 'fileupload' => true, 'fileupload-autosubmit' => true }
+      } 
+    %>
   </div>
 <% end %>
 

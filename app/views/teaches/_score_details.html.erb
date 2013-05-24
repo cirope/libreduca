@@ -1,0 +1,14 @@
+<ul>
+  <li>
+    <strong><%= Score.human_attribute_name('multiplier') %></strong>
+    <%= number_with_precision(score.multiplier) %>
+  </li>
+  <li>
+    <strong><%= Score.human_attribute_name('created_at') %></strong>
+    <%= l(score.created_at, format: :long) %>
+  </li>
+  <li>
+    <strong><%= Score.human_attribute_name('whodunnit') %></strong>
+    <%= User.find(score.originator) rescue '-' %>
+  </li>
+</ul>

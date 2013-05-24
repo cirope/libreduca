@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class ContentsTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create a new content' do
     login
 
@@ -13,38 +15,6 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
     fill_in Content.human_attribute_name('title'), with: content.title
     fill_in Content.human_attribute_name('content'), with: content.content
-
-    survey = Fabricate.build(:survey, content_id: nil)
-
-    click_link Survey.model_name.human(count: 0)
-
-    assert page.has_no_css?('#surveys_content fieldset')
-
-    click_link I18n.t('view.contents.surveys.new')
-
-    within '#surveys_content fieldset' do
-      fill_in find('input[name$="[name]"]')[:id], with: survey.name
-
-      question = Fabricate.build(:question, survey_id: nil)
-
-      assert page.has_no_css?('fieldset')
-
-      click_link I18n.t('view.contents.surveys.new_question')
-
-      within 'fieldset' do
-        fill_in find('input[name$="[content]"]')[:id], with: question.content
-
-        answer = Fabricate.build(:answer, question_id: nil)
-
-        assert page.has_no_css?('fieldset')
-
-        click_link I18n.t('view.contents.surveys.new_answer')
-
-        within 'fieldset' do
-          fill_in find('input[name$="[content]"]')[:id], with: answer.content
-        end
-      end
-    end
 
     document = Fabricate.build(:document, owner_id: nil)
 
@@ -93,12 +63,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
       find('a.ui-state-default.ui-state-highlight').click
      end
 
-    counts = [
-      'Content.count', 'Survey.count', 'Question.count', 'Answer.count',
-      'Homework.count'
-    ]
-
-    assert_difference counts do
+    assert_difference ['Content.count', 'Homework.count'] do
       assert_difference 'Document.count', 2 do
         find('.btn.btn-primary').click
       end
@@ -148,47 +113,14 @@ class ContentsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should hide and mark for destruction a survey' do
-    login
-
-    content = Fabricate(:content)
-    survey = Fabricate(:survey, content_id: content.id)
-
-    2.times do
-      question = Fabricate(:question, survey_id: survey.id)
-
-      3.times { Fabricate(:answer, question_id: question.id) }
-    end
-
-    visit edit_teach_content_path(content.teach, content)
-
-    click_link Survey.model_name.human(count: 0)
-
-    assert page.has_css?('#surveys_content fieldset')
-
-    within '#surveys_content fieldset:first-child' do
-      first('a[data-dynamic-target=".survey"]').click # Destroy link
-    end
-
-    assert_no_difference 'Content.count' do
-      assert_difference 'content.surveys.count', -1 do
-        assert_difference 'Question.count', -2 do
-          assert_difference 'Answer.count', -6 do
-            find('.btn.btn-primary').click
-          end
-        end
-      end
-    end
-  end
-
   test 'should answer a survey' do
     content = Fabricate(:content)
     survey = Fabricate(:survey, content_id: content.id)
 
-    2.times do
-      question = Fabricate(:question, survey_id: survey.id)
+    Question::TYPES.each do |qt|
+      question = Fabricate(:question, survey_id: survey.id, question_type: qt)
 
-      3.times { Fabricate(:answer, question_id: question.id) }
+      3.times { Fabricate(:answer, question_id: question.id) } unless question.text?
     end
 
     login_into_institution institution: content.institution, as: 'student'
@@ -201,14 +133,86 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
     visit teach_content_path(content.teach, content)
 
-    assert page.has_css?('form.new_reply input')
+    assert page.has_css?('form.new_reply')
 
-    assert_difference 'Reply.count', 2 do
-      all('form.new_reply').each do |form|
-        form.first(:css, 'input[type="radio"]').click
+    assert_difference 'Reply.count', Question::TYPES.size do
+      within('form.new_reply .control-group.radio_buttons') do
+        first(:css, 'input[type="radio"]').click
       end
 
+      within('form.new_reply .control-group.select') do
+        select find('select option:nth-child(2)').text, from: find('select')[:id]
+      end
+
+      within('form.new_reply .control-group.text') do
+        fill_in find('textarea')[:id], with: 'Some response'
+      end
+
+      find('form.new_reply .btn').click
+
       assert page.has_no_css?('form.new_reply')
+    end
+  end
+
+  test 'should edit a survey' do
+    content = Fabricate(:content)
+    survey = Fabricate(:survey, content_id: content.id)
+
+    login_into_institution institution: content.institution, as: 'student'
+
+    Fabricate(
+      :enrollment,
+      enrollable_id: @test_user.id,
+      teach_id: content.teach_id, job: 'student'
+    )
+
+    Question::TYPES.each do |qt|
+      question = Fabricate(:question, survey_id: survey.id, question_type: qt)
+
+      if question.text?
+        Fabricate(
+          :reply,
+          user_id: @test_user.id,
+          question_id: question.id,
+          answer_id: nil, response: 'Some response'
+        )
+      else
+        3.times { Fabricate(:answer, question_id: question.id) }
+
+        Fabricate(
+          :reply,
+          user_id: @test_user.id, 
+          question_id: question.id,
+          answer_id: question.answers.last.id
+        )
+      end
+    end
+
+    visit teach_content_path(content.teach, content)
+
+    assert page.has_no_css?('form.edit_reply')
+
+    all('a[data-remote][href$="/edit"]').each &:click
+
+    assert page.has_no_css?('a[data-remote][href$="/edit"]')
+    assert page.has_css?('form.edit_reply')
+
+    assert_no_difference 'Reply.count' do
+      within('form.edit_reply .control-group.radio_buttons') do
+        first(:css, 'input[type="radio"]').click
+      end
+
+      within('form.edit_reply .control-group.select') do
+        select find('select option:nth-child(2)').text, from: find('select')[:id]
+      end
+
+      within('form.edit_reply .control-group.text') do
+        fill_in find('textarea')[:id], with: 'Some updated response'
+      end
+
+      find('form.edit_reply input.btn').click
+
+      assert page.has_no_css?('form.edit_reply')
     end
   end
 

@@ -1,14 +1,18 @@
 class Question < ActiveRecord::Base
+  include Questions::Type
+  include Questions::Users
+
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :content, :answers_attributes, :lock_version
+  attr_accessible :content, :hint, :question_type, :required,
+    :answers_attributes, :lock_version
 
   # Scopes
   default_scope order("#{table_name}.content ASC")
 
   # Validations
-  validates :content, presence: true
+  validates :content, :question_type, presence: true
   validates :content, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
 
@@ -19,16 +23,10 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :answers, allow_destroy: true,
     reject_if: ->(attrs) { attrs['content'].blank? }
+  accepts_nested_attributes_for :replies, allow_destroy: true,
+    reject_if: ->(attrs) { attrs['content'].blank? || attrs['answer_id'].blank? }
 
   def to_s
     self.content
-  end
-
-  def has_been_answered_by?(user)
-    self.replies.where(user_id: user.id).exists?
-  end
-
-  def reply_by(user)
-    self.replies.where(user_id: user.id).first
   end
 end

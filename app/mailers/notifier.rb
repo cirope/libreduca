@@ -1,6 +1,9 @@
 class Notifier < ActionMailer::Base
   layout 'notifier_mailer'
+
   helper :application
+  helper :markdown
+
   default from: "'#{I18n.t('app_name')}' <#{APP_CONFIG['support_email']}>"
 
   def enrollment_status(enrollment)
@@ -31,11 +34,10 @@ class Notifier < ActionMailer::Base
     )
   end
 
-  def new_comment(comment, institution)
+  def new_comment(comment, institution, users)
     @institution = institution
     @comment = comment
     @commentable = @comment.commentable
-    users = @commentable.users
 
     mail(
       subject: t(

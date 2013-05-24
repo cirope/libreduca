@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class UsersTest < ActionDispatch::IntegrationTest
+  include Integration::Login
+
   test 'should create a new user with jobs' do
     login
 

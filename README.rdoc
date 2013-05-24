@@ -1,7 +1,6 @@
 = Libreduca
 
-Web gradebook for share notes, grades and comments between an education
-community
+Web gradebook to share notes, grades and comments between members in an educational community
 
 === Build Status {<img src="https://secure.travis-ci.org/francocatena/libreduca.png"/>}[http://travis-ci.org/francocatena/libreduca]
   

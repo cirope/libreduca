@@ -4,10 +4,7 @@
 
   <div class="form-inputs">
     <%= f.input :title, input_html: { autofocus: true } %>
-    <%= f.input :content, input_html: { rows: 10 }, hint: t(
-      'view.contents.markdown_help.html',
-      link: link_to('markdown', '#markdown-help', data: { toggle: 'modal' })
-    ) %>
+    <%= f.input :content, input_html: { rows: 10 }, hint: markdown_help_link %>
 
     <ul class="nav nav-tabs">
       <li class="active">
@@ -24,7 +21,7 @@
           data: { toggle: 'tab' }
         ) %>
       </li>
-      <% unless @teach.past? %>
+      <% if show_content_survey? %>
         <li>
           <%= link_to(
             Survey.model_name.human(count: 0),
@@ -52,13 +49,24 @@
         <%= link_to_add_fields t('view.contents.homeworks.new'), f, :homeworks %>
       </div>
 
-      <% unless @teach.past? %>
+      <% if show_content_survey? %>
         <div class="tab-pane" id="surveys_content">
-          <%= f.simple_fields_for :surveys do |sf| %>
-            <%= render partial: 'survey', locals: { f: sf } %>
-          <% end %>
+          <% unless @content.surveys.empty? %>
+            <table class="table">
+              <%= render 'surveys/survey_headers' %>
 
-          <%= link_to_add_fields t('view.contents.surveys.new'), f, :surveys %>
+              <tbody>
+                <% @content.surveys.each do |survey| %>
+                  <%= render survey %>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+          <%= link_to(
+            t('view.contents.surveys.new'),
+            new_content_survey_path(@content),
+            class: 'btn btn-small'
+          ) if can? :create, @content.surveys.build %>
         </div>
       <% end %>
     </div>

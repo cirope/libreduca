@@ -1,11 +1,11 @@
-<div id="news_form">
-  <%= simple_form_for(@news, defaults: { input_html: { class: 'span11' } }) do |f| %>
-    <%= f.error_notification %>
+<%= simple_form_for(@news, defaults: { input_html: { class: 'span12' } }) do |f| %>
+  <%= f.error_notification %>
 
+  <div class="row-fluid">
     <div class="form-inputs">
       <%= f.input :title, input_html: { autofocus: true, maxlength: 255 } %>
       <%= f.input :description, input_html: { rows: 3 } %>
-      <%= f.input :body, input_html: { rows: 4 } %>
+      <%= f.input :body, hint: markdown_help_link, input_html: { rows: 4 } %>
       <%= f.input :published_at, as: :date_picker, input_html: { 
         value: l(@news.published_at, format: :shorter), class: 'span3' } %>
 
@@ -33,17 +33,18 @@
         <%= f.button :submit, class: 'btn-primary' %> 
       </div>
     <% end %>
-  <% end %>
+  </div>
+<% end %>
 
-  <% if @news.persisted? %>
-    <hr />
-    <%= render partial: 'images/image_show', collection: @news.images, as: :image %>
+<% if @news.persisted? %>
+  <hr />
+  <%= render partial: 'images/image_show', collection: @news.images, as: :image %>
 
-    <%= render template: 'images/new', 
-      locals: { :@image => @news.images.build, :@owner => @news } %>
+  <%= render template: 'images/new', 
+    locals: { :@image => @news.images.build, :@owner => @news } %>
 
-    <div class="form-actions">
-      <div class="pull-right"><%= yield :form_actions %></div>
-    </div>
-  <% end %>
-</div>
+  <div class="form-actions">
+    <div class="pull-right"><%= yield :form_actions %></div>
+  </div>
+<% end %>
+<%= render 'help/markdown_inline' %>
