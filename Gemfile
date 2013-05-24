@@ -22,6 +22,7 @@ gem 'capistrano'
 gem 'newrelic_rpm'
 # Must be outside assets because a constant is used in the initializers
 gem 'jquery-fileupload-rails'
+gem 'coveralls', require: false
 
 group :assets do
   gem 'sass-rails'
@@ -35,7 +36,6 @@ end
 
 group :test do
   gem 'turn', require: false
-  gem 'minitest', require: false
   gem 'capybara', require: false
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
