@@ -3,6 +3,9 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 require 'sidekiq/testing/inline'
+require 'coveralls'
+
+Coveralls.wear!
 
 require_relative 'concerns/integration/login'
 
