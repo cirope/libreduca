@@ -73,7 +73,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     
     assert_page_has_no_errors!
     
-    within '.login' do
+    within '#new_user' do
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: clean_password
       
