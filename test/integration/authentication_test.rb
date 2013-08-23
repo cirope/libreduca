@@ -6,7 +6,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   setup do
     @institution = Fabricate(:institution)
   end
-  
+
   test 'should be able to login and logout as admin' do
     login
     
@@ -21,13 +21,13 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
       assert page.has_content?(I18n.t('devise.sessions.signed_out'))
     end
   end
-  
+
   test 'should be able to login as related to institution' do
     assert_difference 'Login.count' do
       login_into_institution institution: @institution
     end
   end
-  
+
   test 'should not be able to login as no related to institution' do
     Capybara.app_host = "http://#{@institution.identification}.lvh.me:54163"
     
@@ -37,7 +37,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
       invalid_login user: user, clean_password: '123456'
     end
   end
-  
+
   test 'should normal user be redirected to his own subdomain in admin page' do
     user = Fabricate(:user, password: '123456', roles: [:normal])
     
@@ -63,7 +63,6 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     assert_match launchpad_path, current_path
   end
 
-  
   private
   
   def invalid_login(options = {})

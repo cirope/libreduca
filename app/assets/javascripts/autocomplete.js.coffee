@@ -16,10 +16,10 @@ jQuery ($) ->
             response $.map data, (item) ->
               content = $('<div></div>')
 
-              content.append $('<span class="title"></span>').text(item.label)
+              content.append item.label
 
               if item.informal
-                content.append $('<small></small>').text(item.informal)
+                content.append item.informal
 
               { label: content.html(), value: item.label, item: item }
       type: 'get'

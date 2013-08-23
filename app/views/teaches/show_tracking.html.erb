@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th><%= translate_teach_enrollment_type('student', 1) %></th>
+        <th><%= User.human_attribute_name 'email' %></th>
         <th><%= t('view.teaches.visited_content') %></th>
         <th><%= t('view.teaches.questions_answered') %></th>
       </tr>
@@ -13,6 +14,7 @@
       <% @teach.enrollments.only_students.each do |enrollment| %>
         <tr>
           <td><%= enrollment.enrollable %></td>
+          <td><%= enrollment.enrollable.try(:email) %></td>
           <td><%= show_teach_visit_progress_to(@teach, enrollment.enrollable) %></td>
           <td><%= show_teach_survey_progress_to(@teach, enrollment.enrollable) %></td>
         </tr>
