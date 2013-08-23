@@ -16,10 +16,10 @@ jQuery ($) ->
             response $.map data, (item) ->
               content = $('<div></div>')
 
-              content.append item.label
+              content.append $('<span class="title"></span>').text(item.label)
 
               if item.informal
-                content.append item.informal
+                content.append $('<small></small>').text(item.informal)
 
               { label: content.html(), value: item.label, item: item }
       type: 'get'
@@ -36,7 +36,7 @@ jQuery ($) ->
         false
       open: -> $('.ui-menu').css('width', input.width())
 
-    input.data('autocomplete')._renderItem = (ul, item) ->
+    input.data('ui-autocomplete')._renderItem = (ul, item) ->
       $('<li></li>').data('item.autocomplete', item).append(
         $('<a></a>').html(item.label)
       ).appendTo(ul)
