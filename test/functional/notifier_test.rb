@@ -41,7 +41,6 @@ class NotifierTest < ActionMailer::TestCase
     assert !mail.bcc.include?(random_user.email)
     assert_nil mail.to
     assert_equal [APP_CONFIG['support_email']], mail.from
-    assert_match I18n.t('notifier.new_forum.greeting.html'), mail.body.encoded
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
       mail.deliver

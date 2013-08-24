@@ -1,20 +1,20 @@
 require 'bundler/capistrano'
 require 'sidekiq/capistrano'
 
+default_run_options[:shell] = '/bin/bash --login'
+
+server 'libreduca.com', :web, :app, :db, primary: true
+
 set :application, 'libreduca'
-set :repository,  'https://github.com/francocatena/libreduca.git'
-set :deploy_to, '/var/rails/libreduca'
 set :user, 'deployer'
+set :repository,  'https://github.com/francocatena/libreduca.git'
+set :deploy_to, "/home/#{user}/apps/#{application}"
 set :group_writable, false
 set :shared_children, %w(log private public/system)
 set :use_sudo, false
 
 set :scm, :git
 set :branch, 'master'
-
-role :web, 'libreduca.com'
-role :app, 'libreduca.com'
-role :db, 'libreduca.com', primary: true
 
 before 'deploy:finalize_update', 'deploy:create_shared_symlinks'
 after 'deploy:update_code', 'deploy:create_tmp_pids_symlink'
