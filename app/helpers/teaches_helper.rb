@@ -112,6 +112,7 @@ module TeachesHelper
     CSV.generate(col_sep: ';') do |csv|
       csv << [
         translate_teach_enrollment_type('student', 1),
+        User.human_attribute_name('email'),
         t('view.teaches.visited_content'),
         t('view.teaches.questions_answered')
       ]
@@ -119,6 +120,7 @@ module TeachesHelper
       @teach.enrollments.only_students.each do |enrollment|
         csv << [
           enrollment.enrollable.to_s,
+          enrollment.enrollable.email,
           show_teach_visit_progress_to(@teach, enrollment.enrollable),
           show_teach_survey_progress_to(@teach, enrollment.enrollable)
         ]

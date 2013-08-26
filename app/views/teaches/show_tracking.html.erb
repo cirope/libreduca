@@ -14,7 +14,7 @@
       <% @teach.enrollments.only_students.each do |enrollment| %>
         <tr>
           <td><%= enrollment.enrollable %></td>
-          <td><%= enrollment.enrollable.try(:email) %></td>
+          <td><%= enrollment.enrollable.email %></td>
           <td><%= show_teach_visit_progress_to(@teach, enrollment.enrollable) %></td>
           <td><%= show_teach_survey_progress_to(@teach, enrollment.enrollable) %></td>
         </tr>
