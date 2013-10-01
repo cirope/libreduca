@@ -7,6 +7,7 @@
       <tr>
         <th><%= Score.human_attribute_name 'user_id' %></th>
         <th colspan="<%= grouped_scores.first.last.size %>"></th>
+        <th><%= User.human_attribute_name 'scores_average' %></th>
       </tr>
     </thead>
     <tbody>
@@ -27,6 +28,9 @@
           <% scores.each do |score| %>
             <td><%= show_teach_score_details score %></td>
           <% end %>
+          <td>
+            <%= show_dashboard_score(@teach.enrollment_for(user).score_average) %>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -232,6 +232,7 @@
         roles:
           one: 'Perfil'
           other: 'Perfiles'
+        scores_average: 'Promedio'
       vote:
         vote_flag: 'Votar'
 
