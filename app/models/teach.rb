@@ -86,4 +86,8 @@ class Teach < ActiveRecord::Base
       "#{Institution.table_name}.id = ?", institution.id
     )
   end
+
+  def current_scores
+    self.scores.where(user_id: self.users.pluck("#{User.table_name}.id"))
+  end
 end

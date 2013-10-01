@@ -43,7 +43,7 @@ module TeachesHelper
     max = 0
     tmp_scores = {}
 
-    teach.scores.each do |score|
+    teach.current_scores.each do |score|
       tmp_scores[score.user_id] ||= []
       tmp_scores[score.user_id] << score
 
