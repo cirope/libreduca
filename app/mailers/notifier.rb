@@ -1,4 +1,6 @@
 class Notifier < ActionMailer::Base
+  include MandrillHeaders
+
   layout 'notifier_mailer'
 
   helper :application

@@ -1,4 +1,6 @@
 class DeviseNotifier < Devise::Mailer 
+  include MandrillHeaders
+
   def token_instructions(record, opts = {})
     devise_mail(record, :token_instructions, opts)
   end
