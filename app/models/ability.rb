@@ -37,7 +37,7 @@ class Ability
   def default_rules(user, institution)
     can :edit_profile, User
     can :update_profile, User
-    can :manage, Forum
+    can :read, Forum
     can [:read, :create], Comment
     can :read, Teach, enrollments: { enrollable_id: user.id, enrollable_type: 'User' }
     can :read, Institution, workers: { user_id: user.id }
