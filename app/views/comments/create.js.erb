@@ -1,5 +1,5 @@
 <% if @comment.persisted? %>
-  $('#comments').append('<%= j render(@comment) %>');
+  $('#comments-header').after('<%= j render(@comment) %>');
 
   $("#<%= @comment.anchor %>").effect('highlight', 'slow');
 

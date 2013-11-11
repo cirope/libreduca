@@ -8,6 +8,8 @@
 <div class="row-fluid">
   <div class="span12">
     <div class="readonly-data">
+      <%= render 'comments/form' %>
+
       <div id="comments">
         <hr />
         <h3 id="comments-header">
@@ -20,8 +22,6 @@
 
         <%= render @comment_anchor if @comment_anchor && !@comments.include?(@comment_anchor) %>
       </div>
-
-      <%= render 'comments/form' %>
     </div>
   </div>
 </div>

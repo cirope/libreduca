@@ -1,4 +1,5 @@
-<div id="<%= comment.anchor %>" class="media">
+<span class="comment-anchor" id="<%= comment.anchor %>"></span>
+<div class="media">
   <div class="pull-left">
     <% if comment.user.avatar? %>
       <%= show_user_avatar(comment.user, :micro_thumb) %>

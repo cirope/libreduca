@@ -12,7 +12,7 @@ class Comment < ActiveRecord::Base
   attr_readonly :user_id
 
   # Default order
-  default_scope order("#{table_name}.created_at ASC")
+  default_scope order("#{table_name}.created_at DESC")
 
   # Validations
   validates :comment, :user_id, presence: true
