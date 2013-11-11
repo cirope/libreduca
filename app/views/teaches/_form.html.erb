@@ -2,7 +2,7 @@
   <div class="form-inputs">
     <div class="row-fluid">
       <div class="span6">
-        <%= f.input :start, as: :date_picker, input_html: { autofocus: true } %>
+        <%= f.input :start, as: :date_picker, input_html: { autofocus: action_name == 'new' } %>
       </div>
       <div class="span6">
         <%= f.input :finish, as: :date_picker %>
