@@ -103,7 +103,7 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       assert_difference 'news.comments.count' do
-        assert page.has_no_css?("div[id^=#{comment.anchor}]")
+        assert page.has_no_css?("span[id^=#{comment.anchor}]")
 
         within '#new_comment' do
           fill_in 'comment_comment', with: comment.comment
@@ -111,24 +111,25 @@ class NewsTest < ActionDispatch::IntegrationTest
           find('.btn').click
         end
 
-        assert page.has_css?("div[id^=#{comment.anchor}]")
+        assert page.has_css?("span[id^=#{comment.anchor}]")
       end
     end
   end
 
   test 'should paginate comments en news' do
     news = Fabricate(:news, institution_id: @institution.id)
-    6.times { Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name) }
+    5.times { Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name) }
+    comment = Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name)
     
     visit news_path(news)
 
-    assert page.has_no_css?('#comment-6')
+    assert page.has_no_css?("##{comment.anchor}")
 
     within '#pagination_container' do
       find('.btn').click
     end
 
-    assert page.has_css?('#comment-6')
+    assert page.has_no_css?("##{comment.anchor}")
     assert page.has_no_css?('#pagination_container')
   end
 
