@@ -82,7 +82,7 @@ class Ability
     can :manage, Image, institution_id: institution.id
     can :read, Presentation # TODO: check for proper access
     can [:read, :dashboard], Reply
-    can [:read, :create, :update], Forum
+    can :manage, Forum
   end
 
   def janitor_rules(user, institution)
@@ -90,7 +90,6 @@ class Ability
       institution: { workers: { user_id: user.id, job: 'janitor' } }
     }
 
-    can [:read, :create, :update], Forum
     can :manage, Grade, jobs_restrictions
     can :manage, Course, grade: jobs_restrictions
     can :manage, Teach, course: { grade: jobs_restrictions }
@@ -118,6 +117,7 @@ class Ability
     can :read, Enrollment
     can :manage, Tag, institution_id: institution.id
     can [:read, :dashboard], Reply # TODO: fix
+    can :manage, Forum
   end
 
   def headmaster_rules(user, institution)
@@ -128,6 +128,6 @@ class Ability
     can :read, Grade, jobs_restrictions
     can :read, Course, grade: jobs_restrictions
     can :manage, Image, institution_id: institution.id
-    can [:read, :create, :update], Forum
+    can :manage, Forum
   end
 end
