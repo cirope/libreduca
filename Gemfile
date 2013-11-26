@@ -19,11 +19,14 @@ gem 'redcarpet'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'sidekiq'
-gem 'capistrano', '~> 2.15'
 gem 'newrelic_rpm'
 # Must be outside assets because a constant is used in the initializers
 gem 'jquery-fileupload-rails'
-#gem 'coveralls', require: false
+
+gem 'capistrano'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
+gem 'capistrano-rbenv', github: 'capistrano/rbenv'
 
 group :assets do
   gem 'sass-rails'
