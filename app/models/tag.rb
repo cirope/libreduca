@@ -6,7 +6,7 @@ class Tag < ActiveRecord::Base
   has_magick_columns name: :string, tagger_type: :string
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :category, :tagger_type
+  # attr_accessible :name, :category, :tagger_type
 
   alias_attribute :label, :to_s
 
@@ -14,13 +14,13 @@ class Tag < ActiveRecord::Base
   before_destroy -> { false }
 
   # Default order
-  default_scope order("#{table_name}.name DESC")
+  default_scope -> { order("#{table_name}.name DESC") }
 
   # Validations
   validates :name, :category, :tagger_type, presence: true
-  validates :name, uniqueness: { case_sensitive: false, scope: :institution_id }, 
+  validates :name, uniqueness: { case_sensitive: false, scope: :institution_id },
     allow_nil: true, allow_blank: true
-  validates :name, length: { maximum: 255 }, allow_nil: true, 
+  validates :name, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
   validates :category, inclusion: { in: CATEGORIES }, allow_nil: true,
     allow_blank: true

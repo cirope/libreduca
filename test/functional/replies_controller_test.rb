@@ -15,7 +15,7 @@ class RepliesControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'replies/index'
   end
-  
+
   test 'should get new' do
     get :new, question_id: @question
     assert_response :success
@@ -26,10 +26,7 @@ class RepliesControllerTest < ActionController::TestCase
 
   test 'should create reply' do
     assert_difference('Reply.count') do
-      post :create, question_id: @question,
-        reply: Fabricate.attributes_for(:reply).slice(
-          *Reply.accessible_attributes
-        )
+      post :create, question_id: @question, reply: Fabricate.attributes_for(:reply)
     end
 
     assert_redirected_to question_reply_url(@question, assigns(:reply))
@@ -53,12 +50,12 @@ class RepliesControllerTest < ActionController::TestCase
 
   test 'should update reply' do
     new_question = Fabricate(:question)
-    
+
     assert_no_difference 'Reply.count' do
       put :update, id: @reply, question_id: @question,
         reply: { question_id: new_question.id }
     end
-    
+
     assert_redirected_to question_reply_url(@question, assigns(:reply))
     assert_equal new_question.id, @reply.reload.question_id
   end

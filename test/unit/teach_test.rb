@@ -31,7 +31,7 @@ class TeachTest < ActiveSupport::TestCase
   end
 
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Teach.count' do
         assert @teach.update_attributes(start: Date.tomorrow)
       end
@@ -41,7 +41,7 @@ class TeachTest < ActiveSupport::TestCase
   end
 
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Teach.count', -1) { @teach.destroy }
     end
   end

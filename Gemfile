@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.15'
+gem 'rails', '4.0.1'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -8,10 +8,10 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'will_paginate'
 gem 'simple_form'
-gem 'devise', '3.0.3'
+gem 'devise'
 gem 'cancan', github: 'francocatena/cancan'
 gem 'role_model'
-gem 'paper_trail'
+gem 'paper_trail', '3.0.0.rc2'
 gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie'
@@ -28,11 +28,9 @@ gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-rbenv', github: 'capistrano/rbenv'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 group :development do
   gem 'unicorn'

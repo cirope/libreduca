@@ -2,13 +2,12 @@ class Score < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :score, :multiplier, :description, :user_id, :teach_id,
-    :lock_version
+  # attr_accessible :score, :multiplier, :description, :user_id, :teach_id, :lock_version
 
   before_validation :replace_coma_with_period_in_scores
 
   # Default order
-  default_scope order("#{table_name}.created_at ASC")
+  default_scope -> { order("#{table_name}.created_at ASC") }
 
   # Validations
   validates :score, :multiplier, presence: true
@@ -34,7 +33,7 @@ class Score < ActiveRecord::Base
   end
 
   def self.weighted_average
-    multipliers_sum = all.sum(&:multiplier)
+    multipliers_sum = all.sum('multiplier')
 
     if multipliers_sum > 0
       all.map { |s| s.score * s.multiplier }.sum / multipliers_sum

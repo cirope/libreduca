@@ -19,18 +19,10 @@ class NewsTest < ActiveSupport::TestCase
   test 'create with tags' do
     assert_difference ['News.count','Tagging.count','Tag.count'] do
       @news = @institution.news.build(
-        (
-          Fabricate.attributes_for(:news, institution_id: nil).slice(
-            *News.accessible_attributes
-          )
-        ).merge(
+        Fabricate.attributes_for(:news, institution_id: nil).merge(
           taggings_attributes: {
-            tagging_1: { 
-              tag_attributes: (
-                Fabricate.attributes_for(:tag, institution_id: nil).slice(
-                  *Tag.accessible_attributes
-                )
-              )
+            tagging_1: {
+              tag_attributes: Fabricate.attributes_for(:tag, institution_id: nil)
             }
           }
         )
@@ -41,7 +33,7 @@ class NewsTest < ActiveSupport::TestCase
   end
 
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'News.count' do
         assert @news.update_attributes(title: 'Updated')
       end
@@ -49,13 +41,13 @@ class NewsTest < ActiveSupport::TestCase
 
     assert_equal 'Updated', @news.reload.title
   end
-    
-  test 'destroy' do 
-    assert_difference 'Version.count' do
+
+  test 'destroy' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('News.count', -1) { @news.destroy }
     end
   end
-    
+
   test 'validates blank attributes' do
     @news.title = ''
     @news.published_at = nil
@@ -67,7 +59,7 @@ class NewsTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@news, :published_at, :blank)],
       @news.errors[:published_at]
   end
-    
+
   test 'validates length of _long_ attributes' do
     @news.title = 'abcde' * 52
 

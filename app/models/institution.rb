@@ -8,14 +8,13 @@ class Institution < ActiveRecord::Base
   has_magick_columns name: :string, identification: :string
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :identification, :district_id, :settings_attributes,
-    :lock_version
+  # attr_accessible :name, :identification, :district_id, :settings_attributes, :lock_version
 
   alias_attribute :label, :name
   alias_attribute :informal, :identification
 
   # Default order
-  default_scope order("#{table_name}.name ASC")
+  default_scope -> { order("#{table_name}.name ASC") }
 
   # Validations
   validates :name, :identification, :district_id, presence: true
@@ -30,8 +29,8 @@ class Institution < ActiveRecord::Base
 
   # Relations
   belongs_to :district
-  has_many :workers, dependent: :destroy, class_name: 'Job',
-    conditions: { active: true }
+  has_many :workers, -> { where active: true }, dependent: :destroy,
+    class_name: 'Job'
   has_many :users, through: :workers
   has_many :kinships, through: :users
   has_many :grades, dependent: :destroy

@@ -5,13 +5,13 @@ class Document < ActiveRecord::Base
 
   # Callbacks
   before_save :update_file_attributes
-  
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :file, :file_cache, :lock_version
+  # attr_accessible :name, :file, :file_cache, :lock_version
 
   # Default order
-  default_scope order("#{table_name}.created_at ASC")
-  
+  default_scope -> { order("#{table_name}.created_at ASC") }
+
   # Validations
   validates :name, :file, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true

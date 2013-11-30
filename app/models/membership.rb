@@ -2,7 +2,7 @@ class Membership < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :user_id, :group_id, :auto_group_name, :auto_user_name
+  # attr_accessible :user_id, :group_id, :auto_group_name, :auto_user_name
 
   attr_accessor :auto_group_name, :auto_user_name
 

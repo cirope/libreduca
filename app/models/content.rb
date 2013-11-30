@@ -5,14 +5,13 @@ class Content < ActiveRecord::Base
   include Contents::Surveys
 
   has_paper_trail
-  
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :title, :content, :documents_attributes,
-    :homeworks_attributes, :lock_version
+  # attr_accessible :title, :content, :documents_attributes, :homeworks_attributes, :lock_version
 
   # Default order
-  default_scope order("#{table_name}.title ASC")
-  
+  default_scope -> { order("#{table_name}.title ASC") }
+
   # Validations
   validates :title, :teach_id, presence: true
   validates :title, length: { maximum: 255 }, allow_nil: true, allow_blank: true

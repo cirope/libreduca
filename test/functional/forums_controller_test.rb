@@ -12,7 +12,7 @@ class ForumsControllerTest < ActionController::TestCase
     )
     @owner = @forum.owner
     @request.host = "#{institution.identification}.lvh.me"
-    
+
     sign_in @user
   end
 
@@ -30,7 +30,7 @@ class ForumsControllerTest < ActionController::TestCase
         name { "in_filtered_index #{sequence(:forum_name)}" }
       end
     end
-    
+
     get :index, institution_id: @owner.to_param, q: 'filtered_index'
     assert_response :success
     assert_not_nil assigns(:forums)
@@ -40,7 +40,7 @@ class ForumsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'forums/index'
   end
- 
+
   test 'should get new' do
     get :new, institution_id: @owner.to_param
     assert_response :success
@@ -52,9 +52,7 @@ class ForumsControllerTest < ActionController::TestCase
   test 'should create forum' do
     assert_difference(['Forum.count', 'ActionMailer::Base.deliveries.size']) do
       post :create, institution_id: @owner.to_param,
-        forum: Fabricate.attributes_for(:forum).slice(
-          *Forum.accessible_attributes
-        )
+        forum: Fabricate.attributes_for(:forum)
     end
 
     assert_redirected_to institution_forum_url(@owner, assigns(:forum))
@@ -80,11 +78,9 @@ class ForumsControllerTest < ActionController::TestCase
   test 'should update forum' do
     assert_no_difference 'Forum.count' do
       put :update, institution_id: @owner.to_param, id: @forum,
-        forum: Fabricate.attributes_for(:forum, name: 'Upd').slice(
-          *Forum.accessible_attributes
-        )
+        forum: Fabricate.attributes_for(:forum, name: 'Upd')
     end
-    
+
     assert_redirected_to institution_forum_url(@owner, assigns(:forum))
     assert_equal 'Upd', @forum.reload.name
   end

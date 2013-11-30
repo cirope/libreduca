@@ -10,9 +10,7 @@ class PresentationTest < ActiveSupport::TestCase
 
     assert_difference 'Presentation.count' do
       @presentation = user.presentations.build(
-        Fabricate.attributes_for(:presentation).slice(
-          *Presentation.accessible_attributes
-        )
+        Fabricate.attributes_for(:presentation)
       )
 
       @presentation.homework = Fabricate(:homework)
@@ -35,7 +33,7 @@ class PresentationTest < ActiveSupport::TestCase
   end
 
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Presentation.count', -1) { @presentation.destroy }
     end
   end

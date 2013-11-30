@@ -15,7 +15,7 @@ class EnrollmentTest < ActiveSupport::TestCase
   test 'update' do
     new_user = Fabricate(:user)
 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Enrollment.count' do
         assert @enrollment.update_attributes(enrollable_id: new_user.id)
       end
@@ -25,7 +25,7 @@ class EnrollmentTest < ActiveSupport::TestCase
   end
 
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Enrollment.count', -1) { @enrollment.destroy }
     end
   end

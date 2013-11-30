@@ -5,7 +5,7 @@ class Reply < ActiveRecord::Base
   has_paper_trail ignore: :comments_count
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :answer_id, :question_id, :response
+  # attr_accessible :answer_id, :question_id, :response
 
   # Not modifiable attributes
   attr_readonly :user_id

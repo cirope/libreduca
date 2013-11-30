@@ -33,7 +33,7 @@ class PresentationsControllerTest < ActionController::TestCase
       post :create, content_id: homework.content, homework_id: homework,
         presentation: Fabricate.attributes_for(
           :presentation, user_id: nil, homework_id: nil
-        ).slice(*Presentation.accessible_attributes)
+        )
     end
 
     assert_redirected_to teach_content_url(homework.content.teach, homework.content)
@@ -46,7 +46,7 @@ class PresentationsControllerTest < ActionController::TestCase
       post :create, format: :js, content_id: homework.content, homework_id: homework,
         presentation: Fabricate.attributes_for(
           :presentation, user_id: nil, homework_id: nil
-        ).slice(*Presentation.accessible_attributes)
+        )
     end
 
     assert_template 'presentations/create'

@@ -7,15 +7,16 @@ class Presentation < ActiveRecord::Base
 
   # Callbacks
   before_save :check_current_teach, :update_file_attributes
-  
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :file, :file_cache, :lock_version
+  # attr_accessible :file, :file_cache, :lock_version
+
   # Attributes only writables in creation
   attr_readonly :user_id, :homework_id
 
   # Default order
-  default_scope order("#{table_name}.created_at ASC")
-  
+  default_scope -> { order("#{table_name}.created_at ASC") }
+
   # Validations
   validates :file, presence: true
   validates :homework_id, uniqueness: { scope: :user_id }, allow_nil: true,
@@ -38,7 +39,7 @@ class Presentation < ActiveRecord::Base
 
   def check_current_teach
     unless self.homework.try(:content).try(:teach).try(:current?)
-      raise 'You can not do this' 
+      raise 'You can not do this'
     end
   end
 

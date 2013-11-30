@@ -28,13 +28,11 @@ class GroupsControllerTest < ActionController::TestCase
 
   test "should create group" do
     assert_difference('Group.count') do
-      post :create, group: Fabricate.attributes_for(:group).slice(
-        *Group.accessible_attributes
-      ).merge(
+      post :create, group: Fabricate.attributes_for(:group).merge(
         memberships_attributes: 1.times.map {
           Fabricate.attributes_for(
             :membership, user_id: @user.id, group_id: @group.id
-          ).slice(*Membership.accessible_attributes)
+          )
         }
       )
     end

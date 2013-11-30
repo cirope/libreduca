@@ -5,11 +5,10 @@ class Question < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :content, :hint, :question_type, :required,
-    :answers_attributes, :lock_version
+  # attr_accessible :content, :hint, :question_type, :required, :answers_attributes, :lock_version
 
   # Scopes
-  default_scope order("#{table_name}.content ASC")
+  default_scope -> { order("#{table_name}.content ASC") }
 
   # Validations
   validates :content, :question_type, presence: true

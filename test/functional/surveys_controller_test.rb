@@ -47,9 +47,7 @@ class SurveysControllerTest < ActionController::TestCase
   test 'should create survey' do
     assert_difference('Survey.count') do
       post :create, content_id: @content, survey: 
-        Fabricate.attributes_for(:survey, content_id: nil).slice(
-          *Survey.accessible_attributes
-        )
+        Fabricate.attributes_for(:survey, content_id: nil)
     end
 
     assert_redirected_to content_survey_url(@content, assigns(:survey))
@@ -87,9 +85,7 @@ class SurveysControllerTest < ActionController::TestCase
 
   test 'should update survey' do
     put :update, content_id: @content, id: @survey, survey:
-      Fabricate.attributes_for(:survey, content_id: nil, attr: 'value').slice(
-        *[Survey.accessible_attributes.to_a - ['content_id']]
-      )
+      Fabricate.attributes_for(:survey, content_id: nil)
 
     assert_redirected_to content_survey_url(@content, assigns(:survey))
   end

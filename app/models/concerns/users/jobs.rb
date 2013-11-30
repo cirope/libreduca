@@ -3,7 +3,7 @@ module Users
     extend ActiveSupport::Concern
 
     included do
-      has_many :jobs, conditions: { active: true }, dependent: :destroy
+      has_many :jobs, -> { where active: true }, dependent: :destroy
       has_many :institutions, through: :jobs
 
       accepts_nested_attributes_for :jobs, allow_destroy: true,

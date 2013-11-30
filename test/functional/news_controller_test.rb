@@ -54,7 +54,7 @@ class NewsControllerTest < ActionController::TestCase
     assert_difference 'News.count' do
       post :create, news: Fabricate.attributes_for(
         :news, institution_id: @institution.id
-      ).slice(*News.accessible_attributes)
+      )
     end
 
     assert_redirected_to news_url(assigns(:news))
@@ -102,7 +102,7 @@ class NewsControllerTest < ActionController::TestCase
     assert_no_difference 'News.count' do
       put :update, id: @news, news: Fabricate.attributes_for(:news, 
         title: 'new value', institution_id: @institution.id
-      ).slice(*News.accessible_attributes)
+      )
     end
 
     assert_redirected_to news_url(assigns(:news))

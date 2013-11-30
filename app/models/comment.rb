@@ -6,17 +6,17 @@ class Comment < ActiveRecord::Base
   self.per_page = 5
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :comment, :lock_version
+  # attr_accessible :comment, :lock_version
 
   # Write once attributes
   attr_readonly :user_id
 
   # Default order
-  default_scope order("#{table_name}.created_at DESC")
+  default_scope -> { order("#{table_name}.created_at DESC") }
 
   # Validations
   validates :comment, :user_id, presence: true
-  
+
   # Relations
   belongs_to :user
   belongs_to :commentable, polymorphic: true, counter_cache: true

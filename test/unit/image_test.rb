@@ -4,7 +4,7 @@ class ImageTest < ActiveSupport::TestCase
   setup do
     @image = Fabricate(:image)
   end
-  
+
   test 'create' do
     assert_difference 'Image.count' do
       @image = Image.create do |image|
@@ -17,28 +17,28 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal 'image/gif', @image.content_type
     assert @image.file_size > 0
   end
-  
+
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Image.count' do
         assert @image.update_attributes(name: 'Updated')
       end
     end
-    
+
     assert_equal 'Updated', @image.reload.name
   end
-  
+
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Image.count', -1) { @image.destroy }
     end
   end
-  
+
   test 'validates blank attributes' do
     @image.name = ''
     @image.remove_file!
     @image.institution = nil
-    
+
     assert @image.invalid?
     assert_equal 3, @image.errors.size
     assert_equal [error_message_from_model(@image, :name, :blank)],
@@ -48,10 +48,10 @@ class ImageTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@image, :institution, :blank)],
       @image.errors[:institution]
   end
- 
+
   test 'validates length of attributes' do
     @image.name = 'abcde' * 52
-    
+
     assert @image.invalid?
     assert_equal 1, @image.errors.count
     assert_equal [

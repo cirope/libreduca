@@ -7,16 +7,12 @@ class HomeworkTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'Homework.count' do
-      @homework = Homework.create(
-        Fabricate.attributes_for(:homework).slice(
-          *Homework.accessible_attributes
-        )
-      )
-    end 
+      @homework = Homework.create Fabricate.attributes_for(:homework)
+    end
   end
-    
+
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Homework.count' do
         assert @homework.update_attributes(name: 'Updated')
       end
@@ -24,16 +20,16 @@ class HomeworkTest < ActiveSupport::TestCase
 
     assert_equal 'Updated', @homework.reload.name
   end
-    
-  test 'destroy' do 
-    assert_difference 'Version.count' do
+
+  test 'destroy' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Homework.count', -1) { @homework.destroy }
     end
   end
-    
+
   test 'validates blank attributes' do
     @homework.name = ''
-    
+
     assert @homework.invalid?
     assert_equal 1, @homework.errors.size
     assert_equal [error_message_from_model(@homework, :name, :blank)],
@@ -42,7 +38,7 @@ class HomeworkTest < ActiveSupport::TestCase
 
   test 'validates well formated attributes' do
     @homework.closing_at = '13/13/13'
-    
+
     assert @homework.invalid?
     assert_equal 1, @homework.errors.size
     assert_equal [I18n.t('errors.messages.invalid_date')],
@@ -51,7 +47,7 @@ class HomeworkTest < ActiveSupport::TestCase
 
   test 'validates attributes boundaries' do
     @homework.closing_at = Date.yesterday
-    
+
     assert @homework.invalid?
     assert_equal 1, @homework.errors.size
     assert_equal [
@@ -61,7 +57,7 @@ class HomeworkTest < ActiveSupport::TestCase
 
   test 'validates length of _long_ attributes' do
     @homework.name = 'abcde' * 52
-    
+
     assert @homework.invalid?
     assert_equal 1, @homework.errors.count
     assert_equal [

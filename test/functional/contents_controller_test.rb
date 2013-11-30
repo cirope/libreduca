@@ -4,7 +4,7 @@ class ContentsControllerTest < ActionController::TestCase
   setup do
     @content = Fabricate(:content)
     @teach = @content.teach
-    
+
     sign_in Fabricate(:user)
   end
 
@@ -15,14 +15,14 @@ class ContentsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'contents/index'
   end
-  
+
   test 'should get filtered index' do
     3.times do
       Fabricate(:content, teach_id: @teach.id) do
         title { "in_filtered_index #{sequence(:content_name)}" }
       end
     end
-    
+
     get :index, teach_id: @teach.to_param, q: 'filtered_index'
     assert_response :success
     assert_not_nil assigns(:contents)
@@ -45,19 +45,13 @@ class ContentsControllerTest < ActionController::TestCase
     assert_difference('Content.count') do
       assert_difference ['Document.count', 'Homework.count'], 2 do
         post :create, teach_id: @teach.to_param,
-          content: Fabricate.attributes_for(:content).slice(
-            *Content.accessible_attributes
-          ).merge(
+          content: Fabricate.attributes_for(:content).merge(
             documents_attributes: 2.times.map {
-              Fabricate.attributes_for(
-                :document, owner_id: nil, owner_type: nil
-              ).slice(*Document.accessible_attributes)
+              Fabricate.attributes_for(:document, owner_id: nil, owner_type: nil)
             }
           ).merge(
             homeworks_attributes: 2.times.map {
-              Fabricate.attributes_for(
-                :homework, content_id: nil
-              ).slice(*Homework.accessible_attributes)
+              Fabricate.attributes_for(:homework, content_id: nil)
             }
           )
       end
@@ -85,11 +79,9 @@ class ContentsControllerTest < ActionController::TestCase
   test 'should update content' do
     assert_no_difference 'Content.count' do
       put :update, teach_id: @teach.to_param, id: @content,
-        content: Fabricate.attributes_for(:content, title: 'Upd').slice(
-          *Content.accessible_attributes
-        )
+        content: Fabricate.attributes_for(:content, title: 'Upd')
     end
-    
+
     assert_redirected_to teach_content_url(@teach, assigns(:content))
     assert_equal 'Upd', @content.reload.title
   end

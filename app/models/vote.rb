@@ -1,6 +1,6 @@
 class Vote < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :lock_version
+  # attr_accessible :lock_version
 
   attr_readonly :user_id, :votable_id, :votable_type
 

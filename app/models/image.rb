@@ -1,21 +1,21 @@
 class Image < ActiveRecord::Base
   mount_uploader :file, ImageUploader
-  
+
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :file, :file_cache, :lock_version
+  # attr_accessible :name, :file, :file_cache, :lock_version
 
   # Not modificable attributes
   attr_readonly :institution_id
 
   # Defaul order
-  default_scope order("#{table_name}.created_at ASC")
+  default_scope -> { order("#{table_name}.created_at ASC") }
 
   # Callbacks
   before_save :update_file_attributes
   after_save :recreate_versions
-  
+
   # Validations
   validates :name, :file, :institution, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true
@@ -36,7 +36,7 @@ class Image < ActiveRecord::Base
       only: [:name],
       methods: [:to_md, :to_html]
     }
-    
+
     super(default_options.merge(options || {}))
   end
 
@@ -65,7 +65,7 @@ class Image < ActiveRecord::Base
     self.file.recreate_versions!
   end
 
-  private 
+  private
 
   def get_version(version = nil)
     version ? self.file.send(version) : self.file

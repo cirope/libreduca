@@ -9,7 +9,7 @@ class ImagesControllerTest < ActionController::TestCase
       :job, job: 'teacher', user_id: user.id, institution_id: @institution.id
     )
     @request.host = "#{@institution.identification}.lvh.me"
-    
+
     sign_in user
   end
 
@@ -20,7 +20,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'images/index'
   end
-  
+
   test 'should get new' do
     get :new
     assert_response :success
@@ -33,7 +33,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_difference('Image.count') do
       post :create, image: Fabricate.attributes_for(
         :image, institution_id: @institution.id
-      ).slice(*Image.accessible_attributes)
+      )
     end
 
     assert_redirected_to image_url(assigns(:image))
@@ -43,7 +43,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_difference('Image.count') do
       post :create, format: :js, image: Fabricate.attributes_for(
         :image, institution_id: @institution.id
-      ).slice(*Image.accessible_attributes)
+      )
     end
 
     assert_template 'images/create'
@@ -70,7 +70,7 @@ class ImagesControllerTest < ActionController::TestCase
     assert_no_difference 'Image.count' do
       put :update, id: @image, image: { name: 'Updated' }
     end
-    
+
     assert_redirected_to image_url(assigns(:image))
     assert_equal 'Updated', @image.reload.name
   end

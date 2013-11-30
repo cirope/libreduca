@@ -2,14 +2,12 @@ class Teach < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :start, :finish, :description, :course_id,
-    :enrollments_attributes, :scores_attributes, :lock_version,
-    :enrollable_id, :enrollable_type
+  # attr_accessible :start, :finish, :description, :course_id, :enrollments_attributes, :scores_attributes, :lock_version, :enrollable_id, :enrollable_type
 
   attr_accessor :auto_enrollable_name
 
   # Default order
-  default_scope order("#{table_name}.start DESC")
+  default_scope -> { order("#{table_name}.start DESC") }
 
   # Scopes
   scope :historic, -> { where("#{table_name}.start <= ?", Time.zone.today) }

@@ -12,7 +12,7 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Group.count' do
         assert @group.update_attributes(name: 'Updated')
       end
@@ -22,7 +22,7 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Group.count', -1) { @group.destroy }
     end
   end

@@ -9,9 +9,9 @@ module Users
 
     def send_instructions(attributes)
       generate_reset_password_token! if should_generate_reset_token?
-      
-      if self.welcome 
-        instructions = attributes[:embedded] == 'true' ? 
+
+      if self.welcome
+        instructions = attributes[:embedded] == 'true' ?
           :token_instructions : :welcome_instructions
       else
         instructions = attributes[:embedded] == 'true' ?
@@ -55,7 +55,7 @@ module Users
         user.send_instructions(attributes) if user.persisted?
 
         user
-      end 
+      end
     end
   end
 end

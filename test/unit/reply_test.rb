@@ -4,7 +4,7 @@ class ReplyTest < ActiveSupport::TestCase
   setup do
     @reply = Fabricate(:reply)
   end
-  
+
   test 'create' do
     assert_difference 'Reply.count' do
       @reply = Reply.create do |reply|
@@ -26,18 +26,18 @@ class ReplyTest < ActiveSupport::TestCase
     assert_not_equal old_answer_id, @reply.reload.answer_id
     assert_equal new_answer_id, @reply.reload.answer_id
   end
-  
+
   test 'can not destroy' do
-    assert_no_difference ['Version.count', 'Reply.count'] do
+    assert_no_difference ['PaperTrail::Version.count', 'Reply.count'] do
       @reply.destroy
     end
   end
-  
+
   test 'validates blank attributes' do
     @reply.question_id = nil
     @reply.answer_id = nil
     @reply.user = nil
-    
+
     assert @reply.invalid?
     assert_equal 5, @reply.errors.size
     assert_equal [error_message_from_model(@reply, :user, :blank)],

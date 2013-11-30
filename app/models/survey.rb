@@ -5,10 +5,10 @@ class Survey < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :content_id, :questions_attributes, :lock_version
+  # attr_accessible :name, :content_id, :questions_attributes, :lock_version
 
   # Scopes
-  default_scope order("#{table_name}.name ASC")
+  default_scope -> { order("#{table_name}.name ASC") }
 
   # Validations
   validates :name, presence: true
@@ -21,7 +21,7 @@ class Survey < ActiveRecord::Base
   has_one :grade, through: :course
   has_one :institution, through: :course
   has_many :questions, dependent: :destroy
-  has_many :answers, through: :questions 
+  has_many :answers, through: :questions
   has_many :replies, through: :questions
   has_many :reply_users, through: :replies, source: :user
   # Only for ability check

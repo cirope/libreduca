@@ -9,7 +9,7 @@ class CommentsControllerTest < ActionController::TestCase
       :job, user_id: @user.id, institution_id: @institution.id, job: 'teacher'
     )
     @request.host = "#{@institution.identification}.lvh.me"
-    
+
     sign_in @user
   end
 
@@ -31,10 +31,8 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_difference counts do
       post :create, forum_id: forum.to_param,
-        comment: Fabricate.attributes_for(:comment, 
+        comment: Fabricate.attributes_for(:comment,
           commentable_id: nil, commentable_type: nil
-        ).slice(
-          *Comment.accessible_attributes
         ), format: :js
     end
 
@@ -50,11 +48,9 @@ class CommentsControllerTest < ActionController::TestCase
     assert_difference('forum.comments.count') do
       assert_no_difference 'ActionMailer::Base.deliveries.size' do
         post :create, forum_id: forum.to_param,
-          comment: Fabricate.attributes_for(:comment,
-            commentable_id: nil, commentable_type: nil
-        ).slice(
-            *Comment.accessible_attributes
-        ), format: :js
+          comment: Fabricate.attributes_for(
+            :comment, commentable_id: nil, commentable_type: nil
+          ), format: :js
       end
     end
 

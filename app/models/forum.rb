@@ -10,18 +10,18 @@ class Forum < ActiveRecord::Base
   delegate :institution, :users, to: :owner, allow_nil: true
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :topic, :info, :lock_version
+  # attr_accessible :name, :topic, :info, :lock_version
 
   # Attributes only writables in creation
   attr_readonly :user_id
-  
+
   # Default order
-  default_scope order("#{table_name}.name ASC")
-  
+  default_scope -> { order("#{table_name}.name ASC") }
+
   # Validations
   validates :name, :topic, :user_id, :owner_id, presence: true
   validates :name, length: { maximum: 255 }, allow_nil: true, allow_blank: true
-  
+
   # Relations
   belongs_to :user
   belongs_to :owner, polymorphic: true

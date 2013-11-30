@@ -12,11 +12,11 @@ class TagTest < ActiveSupport::TestCase
           tag.send "#{attr}=", value
         end
       end
-    end 
+    end
   end
-    
+
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Tag.count' do
         assert @tag.update_attributes(name: 'Updated')
       end
@@ -24,12 +24,12 @@ class TagTest < ActiveSupport::TestCase
 
     assert_equal 'Updated', @tag.reload.name
   end
-    
+
   test 'validates blank attributes' do
     @tag.name = ''
     @tag.category = ''
     @tag.tagger_type = nil
-    
+
     assert @tag.invalid?
     assert_equal 3, @tag.errors.size
     assert_equal [error_message_from_model(@tag, :name, :blank)],
@@ -39,7 +39,7 @@ class TagTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@tag, :tagger_type, :blank)],
       @tag.errors[:tagger_type]
   end
-    
+
   test 'validates unique attributes' do
     new_tag = Fabricate(:tag, institution_id: @tag.institution.id)
     @tag.name = new_tag.name
@@ -67,5 +67,5 @@ class TagTest < ActiveSupport::TestCase
     assert_equal [
       error_message_from_model(@tag, :name, :too_long, count: 255)
     ], @tag.errors[:name]
-  end 
+  end
 end

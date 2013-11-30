@@ -8,9 +8,5 @@ resources :users do
   get :find_by_email, on: :collection
   resources :jobs, only: [:create]
 
-  resources :enrollments, only: [] do
-    post :send_email_summary, on: :member, as: 'send_email_summary'
-  end
-
   resources :teaches, only: [:index]
 end

@@ -9,15 +9,13 @@ class SettingTest < ActiveSupport::TestCase
   test 'create' do
     assert_difference ['Setting.count', '@configurable.settings.count'] do
       @setting = @configurable.settings.create(
-        Fabricate.attributes_for(:setting, configurable_id: nil).slice(
-          *Setting.accessible_attributes
-        )
+        Fabricate.attributes_for(:setting, configurable_id: nil)
       )
-    end 
+    end
   end
-    
+
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Setting.count' do
         assert @setting.update_attributes(value: 'Updated')
       end
@@ -25,17 +23,17 @@ class SettingTest < ActiveSupport::TestCase
 
     assert_equal 'Updated', @setting.reload.value
   end
-    
-  test 'destroy' do 
-    assert_difference 'Version.count' do
+
+  test 'destroy' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Setting.count', -1) { @setting.destroy }
     end
   end
-    
+
   test 'validates blank attributes' do
     @setting.name = ''
     @setting.kind = ''
-    
+
     assert @setting.invalid?
     assert_equal 3, @setting.errors.size
     assert_equal [error_message_from_model(@setting, :name, :blank)],
@@ -60,7 +58,7 @@ class SettingTest < ActiveSupport::TestCase
       error_message_from_model(@setting, :kind, :inclusion)
     ].sort, @setting.errors[:kind].sort
   end
-  
+
   test 'validates included attributes' do
     @setting.kind = 'wrong'
 

@@ -14,7 +14,7 @@ class MembershipTest < ActiveSupport::TestCase
   test 'update' do
     new_user = Fabricate(:user)
 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Membership.count' do
         assert @membership.update_attributes(user_id: new_user.id)
       end
@@ -24,7 +24,7 @@ class MembershipTest < ActiveSupport::TestCase
   end
 
   test 'destroy' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Membership.count', -1) { @membership.destroy }
     end
   end

@@ -7,18 +7,18 @@ class TaggingTest < ActiveSupport::TestCase
 
   test 'create' do
     assert_difference 'Tagging.count' do
-      @tagging = Tagging.create do |tagging| 
+      @tagging = Tagging.create do |tagging|
         Fabricate.attributes_for(:tagging).each do |attr,value|
           tagging.send "#{attr}=", value
         end
       end
-    end 
+    end
   end
-    
+
   test 'update' do
     tag = Fabricate(:tag)
 
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Tagging.count' do
         assert @tagging.update_attributes(tag_id: tag.id)
       end
@@ -26,15 +26,15 @@ class TaggingTest < ActiveSupport::TestCase
 
     assert_equal tag.id, @tagging.reload.tag_id
   end
-    
-  test 'destroy' do 
-    assert_difference 'Version.count' do
+
+  test 'destroy' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Tagging.count', -1) { @tagging.destroy }
     end
   end
-    
+
   test 'validates unique attributes' do
-    new_tagging = Fabricate(:tagging, taggable_id: @tagging.taggable_id, 
+    new_tagging = Fabricate(:tagging, taggable_id: @tagging.taggable_id,
       taggable_type: @tagging.taggable_type)
     @tagging.tag_id = new_tagging.tag_id
 
