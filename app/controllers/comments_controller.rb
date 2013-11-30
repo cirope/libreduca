@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource :news, shallow: true
   load_and_authorize_resource :reply, shallow: true
@@ -8,12 +8,12 @@ class CommentsController < ApplicationController
   load_and_authorize_resource :presentation, shallow: true
 
   before_filter :set_commentable
-  before_filter :set_comment_anchor, only: :index 
+  before_filter :set_comment_anchor, only: :index
 
   load_and_authorize_resource through: :commentable
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
-  
+
   # GET /comments
   # GET /comments.json
   def index
