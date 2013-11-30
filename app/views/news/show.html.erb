@@ -41,11 +41,11 @@
           <% vote = @news.voted_by(current_user) || @news.votes.build %>
           <%= vote.new_record? ? link_to_like(vote) : link_to_dislike(vote) %>
         </div>
-      
-        <%= render template: 'comments/index', 
+
+        <%= render template: 'comments/index',
           locals: { :@comments => @news.comments.page(1), :@commentable => @news } %>
       <% end %>
-    
+
       <div class="badge badge-link">
         <%= link_to t('label.back'), embedded_news_index_path %>
       </div>

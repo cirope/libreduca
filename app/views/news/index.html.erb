@@ -23,7 +23,7 @@
                 </div>
               </div>
               <p class="muted">
-                <span><%= l news.published_at.to_date, format: :long %> 
+                <span><%= l news.published_at.to_date, format: :long %>
                 | <%= link_to_comments(news,
                   news_path(news, embedded: params[:embedded], anchor: 'comments-header')) %>
                 </span>

@@ -9,9 +9,9 @@
             <%= t(
               'view.forums.created_by.html',
               user: @forum.user.to_s,
-              distance_time: distance_of_time_in_words_to_now(@forum.created_at) 
+              distance_time: distance_of_time_in_words_to_now(@forum.created_at)
             ) %>
-            
+
             <% if @forum.info.present? %>
               | <%= @forum.info %>
             <% end %>

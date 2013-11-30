@@ -95,7 +95,7 @@
       vote:
         one: 'Voto'
         other: 'Votos'
-      
+
     attributes:
       answer:
         content: 'Respuesta'
@@ -279,7 +279,7 @@
     zoom: 'Ampliar'
     like: 'Me gusta'
     dislike: 'Elimina tu Me gusta'
-    
+
   menu:
     actions:
       login: 'Ingresar'
@@ -550,7 +550,7 @@
       correctly_updated: 'Encuesta actualizada correctamente.'
       stale_object_error: 'La encuesta no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna encuesta hasta el momento'  
+        html: 'No se ha creado ninguna encuesta hasta el momento'
       question_types:
         multiple_choice: 'Opciones'
         list: 'Lista'

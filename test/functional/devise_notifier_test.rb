@@ -6,10 +6,10 @@ class DeviseNotifierTest < ActionMailer::TestCase
 
   setup do
     @institution = Fabricate(:institution)
-    @user = Fabricate(:user, password: '123456', roles: [:normal])                                                                                    
+    @user = Fabricate(:user, password: '123456', roles: [:normal])
     @job = Fabricate(
       :job, user_id: @user.id, institution_id: @institution.id, job: 'janitor'
-    ) 
+    )
   end
 
   test 'welcome instructions' do

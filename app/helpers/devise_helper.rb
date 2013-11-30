@@ -3,7 +3,7 @@
 module DeviseHelper
   def devise_links_es
     @_devise_links = []
-    
+
     add_link_to_back
     add_link_to_register
     add_link_to_forgot_password

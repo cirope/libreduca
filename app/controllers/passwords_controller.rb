@@ -19,18 +19,18 @@ class PasswordsController < Devise::PasswordsController
 
   # GET /resource/password/edit?reset_password_token=abcdef
   def edit
-  end 
+  end
 
-  private 
+  private
 
   def assert_reset_token_passed
     set_token
 
     self.resource = resource_class.find_or_initialize_with_error_by(
-      :reset_password_token, @token 
+      :reset_password_token, @token
     )
-    
-    if @token.blank? 
+
+    if @token.blank?
       self.resource.errors.add(:reset_password_token, :blank)
 
       render :confirmation_token

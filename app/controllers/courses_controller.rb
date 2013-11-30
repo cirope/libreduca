@@ -1,10 +1,10 @@
 class CoursesController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource :grade
   load_and_authorize_resource :course, through: :grade
-  
+
   # GET /courses
   # GET /courses.json
   def index

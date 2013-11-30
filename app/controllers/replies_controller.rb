@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_resource :survey, only: [:index, :dashboard]
   load_resource :question, except: [:index, :dashboard]
@@ -9,7 +9,7 @@ class RepliesController < ApplicationController
   load_and_authorize_resource through: :question, except: [:index, :dashboard]
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
-  
+
   # GET /questions/1/replies
   # GET /questions/1/replies.json
   def index

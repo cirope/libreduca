@@ -7,7 +7,7 @@ class CreateGrades < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :grades, :institution_id
   end
 end

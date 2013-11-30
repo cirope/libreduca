@@ -5,27 +5,27 @@
 
   .tag { margin: 0 10px 10px 0; }
 
-  .thumbnail { 
-    border: 0 none; box-shadow: none; 
+  .thumbnail {
+    border: 0 none; box-shadow: none;
     .caption { padding: 0px; }
   }
- 
+
   .carousel { margin: 0; }
   .dropdown-menu { padding: 9px; }
 
   .custom-nav {
-    float: none;  
+    float: none;
 
     a { color: #0088DD; }
 
     > li > a:hover, > li > a:focus {
       color: #005580;
-      background-color: #eee; 
+      background-color: #eee;
     }
 
-    > .active > a, > .active > a:hover, > .active > a:focus { 
-      background-color: #fff; 
-      color: #555; 
+    > .active > a, > .active > a:hover, > .active > a:focus {
+      background-color: #fff;
+      color: #555;
       box-shadow: none;
     }
   }
@@ -38,8 +38,8 @@
       top: 10px;
       right: 10px;
 
-      a { 
-        color: inherit; 
+      a {
+        color: inherit;
         &:hover { text-decoration: none; }
       }
     }

@@ -21,7 +21,7 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     assert_difference 'News.count' do
       assert page.has_no_css?('.page-header h2.text-info')
-      
+
       find('.btn.btn-primary').click
 
       assert page.has_css?('.page-header h2.text-info')
@@ -39,7 +39,7 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     assert_difference 'News.count' do
       assert page.has_no_css?('form[id=new_image]')
-      
+
       find('#new_image_btn').click
 
       assert page.has_css?('form[id=new_image]')
@@ -65,7 +65,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     fill_in 'news_title', with: @news.title
     fill_in 'news_description', with: @news.description
     fill_in 'news_body', with: @news.body
-      
+
     find('#new_image_btn').click
 
     assert_difference 'Image.count' do
@@ -80,11 +80,11 @@ class NewsTest < ActionDispatch::IntegrationTest
     end
 
     assert_no_difference 'News.count' do
-      assert_difference 'Image.count', -1 do 
+      assert_difference 'Image.count', -1 do
 
         within 'div[id^=image]' do
           click_link ''
-      
+
           page.driver.browser.switch_to.alert.accept
         end
 
@@ -120,7 +120,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     news = Fabricate(:news, institution_id: @institution.id)
     5.times { Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name) }
     comment = Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name)
-    
+
     visit news_path(news)
 
     assert page.has_no_css?("##{comment.anchor}")
@@ -146,7 +146,7 @@ class NewsTest < ActionDispatch::IntegrationTest
       end
 
       assert page.has_css?("div[id=#{news.anchor_vote}] .btn.btn-mini.btn-success")
-    end 
+    end
 
     assert_difference 'news.reload.votes_count', - 1 do
       within "##{news.anchor_vote}" do
@@ -160,7 +160,7 @@ class NewsTest < ActionDispatch::IntegrationTest
   test 'should create news with tags' do
     news = Fabricate.build(:news)
     tag_build = Fabricate.build(:tag)
-    tag_persisted = Fabricate(:tag, name: 'New tag', 
+    tag_persisted = Fabricate(:tag, name: 'New tag',
       institution_id: @institution.id, category: 'important'
     )
 
@@ -169,7 +169,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     fill_in 'news_title', with: news.title
     fill_in 'news_description', with: news.description
     fill_in 'news_body', with: news.body
-    
+
     within '#tags fieldset' do
       fill_in find('input[name$="[tag_attributes][name]"]')[:id], with: tag_build.name
     end
@@ -189,7 +189,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     find('.ui-autocomplete li.ui-menu-item a', visible: false).click
 
     assert find('#tags fieldset:nth-child(2) input[value="important"]', visible: false).checked?
- 
+
     assert_difference ['News.count', 'Tag.count'] do
       assert_difference 'Tagging.count', 2 do
         find('.btn.btn-primary').click
@@ -203,7 +203,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     tag = Fabricate(:tag, name: 'duplicate_name', institution_id: @institution.id)
 
     @news.taggings.create(tag_id: tag.id)
-  
+
     visit edit_news_path(@news)
 
     assert page.has_css?('#tags fieldset:nth-child(3)')
@@ -228,7 +228,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     )
 
     visit edit_news_path(@news)
-  
+
     assert page.has_css?('#tags fieldset')
 
     within '#tags fieldset:nth-child(1)' do

@@ -15,7 +15,7 @@
         <% grades.each do |grade| %>
           <div class="span6">
             <h3><%= link_to grade.to_s, [grade.institution, grade] %></h3>
-            
+
             <div class="page-header">
               <h5>
                 <%= link_to_if can?(:read, Course), Course.model_name.human(count: grade.courses.size), grade_courses_path(grade) %>
@@ -33,7 +33,7 @@
                 <% end %>
               </ul>
             <% end %>
-            
+
             <div class="form-actions">
               <% if can? :update, grade %>
                 <%= link_to(

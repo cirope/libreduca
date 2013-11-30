@@ -22,7 +22,7 @@ module ContentsHelper
 
     content_tag(:li, link, class: "#{label} #{'disabled' unless content}")
   end
-  
+
   def render_new_homework_presentation_form(homework)
     @homework = homework
     @presentation ||= Presentation.new

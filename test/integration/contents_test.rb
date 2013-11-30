@@ -181,7 +181,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
 
         Fabricate(
           :reply,
-          user_id: @test_user.id, 
+          user_id: @test_user.id,
           question_id: question.id,
           answer_id: question.answers.last.id
         )

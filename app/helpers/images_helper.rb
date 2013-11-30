@@ -30,7 +30,7 @@ module ImagesHelper
     options = args.extract_options!
 
     link = content_tag('span', '&#xe04e;'.html_safe, class: 'iconic')
-    link << ' ' << t('label.zoom') 
+    link << ' ' << t('label.zoom')
 
     options['title'] ||= t('label.zoom')
     options['data-toggle'] ||= 'modal'

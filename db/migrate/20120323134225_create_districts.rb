@@ -7,7 +7,7 @@ class CreateDistricts < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :districts, :name
     add_index :districts, :region_id
   end

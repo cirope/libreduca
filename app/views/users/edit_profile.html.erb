@@ -12,7 +12,7 @@
         <%= f.input :avatar, hint: user_avatar_identifier(f.object) %>
         <%= f.input :remove_avatar, as: :boolean, wrapper: :checkbox, input_html: { class: nil } if @user.avatar? %>
         <%= f.input :avatar_cache, as: :hidden %>
-       
+
         <%= f.input :lock_version, as: :hidden %>
         <%= f.button :submit, t('view.users.update_profile'), class: 'btn-primary' %>
       </div>
@@ -29,7 +29,7 @@
       <div class="form-inputs">
         <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
         <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
-        
+
         <%= f.input :lock_version, as: :hidden, input_html: { id: "user_lock_version_password_#{@user.to_param}" } %>
         <%= f.button :submit, t('view.users.update_password') %>
       </div>

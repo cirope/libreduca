@@ -46,7 +46,7 @@ class SurveysControllerTest < ActionController::TestCase
 
   test 'should create survey' do
     assert_difference('Survey.count') do
-      post :create, content_id: @content, survey: 
+      post :create, content_id: @content, survey:
         Fabricate.attributes_for(:survey, content_id: nil)
     end
 

@@ -11,7 +11,7 @@ class FilesControllerTest < ActionController::TestCase
 
     sign_in user
   end
-  
+
   test 'should download file' do
     get :download, path: @document.file.current_path.sub("#{PRIVATE_PATH}/", '')
     assert_response :success
@@ -20,7 +20,7 @@ class FilesControllerTest < ActionController::TestCase
       @response.body
     )
   end
-  
+
   test 'should not download file' do
     get :download, path: 'wrong/path.txt'
     assert_redirected_to root_url

@@ -44,7 +44,7 @@ class VotesController < ApplicationController
   end
 
   private
-  
+
   def set_votable
     @votable = @news || @comment
   end

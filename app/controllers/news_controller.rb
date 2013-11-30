@@ -2,7 +2,7 @@ class NewsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   check_authorization
-  load_and_authorize_resource :tag, through: :current_institution, 
+  load_and_authorize_resource :tag, through: :current_institution,
     shallow: true, only: :index
 
   before_filter :set_news_loader
@@ -19,9 +19,9 @@ class NewsController < ApplicationController
     session[:user_return_to] ||= news_index_url unless current_user
 
     respond_to do |format|
-      format.html # index.html.erb 
+      format.html # index.html.erb
       format.json { render json: @news }
-    end  
+    end
   end
 
   # GET /news/1
@@ -32,7 +32,7 @@ class NewsController < ApplicationController
     @news.visited_by(current_user) if user_signed_in?
 
     respond_to do |format|
-      format.html # show.html.erb 
+      format.html # show.html.erb
       format.json { render json: @news }
     end
   end

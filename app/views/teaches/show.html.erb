@@ -2,7 +2,7 @@
 
 <div class="readonly-data">
   <h2><%= @course %></h2>
-  
+
   <p>
     <%= t(
       'view.teaches.between.html',
@@ -23,7 +23,7 @@
     </ul>
     <br />
   <% end %>
-  
+
   <ul class="nav nav-tabs" data-remote="true">
     <li class="active">
       <%= link_to(
@@ -58,7 +58,7 @@
       </li>
     <% end %>
   </ul>
-  
+
   <div class="tab-content">
     <div id="contents_container" class="tab-pane active">
       <% if @teach.contents.empty?  %>
@@ -82,15 +82,15 @@
       <div id="scores_container" class="tab-pane">
         <div class="alert"><%= t('label.loading') %></div>
       </div>
-      
+
       <div id="enrollments_container" class="tab-pane">
         <div class="alert"><%= t('label.loading') %></div>
       </div>
-      
+
       <div id="surveys_container" class="tab-pane">
         <div class="alert"><%= t('label.loading') %></div>
       </div>
-      
+
       <div id="tracking_container" class="tab-pane">
         <div class="alert"><%= t('label.loading') %></div>
       </div>

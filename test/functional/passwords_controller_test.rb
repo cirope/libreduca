@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PasswordsControllerTest < ActionController::TestCase
-  
+
   setup do
     @institution = Fabricate(:institution)
     @user = Fabricate(:user)
@@ -26,7 +26,7 @@ class PasswordsControllerTest < ActionController::TestCase
 
   test 'should validate expired token' do
     @user.send(:generate_reset_password_token!)
-    @user.update_column(:reset_password_sent_at, 
+    @user.update_column(:reset_password_sent_at,
       Time.zone.now - Devise.reset_password_within)
 
     get :edit, reset_password_token: @user.reset_password_token
@@ -48,7 +48,7 @@ class PasswordsControllerTest < ActionController::TestCase
   end
 
   test 'should send welcome instructions' do
-    
+
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :create, user: { email: @user.email, welcome: 'true' }
     end
@@ -59,7 +59,7 @@ class PasswordsControllerTest < ActionController::TestCase
   end
 
   test 'should send embedded welcome instructions' do
-    
+
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :create, user: { email: @user.email, welcome: 'true' }, embedded: 'true'
     end
@@ -67,10 +67,10 @@ class PasswordsControllerTest < ActionController::TestCase
     mail = ActionMailer::Base.deliveries.last
 
     assert_equal I18n.t('devise.mailer.token_instructions.subject'), mail.subject
-  end 
+  end
 
   test 'should send forgot password instructions' do
-    
+
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :create, user: { email: @user.email }
     end
@@ -81,7 +81,7 @@ class PasswordsControllerTest < ActionController::TestCase
   end
 
   test 'should send embedded forgot password instructions' do
-    
+
     assert_difference 'ActionMailer::Base.deliveries.size' do
       post :create, user: { email: @user.email }, embedded: 'true'
     end
@@ -89,5 +89,5 @@ class PasswordsControllerTest < ActionController::TestCase
     mail = ActionMailer::Base.deliveries.last
 
     assert_equal I18n.t('devise.mailer.embedded_reset_password_instructions.subject'), mail.subject
-  end 
+  end
 end

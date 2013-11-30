@@ -10,7 +10,7 @@ class CreateScores < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :scores, :teach_id
     add_index :scores, :user_id
   end

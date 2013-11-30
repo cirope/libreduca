@@ -7,11 +7,11 @@
       </li>
       <% if current_institution.news.count > News.per_page %>
         <li <%= raw 'class="active"' if active && @news.current_page == 2 %>>
-          <%= link_to t('view.news.previous_news'), 
+          <%= link_to t('view.news.previous_news'),
             embedded_news_index_path(2) %>
         </li>
       <% end %>
-    </ul>    
+    </ul>
     <% unless user_signed_in? %>
     <ul class="nav pull-right">
       <li class="dropdown">

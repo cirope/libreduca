@@ -4,7 +4,7 @@
     <b><%= Institution.human_attribute_name 'district_id' %></b>:
     <%= @institution.district %>
   </p>
-  
+
   <% if @institution.grades.empty? %>
     <%= link_to t('view.grades.new'), new_institution_grade_path(@institution), class: 'btn btn-mini btn-inverse' if can? :create, @institution.grades.build %>
   <% else %>
@@ -15,19 +15,19 @@
         <%= link_to t('view.grades.new'), new_institution_grade_path(@institution), class: 'btn btn-mini' %>
       <% end %>
     </h3>
-    
+
     <ul>
       <% @institution.grades.reject!(&:new_record?).each do |grade| %>
         <li><%= link_to_if can?(:read, grade), grade.to_s, [@institution, grade] %></li>
       <% end %>
     </ul>
   <% end %>
-  
+
   <% unless @institution.workers.exclude_studens.empty? %>
     <h3>
       <%= Institution.human_attribute_name('workers', count: @institution.workers.exclude_studens.size) %>
     </h3>
-    
+
     <ul>
       <% @institution.workers.exclude_studens.each do |worker| %>
         <li>

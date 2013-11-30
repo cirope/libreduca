@@ -1,7 +1,7 @@
-<% 
+<%
   tagging = f.object
   id = tagging.object_id
-  tagging.build_tag unless tagging.tag 
+  tagging.build_tag unless tagging.tag
 %>
 <fieldset>
   <div class="row-fluid">
@@ -20,8 +20,8 @@
               'autocomplete-id-target' => ".tag_id_#{id}",
               'autocomplete-min-length' => '2'
             }
-          } 
-        %>  
+          }
+        %>
         <%= f.input :tag_id, as: :hidden,
           input_html: { class: "autocomplete_id tag_id_#{id}" }
         %>
@@ -29,7 +29,7 @@
       <div class="span4 color_chooser">
         <div class="btn-group">
           <% Tag::CATEGORIES.each do |c| %>
-            <div class="tag_color_chooser btn btn-<%= c == 'important' ? 'danger' : c %> 
+            <div class="tag_color_chooser btn btn-<%= c == 'important' ? 'danger' : c %>
               <%= 'selected' if tagging.tag.category == c %>">
               <span class="iconic"><%= '&#x2713;'.html_safe %></span>
               <%= f_t.radio_button :category, c %>
@@ -38,10 +38,10 @@
         </div>
       </div>
       <div class="span2">
-        <%= f_t.input :tagger_type, as: :hidden, input_html: { value: @taggable.class.to_s } %> 
+        <%= f_t.input :tagger_type, as: :hidden, input_html: { value: @taggable.class.to_s } %>
         <%= f_t.input :id, as: :hidden, input_html: { class: "autocomplete_id tag_id_#{id}" } %>
         <%= link_to_remove_nested_item(f) %>
-      </div> 
+      </div>
     <% end %>
   </div>
 </fieldset>

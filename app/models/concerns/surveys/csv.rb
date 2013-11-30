@@ -35,7 +35,7 @@ module Surveys::CSV
             csv << [nil, reply.response]
           end
         else
-          question.answers.each do |answer| 
+          question.answers.each do |answer|
             csv << [nil, answer.to_s, answer.replies.count]
           end
         end

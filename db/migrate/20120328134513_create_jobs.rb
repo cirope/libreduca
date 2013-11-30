@@ -8,7 +8,7 @@ class CreateJobs < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :jobs, :user_id
     add_index :jobs, :institution_id
   end

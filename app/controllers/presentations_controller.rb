@@ -1,14 +1,14 @@
 class PresentationsController < ApplicationController
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
-  
+
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_resource :content
   load_resource :homework, through: :content, shallow: true
   load_and_authorize_resource through: [:homework, :content]
 
-  
+
   # GET /presentations
   # GET /presentations.json
   def index

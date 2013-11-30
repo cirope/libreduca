@@ -24,7 +24,7 @@
 <%= @image.to_html(version) %>
     </pre>
   <% end %>
-  
+
 </div>
 <div class="form-actions">
   <%= link_to t('label.edit'), edit_image_path(@image) if can? :update, @image %> |

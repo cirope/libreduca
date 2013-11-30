@@ -3,7 +3,7 @@ require 'test_helper'
 class RegionsControllerTest < ActionController::TestCase
   setup do
     @region = Fabricate(:region)
-    
+
     sign_in Fabricate(:user)
   end
 
@@ -14,14 +14,14 @@ class RegionsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'regions/index'
   end
-  
+
   test 'should get filtered index' do
     3.times do
       Fabricate(:region) do
         name { "in_filtered_index #{sequence(:region_name)}" }
       end
     end
-    
+
     get :index, q: 'filtered_index'
     assert_response :success
     assert_not_nil assigns(:regions)
@@ -47,7 +47,7 @@ class RegionsControllerTest < ActionController::TestCase
 
     assert_redirected_to region_url(assigns(:region))
   end
-  
+
   test 'should create region and district' do
     assert_difference ['Region.count', 'District.count'] do
       post :create, region: Fabricate.attributes_for(:region).merge(
@@ -81,7 +81,7 @@ class RegionsControllerTest < ActionController::TestCase
       put :update, id: @region,
         region: Fabricate.attributes_for(:region, name: 'Upd')
     end
-    
+
     assert_redirected_to region_url(assigns(:region))
     assert_equal 'Upd', @region.reload.name
   end

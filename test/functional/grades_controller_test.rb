@@ -4,7 +4,7 @@ class GradesControllerTest < ActionController::TestCase
   setup do
     @grade = Fabricate(:grade)
     @institution = @grade.institution
-    
+
     sign_in Fabricate(:user)
   end
 
@@ -15,14 +15,14 @@ class GradesControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'grades/index'
   end
-  
+
   test 'should get filtered index' do
     3.times do
       Fabricate(:grade, institution_id: @institution.id) do
         name { "in_filtered_index #{sequence(:grade_name)}" }
       end
     end
-    
+
     get :index, institution_id: @institution.to_param, q: 'filtered_index'
     assert_response :success
     assert_not_nil assigns(:grades)
@@ -71,7 +71,7 @@ class GradesControllerTest < ActionController::TestCase
       put :update, institution_id: @institution.to_param, id: @grade,
         grade: Fabricate.attributes_for(:grade, name: 'Upd')
     end
-    
+
     assert_redirected_to institution_grade_url(@institution, assigns(:grade))
     assert_equal 'Upd', @grade.reload.name
   end

@@ -8,7 +8,7 @@ class CreateKinships < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :kinships, :user_id
     add_index :kinships, :relative_id
   end

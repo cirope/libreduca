@@ -16,21 +16,21 @@ module DashboardHelper
         )
       ].join('').html_safe
     )
-    
+
     show_info title: Teach.model_name.human, content: raw(content),
       placement: 'left'
   end
-  
+
   def show_dashboard_score(score)
     classes = ['badge']
     classes << 'badge-success' if score >= SCORE_SUCCESS_THRESHOLD
     classes << 'badge-warning' if score <= SCORE_FAIL_THRESHOLD
-    
+
     content_tag(
       :span, number_with_precision(score), class: classes.join(' ')
     )
   end
-  
+
   def show_dashboard_score_extras(score)
     content = content_tag(
       :ul, [

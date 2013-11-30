@@ -1,9 +1,9 @@
 class RegionsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /regions
   # GET /regions.json
   def index
@@ -74,7 +74,7 @@ class RegionsController < ApplicationController
         format.json { render json: @region.errors, status: :unprocessable_entity }
       end
     end
-  
+
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.regions.stale_object_error'
     redirect_to edit_user_url(@user)

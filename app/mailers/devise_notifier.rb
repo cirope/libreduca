@@ -1,4 +1,4 @@
-class DeviseNotifier < Devise::Mailer 
+class DeviseNotifier < Devise::Mailer
   include MandrillHeaders
 
   def token_instructions(record, opts = {})
@@ -7,9 +7,9 @@ class DeviseNotifier < Devise::Mailer
 
   def embedded_reset_password_instructions(record, opts = {})
     devise_mail(record, :embedded_reset_password_instructions, opts)
-  end 
+  end
 
   def welcome_instructions(record, opts = {})
     devise_mail(record, :welcome_instructions, opts)
-  end 
+  end
 end

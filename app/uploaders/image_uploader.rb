@@ -2,7 +2,7 @@
 
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  
+
   storage :file
   after :remove, :delete_empty_upstream_dirs
 

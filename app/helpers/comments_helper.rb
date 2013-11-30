@@ -5,7 +5,7 @@ module CommentsHelper
     text << ' ' << content_tag(:span, "(#{total})", class: 'muted small-comment')
 
     if user_signed_in?
-      link_to text, path, 
+      link_to text, path,
         title: Comment.model_name.human(count: 0),
         data: { 'show-tooltip' => true, 'placement' => 'top' }
     else

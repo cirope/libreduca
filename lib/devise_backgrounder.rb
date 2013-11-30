@@ -26,7 +26,7 @@ class DeviseBackgrounder
   def initialize(method, record, options)
     @method, @record, @options = method, record, options
   end
-  
+
   def deliver
     DeviseNotifier.delay.send(@method, @record, @options)
   end

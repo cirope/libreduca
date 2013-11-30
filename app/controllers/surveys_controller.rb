@@ -1,14 +1,14 @@
 class SurveysController < ApplicationController
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
-  
+
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource :teach, shallow: true
   load_and_authorize_resource :content, shallow: true
 
   load_and_authorize_resource through: [:teach, :content]
-  
+
   # GET /surveys
   # GET /surveys.json
   # GET /surveys.csv

@@ -111,7 +111,7 @@ class Ability
       user.jobs.in_institution(institution).exists?
     end
     can :manage, Presentation # TODO: check for proper access
-    can :manage, News, institution_id: institution.id 
+    can :manage, News, institution_id: institution.id
     can :manage, Group, institution_id: institution.id
     can :manage, Membership
     can :read, Enrollment

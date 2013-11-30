@@ -25,7 +25,7 @@ module VotesHelper
 
     options['data-remote'] ||= true
     options['data-method'] ||= 'delete'
-    options['data-original-title'] ||= t('label.dislike') 
+    options['data-original-title'] ||= t('label.dislike')
 
     link_path = polymorphic_path([vote.votable, vote])
 

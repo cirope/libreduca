@@ -69,13 +69,13 @@ body {
     @include border-radius(0 0 6px 6px);
     @include box-shadow(0, 1px, 2px, rgba(0,0,0,.15));
   }
-  
+
   .form-inputs {
     padding: 6px 20px 18px;
   }
 }
 
-#new_comment, #new_conversation { 
+#new_comment, #new_conversation {
   .form-inputs { padding: 6px 0 18px; }
   .alert { margin: 0; }
 }
@@ -84,20 +84,20 @@ body {
   .pagination, .page-entries {
     margin-right: 20px;
   }
-  
+
   .page-entries {
     font-size: .8em;
     margin-top: -18px;
   }
 }
 
-.logged-in[data-action="index"], 
-  .logged-in[data-action="show"], 
+.logged-in[data-action="index"],
+  .logged-in[data-action="show"],
     #c_chart, #c_news, #c_sessions, #c_passwords, #c_conversations, #c_replies {
   .form-actions {
     padding-left: 20px;
   }
-  
+
   .readonly-data {
     margin: 0px 20px;
 

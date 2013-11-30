@@ -5,7 +5,7 @@ class TagsControllerTest < ActionController::TestCase
     @tag = Fabricate(:tag)
     @institution = Fabricate(:institution)
     @user = Fabricate(:user, password: '123456', roles: [:normal])
-    @job = Fabricate( 
+    @job = Fabricate(
       :job, user_id: @user.id, institution_id: @institution.id, job: 'janitor'
     )
     @request.host = "#{@institution.identification}.lvh.me"
@@ -14,10 +14,10 @@ class TagsControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index' do
-    3.times { |name| 
-      Fabricate(:tag, name: "in_filtered_index_#{name}", institution_id: @institution.id) 
+    3.times { |name|
+      Fabricate(:tag, name: "in_filtered_index_#{name}", institution_id: @institution.id)
     }
-  
+
     get :index, q: 'filtered_index', type: @tag.tagger_type
     assert_response :success
     assert_not_nil assigns(:tags)
@@ -29,8 +29,8 @@ class TagsControllerTest < ActionController::TestCase
   end
 
   test 'should get filtered index in json' do
-    3.times { |name| 
-      Fabricate(:tag, name: "in_filtered_index_#{name}", institution_id: @institution.id) 
+    3.times { |name|
+      Fabricate(:tag, name: "in_filtered_index_#{name}", institution_id: @institution.id)
     }
 
     get :index, q: 'filtered_index', type: @tag.tagger_type, format: 'json'

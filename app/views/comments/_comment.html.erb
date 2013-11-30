@@ -15,9 +15,9 @@
           'view.forums.created_by.html',
           user: comment.user.to_s,
           distance_time: distance_of_time_in_words_to_now(comment.created_at)
-        ) %> 
+        ) %>
       </small>
-      
+
       <% if @commentable.can_vote_comments? %>
         <% vote = comment.voted_by(current_user) || comment.votes.build %>
         <span id="<%= comment.anchor_vote %>" class="pull-right">

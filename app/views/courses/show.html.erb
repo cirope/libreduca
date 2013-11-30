@@ -2,7 +2,7 @@
 
 <div class="readonly-data">
   <h2><%= @course %></h2>
-  
+
   <% if @course.teaches.empty? %>
     <%= link_to t('view.teaches.new'), new_course_teach_path(@course), class: 'btn btn-mini btn-inverse' if can? :create, @course.teaches.build %>
   <% else %>
@@ -13,7 +13,7 @@
         <%= link_to t('view.teaches.new'), new_course_teach_path(@course), class: 'btn btn-mini' %>
       <% end %>
     </h3>
-    
+
     <ul>
       <% @course.teaches.reject!(&:new_record?).each do |teach| %>
         <li><%= link_to_if can?(:read, teach), teach.to_s, teach %></li>

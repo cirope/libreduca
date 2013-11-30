@@ -1,10 +1,10 @@
 class InstitutionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_regions, only: [:new, :create, :edit, :update]
-  
+
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /institutions
   # GET /institutions.json
   def index
@@ -75,7 +75,7 @@ class InstitutionsController < ApplicationController
         format.json { render json: @institution.errors, status: :unprocessable_entity }
       end
     end
-    
+
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.institutions.stale_object_error'
     redirect_to edit_user_url(@user)
@@ -91,9 +91,9 @@ class InstitutionsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
-  
+
   def load_regions
     @regions = Region.includes(:districts)
   end

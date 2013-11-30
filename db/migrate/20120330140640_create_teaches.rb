@@ -8,7 +8,7 @@ class CreateTeaches < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :teaches, :start
     add_index :teaches, :finish
     add_index :teaches, :course_id

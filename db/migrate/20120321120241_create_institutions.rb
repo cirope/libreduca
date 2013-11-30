@@ -7,7 +7,7 @@ class CreateInstitutions < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :institutions, :name
     add_index :institutions, :identification, unique: true
   end

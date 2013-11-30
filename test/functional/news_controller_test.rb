@@ -14,7 +14,7 @@ class NewsControllerTest < ActionController::TestCase
   test 'should get embedded index news' do
     get :index, embedded: true
     assert_response :success
-    assert_not_nil assigns(:news) 
+    assert_not_nil assigns(:news)
     assert_select '#unexpected_error', false
     assert_template "news/index", layout: 'layouts/embedded'
   end
@@ -100,7 +100,7 @@ class NewsControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'News.count' do
-      put :update, id: @news, news: Fabricate.attributes_for(:news, 
+      put :update, id: @news, news: Fabricate.attributes_for(:news,
         title: 'new value', institution_id: @institution.id
       )
     end

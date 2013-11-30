@@ -14,14 +14,14 @@
           t('view.contents.activities'),
           '#contents_container', data: { toggle: 'tab' }
         ) %>
-      </li> 
+      </li>
       <% unless current_user_is_student? %>
         <li>
           <%= link_to(
-            t('view.presentations.homeworks'), '#presentations_container', 
-            data: { 
-              'toggle' => 'tab', 
-              'remote-url' => content_presentations_path(@content) 
+            t('view.presentations.homeworks'), '#presentations_container',
+            data: {
+              'toggle' => 'tab',
+              'remote-url' => content_presentations_path(@content)
             }
           ) %>
         </li>
@@ -30,7 +30,7 @@
             t('view.replies.surveys'), '#replies_container',
             data: {
               'toggle' => 'tab',
-              'remote-url' => content_surveys_path(@content) 
+              'remote-url' => content_surveys_path(@content)
             }
           ) %>
         </li>

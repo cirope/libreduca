@@ -6,10 +6,10 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    vote_attributes = Fabricate.attributes_for(:vote, 
+    vote_attributes = Fabricate.attributes_for(:vote,
       votable_id: @vote.votable_id, votable_type: @vote.votable_type
     )
-    
+
     assert_difference ['Vote.count', '@vote.votable.reload.votes_count'] do
       Vote.create do |v|
         vote_attributes.each do |attr, value|
@@ -24,7 +24,7 @@ class VoteTest < ActiveSupport::TestCase
       @vote.destroy
     end
   end
- 
+
   test 'validates unique attributes' do
     new_vote = Fabricate(:vote, votable_id: @vote.votable_id)
     @vote.user_id = new_vote.user_id

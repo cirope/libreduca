@@ -3,7 +3,7 @@
 <div class="readonly-data">
   <h3><%= @survey %></h3>
   <p>
-    <%= User.model_name.human(count: 1) %>: 
+    <%= User.model_name.human(count: 1) %>:
     <%= @user %>
   </p>
 
@@ -30,5 +30,5 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to_if can?(:read, @survey.content), @survey.content.to_s, [@survey.teach, @survey.content] %> 
+  <%= link_to_if can?(:read, @survey.content), @survey.content.to_s, [@survey.teach, @survey.content] %>
 </div>

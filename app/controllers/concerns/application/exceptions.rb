@@ -22,7 +22,7 @@ module Application::Exceptions
 
   def render_error_page(exception)
     @title = t('errors.title')
-    
+
     if response.redirect_url.blank?
       render template: 'shared/show_error', locals: { error: exception }
     end

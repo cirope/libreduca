@@ -4,7 +4,7 @@
   </div>
   <div class="public_form_container span4">
     <h3>¿Olvidaste tu contraseña?</h3>
-    
+
     <p>
       Ingresa debajo tu dirección de correo y te enviaremos instrucciones para
       restablecerla
@@ -12,12 +12,12 @@
 
     <div class="row-fluid">
       <div class="span12">
-        <%= simple_form_for(resource, as: resource_name, 
+        <%= simple_form_for(resource, as: resource_name,
             url: password_path(resource_name), html: { method: :post }) do |f| %>
           <div class="form-inputs">
             <%= f.input :email, input_html: { autofocus: true, class: 'span12' } %>
           </div>
-          
+
           <div class="form-actions">
             <%= render 'shared/hidden_submit', f: f %>
             <%= show_button_dropdown(

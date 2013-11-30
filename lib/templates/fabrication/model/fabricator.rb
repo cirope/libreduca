@@ -2,7 +2,7 @@ Fabricator(<%= class_name.match(/::/) ? "'#{class_name}'" : ":#{singular_name}" 
 <% attributes.each do |attribute| -%>
   <%- random = case attribute.type.to_s -%>
     <%- when 'string' then attribute.name.match(/name/).present? ?
-      'Faker::Name.name' : ( 
+      'Faker::Name.name' : (
         attribute.name.match(/email/).present? ? 'Faker::Internet.email' : 'Faker::Lorem.sentence'
       ) -%>
     <%- when 'text' then 'Faker::Lorem.paragraph' -%>

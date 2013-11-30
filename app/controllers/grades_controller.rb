@@ -1,10 +1,10 @@
 class GradesController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource :institution
   load_and_authorize_resource :grade, through: :institution
-  
+
   # GET /grades
   # GET /grades.json
   def index
@@ -75,7 +75,7 @@ class GradesController < ApplicationController
         format.json { render json: @grade.errors, status: :unprocessable_entity }
       end
     end
-    
+
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.grades.stale_object_error'
     redirect_to edit_institution_grade_url(@institution, @grade)

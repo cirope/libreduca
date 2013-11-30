@@ -11,7 +11,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :documents, :created_at 
+    add_index :documents, :created_at
     add_index :documents, [:owner_id, :owner_type]
   end
 end

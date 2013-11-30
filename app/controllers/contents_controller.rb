@@ -1,10 +1,10 @@
 class ContentsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource :teach
   load_and_authorize_resource through: :teach
-  
+
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
   # GET /contents

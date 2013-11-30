@@ -1,6 +1,6 @@
 class ForumsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   check_authorization
   load_and_authorize_resource :institution
   load_and_authorize_resource :teach
@@ -10,7 +10,7 @@ class ForumsController < ApplicationController
   before_filter :set_comment_anchor, only: :show
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
-  
+
   # GET /forums
   # GET /forums.json
   def index

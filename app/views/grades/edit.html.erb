@@ -4,7 +4,7 @@
   <% if can? :read, @grade %>
     <%= link_to t('label.show'), [@institution, @grade] %> |
   <% end %>
-  <% if can? :read, Grade %>  
+  <% if can? :read, Grade %>
     <%= link_to t('label.list'), institution_grades_path(@institution) %>
   <% end %>
 <% end %>
