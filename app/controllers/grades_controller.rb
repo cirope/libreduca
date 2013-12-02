@@ -91,4 +91,10 @@ class GradesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def grade_params
+    params.require(:grade).permit(:name, :institution_id, :lock_version)
+  end
 end
