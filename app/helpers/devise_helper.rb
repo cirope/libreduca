@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module DeviseHelper
   def devise_links_es
     @_devise_links = []
