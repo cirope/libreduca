@@ -45,7 +45,7 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @title = t('view.groups.created')
+    @title = t 'view.groups.created'
 
     respond_to do |format|
       if @group.save
@@ -60,10 +60,10 @@ class GroupsController < ApplicationController
   # PUT /groups/1
   # PUT /groups/1.json
   def update
-    @title = t('view.groups.edit_title')
+    @title = t 'view.groups.edit_title'
 
     respond_to do |format|
-      if @group.update_attributes(params[:group])
+      if @group.update(group_params)
         format.html { redirect_to @group, notice: t('view.groups.correctly_updated') }
         format.json { head :ok }
       else
@@ -90,4 +90,13 @@ class GroupsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  private
+
+    def group_params
+      params.require(:group).permit(
+        :name, :institution_id, :enrollable_type,
+        memberships_attributes: [:user_id]
+      )
+    end
 end
