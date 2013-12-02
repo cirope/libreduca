@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_current_user, only: [:edit_profile, :update_profile]
+  before_action :authenticate_user!
+  before_action :load_current_user, only: [:edit_profile, :update_profile]
 
   check_authorization
   load_and_authorize_resource through: :current_institution, shallow: true,
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     @title = t 'view.users.edit_title'
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update(params[:user])
         format.html { redirect_to @user, notice: t('view.users.correctly_updated') }
       else
         format.html { render action: 'edit' }
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
     @title = t('view.users.edit_profile')
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update(params[:user])
         format.html { redirect_to(edit_profile_user_url(@user), notice: t('view.users.profile_correctly_updated')) }
       else
         format.html { render action: 'edit_profile' }

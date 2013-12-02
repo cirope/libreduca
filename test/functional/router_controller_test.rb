@@ -25,7 +25,7 @@ class RouterControllerTest < ActionController::TestCase
 
     3.times { Fabricate(:news, institution_id: institution.id) }
 
-    institution.show_news.update_attributes(value: false)
+    institution.show_news.update(value: false)
 
     get :index
     assert_redirected_to new_user_session_url

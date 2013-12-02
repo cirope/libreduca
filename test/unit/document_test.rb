@@ -19,7 +19,7 @@ class DocumentTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Document.count' do
-        assert @document.update_attributes(name: 'Updated')
+        assert @document.update(name: 'Updated')
       end
     end
 

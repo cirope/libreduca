@@ -17,7 +17,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Enrollment.count' do
-        assert @enrollment.update_attributes(enrollable_id: new_user.id)
+        assert @enrollment.update(enrollable_id: new_user.id)
       end
     end
 
@@ -138,7 +138,7 @@ class EnrollmentTest < ActiveSupport::TestCase
       assert enrollment_ids.include?(@enrollment.id)
     end
 
-    assert @enrollment.teach.update_attributes(start: Date.tomorrow)
+    assert @enrollment.teach.update(start: Date.tomorrow)
 
     Enrollment.in_current_teach.map(&:id).tap do |enrollment_ids|
       assert enrollment_ids.exclude?(@enrollment.id)

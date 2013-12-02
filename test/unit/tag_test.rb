@@ -18,7 +18,7 @@ class TagTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Tag.count' do
-        assert @tag.update_attributes(name: 'Updated')
+        assert @tag.update(name: 'Updated')
       end
     end
 

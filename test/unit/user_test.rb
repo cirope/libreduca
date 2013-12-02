@@ -42,7 +42,7 @@ class UserTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'User.count' do
-        assert @user.update_attributes(name: 'Updated')
+        assert @user.update(name: 'Updated')
       end
     end
 
@@ -209,7 +209,7 @@ class UserTest < ActiveSupport::TestCase
       email: @user.email, subdomains: ['no-institution']
     )
 
-    @user.update_attributes(role: :normal)
+    @user.update(role: :normal)
     # No longer admin...
     assert_equal @user, User.find_for_authentication(
       email: @user.email, subdomains: ['admin']

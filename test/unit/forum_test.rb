@@ -20,7 +20,7 @@ class ForumTest < ActiveSupport::TestCase
 
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Forum.count' do
-        assert @forum.update_attributes(name: 'Updated', user_id: user.id)
+        assert @forum.update(name: 'Updated', user_id: user.id)
       end
     end
 

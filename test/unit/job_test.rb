@@ -16,7 +16,7 @@ class JobTest < ActiveSupport::TestCase
 
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Job.count' do
-        assert @job.update_attributes(job: new_job)
+        assert @job.update(job: new_job)
       end
     end
 

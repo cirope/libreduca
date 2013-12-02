@@ -17,7 +17,7 @@ class KinshipTest < ActiveSupport::TestCase
 
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Kinship.count' do
-        assert @kinship.update_attributes(kin: new_kin)
+        assert @kinship.update(kin: new_kin)
       end
     end
 

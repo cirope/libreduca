@@ -1,16 +1,16 @@
 class ImagesController < ApplicationController
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   check_authorization
   load_resource :news, shallow: true
 
-  before_filter :set_owner
+  before_action :set_owner
 
   load_resource through: [:owner, :current_institution]
 
-  before_filter :set_institution_to_image, only: [:create, :update]
+  before_action :set_institution_to_image, only: [:create, :update]
 
   authorize_resource
 

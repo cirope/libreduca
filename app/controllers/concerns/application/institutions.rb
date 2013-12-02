@@ -4,7 +4,7 @@ module Application::Institutions
   included do
     helper_method :current_institution
 
-    before_filter :set_current_institution
+    before_action :set_current_institution
   end
 
   def current_institution

@@ -35,7 +35,7 @@ class NewsTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'News.count' do
-        assert @news.update_attributes(title: 'Updated')
+        assert @news.update(title: 'Updated')
       end
     end
 

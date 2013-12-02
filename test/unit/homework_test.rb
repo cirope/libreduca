@@ -14,7 +14,7 @@ class HomeworkTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Homework.count' do
-        assert @homework.update_attributes(name: 'Updated')
+        assert @homework.update(name: 'Updated')
       end
     end
 

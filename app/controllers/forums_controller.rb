@@ -1,13 +1,13 @@
 class ForumsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   check_authorization
   load_and_authorize_resource :institution
   load_and_authorize_resource :teach
   load_and_authorize_resource through: [:institution, :teach]
 
-  before_filter :set_owner
-  before_filter :set_comment_anchor, only: :show
+  before_action :set_owner
+  before_action :set_comment_anchor, only: :show
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 

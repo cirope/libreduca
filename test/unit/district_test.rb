@@ -14,7 +14,7 @@ class DistrictTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'District.count' do
-        assert @district.update_attributes(name: 'Updated')
+        assert @district.update(name: 'Updated')
       end
     end
 

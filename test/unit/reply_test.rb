@@ -20,7 +20,7 @@ class ReplyTest < ActiveSupport::TestCase
     new_answer_id = Fabricate(:answer, question_id: @reply.question_id).id
 
     assert_no_difference 'Reply.count' do
-      assert @reply.update_attributes(answer_id: new_answer_id), @reply.errors.full_messages.join('; ')
+      assert @reply.update(answer_id: new_answer_id), @reply.errors.full_messages.join('; ')
     end
 
     assert_not_equal old_answer_id, @reply.reload.answer_id

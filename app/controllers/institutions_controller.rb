@@ -1,6 +1,6 @@
 class InstitutionsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_regions, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!
+  before_action :load_regions, only: [:new, :create, :edit, :update]
 
   check_authorization
   load_and_authorize_resource

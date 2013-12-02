@@ -20,7 +20,7 @@ class TaggingTest < ActiveSupport::TestCase
 
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Tagging.count' do
-        assert @tagging.update_attributes(tag_id: tag.id)
+        assert @tagging.update(tag_id: tag.id)
       end
     end
 

@@ -1,7 +1,7 @@
 class PresentationsController < ApplicationController
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   check_authorization
   load_resource :content

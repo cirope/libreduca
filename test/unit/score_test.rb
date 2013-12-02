@@ -14,7 +14,7 @@ class ScoreTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Score.count' do
-        assert @score.update_attributes(score: 99.87)
+        assert @score.update(score: 99.87)
       end
     end
 

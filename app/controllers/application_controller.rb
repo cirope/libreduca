@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :set_js_format_in_iframe_request
+  before_action :set_js_format_in_iframe_request
 
   after_filter -> { expires_now if user_signed_in? }
 

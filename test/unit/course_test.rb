@@ -15,7 +15,7 @@ class CourseTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Course.count' do
-        assert @course.update_attributes(name: 'Updated')
+        assert @course.update(name: 'Updated')
       end
     end
 

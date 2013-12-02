@@ -15,7 +15,7 @@ class GradeTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Grade.count' do
-        assert @grade.update_attributes(name: 'Updated')
+        assert @grade.update(name: 'Updated')
       end
     end
 

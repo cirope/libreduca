@@ -1,5 +1,5 @@
 class FilesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def download
     file = (PRIVATE_PATH + params[:path].to_s).expand_path

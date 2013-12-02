@@ -28,7 +28,7 @@ class RegionTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Region.count' do
-        assert @region.update_attributes(name: 'Updated')
+        assert @region.update(name: 'Updated')
       end
     end
 

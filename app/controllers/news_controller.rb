@@ -1,11 +1,11 @@
 class NewsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
 
   check_authorization
   load_and_authorize_resource :tag, through: :current_institution,
     shallow: true, only: :index
 
-  before_filter :set_news_loader
+  before_action :set_news_loader
 
   load_and_authorize_resource through: :news_loader
 

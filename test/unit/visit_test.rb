@@ -19,7 +19,7 @@ class VisitTest < ActiveSupport::TestCase
     new_user = Fabricate(:user)
 
     assert_no_difference 'Visit.count' do
-      assert @visit.update_attributes(user: new_user)
+      assert @visit.update(user: new_user)
     end
 
     assert_not_equal new_user.id, @visit.reload.user_id

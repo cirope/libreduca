@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   check_authorization
   load_and_authorize_resource :news, shallow: true
@@ -7,8 +7,8 @@ class CommentsController < ApplicationController
   load_and_authorize_resource :forum, shallow: true
   load_and_authorize_resource :presentation, shallow: true
 
-  before_filter :set_commentable
-  before_filter :set_comment_anchor, only: :index
+  before_action :set_commentable
+  before_action :set_comment_anchor, only: :index
 
   load_and_authorize_resource through: :commentable
 

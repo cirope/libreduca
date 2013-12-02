@@ -21,7 +21,7 @@ class ImageTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Image.count' do
-        assert @image.update_attributes(name: 'Updated')
+        assert @image.update(name: 'Updated')
       end
     end
 

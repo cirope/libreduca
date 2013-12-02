@@ -1,5 +1,5 @@
 class LaunchpadController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     @title = t 'view.launchpad.index_title'

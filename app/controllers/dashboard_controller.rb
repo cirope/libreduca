@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate_user!, :load_institution_job, :validate_action
+  before_action :authenticate_user!, :load_institution_job, :validate_action
 
   def index
     if @job

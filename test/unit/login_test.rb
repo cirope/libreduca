@@ -17,7 +17,7 @@ class LoginTest < ActiveSupport::TestCase
     assert_not_equal new_ip, @login.ip
 
     assert_no_difference 'Login.count' do
-      assert @login.update_attributes(ip: new_ip)
+      assert @login.update(ip: new_ip)
     end
 
     assert_equal new_ip, @login.reload.ip

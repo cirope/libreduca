@@ -67,7 +67,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
 
     respond_to do |format|
-      if @<%= orm_instance.update_attributes("params[:#{singular_table_name}]") %>
+      if @<%= orm_instance.update("params[:#{singular_table_name}]") %>
         format.html { redirect_to @<%= singular_table_name %>, notice: t('view.<%= plural_table_name %>.correctly_updated') }
         format.json { head :ok }
       else

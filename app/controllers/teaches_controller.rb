@@ -6,14 +6,14 @@ class TeachesController < ApplicationController
 
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   check_authorization
   load_resource :course
   load_resource :user
   load_and_authorize_resource through: [:course, :user], shallow: true
 
-  before_filter :load_course
+  before_action :load_course
 
   # GET /teaches
   # GET /teaches.json

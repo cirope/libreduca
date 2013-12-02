@@ -14,7 +14,7 @@ class InstitutionTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Institution.count' do
-        assert @institution.update_attributes(name: 'Updated')
+        assert @institution.update(name: 'Updated')
       end
     end
 
@@ -141,7 +141,7 @@ class InstitutionTest < ActiveSupport::TestCase
 
     assert_equal true, @institution.show_news.converted_value
 
-    assert @institution.show_news.update_attributes(value: false)
+    assert @institution.show_news.update(value: false)
 
     assert_equal false, @institution.reload.show_news.converted_value
   end

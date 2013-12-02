@@ -1,11 +1,11 @@
 class VotesController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   check_authorization
   load_and_authorize_resource :news, shallow: true
   load_and_authorize_resource :comment, shallow: true
 
-  before_filter :set_votable
+  before_action :set_votable
 
   load_and_authorize_resource through: :votable
 

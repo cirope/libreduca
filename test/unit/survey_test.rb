@@ -18,7 +18,7 @@ class SurveyTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Survey.count' do
-        assert @survey.update_attributes(name: 'Updated')
+        assert @survey.update(name: 'Updated')
       end
     end
 

@@ -16,7 +16,7 @@ class MembershipTest < ActiveSupport::TestCase
 
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Membership.count' do
-        assert @membership.update_attributes(user_id: new_user.id)
+        assert @membership.update(user_id: new_user.id)
       end
     end
 
