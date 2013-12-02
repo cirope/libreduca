@@ -7,9 +7,6 @@ class Institution < ActiveRecord::Base
 
   has_magick_columns name: :string, identification: :string
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :identification, :district_id, :settings_attributes, :lock_version
-
   alias_attribute :label, :name
   alias_attribute :informal, :identification
 
