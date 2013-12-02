@@ -78,7 +78,7 @@ class TeachesController < ApplicationController
     @title = t 'view.teaches.edit_title'
 
     respond_to do |format|
-      if @teach.update_attributes(params[:teach])
+      if @teach.update(teach_params)
         format.html { redirect_to @teach, notice: t('view.teaches.correctly_updated') }
         format.json { head :no_content }
       else
@@ -105,7 +105,21 @@ class TeachesController < ApplicationController
 
   private
 
-  def load_course
-    @course ||= @teach.try(:course)
-  end
+    def teach_params
+      params.require(:teach).permit(
+        :start, :finish, :description, :course_id, :lock_version,
+        enrollments_attributes: [
+          :id, :teach_id, :job, :enrollable_id, :enrollable_type, :lock_version,
+          :_destroy
+        ],
+        scores_attributes: [
+          :id, :score, :multiplier, :description, :user_id, :teach_id, :lock_version,
+          :_destroy
+        ]
+      )
+    end
+
+    def load_course
+      @course ||= @teach.try(:course)
+    end
 end

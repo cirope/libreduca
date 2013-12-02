@@ -5,9 +5,6 @@ class Enrollment < ActiveRecord::Base
   scope :sorted_by_name, -> { joins(:course).order("#{Course.table_name}.name ASC") }
   scope :only_students, -> { where(job: 'student') }
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :teach_id, :job, :auto_user_name, :enrollable_id, :enrollable_type, :lock_version, :auto_enrollable_name
-
   attr_accessor :auto_user_name, :auto_enrollable_name
 
   # Callbacks

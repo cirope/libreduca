@@ -1,9 +1,6 @@
 class Score < ActiveRecord::Base
   has_paper_trail
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :score, :multiplier, :description, :user_id, :teach_id, :lock_version
-
   before_validation :replace_coma_with_period_in_scores
 
   # Default order
