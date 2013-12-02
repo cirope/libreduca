@@ -7,9 +7,11 @@ class VotesControllerTest < ActionController::TestCase
 
     news = Fabricate(:news, institution_id: @institution.id)
     @comment = Fabricate(
-      :comment, commentable_id: news.id, commentable_type: news.class.model_name
+      :comment, commentable_id: news.id, commentable_type: news.class.to_s
     )
-    @vote = Fabricate(:vote, votable_id: @comment.id, votable_type: @comment.class.model_name)
+    @vote = Fabricate(
+      :vote, votable_id: @comment.id, votable_type: @comment.class.to_s
+    )
     @user = @comment.user
 
     @request.host = "#{@institution.identification}.lvh.me"
@@ -17,8 +19,7 @@ class VotesControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should create vote" do
-
+  test 'should create vote' do
     assert_difference ['Vote.count', '@comment.reload.votes_count'] do
       post :create, comment_id: @comment.to_param, format: 'js'
     end
