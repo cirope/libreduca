@@ -16,7 +16,7 @@ class CommentsControllerTest < ActionController::TestCase
   test 'should get index presentation comments' do
     presentation = Fabricate(:presentation)
 
-    get :index, presentation_id: presentation.id
+    get :index, presentation_id: presentation
     assert_response :success
     assert_not_nil assigns(:comments)
     assert_select '#unexpected_error', false

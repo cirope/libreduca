@@ -6,9 +6,6 @@ class Document < ActiveRecord::Base
   # Callbacks
   before_save :update_file_attributes
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :file, :file_cache, :lock_version
-
   # Default order
   default_scope -> { order("#{table_name}.created_at ASC") }
 

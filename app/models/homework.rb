@@ -1,8 +1,6 @@
 class Homework < ActiveRecord::Base
   has_paper_trail
 
-  # attr_accessible :name, :description, :closing_at, :content_id, :lock_version
-
   # Defaul order
   default_scope -> { order("#{table_name}.closing_at ASC") }
 

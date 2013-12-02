@@ -6,9 +6,6 @@ class Content < ActiveRecord::Base
 
   has_paper_trail
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :title, :content, :documents_attributes, :homeworks_attributes, :lock_version
-
   # Default order
   default_scope -> { order("#{table_name}.title ASC") }
 

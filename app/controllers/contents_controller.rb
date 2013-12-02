@@ -93,4 +93,16 @@ class ContentsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  private
+
+  def content_params
+    params.require(:content).permit(
+      :title, :content, :documents_attributes, :homeworks_attributes, :lock_version,
+      documents_attributes: [:name, :file, :file_cache, :lock_version],
+      homeworks_attributes: [
+        :name, :description, :closing_at, :content_id, :lock_version
+      ]
+    )
+  end
 end
