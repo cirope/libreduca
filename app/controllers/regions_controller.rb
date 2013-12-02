@@ -66,7 +66,7 @@ class RegionsController < ApplicationController
     @title = t 'view.regions.edit_title'
 
     respond_to do |format|
-      if @region.update_attributes(params[:region])
+      if @region.update(region_params)
         format.html { redirect_to @region, notice: t('view.regions.correctly_updated') }
         format.json { head :no_content }
       else
@@ -90,4 +90,13 @@ class RegionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+    def region_params
+      params.require(:region).permit(
+        :name, :lock_version,
+        districts_attributes: [:id, :name, :region_id, :lock_version, :_destroy]
+      )
+    end
 end

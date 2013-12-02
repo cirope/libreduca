@@ -3,9 +3,6 @@ class District < ActiveRecord::Base
 
   has_magick_columns name: :string
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :region_id, :lock_version
-
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
 

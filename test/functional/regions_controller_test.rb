@@ -51,9 +51,9 @@ class RegionsControllerTest < ActionController::TestCase
   test 'should create region and district' do
     assert_difference ['Region.count', 'District.count'] do
       post :create, region: Fabricate.attributes_for(:region).merge(
-        districts_attributes: {
-          new_1: Fabricate.attributes_for(:district, region_id: nil)
-        }
+        districts_attributes: [
+          Fabricate.attributes_for(:district, region_id: nil)
+        ]
       )
     end
 
