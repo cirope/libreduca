@@ -129,16 +129,13 @@ class UsersController < ApplicationController
       :name, :lastname, :email, :password, :password_confirmation, :avatar,
       :avatar_cache, :remove_avatar, :role, :remember_me,
       :memberships_attributes, :welcome, :lock_version,
+      memberships_attributes: [:id, :user_id, :group_id, :_destroy],
       jobs_attributes: [
-        :id, :job, :description, :user_id, :institution_id,
-        :auto_institution_name, :lock_version, :_destroy
-      ],
-      kinships_attributes: [
-        :id, :kin, :user_id, :relative_id, :auto_user_name, :lock_version,
+        :id, :job, :description, :user_id, :institution_id, :lock_version,
         :_destroy
       ],
-      memberships_attributes: [
-        :id, :user_id, :group_id, :auto_group_name, :auto_user_name, :_destroy
+      kinships_attributes: [
+        :id, :kin, :user_id, :relative_id, :lock_version, :_destroy
       ]
     )
   end
