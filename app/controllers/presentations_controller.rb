@@ -12,7 +12,7 @@ class PresentationsController < ApplicationController
   # GET /presentations
   # GET /presentations.json
   def index
-    @title = t('view.presentations.index_title')
+    @title = t 'view.presentations.index_title'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -23,7 +23,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/1
   # GET /presentations/1.json
   def show
-    @title = t('view.presentations.show_title')
+    @title = t 'view.presentations.show_title'
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/new
   # GET /presentations/new.json
   def new
-    @title = t('view.presentations.new_title')
+    @title = t 'view.presentations.new_title'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,7 +45,7 @@ class PresentationsController < ApplicationController
   # POST /presentations
   # POST /presentations.json
   def create
-    @title = t('view.presentations.new_title')
+    @title = t 'view.presentations.new_title'
     @presentation.user = current_user
 
     respond_to do |format|
@@ -71,4 +71,10 @@ class PresentationsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  private
+
+    def presentation_params
+      params.require(:presentation).permit(:file, :file_cache, :lock_version)
+    end
 end
