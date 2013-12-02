@@ -40,9 +40,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     return_url = session[:user_return_to]
 
-    if is_embedded?
-      news_index_path(embedded: true)
-    elsif return_url.present?
+    if return_url.present?
       return_url
     else
       if resource.is?(:admin)
