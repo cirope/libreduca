@@ -10,7 +10,7 @@ class ContentsController < ApplicationController
   # GET /contents
   # GET /contents.json
   def index
-    @title = t('view.contents.index_title')
+    @title = t 'view.contents.index_title'
     @searchable = true
     @contents = @contents.filtered_list(params[:q]).page(params[:page])
 
@@ -36,7 +36,7 @@ class ContentsController < ApplicationController
   # GET /contents/new
   # GET /contents/new.json
   def new
-    @title = t('view.contents.new_title')
+    @title = t 'view.contents.new_title'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,13 +46,13 @@ class ContentsController < ApplicationController
 
   # GET /contents/1/edit
   def edit
-    @title = t('view.contents.edit_title')
+    @title = t 'view.contents.edit_title'
   end
 
   # POST /contents
   # POST /contents.json
   def create
-    @title = t('view.contents.new_title')
+    @title = t 'view.contents.new_title'
 
     respond_to do |format|
       if @content.save
@@ -71,7 +71,7 @@ class ContentsController < ApplicationController
     @title = t('view.contents.edit_title')
 
     respond_to do |format|
-      if @content.update_attributes(params[:content])
+      if @content.update(content_params)
         format.html { redirect_to [@teach, @content], notice: t('view.contents.correctly_updated') }
         format.json { head :ok }
       else
@@ -98,7 +98,7 @@ class ContentsController < ApplicationController
 
   def content_params
     params.require(:content).permit(
-      :title, :content, :documents_attributes, :homeworks_attributes, :lock_version,
+      :title, :content, :lock_version,
       documents_attributes: [:name, :file, :file_cache, :lock_version],
       homeworks_attributes: [
         :name, :description, :closing_at, :content_id, :lock_version
