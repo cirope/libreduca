@@ -3,9 +3,6 @@ class Image < ActiveRecord::Base
 
   has_paper_trail
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :file, :file_cache, :lock_version
-
   # Not modificable attributes
   attr_readonly :institution_id
 

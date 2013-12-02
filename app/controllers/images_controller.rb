@@ -77,7 +77,7 @@ class ImagesController < ApplicationController
     @title = t('view.images.edit_title')
 
     respond_to do |format|
-      if @image.update_attributes(params[:image])
+      if @image.update(image_params)
         format.html { redirect_to @image, notice: t('view.images.correctly_updated') }
         format.json { head :ok }
       else
@@ -102,12 +102,15 @@ class ImagesController < ApplicationController
   end
 
   private
+    def image_params
+      params.require(:image).permit(:name, :file, :file_cache, :lock_version)
+    end
 
-  def set_owner
-    @owner = @news
-  end
+    def set_owner
+      @owner = @news
+    end
 
-  def set_institution_to_image
-    @image.institution ||= current_institution
-  end
+    def set_institution_to_image
+      @image.institution ||= current_institution
+    end
 end
