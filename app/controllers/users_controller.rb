@@ -127,16 +127,18 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :name, :lastname, :email, :password, :password_confirmation, :avatar,
-      :avatar_cache, :remove_avatar, :role, :remember_me, :kinships_attributes,
-      :jobs_attributes, :memberships_attributes, :welcome, :lock_version,
+      :avatar_cache, :remove_avatar, :role, :remember_me,
+      :memberships_attributes, :welcome, :lock_version,
       jobs_attributes: [
-        :job, :description, :user_id, :institution_id, :auto_institution_name, :lock_version
+        :id, :job, :description, :user_id, :institution_id,
+        :auto_institution_name, :lock_version, :_destroy
       ],
       kinships_attributes: [
-        :kin, :user_id, :relative_id, :auto_user_name, :lock_version
+        :id, :kin, :user_id, :relative_id, :auto_user_name, :lock_version,
+        :_destroy
       ],
       memberships_attributes: [
-        :user_id, :group_id, :auto_group_name, :auto_user_name
+        :id, :user_id, :group_id, :auto_group_name, :auto_user_name, :_destroy
       ]
     )
   end

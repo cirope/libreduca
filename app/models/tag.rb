@@ -5,9 +5,6 @@ class Tag < ActiveRecord::Base
 
   has_magick_columns name: :string, tagger_type: :string
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :category, :tagger_type
-
   alias_attribute :label, :to_s
 
   # Callbacks

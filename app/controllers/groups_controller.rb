@@ -96,7 +96,7 @@ class GroupsController < ApplicationController
     def group_params
       params.require(:group).permit(
         :name, :institution_id, :enrollable_type,
-        memberships_attributes: [:user_id]
+        memberships_attributes: [:id, :user_id, :_destroy]
       )
     end
 end

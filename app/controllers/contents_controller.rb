@@ -99,9 +99,11 @@ class ContentsController < ApplicationController
   def content_params
     params.require(:content).permit(
       :title, :content, :lock_version,
-      documents_attributes: [:name, :file, :file_cache, :lock_version],
+      documents_attributes: [
+        :id, :name, :file, :file_cache, :lock_version, :_destroy
+      ],
       homeworks_attributes: [
-        :name, :description, :closing_at, :content_id, :lock_version
+        :id, :name, :description, :closing_at, :content_id, :lock_version, :_destroy
       ]
     )
   end
