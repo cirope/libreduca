@@ -1,8 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7 ]><html class="ie ie6"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
+<html>
 <head>
   <meta charset="utf-8" />
   <title><%= title %></title>
@@ -13,11 +10,11 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <%= csrf_meta_tags %>
-  <%= favicon_link_tag %>
+  <%= favicon_link_tag '/favicon.ico' %>
 </head>
 <body id="c_<%= controller_name %>" class="embedded" data-action="<%= action_name %>">
   <div id="loading_caption" class="alert" style="display: none;">
-    <strong><%= t('label.loading') %></strong>
+    <strong><%= t 'label.loading' %></strong>
   </div>
 
   <div class="content"><%= yield %></div>
