@@ -76,7 +76,7 @@ class ForumsController < ApplicationController
     @title = t('view.forums.edit_title')
 
     respond_to do |format|
-      if @forum.update_attributes(params[:forum])
+      if @forum.update(forum_params)
         format.html { redirect_to [@owner, @forum], notice: t('view.forums.correctly_updated') }
         format.json { head :ok }
       else
@@ -100,12 +100,15 @@ class ForumsController < ApplicationController
   end
 
   private
+    def forum_params
+      params.require(:forum).permit(:name, :topic, :info, :lock_version)
+    end
 
-  def set_owner
-    @owner = @institution || @teach
-  end
+    def set_owner
+      @owner = @institution || @teach
+    end
 
-  def set_comment_anchor
-    @comment_anchor = Comment.find(params[:show_comment_id]) if params[:show_comment_id].present?
-  end
+    def set_comment_anchor
+      @comment_anchor = Comment.find(params[:show_comment_id]) if params[:show_comment_id].present?
+    end
 end

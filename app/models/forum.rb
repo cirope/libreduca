@@ -9,9 +9,6 @@ class Forum < ActiveRecord::Base
 
   delegate :institution, :users, to: :owner, allow_nil: true
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :topic, :info, :lock_version
-
   # Attributes only writables in creation
   attr_readonly :user_id
 

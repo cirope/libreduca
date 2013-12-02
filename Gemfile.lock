@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/francocatena/cancan.git
-  revision: 7bc55a9669d5588ac00a9e8b2fa7581ca54ac306
+  revision: db265a821c82d5313c8d4e49b8806391c4856f9b
   specs:
     cancan (1.6.10)
 
