@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
 
   after_filter -> { expires_now if user_signed_in? }
 
-  helper_method :is_embedded?
-
   def user_for_paper_trail
     current_user.try(:id)
   end
@@ -40,9 +38,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     return_url = session[:user_return_to]
 
-    if is_embedded?
-      news_index_path(embedded: true)
-    elsif return_url.present?
+    if return_url.present?
       return_url
     else
       if resource.is?(:admin)
@@ -63,9 +59,5 @@ class ApplicationController < ActionController::Base
 
   def set_js_format_in_iframe_request
     request.format = :js if params['X-Requested-With'] == 'IFrame'
-  end
-
-  def is_embedded?
-    params[:embedded] == 'true'
   end
 end

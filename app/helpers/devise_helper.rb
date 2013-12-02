@@ -17,7 +17,7 @@ module DeviseHelper
   def add_link_to_back
     if controller_name != 'sessions'
       @_devise_links << link_to(
-        'Volver a inicio de sesión', new_session_path(resource_name, embedded: params[:embedded])
+        'Volver a inicio de sesión', new_session_path(resource_name)
       )
     end
   end
@@ -31,7 +31,7 @@ module DeviseHelper
   def add_link_to_forgot_password
     if devise_mapping.recoverable? && controller_name != 'passwords'
       @_devise_links << link_to(
-        '¿Olvidaste tu contraseña?', new_password_path(resource_name, embedded: params[:embedded])
+        '¿Olvidaste tu contraseña?', new_password_path(resource_name)
       )
     end
   end

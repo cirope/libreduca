@@ -3,7 +3,7 @@
   <div class="row-fluid">
     <div class="span12">
       <div class="badge badge-link">
-        <%= link_to t('label.back'), embedded_news_index_path %>
+        <%= link_to t('label.back'), news_index_path %>
       </div>
 
       <div class="page-header">
@@ -32,7 +32,7 @@
       <% unless @news.tags.empty? %>
         <div class="news_info">
           <strong><%= News.human_attribute_name 'tags', count: @news.tags.size %></strong>:
-          <%== show_tags_nav(@news, embedded: params[:embedded]) %>
+          <%== show_tags_nav(@news) %>
         </div>
       <% end %>
 
@@ -47,16 +47,14 @@
       <% end %>
 
       <div class="badge badge-link">
-        <%= link_to t('label.back'), embedded_news_index_path %>
+        <%= link_to t('label.back'), news_index_path %>
       </div>
     </div>
   </div>
 </div>
 
-<% unless is_embedded? %>
 <div class="form-actions">
   <%= link_to(
     t('label.edit'), edit_news_path(@news), class: 'btn btn-primary'
   ) if can? :update, @news %>
 </div>
-<% end %>

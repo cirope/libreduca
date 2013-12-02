@@ -9,7 +9,7 @@ class NewsController < ApplicationController
 
   load_and_authorize_resource through: :news_loader
 
-  layout ->(c) { c.send(:is_embedded?) ? 'embedded' : 'application' }
+  layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
   # GET /news
   # GET /news.json

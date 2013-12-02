@@ -14,8 +14,9 @@
   </div>
 
 <div class="readonly-data">
-  <%= link_to('¿Olvidaste tu contraseña?',
-    new_password_path(resource_name, embedded: params[:embedded]),
-    id: 'reset-password') %>
+  <%= link_to(
+    '¿Olvidaste tu contraseña?', new_password_path(resource_name),
+    id: 'reset-password'
+  ) %>
 </div>
 <% end %>

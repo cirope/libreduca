@@ -11,14 +11,6 @@ class NewsControllerTest < ActionController::TestCase
     @request.host = "#{@institution.identification}.lvh.me"
   end
 
-  test 'should get embedded index news' do
-    get :index, embedded: true
-    assert_response :success
-    assert_not_nil assigns(:news)
-    assert_select '#unexpected_error', false
-    assert_template "news/index", layout: 'layouts/embedded'
-  end
-
   test 'should get public index' do
     get :index
     assert_response :success
@@ -58,14 +50,6 @@ class NewsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to news_url(assigns(:news))
-  end
-
-  test 'should show embedded news' do
-    get :show, id: @news, embedded: true
-    assert_response :success
-    assert_not_nil assigns(:news)
-    assert_select '#unexpected_error', false
-    assert_template "news/show", layout: 'layouts/embedded'
   end
 
   test 'should show public news' do
