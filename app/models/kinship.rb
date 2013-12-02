@@ -5,9 +5,6 @@ class Kinship < ActiveRecord::Base
 
   KINDS = ['father', 'mother', 'tutor', 'superior', 'functional', 'other']
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :kin, :user_id, :relative_id, :auto_user_name, :lock_version
-
   attr_accessor :auto_user_name
 
   # Validations

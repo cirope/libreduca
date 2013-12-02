@@ -72,7 +72,7 @@
           <div id="groups" class="span12">
             <% @user.memberships.build %>
             <%= f.simple_fields_for :memberships do |j_f| %>
-              <%= render partial: "membership", locals: { f: j_f } %>
+              <%= render partial: 'membership', locals: { f: j_f } %>
             <% end %>
 
             <%= link_to_add_fields(t('view.groups.add_new'), f, :memberships) %>

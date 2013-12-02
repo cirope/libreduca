@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/capistrano/rbenv.git
-  revision: 29260c6cf1380323ad282434aea8089c503e6e33
+  revision: d2f83117c2d035bc9504ed4550d4ea0d229db87c
   specs:
     capistrano-rbenv (0.1.0)
       capistrano (~> 3.0)
@@ -150,7 +150,7 @@ GEM
     redis (3.0.6)
     redis-namespace (1.3.2)
       redis (~> 3.0.4)
-    roadie (2.4.2)
+    roadie (2.4.3)
       actionmailer (> 3.0.0, < 5.0.0)
       css_parser (~> 1.3.4)
       nokogiri (> 1.5.0)
@@ -173,7 +173,7 @@ GEM
       json
       redis (>= 3.0.4)
       redis-namespace (>= 1.3.1)
-    simple_form (3.0.0)
+    simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
     sprockets (2.10.1)
@@ -196,7 +196,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
-    timecop (0.6.3)
+    timecop (0.7.0)
     timeliness (0.3.7)
     timers (1.1.0)
     tins (0.13.1)
@@ -208,7 +208,7 @@ GEM
     turn (0.9.6)
       ansi
     tzinfo (0.3.38)
-    uglifier (2.3.1)
+    uglifier (2.3.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.7.0)

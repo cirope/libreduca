@@ -15,9 +15,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :welcome
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :lastname, :email, :password, :password_confirmation, :avatar, :avatar_cache, :remove_avatar, :role, :remember_me, :kinships_attributes, :jobs_attributes, :memberships_attributes, :welcome, :lock_version
-
   # Default order
   default_scope -> { order("#{table_name}.lastname ASC") }
 

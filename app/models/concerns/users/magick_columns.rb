@@ -8,7 +8,7 @@ module Users
 
     module ClassMethods
       def filtered_list(query)
-        query.present? ? magick_search(query) : scoped
+        query.present? ? magick_search(query) : all
       end
     end
   end

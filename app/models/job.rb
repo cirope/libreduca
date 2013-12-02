@@ -7,9 +7,6 @@ class Job < ActiveRecord::Base
   scope :exclude_studens, -> { where('job <> ?', 'student') }
   scope :active, -> { where(active: true) }
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :job, :description, :user_id, :institution_id, :auto_institution_name, :lock_version
-
   attr_accessor :auto_institution_name
 
   # Validations

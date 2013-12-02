@@ -17,8 +17,8 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @title = t('view.comments.index_title')
-    @comments = @comments.page(params[:page])
+    @title = t 'view.comments.index_title'
+    @comments = @comments.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @title = t('view.comments.new_title')
+    @title = t 'view.comments.new_title'
     @comment.user = current_user
 
     respond_to do |format|
@@ -51,6 +51,10 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def comment_params
+    params.require(:comment).permit(:comment, :lock_version)
+  end
 
   def set_commentable
     @commentable = @forum || @news || @presentation || @reply

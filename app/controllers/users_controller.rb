@@ -105,10 +105,12 @@ class UsersController < ApplicationController
   end
 
   def find_by_email
-    @user = User.find_by_email(params[:q].strip.downcase)
+    @user = User.find_by email: params[:q].strip.downcase
+
+    authorize! :read, @user
 
     respond_to do |format|
-      if !@user.nil?
+      if @user.present?
         if @user.has_job_in?(current_institution)
           format.js { render template: 'users/edit' }
         else
@@ -121,6 +123,23 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(
+      :name, :lastname, :email, :password, :password_confirmation, :avatar,
+      :avatar_cache, :remove_avatar, :role, :remember_me, :kinships_attributes,
+      :jobs_attributes, :memberships_attributes, :welcome, :lock_version,
+      jobs_attributes: [
+        :job, :description, :user_id, :institution_id, :auto_institution_name, :lock_version
+      ],
+      kinships_attributes: [
+        :kin, :user_id, :relative_id, :auto_user_name, :lock_version
+      ],
+      memberships_attributes: [
+        :user_id, :group_id, :auto_group_name, :auto_user_name
+      ]
+    )
+  end
 
   def load_current_user
     @user = current_user
