@@ -107,8 +107,6 @@ class UsersController < ApplicationController
   def find_by_email
     @user = User.find_by email: params[:q].strip.downcase
 
-    authorize! :read, @user
-
     respond_to do |format|
       if @user.present?
         if @user.has_job_in?(current_institution)

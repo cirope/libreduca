@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Application::CancanStrongParameters
   include Application::Enrollments
-  #include Application::Exceptions
+  include Application::Exceptions
   include Application::Institutions
 
   protect_from_forgery

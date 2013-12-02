@@ -118,8 +118,8 @@ class NewsTest < ActionDispatch::IntegrationTest
 
   test 'should paginate comments en news' do
     news = Fabricate(:news, institution_id: @institution.id)
-    5.times { Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name) }
-    comment = Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.model_name)
+    5.times { Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.to_s) }
+    comment = Fabricate(:comment, commentable_id: news.id, commentable_type: news.class.to_s)
 
     visit news_path(news)
 
