@@ -67,7 +67,7 @@ class GradesController < ApplicationController
     @title = t 'view.grades.edit_title'
 
     respond_to do |format|
-      if @grade.update_attributes(params[:grade])
+      if @grade.update(grade_params)
         format.html { redirect_to [@institution, @grade], notice: t('view.grades.correctly_updated') }
         format.json { head :no_content }
       else
