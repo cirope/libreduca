@@ -16,7 +16,7 @@
           <%= render 'tags/tagging', :f => j_f, :@taggable => @news %>
         <% end %>
 
-        <%= link_to_add_fields(t('view.news.new_tag'), f, :taggings, 'tags/tagging') %>
+        <%= link_to_add_fields t('view.news.new_tag'), f, :taggings, 'tags/tagging' %>
       </div>
 
       <%= f.input :lock_version, as: :hidden %>

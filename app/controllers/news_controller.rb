@@ -14,7 +14,7 @@ class NewsController < ApplicationController
   # GET /news
   # GET /news.json
   def index
-    @title = t('view.news.index_title')
+    @title = t 'view.news.index_title'
     @news = @news.page(params[:page])
     session[:user_return_to] ||= news_index_url unless current_user
 
@@ -27,7 +27,7 @@ class NewsController < ApplicationController
   # GET /news/1
   # GET /news/1.json
   def show
-    @title = t('view.news.show_title')
+    @title = t 'view.news.show_title'
 
     @news.visited_by(current_user) if user_signed_in?
 
@@ -40,7 +40,7 @@ class NewsController < ApplicationController
   # GET /news/new
   # GET /news/new.json
   def new
-    @title = t('view.news.new_title')
+    @title = t 'view.news.new_title'
 
     respond_to do |format|
       format.html # show.html.erb
@@ -50,13 +50,13 @@ class NewsController < ApplicationController
 
   # GET /news/1/edit
   def edit
-    @title = t('view.news.edit_title')
+    @title = t 'view.news.edit_title'
   end
 
   # POST /news
   # POST /news.json
   def create
-    @title = t('view.news.new_title')
+    @title = t 'view.news.new_title'
 
     respond_to do |format|
       if @news.save
@@ -74,10 +74,10 @@ class NewsController < ApplicationController
   # PUT /news/1
   # PUT /news/1.json
   def update
-    @title = t('view.news.edit_title')
+    @title = t 'view.news.edit_title'
 
     respond_to do |format|
-      if @news.update_attributes(params[:news])
+      if @news.update(news_params)
         format.html { redirect_to @news, notice: t('view.news.correctly_updated') }
         format.json { head :ok }
         format.js
@@ -104,8 +104,14 @@ class NewsController < ApplicationController
   end
 
   private
+    def news_params
+      params.require(:news).permit(
+        :title, :description, :body, :published_at, :lock_version,
+        taggings_attributes: [:tag_id, :tag_attributes]
+      )
+    end
 
-  def set_news_loader
-    @news_loader = @tag || current_institution
-  end
+    def set_news_loader
+      @news_loader = @tag || current_institution
+    end
 end

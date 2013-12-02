@@ -12,9 +12,6 @@ class News < ActiveRecord::Base
 
   attr_readonly :institution_id
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :title, :description, :body, :published_at, :taggings_attributes, :lock_version
-
   # Callbacks
   before_validation :remove_duplicates_tags, :set_institution_to_tags
 

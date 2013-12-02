@@ -2,7 +2,7 @@ class Tagging < ActiveRecord::Base
   has_paper_trail
 
   # Setup accessible (or protected) attributes for your model
-  # attr_accessible :tag_id, :tag_attributes
+  # attr_accessible 
 
   # Default order
   default_scope -> { order("#{table_name}.created_at ASC") }
