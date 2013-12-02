@@ -8,6 +8,6 @@ module Surveys::CurrentCheck
   end
 
   def check_past_teach
-    raise 'You can not do this' if self.past?
+    raise 'You can not do this' if past?
   end
 end

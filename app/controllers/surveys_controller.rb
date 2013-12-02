@@ -13,7 +13,7 @@ class SurveysController < ApplicationController
   # GET /surveys.json
   # GET /surveys.csv
   def index
-    @title = t('view.surveys.index_title')
+    @title = t 'view.surveys.index_title'
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,7 +28,7 @@ class SurveysController < ApplicationController
   # GET /surveys/1.json
   # GET /surveys/1.csv
   def show
-    @title = t('view.surveys.show_title')
+    @title = t 'view.surveys.show_title'
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,7 +40,7 @@ class SurveysController < ApplicationController
   # GET /surveys/new
   # GET /surveys/new.json
   def new
-    @title = t('view.surveys.new_title')
+    @title = t 'view.surveys.new_title'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,13 +50,13 @@ class SurveysController < ApplicationController
 
   # GET /surveys/1/edit
   def edit
-    @title = t('view.surveys.edit_title')
+    @title = t 'view.surveys.edit_title'
   end
 
   # POST /surveys
   # POST /surveys.json
   def create
-    @title = t('view.surveys.new_title')
+    @title = t 'view.surveys.new_title'
 
     respond_to do |format|
       if @survey.save
@@ -72,10 +72,10 @@ class SurveysController < ApplicationController
   # PUT /surveys/1
   # PUT /surveys/1.json
   def update
-    @title = t('view.surveys.edit_title')
+    @title = t 'view.surveys.edit_title'
 
     respond_to do |format|
-      if @survey.update_attributes(params[:survey])
+      if @survey.update(survey_params)
         format.html { redirect_to [@content, @survey], notice: t('view.surveys.correctly_updated') }
         format.json { head :ok }
       else
@@ -97,4 +97,16 @@ class SurveysController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  private
+
+    def survey_params
+      params.require(:survey).permit(
+        :name, :content_id, :lock_version, questions_attributes: [
+          :id, :content, :hint, :question_type, :required, :lock_version,
+          :_destroy,
+          answers_attributes: [:id, :content, :lock_version, :_destroy]
+        ]
+      )
+    end
 end

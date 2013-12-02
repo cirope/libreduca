@@ -4,9 +4,6 @@ class Survey < ActiveRecord::Base
 
   has_paper_trail
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :content_id, :questions_attributes, :lock_version
-
   # Scopes
   default_scope -> { order("#{table_name}.name ASC") }
 

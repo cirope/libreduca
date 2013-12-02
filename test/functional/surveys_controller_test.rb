@@ -85,7 +85,7 @@ class SurveysControllerTest < ActionController::TestCase
 
   test 'should update survey' do
     put :update, content_id: @content, id: @survey, survey:
-      Fabricate.attributes_for(:survey, content_id: nil)
+      Fabricate.attributes_for(:survey, content_id: nil).except(:content_id)
 
     assert_redirected_to content_survey_url(@content, assigns(:survey))
   end
