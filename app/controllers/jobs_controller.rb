@@ -8,7 +8,7 @@ class JobsController < ApplicationController
   layout ->(controller) { controller.request.xhr? ? false : 'application' }
 
   def create
-    @title = t('view.jobs.created')
+    @title = t 'view.jobs.created'
 
     respond_to do |format|
       if @job.save
@@ -19,4 +19,10 @@ class JobsController < ApplicationController
       end
     end
   end
+
+  private
+
+    def job_params
+      params.require(:job).permit(:job, :description, :user_id, :institution_id, :auto_institution_name, :lock_version)
+    end
 end
