@@ -25,11 +25,7 @@ module Libreduca
     config.autoload_paths += %W(#{config.root}/app/mailers/concerns)
 
     # Default devise layouts
-    config.to_prepare {
-      Devise::Mailer.layout 'notifier_mailer'
-      Devise::SessionsController.layout ->(c)  { is_embedded? ? 'embedded' : 'application' }
-      Devise::PasswordsController.layout ->(c) { is_embedded? ? 'embedded' : 'application' }
-    }
+    config.to_prepare { Devise::Mailer.layout 'notifier_mailer' }
 
     # Fabrication configuration
     config.generators do |g|

@@ -58,17 +58,6 @@ class PasswordsControllerTest < ActionController::TestCase
     assert_equal I18n.t('devise.mailer.welcome_instructions.subject'), mail.subject
   end
 
-  test 'should send embedded welcome instructions' do
-
-    assert_difference 'ActionMailer::Base.deliveries.size' do
-      post :create, user: { email: @user.email, welcome: 'true' }, embedded: 'true'
-    end
-
-    mail = ActionMailer::Base.deliveries.last
-
-    assert_equal I18n.t('devise.mailer.token_instructions.subject'), mail.subject
-  end
-
   test 'should send forgot password instructions' do
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
@@ -78,16 +67,5 @@ class PasswordsControllerTest < ActionController::TestCase
     mail = ActionMailer::Base.deliveries.last
 
     assert_equal I18n.t('devise.mailer.reset_password_instructions.subject'), mail.subject
-  end
-
-  test 'should send embedded forgot password instructions' do
-
-    assert_difference 'ActionMailer::Base.deliveries.size' do
-      post :create, user: { email: @user.email }, embedded: 'true'
-    end
-
-    mail = ActionMailer::Base.deliveries.last
-
-    assert_equal I18n.t('devise.mailer.embedded_reset_password_instructions.subject'), mail.subject
   end
 end

@@ -38,10 +38,6 @@ class User < ActiveRecord::Base
     custom_find_for_authentication(conditions) # Defined in DeviseCustomization
   end
 
-  def self.send_reset_password_instructions(attributes = {})
-    custom_send_reset_password_instructions(attributes) # Defined in DeviseCustomization
-  end
-
   def self.is_not(user)
     where("#{table_name}.id <> ?", user.id)
   end

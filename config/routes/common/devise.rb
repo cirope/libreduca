@@ -1,1 +1,1 @@
-devise_for :users, controllers: { passwords: 'passwords' }
+devise_for :users
