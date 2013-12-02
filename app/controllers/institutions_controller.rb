@@ -67,7 +67,7 @@ class InstitutionsController < ApplicationController
     @title = t 'view.institutions.edit_title'
 
     respond_to do |format|
-      if @institution.update_attributes(params[:institution])
+      if @institution.update(institution_params)
         format.html { redirect_to @institution, notice: t('view.institutions.correctly_updated') }
         format.json { head :no_content }
       else
@@ -93,8 +93,14 @@ class InstitutionsController < ApplicationController
   end
 
   private
+    def institution_params
+      params.require(:institution).permit(
+        :name, :identification, :district_id, :lock_version,
+        settings_attributes: [:id, :name, :value]
+      )
+    end
 
-  def load_regions
-    @regions = Region.includes(:districts)
-  end
+    def load_regions
+      @regions = Region.includes(:districts)
+    end
 end
