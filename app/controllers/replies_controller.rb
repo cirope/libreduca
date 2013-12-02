@@ -13,7 +13,7 @@ class RepliesController < ApplicationController
   # GET /questions/1/replies
   # GET /questions/1/replies.json
   def index
-    @title = t('view.replies.index_title')
+    @title = t 'view.replies.index_title'
     @replies = @replies.page(params[:page])
 
     respond_to do |format|
@@ -25,7 +25,7 @@ class RepliesController < ApplicationController
   # GET /questions/1/replies/1
   # GET /questions/1/replies/1.json
   def show
-    @title = t('view.replies.show_title')
+    @title = t 'view.replies.show_title'
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,7 +37,7 @@ class RepliesController < ApplicationController
   # GET /questions/1/replies/new
   # GET /questions/1/replies/new.json
   def new
-    @title = t('view.replies.new_title')
+    @title = t 'view.replies.new_title'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,13 +47,13 @@ class RepliesController < ApplicationController
 
   # GET /questions/1/replies/1/edit
   def edit
-    @title = t('view.replies.edit_title')
+    @title = t 'view.replies.edit_title'
   end
 
   # POST /questions/1/replies
   # POST /questions/1/replies.json
   def create
-    @title = t('view.replies.new_title')
+    @title = t 'view.replies.new_title'
     @reply.user_id = current_user.id
 
     respond_to do |format|
@@ -72,10 +72,10 @@ class RepliesController < ApplicationController
   # PUT /questions/1/replies/1
   # PUT /questions/1/replies/1.json
   def update
-    @title = t('view.replies.edit_title')
+    @title = t 'view.replies.edit_title'
 
     respond_to do |format|
-      if @reply.update_attributes(params[:reply])
+      if @reply.update(reply_params)
         format.html { redirect_to [@question, @reply], notice: t('view.replies.correctly_updated') }
         format.json { head :ok }
         format.js   # update.js.erb
@@ -91,6 +91,12 @@ class RepliesController < ApplicationController
 
   # GET /survey/1/replies/1/dashboard
   def dashboard
-    @title = t('view.replies.dashboard_title')
+    @title = t 'view.replies.dashboard_title'
   end
+
+  private
+
+    def reply_params
+      params.require(:reply).permit(:answer_id, :question_id, :response)
+    end
 end
