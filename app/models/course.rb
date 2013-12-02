@@ -3,9 +3,6 @@ class Course < ActiveRecord::Base
 
   has_magick_columns name: :string
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :grade_id, :lock_version
-
   # Default order
   default_scope -> { order("#{table_name}.name ASC") }
 
@@ -25,6 +22,6 @@ class Course < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
+    query.present? ? magick_search(query) : all
   end
 end
