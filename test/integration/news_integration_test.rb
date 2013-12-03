@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NewsTest < ActionDispatch::IntegrationTest
+class NewsIntegrationTest < ActionDispatch::IntegrationTest
   include Integration::Login
 
   setup do
