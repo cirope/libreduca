@@ -1,4 +1,6 @@
 class Enrollment < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+
   has_paper_trail
 
   # Scopes

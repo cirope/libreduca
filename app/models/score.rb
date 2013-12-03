@@ -1,4 +1,6 @@
 class Score < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+
   has_paper_trail
 
   before_validation :replace_coma_with_period_in_scores

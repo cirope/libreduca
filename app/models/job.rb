@@ -1,7 +1,11 @@
 class Job < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+
   has_paper_trail
 
   TYPES = ['headmaster', 'teacher', 'janitor', 'student']
+
+  after_destroy :destroy_user
 
   # Scopes
   scope :exclude_studens, -> { where('job <> ?', 'student') }
@@ -26,4 +30,9 @@ class Job < ActiveRecord::Base
   TYPES.each do |type|
     define_method("#{type}?") { self.job == type }
   end
+
+  private
+    def destroy_user
+      self.user.destroy! if Job.where(user_id: self.user.id).blank?
+    end
 end

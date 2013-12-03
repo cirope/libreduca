@@ -1,6 +1,8 @@
 class Question < ActiveRecord::Base
   include Questions::Type
   include Questions::Users
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   has_paper_trail
 

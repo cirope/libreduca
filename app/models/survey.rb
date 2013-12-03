@@ -1,6 +1,8 @@
 class Survey < ActiveRecord::Base
   include Surveys::CSV
   include Surveys::CurrentCheck
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   has_paper_trail
 

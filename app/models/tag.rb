@@ -1,4 +1,7 @@
 class Tag < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail
 
   CATEGORIES = ['default', 'success', 'warning', 'important', 'info', 'inverse']
@@ -6,9 +9,6 @@ class Tag < ActiveRecord::Base
   has_magick_columns name: :string, tagger_type: :string
 
   alias_attribute :label, :to_s
-
-  # Callbacks
-  before_destroy -> { false }
 
   # Default order
   default_scope -> { order("#{table_name}.name DESC") }

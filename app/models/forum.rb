@@ -1,5 +1,6 @@
 class Forum < ActiveRecord::Base
   include Commentable
+  include Associations::DestroyPaperTrail
 
   has_paper_trail ignore: [
     :comments_count, :lock_version, :updated_at

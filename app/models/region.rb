@@ -1,4 +1,7 @@
 class Region < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail
 
   has_magick_columns name: :string
@@ -13,7 +16,7 @@ class Region < ActiveRecord::Base
     allow_blank: true
 
   # Relations
-  has_many :districts, dependent: :destroy
+  has_many :districts
 
   accepts_nested_attributes_for :districts, allow_destroy: true,
     reject_if: ->(attributes) { attributes['name'].blank? }

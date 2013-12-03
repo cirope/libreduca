@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+
   mount_uploader :file, ImageUploader
 
   has_paper_trail

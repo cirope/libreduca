@@ -1,5 +1,6 @@
 class Presentation < ActiveRecord::Base
   include Commentable
+  include Associations::DestroyPaperTrail
 
   has_paper_trail ignore: :comments_count
 
@@ -7,9 +8,6 @@ class Presentation < ActiveRecord::Base
 
   # Callbacks
   before_save :check_current_teach, :update_file_attributes
-
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible 
 
   # Attributes only writables in creation
   attr_readonly :user_id, :homework_id

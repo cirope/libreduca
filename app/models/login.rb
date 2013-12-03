@@ -1,7 +1,4 @@
 class Login < ActiveRecord::Base
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :ip, :user_agent, :user_id
-
   # Default order
   default_scope -> { order("#{table_name}.created_at ASC") }
 

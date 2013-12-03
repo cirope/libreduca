@@ -1,14 +1,12 @@
 class Reply < ActiveRecord::Base
   include Commentable
   include Replies::ValidReply
+  include Associations::DestroyPaperTrail
 
   has_paper_trail ignore: :comments_count
 
   # Not modifiable attributes
   attr_readonly :user_id
-
-  # Callbacks
-  before_destroy -> { false }
 
   # Validations
   validates :question, :user, presence: true

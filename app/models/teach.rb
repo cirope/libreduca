@@ -1,4 +1,7 @@
 class Teach < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail
 
   attr_accessor :auto_enrollable_name

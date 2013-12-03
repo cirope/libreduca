@@ -1,12 +1,12 @@
 class Comment < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail ignore: [
     :votes_count, :lock_version, :updated_at
   ]
 
   self.per_page = 5
-
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible 
 
   # Write once attributes
   attr_readonly :user_id

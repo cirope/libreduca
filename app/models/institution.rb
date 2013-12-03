@@ -2,10 +2,14 @@ class Institution < ActiveRecord::Base
   include Configurable
   include Institutions::Overrides
   include Institutions::Settings
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   has_paper_trail
 
   has_magick_columns name: :string, identification: :string
+
+  after_destroy :destroy_district
 
   alias_attribute :label, :name
   alias_attribute :informal, :identification
@@ -28,6 +32,8 @@ class Institution < ActiveRecord::Base
   belongs_to :district
   has_many :workers, -> { where active: true }, dependent: :destroy,
     class_name: 'Job'
+  has_many :inactive_workers, -> { where active: false }, dependent: :destroy,
+    class_name: 'Job'
   has_many :users, through: :workers
   has_many :kinships, through: :users
   has_many :grades, dependent: :destroy
@@ -46,4 +52,11 @@ class Institution < ActiveRecord::Base
   def self.filtered_list(query)
     query.present? ? magick_search(query) : all
   end
+
+  private
+    def destroy_district
+      if Institution.where(district_id: self.district.id).blank?
+        self.district.destroy!
+      end
+    end
 end

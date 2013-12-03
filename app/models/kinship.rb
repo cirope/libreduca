@@ -1,5 +1,6 @@
 class Kinship < ActiveRecord::Base
   include Kinships::Chart
+  include Associations::DestroyPaperTrail
 
   has_paper_trail
 

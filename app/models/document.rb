@@ -1,4 +1,6 @@
 class Document < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+
   has_paper_trail
 
   mount_uploader :file, FileUploader

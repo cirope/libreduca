@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   include Users::Memberships
   include Users::Overrides
   include Users::Roles
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   mount_uploader :avatar, AvatarUploader
 

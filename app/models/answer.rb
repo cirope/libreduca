@@ -1,4 +1,7 @@
 class Answer < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail
 
   # Scopes

@@ -1,10 +1,10 @@
 class Group < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail
 
   has_magick_columns name: :string
-
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible 
 
   attr_accessor :enrollable_type
 

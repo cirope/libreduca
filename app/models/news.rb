@@ -1,6 +1,8 @@
 class News < ActiveRecord::Base
   include Visitable
   include Commentable
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   self.per_page = 6
 

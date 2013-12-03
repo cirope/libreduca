@@ -1,4 +1,7 @@
 class Homework < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail
 
   # Defaul order

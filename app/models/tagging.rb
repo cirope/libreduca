@@ -1,8 +1,7 @@
 class Tagging < ActiveRecord::Base
-  has_paper_trail
+  include Associations::DestroyPaperTrail
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible 
+  has_paper_trail
 
   # Default order
   default_scope -> { order("#{table_name}.created_at ASC") }

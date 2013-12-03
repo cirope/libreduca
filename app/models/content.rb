@@ -3,6 +3,8 @@ class Content < ActiveRecord::Base
   include Contents::MagickColumns
   include Contents::Navigation
   include Contents::Surveys
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   has_paper_trail
 

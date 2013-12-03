@@ -1,4 +1,6 @@
 class Membership < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+
   has_paper_trail
 
   attr_accessor :auto_group_name, :auto_user_name
