@@ -10,23 +10,23 @@ class GroupsControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:groups)
     assert_select '#unexpected_error', false
-    assert_template "groups/index"
+    assert_template 'groups/index'
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
     assert_not_nil assigns(:group)
     assert_select '#unexpected_error', false
-    assert_template "groups/new"
+    assert_template 'groups/new'
   end
 
-  test "should create group" do
+  test 'should create group' do
     assert_difference('Group.count') do
       post :create, group: Fabricate.attributes_for(:group).merge(
         memberships_attributes: 1.times.map {
@@ -40,29 +40,29 @@ class GroupsControllerTest < ActionController::TestCase
     assert_redirected_to group_url(assigns(:group))
   end
 
-  test "should show group" do
+  test 'should show group' do
     get :show, id: @group
     assert_response :success
     assert_not_nil assigns(:group)
     assert_select '#unexpected_error', false
-    assert_template "groups/show"
+    assert_template 'groups/show'
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @group
     assert_response :success
     assert_not_nil assigns(:group)
     assert_select '#unexpected_error', false
-    assert_template "groups/edit"
+    assert_template 'groups/edit'
   end
 
-  test "should update group" do
-    put :update, id: @group,
+  test 'should update group' do
+    patch :update, id: @group,
       group: Fabricate.attributes_for(:group)
     assert_redirected_to group_url(assigns(:group))
   end
 
-  test "should destroy group" do
+  test 'should destroy group' do
     assert_difference('Group.count', -1) do
       delete :destroy, id: @group
     end

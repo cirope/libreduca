@@ -68,7 +68,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test 'should update image' do
     assert_no_difference 'Image.count' do
-      put :update, id: @image, image: { name: 'Updated' }
+      patch :update, id: @image, image: { name: 'Updated' }
     end
 
     assert_redirected_to image_url(assigns(:image))

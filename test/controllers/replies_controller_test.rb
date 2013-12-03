@@ -52,7 +52,7 @@ class RepliesControllerTest < ActionController::TestCase
     new_question = Fabricate(:question)
 
     assert_no_difference 'Reply.count' do
-      put :update, id: @reply, question_id: @question,
+      patch :update, id: @reply, question_id: @question,
         reply: { question_id: new_question.id }
     end
 
