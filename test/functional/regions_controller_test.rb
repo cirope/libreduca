@@ -78,7 +78,7 @@ class RegionsControllerTest < ActionController::TestCase
 
   test 'should update region' do
     assert_no_difference 'Region.count' do
-      put :update, id: @region,
+      patch :update, id: @region,
         region: Fabricate.attributes_for(:region, name: 'Upd')
     end
 

@@ -57,7 +57,7 @@ class GroupsControllerTest < ActionController::TestCase
   end
 
   test "should update group" do
-    put :update, id: @group,
+    patch :update, id: @group,
       group: Fabricate.attributes_for(:group)
     assert_redirected_to group_url(assigns(:group))
   end

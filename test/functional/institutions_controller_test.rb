@@ -81,7 +81,7 @@ class InstitutionsControllerTest < ActionController::TestCase
 
   test 'should update institution' do
     assert_no_difference 'Institution.count' do
-      put :update, id: @institution,
+      patch :update, id: @institution,
         institution: Fabricate.attributes_for(:institution, name: 'Upd')
     end
 

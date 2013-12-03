@@ -78,7 +78,7 @@ class ContentsControllerTest < ActionController::TestCase
 
   test 'should update content' do
     assert_no_difference 'Content.count' do
-      put :update, teach_id: @teach.to_param, id: @content,
+      patch :update, teach_id: @teach.to_param, id: @content,
         content: Fabricate.attributes_for(:content, title: 'Upd')
     end
 

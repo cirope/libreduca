@@ -165,7 +165,7 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'User.count' do
-      put :update, id: @user, user: Fabricate.attributes_for(:user, name: 'Upd')
+      patch :update, id: @user, user: Fabricate.attributes_for(:user, name: 'Upd')
     end
 
     assert_redirected_to user_url(assigns(:user))
@@ -217,7 +217,7 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'User.count' do
-      put :update_profile, id: @user,
+      patch :update_profile, id: @user,
         user: Fabricate.attributes_for(:user, name: 'Upd')
     end
 
@@ -245,7 +245,7 @@ class UsersControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'User.count' do
-      put :update_profile, id: another_user,
+      patch :update_profile, id: another_user,
         user: Fabricate.attributes_for(:user, name: 'Upd')
     end
 

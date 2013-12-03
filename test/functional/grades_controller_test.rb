@@ -68,7 +68,7 @@ class GradesControllerTest < ActionController::TestCase
 
   test 'should update grade' do
     assert_no_difference 'Grade.count' do
-      put :update, institution_id: @institution.to_param, id: @grade,
+      patch :update, institution_id: @institution.to_param, id: @grade,
         grade: Fabricate.attributes_for(:grade, name: 'Upd')
     end
 

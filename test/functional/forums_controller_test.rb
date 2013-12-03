@@ -77,7 +77,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   test 'should update forum' do
     assert_no_difference 'Forum.count' do
-      put :update, institution_id: @owner.to_param, id: @forum,
+      patch :update, institution_id: @owner.to_param, id: @forum,
         forum: Fabricate.attributes_for(:forum, name: 'Upd')
     end
 
