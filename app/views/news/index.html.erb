@@ -1,5 +1,5 @@
 <% columns = 2 %>
-<% if @news.empty? && !is_embedded? %>
+<% if @news.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
   <div class="readonly-data">
@@ -18,19 +18,23 @@
                   <% end %>
                 </div>
                 <div class="caption">
-                  <h4 class="text-info"><%= link_to news.title, embedded_news_path(news) %></h4>
+                  <h4 class="text-info">
+                    <%= link_to news.title, news_path(news) %>
+                  </h4>
                   <%= markdown news.description %>
                 </div>
               </div>
               <p class="muted">
-                <span><%= l news.published_at.to_date, format: :long %>
-                | <%= link_to_comments(news,
-                  news_path(news, embedded: params[:embedded], anchor: 'comments-header')) %>
+                <span>
+                  <%= l news.published_at.to_date, format: :long %> |
+                  <%= link_to_comments(news, news_path(news, anchor: 'comments-header')) %>
                 </span>
               </p>
               <% if user_signed_in? && !news.images.empty? %>
               <div>
-                <%= link_to image_tag(news.images.first.file_url(:normal)), embedded_news_path(news) %>
+                <%= link_to(
+                  image_tag(news.images.first.file_url(:normal)), news_path(news)
+                ) %>
               </div>
               <% end %>
               <hr />
@@ -45,11 +49,8 @@
   </div>
 <% end %>
 
-<% unless is_embedded? %>
-  <div class="form-actions">
+<div class="form-actions">
   <%= link_to(
-    t('view.news.new', default: :'label.new'),
-    new_news_path, class: 'btn btn-primary'
+    t('view.news.new'), new_news_path, class: 'btn btn-primary'
   ) if can? :create, News %>
-  </div>
-<% end %>
+</div>

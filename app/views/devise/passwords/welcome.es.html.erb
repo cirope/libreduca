@@ -7,9 +7,10 @@
       <%= render 'devise/sessions/welcome' %>
     </div>
     <div class="login_footer form-actions">
-      <%= link_to('¿Olvidaste tu contraseña?',
-        new_password_path(resource_name, embedded: params[:embedded]),
-        id: 'reset-password') %>
+      <%= link_to(
+        '¿Olvidaste tu contraseña?', new_password_path(resource_name),
+        id: 'reset-password'
+      ) %>
     </div>
   </div>
 </div>

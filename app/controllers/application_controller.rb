@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
 
   after_filter -> { expires_now if user_signed_in? }
 
-  helper_method :is_embedded?
-
   def user_for_paper_trail
     current_user.try(:id)
   end
@@ -61,9 +59,5 @@ class ApplicationController < ActionController::Base
 
   def set_js_format_in_iframe_request
     request.format = :js if params['X-Requested-With'] == 'IFrame'
-  end
-
-  def is_embedded?
-    params[:embedded] == 'true'
   end
 end
