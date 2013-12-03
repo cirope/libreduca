@@ -26,7 +26,8 @@
               </h5>
             </div>
 
-            <% unless grade.courses.reject!(&:new_record?).empty? %>
+            <% # TODO ruby bug? the reject! method doesn't delete elements from self
+              unless (grade.courses = grade.courses.reject!(&:new_record?)).blank? %>
               <ul>
                 <% grade.courses.each do |course| %>
                   <li><%= link_to_if can?(:read, course), course.to_s, [grade, course] %></li>
