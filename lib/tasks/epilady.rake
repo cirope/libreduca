@@ -6,7 +6,7 @@ namespace :epilady do
     ActiveRecord::Base.lock_optimistically = false
     ActiveRecord::Base.logger = nil
 
-    identifications = ['um-ing']
+    identifications = ['cirope', 'um-ing', 'undec-sistemas', 'utn-frm']
 
     Institution.where(identification: identifications).map(&:destroy)
   end
