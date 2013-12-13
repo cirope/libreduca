@@ -203,7 +203,7 @@ GEM
     turn (0.9.6)
       ansi
     tzinfo (0.3.38)
-    uglifier (2.3.2)
+    uglifier (2.3.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.7.0)

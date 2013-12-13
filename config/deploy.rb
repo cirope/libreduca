@@ -1,6 +1,6 @@
 set :application, 'libreduca'
 set :user, 'deployer'
-set :repo_url, 'git://github.com/francocatena/libreduca.git'
+set :repo_url, 'git://github.com/cirope/libreduca.git'
 
 set :format, :pretty
 set :log_level, :info
