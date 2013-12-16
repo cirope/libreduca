@@ -32,10 +32,8 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
-group :development do
-  gem 'unicorn'
-  gem 'unicorn-rails'
-end
+gem 'unicorn'
+gem 'unicorn-rails'
 
 group :test do
   gem 'turn'
