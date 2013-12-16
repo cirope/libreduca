@@ -1,4 +1,4 @@
-set :application, 'libreduca'
+set :application, 'libreduca.com'
 set :user, 'deployer'
 set :repo_url, 'git://github.com/cirope/libreduca.git'
 
