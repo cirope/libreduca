@@ -1,6 +1,6 @@
 # See http://unicorn.bogomips.org/Unicorn/Configurator.html for complete
 # documentation.
-
+#
 app_path = File.expand_path(File.dirname(__FILE__) + '/../../current')
 
 # Use at least one worker per core if you're on a dedicated server,
@@ -31,7 +31,6 @@ stdout_path "#{app_path}/log/unicorn.stdout.log"
 # combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 preload_app true
-
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
 
@@ -44,6 +43,11 @@ GC.respond_to?(:copy_on_write_friendly=) and
 check_client_connection false
 
 before_fork do |server, worker|
+  # the following is highly recomended for Rails + "preload_app true"
+  # as there's no need for the master process to hold a connection
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.connection.disconnect!
+
   # The following is only recommended for memory/DB-constrained
   # installations.  It is not needed if your system can house
   # twice as many worker_processes as you have configured.
@@ -70,6 +74,10 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
+  # the following is *required* for Rails + "preload_app true",
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.establish_connection
+
   # if preload_app is true, then you may also want to check and
   # restart any other shared sockets/descriptors such as Memcached,
   # and Redis.  TokyoCabinet file handles are safe to reuse
