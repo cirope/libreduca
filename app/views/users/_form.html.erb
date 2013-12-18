@@ -1,8 +1,8 @@
-<%= simple_form_for(@user, defaults: { input_html: { class: 'span5' } }) do |f| %>
+<%= simple_form_for(@user) do |f| %>
   <%= f.error_notification %>
 
   <div class="row">
-    <div class="span6">
+    <div class="col-md-6">
       <div class="form-inputs">
         <%= f.input :email, required: true, input_html: {
           autofocus: true, maxlength: 255, data: {
@@ -19,72 +19,73 @@
         <% end %>
 
         <%= f.input :avatar, hint: user_avatar_identifier(f.object) %>
-        <%= f.input :remove_avatar, as: :boolean, wrapper: :checkbox, input_html: { class: nil } if @user.avatar? && @user.avatar_cache.blank? %>
+        <%= f.input :remove_avatar, as: :boolean, wrapper: :checkbox,
+          input_html: { class: nil } if @user.avatar? && @user.avatar_cache.blank? %>
         <%= f.input :avatar_cache, as: :hidden %>
 
         <% if can? :assign_roles, @user %>
           <label><%= User.human_attribute_name 'roles', count: 1 %></label>
-          <%= show_user_roles_options(f) %>
+          <div class="control-group">
+            <div class="controls">
+              <%= show_user_roles_options(f) %>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
 
-    <div class="span6">
-      <div class="row-fluid form-inputs">
-        <div class="span12">
-          <h5><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h5>
-        </div>
+    <div class="col-md-6">
+      <h5>
+        <strong>
+          <%= User.human_attribute_name 'jobs', count: @user.jobs.size %>
+        </strong>
+      </h5>
 
-        <div class="row-fluid">
-          <div id="jobs" class="span12">
-            <%= f.simple_fields_for :jobs, user_jobs(@user) do |j_f| %>
-              <%= render partial: 'jobs/job', locals: { f: j_f } %>
-            <% end %>
+      <div id="jobs">
+        <%= f.simple_fields_for :jobs, user_jobs(@user) do |j_f| %>
+          <%= render partial: 'jobs/job', locals: { f: j_f } %>
+        <% end %>
 
-            <%= link_to_add_fields(t('view.users.new_job'), f, :jobs, 'jobs/job') unless current_institution %>
-          </div>
-        </div>
+        <%= link_to_add_fields(t('view.users.new_job'), f, :jobs, 'jobs/job') unless current_institution %>
       </div>
 
-      <div class="row-fluid form-inputs">
-        <div class="span12">
-          <h5><%= User.human_attribute_name 'kinships', count: 0 %></h5>
-        </div>
+      <h5>
+        <strong>
+          <%= User.human_attribute_name 'kinships', count: 0 %>
+        </strong>
+      </h5>
 
-        <div class="row-fluid">
-          <div id="kinships" class="span12">
-            <% @user.kinships.build %>
-            <%= f.simple_fields_for :kinships do |j_f| %>
-              <%= render partial: 'kinship', locals: { f: j_f } %>
-            <% end %>
+      <div id="kinships">
+        <% @user.kinships.build %>
+        <%= f.simple_fields_for :kinships do |j_f| %>
+          <%= render partial: 'kinship', locals: { f: j_f } %>
+        <% end %>
 
-            <%= link_to_add_fields(t('view.users.new_kinship'), f, :kinships) %>
-          </div>
-        </div>
+        <%= link_to_add_fields(t('view.users.new_kinship'), f, :kinships) %>
       </div>
 
-      <div class="row-fluid form-inputs">
-        <div class="span12">
-          <h5><%= Group.model_name.human count: @user.groups.size %></h5>
-        </div>
+      <h5>
+        <strong>
+          <%= Group.model_name.human count: @user.groups.size %>
+        </strong>
+      </h5>
 
-        <div class="row-fluid">
-          <div id="groups" class="span12">
-            <% @user.memberships.build %>
-            <%= f.simple_fields_for :memberships do |j_f| %>
-              <%= render partial: 'membership', locals: { f: j_f } %>
-            <% end %>
+      <div id="groups">
+        <% @user.memberships.build %>
+        <%= f.simple_fields_for :memberships do |j_f| %>
+          <%= render partial: 'membership', locals: { f: j_f } %>
+        <% end %>
 
-            <%= link_to_add_fields(t('view.groups.add_new'), f, :memberships) %>
-          </div>
-        </div>
+        <%= link_to_add_fields(t('view.groups.add_new'), f, :memberships) %>
       </div>
     </div>
   </div>
 
-  <div class="form-actions">
+  <hr />
+
+  <div class="form-actions form-footer">
     <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, class: 'btn-primary' %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>

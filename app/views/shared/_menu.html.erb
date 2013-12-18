@@ -1,55 +1,43 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="iconic">&#xe055;</span>
-      </a>
-
-      <%= link_to t('app_name'), root_path, class: 'brand' %>
-
-      <% if user_signed_in? %>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <%= render 'shared/menu_dropdowns/institutions' if current_user.institutions.count > 1 %>
-            <%= show_menu_link(
-              name: 'dashboard', controllers: 'dashboard', path: dashboard_path
-            ) if current_institution && current_user.has_job_in?(current_institution) %>
-            <%= render 'shared/menu_dropdowns/enrollments' if current_enrollments.present? %>
-            <%= show_menu_link(
-              name: 'users', controllers: 'users', path: users_path
-            ) if can?(:read, User) && ((current_user.is?(:admin) && !current_institution) || (current_institution && current_user_is_janitor?)) %>
-            <%= show_menu_link(
-              name: 'regions', controllers: 'regions', path: regions_path
-            ) if can?(:read, Region) && !current_institution %>
-            <%= show_menu_link(
-              name: 'institutions', path: institutions_path,
-              controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
-            ) if can?(:read, Institution) && !current_institution %>
-              <%= show_menu_link(
-              name: 'groups', path: groups_path,
-              controllers: ['groups']
-            ) if can?(:read, Group) && current_institution %>
-          </ul>
-          <%= render partial: 'shared/nav_search' %>
-          <ul class="nav pull-right">
-            <li>
-              <%= link_to(
-                current_user.email, edit_profile_user_path(current_user),
-                title: t('view.users.edit_profile'),
-                data: { 'show-tooltip' => true, 'placement' => 'bottom' }
-              ) %>
-            </li>
-            <li>
-              <%= link_to(
-                '&#x2192;'.html_safe, destroy_user_session_path,
-                title: t('menu.actions.logout'), class: 'iconic', id: 'logout',
-                method: :delete,
-                data: { 'show-tooltip' => true, 'placement' => 'bottom' }
-              ) %>
-            </li>
-          </ul>
-        </div>
+<div class="navbar navbar-default navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <% if current_user %>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       <% end %>
+
+      <%= link_to t('app_name'), root_url, class: 'navbar-brand' %>
     </div>
+
+    <% if current_user %>
+      <div class="collapse navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+          <%= render 'shared/menu_dropdowns/institutions' if current_user.institutions.count > 1 %>
+          <%= show_menu_link(
+            name: 'dashboard', controllers: 'dashboard', path: dashboard_path
+          ) if current_institution && current_user.has_job_in?(current_institution) %>
+          <%= render 'shared/menu_dropdowns/enrollments' if current_enrollments.present? %>
+          <%= show_menu_link(
+            name: 'users', controllers: 'users', path: users_path
+          ) if can?(:read, User) && ((current_user.is?(:admin) && !current_institution) || (current_institution && current_user_is_janitor?)) %>
+          <%= show_menu_link(
+            name: 'regions', controllers: 'regions', path: regions_path
+          ) if can?(:read, Region) && !current_institution %>
+          <%= show_menu_link(
+            name: 'institutions', path: institutions_path,
+            controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
+          ) if can?(:read, Institution) && !current_institution %>
+            <%= show_menu_link(
+            name: 'groups', path: groups_path,
+            controllers: ['groups']
+          ) if can?(:read, Group) && current_institution %>
+        </ul>
+        <%= render 'shared/nav_search' %>
+        <%= render 'shared/user_actions' %>
+      </div>
+    <% end %>
   </div>
 </div>

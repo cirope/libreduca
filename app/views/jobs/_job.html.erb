@@ -3,10 +3,10 @@
   <%= f.input :institution_id, as: :hidden, input_html: { value: current_institution.id } %>
 <% end %>
 <fieldset>
-  <div class="row-fluid">
+  <div class="row">
     <% unless current_institution %>
-      <div class="span5">
-        <% field_classes = ['autocomplete_field', 'span10'] %>
+      <div class="col-md-5">
+        <% field_classes = ['autocomplete_field'] %>
         <% copy_attribute_errors(:institution_id, :auto_institution_name, f) %>
         <%= f.input :auto_institution_name, label: false,
           placeholder: Job.human_attribute_name('institution_id'),
@@ -26,10 +26,10 @@
         %>
       </div>
     <% end %>
-    <div class="<%= current_institution ? 'span10' : 'span5' %>">
+    <div class="<%= current_institution ? 'col-md-10' : 'col-md-5' %>">
       <%= show_user_job_options(f) %>
     </div>
-    <div class="span2 nested-actions">
+    <div class="col-md-2 nested-actions">
       <%= f.input :id, as: :hidden %>
       <%= f.input :lock_version, as: :hidden %>
       <% if current_institution.nil? || f.object.institution_id == current_institution.id %>
@@ -37,10 +37,10 @@
       <% end %>
     </div>
   </div>
-  <div class="row-fluid">
-    <div class="span10">
+  <div class="row">
+    <div class="col-md-10">
       <%= f.input :description, label: false, input_html: {
-        class: 'span11', placeholder: Job.human_attribute_name('description')
+        placeholder: Job.human_attribute_name('description')
       } %>
     </div>
   </div>

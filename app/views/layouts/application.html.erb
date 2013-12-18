@@ -1,27 +1,27 @@
 <!doctype html>
-<html lang="<%= locale %>">
+<!--[if lt IE 8]> <html class="lt-ie8"> <![endif]-->
+<!--[if gt IE 7]><!--> <html lang="<%= locale %>"> <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
   <title><%= title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <%= stylesheet_link_tag 'application', data: { 'turbolinks-track' => true } %>
-  <%= javascript_include_tag 'application', data: { 'turbolinks-track' => true } %>
+  <%= stylesheet_link_tag    'application', data: { turbolinks_track: true }, media: 'all' %>
+  <%= javascript_include_tag 'application', data: { turbolinks_track: true } %>
   <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <%= javascript_include_tag 'application-ie', data: { turbolinks_track: true } %>
   <![endif]-->
   <%= csrf_meta_tags %>
   <%= favicon_link_tag '/favicon.ico' %>
 </head>
-<body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged-in"' if user_signed_in? %>>
-  <%= render 'shared/menu' %>
-  <div id="loading_caption" class="alert" style="display: none;">
-    <strong><%= t 'label.loading' %></strong>
+<body>
+  <div class="alert alert-warning hidden loading-caption">
+    <strong><%= t 'navigation.loading' %></strong>
   </div>
   <div class="container">
-    <div class="content"><%= yield %></div>
+    <%= render 'shared/compatibility_warning' %>
+    <%= render 'shared/menu' %>
+    <%= render 'shared/flash' if flash_message.present? %>
+    <%= yield %>
   </div>
-
-  <%= render 'shared/notice' if flash.notice %>
-  <%= render 'shared/alert' if flash.alert %>
 </body>
 </html>

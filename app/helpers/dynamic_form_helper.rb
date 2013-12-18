@@ -7,7 +7,7 @@ module DynamicFormHelper
     end
 
     link_to(
-      name, '#', class: 'btn btn-small', title: name, data: {
+      name, '#', class: 'btn btn-default btn-sm', title: name, data: {
         'id' => id,
         'dynamic-form-event' => 'addNestedItem',
         'dynamic-template' => fields.gsub("\n", ""),
@@ -23,7 +23,8 @@ module DynamicFormHelper
 
     out << form.hidden_field(:_destroy, class: 'destroy', value: destroy, id: "destroy_hidden_#{form.object.id}") unless new_record
     out << link_to(
-      '&#x2718;'.html_safe, '#', title: t('label.delete'), class: 'iconic',
+      content_tag(:span, nil, class: 'glyphicon glyphicon-remove-circle'), '#',
+      title: t('label.delete'),
       data: {
         'dynamic-target' => ".#{form.object.class.name.underscore}",
         'dynamic-form-event' => (new_record ? 'removeItem' : 'hideItem'),

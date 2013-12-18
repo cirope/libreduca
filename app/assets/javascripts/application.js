@@ -16,7 +16,7 @@
 //= require jquery/jquery.ui.datepicker-es
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-//= require twitter/bootstrap
+//= require bootstrap
 //= require inspector
 //= require turboevents
 //= require turbolinks
