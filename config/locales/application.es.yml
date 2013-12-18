@@ -304,7 +304,7 @@
         html: 'No hay ningún elemento por el momento'
       empty_search:
         title:
-          html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+          html: 'La búsqueda de <span class="label label-default">%{search}</span> no obtuvo ningún resultado.'
     charts:
       index_title: 'Organigrama'
       empty_index: 'No hay relaciones a graficar entre usuarios'

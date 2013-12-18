@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     @title = t 'view.users.edit_title'
 
     respond_to do |format|
-      if @user.update(params[:user])
+      if @user.update(user_params)
         format.html { redirect_to @user, notice: t('view.users.correctly_updated') }
       else
         format.html { render action: 'edit' }
@@ -83,8 +83,13 @@ class UsersController < ApplicationController
     @title = t('view.users.edit_profile')
 
     respond_to do |format|
-      if @user.update(params[:user])
-        format.html { redirect_to(edit_profile_user_url(@user), notice: t('view.users.profile_correctly_updated')) }
+      if @user.update(user_params)
+        format.html {
+          redirect_to(
+            edit_profile_users_url,
+            notice: t('view.users.profile_correctly_updated')
+          )
+        }
       else
         format.html { render action: 'edit_profile' }
       end
@@ -92,7 +97,7 @@ class UsersController < ApplicationController
 
   rescue ActiveRecord::StaleObjectError
     flash.alert = t('view.users.stale_object_error')
-    redirect_to edit_profile_user_url(@user)
+    redirect_to edit_profile_users_url
   end
 
   # DELETE /users/1
@@ -121,24 +126,23 @@ class UsersController < ApplicationController
   end
 
   private
+    def user_params
+      params.require(:user).permit(
+        :name, :lastname, :email, :password, :password_confirmation, :avatar,
+        :avatar_cache, :remove_avatar, :role, :remember_me,
+        :memberships_attributes, :welcome, :lock_version,
+        memberships_attributes: [:id, :user_id, :group_id, :_destroy],
+        jobs_attributes: [
+          :id, :job, :description, :user_id, :institution_id, :lock_version,
+          :_destroy
+        ],
+        kinships_attributes: [
+          :id, :kin, :user_id, :relative_id, :lock_version, :_destroy
+        ]
+      )
+    end
 
-  def user_params
-    params.require(:user).permit(
-      :name, :lastname, :email, :password, :password_confirmation, :avatar,
-      :avatar_cache, :remove_avatar, :role, :remember_me,
-      :memberships_attributes, :welcome, :lock_version,
-      memberships_attributes: [:id, :user_id, :group_id, :_destroy],
-      jobs_attributes: [
-        :id, :job, :description, :user_id, :institution_id, :lock_version,
-        :_destroy
-      ],
-      kinships_attributes: [
-        :id, :kin, :user_id, :relative_id, :lock_version, :_destroy
-      ]
-    )
-  end
-
-  def load_current_user
-    @user = current_user
-  end
+    def load_current_user
+      @user = current_user
+    end
 end

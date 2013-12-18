@@ -1,43 +1,41 @@
-<% common_options = {
-  url: update_profile_user_path(@user),
-  defaults: { input_html: { class: 'span5' } }
-} %>
+<% options = { url: update_profile_users_path } %>
 <div class="row">
-  <div class="span9">
-    <%= simple_form_for(@user, common_options.dup) do |f| %>
+  <div class="col-md-6">
+    <%= simple_form_for(@user, options) do |f| %>
       <div class="form-inputs">
         <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
         <%= f.input :lastname, input_html: { maxlength: 255 } %>
         <%= f.input :email, required: true, input_html: { maxlength: 255 } %>
         <%= f.input :avatar, hint: user_avatar_identifier(f.object) %>
-        <%= f.input :remove_avatar, as: :boolean, wrapper: :checkbox, input_html: { class: nil } if @user.avatar? %>
+        <%= f.input :remove_avatar, as: :boolean, wrapper: :checkbox,
+          input_html: { class: nil } if @user.avatar? %>
         <%= f.input :avatar_cache, as: :hidden %>
-
         <%= f.input :lock_version, as: :hidden %>
-        <%= f.button :submit, t('view.users.update_profile'), class: 'btn-primary' %>
+      </div>
+      <div class="form-actions">
+        <%= f.button :submit, t('view.users.update_profile'), class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>
-  <div class="span3">
+  <div class="col-md-6">
     <%= show_user_avatar(@user) if @user.avatar? %>
   </div>
 </div>
-
+<br />
 <div class="row">
-  <div class="span9">
-    <%= simple_form_for(@user, common_options.merge(html: { id: "edit_password_#{@user.to_param}" })) do |f| %>
+  <div class="col-md-6">
+    <%= simple_form_for(@user, options.merge(html: { id: "edit_password_#{@user.to_param}" })) do |f| %>
       <div class="form-inputs">
         <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
         <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
-
         <%= f.input :lock_version, as: :hidden, input_html: { id: "user_lock_version_password_#{@user.to_param}" } %>
-        <%= f.button :submit, t('view.users.update_password') %>
+      </div>
+      <div class="form-actions">
+        <%= f.button :submit, t('view.users.update_password'), class: 'btn btn-default' %>
       </div>
     <% end %>
   </div>
-  <div class="span3">
+  <div class="col-md-3">
     &nbsp;
   </div>
 </div>
-
-<br />

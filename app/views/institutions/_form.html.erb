@@ -1,17 +1,26 @@
 <%= simple_form_for(@institution) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
-    <%= f.input :identification, hint: t('view.institutions.hints.identification.html', domain: request.domain), input_html: { maxlength: 255 } %>
-    <%= f.input :district_id, collection: @regions, as: :grouped_select, group_method: :districts %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-inputs">
+        <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+        <%= f.input :identification,
+          hint: t('view.institutions.hints.identification.html', domain: request.domain),
+          input_html: { maxlength: 255 }
+        %>
+        <%= f.input :district_id, collection: @regions, as: :grouped_select, group_method: :districts %>
 
-    <%= f.simple_fields_for :settings, f.object.build_settings do |s_f| %>
-      <%= render 'setting', f: s_f %>
-    <% end %>
+        <%= f.simple_fields_for :settings, f.object.build_settings do |s_f| %>
+          <%= render 'setting', f: s_f %>
+        <% end %>
+      </div>
+    </div>
   </div>
+
+  <hr />
 
   <div class="form-actions">
     <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, class: 'btn-primary' %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>

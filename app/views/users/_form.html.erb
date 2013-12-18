@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-md-6">
-      <h5>
+      <h5 style="margin-top: 0;">
         <strong>
           <%= User.human_attribute_name 'jobs', count: @user.jobs.size %>
         </strong>
@@ -49,6 +49,7 @@
         <%= link_to_add_fields(t('view.users.new_job'), f, :jobs, 'jobs/job') unless current_institution %>
       </div>
 
+      <br />
       <h5>
         <strong>
           <%= User.human_attribute_name 'kinships', count: 0 %>
@@ -64,6 +65,7 @@
         <%= link_to_add_fields(t('view.users.new_kinship'), f, :kinships) %>
       </div>
 
+      <br />
       <h5>
         <strong>
           <%= Group.model_name.human count: @user.groups.size %>
