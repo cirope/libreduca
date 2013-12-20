@@ -37,7 +37,7 @@ module UsersHelper
   end
 
   def show_user_default_avatar(version = :thumb)
-    content_tag(:span, '&#xe062;'.html_safe, class: "iconic well well-small avatar-#{version}")
+    content_tag(:span, nil, class: "glyphicon glyphicon-user avatar-#{version}")
   end
 
   def user_avatar_identifier(user)

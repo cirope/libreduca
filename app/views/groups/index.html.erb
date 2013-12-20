@@ -1,29 +1,25 @@
 <% if @groups.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <thead>
-          <tr>
-            <th><%= Group.human_attribute_name 'name' %></th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
+  <table class="table table-condensed resource-list">
+    <thead>
+      <tr>
+        <th><%= Group.human_attribute_name 'name' %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @groups.each do |group| %>
-            <tr>
-              <td><%= group.name %></td>
-              <td><%= link_to_show group %></td>
-              <td><%= link_to_edit edit_group_path(group) if can? :update, group %></td>
-              <td><%= link_to_destroy group if can? :destroy, group %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <td><%= group.name %></td>
+          <td><%= link_to_show group %></td>
+          <td><%= link_to_edit edit_group_path(group) if can? :update, group %></td>
+          <td><%= link_to_destroy group if can? :destroy, group %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= pagination_links(@groups) %>
 <% end %>

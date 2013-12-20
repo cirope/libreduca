@@ -1,8 +1,8 @@
 <% id = f.object.object_id %>
-<fieldset class="row-fluid">
-  <div class="span5">
+<fieldset class="row">
+  <div class="col-md-10">
     <% if f.object.new_record? %>
-      <% field_classes = ['autocomplete_field', 'span10'] %>
+      <% field_classes = ['autocomplete_field'] %>
       <% copy_attribute_errors(:user_id, :auto_user_name, f) %>
       <%= f.input :auto_user_name, label: false,
         placeholder: Group.human_attribute_name('user_id'),
@@ -24,7 +24,7 @@
       <p><%= f.object.user.label %></p>
     <% end %>
   </div>
-  <div class="span2 nested-actions">
+  <div class="col-md-2 nested-actions">
     <%= f.input :id, as: :hidden %>
     <%= link_to_remove_nested_item(f) %>
   </div>

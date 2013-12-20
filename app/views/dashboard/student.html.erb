@@ -1,71 +1,72 @@
-<div class="readonly-data">
-  <div class="page-header">
-    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, institution: current_institution.name) %></h1>
-  </div>
-  <% if current_enrollments.empty? %>
-    <div class="alert">
-      <h4 class="alert-heading">
-        <%= t('view.dashboard.empty_enrollments.html') %>
-      </h4>
-    </div>
-    <br />
-  <% else %>
-    <% current_enrollments.each_slice(2) do |enrollments| %>
-      <div class="row-fluid">
-        <% enrollments.each do |enrollment| %>
-          <div class="span6">
-            <% teach = enrollment.teach %>
-            <div class="teach-header">
-              <h3>
-                <%= link_to_if(can?(:read, teach), teach.course.to_s, teach) %>
-              </h3>
-              <%= show_teach_info teach %>
-            </div>
-
-            <% if teach.description.present? %>
-              <%= markdown teach.description %>
-            <% end %>
-
-            <% if enrollment.scores.empty? && teach.description.blank? %>
-              <br />
-
-              <div class="alert alert-info">
-                <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>
-              </div>
-            <% elsif enrollment.scores.present? %>
-              <table class="table table-bordered table-condensed">
-                <thead>
-                  <tr>
-                    <th><%= Score.human_attribute_name 'score' %></th>
-                    <th colspan="2"><%= Score.human_attribute_name 'description' %></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% enrollment.scores.each do |score| %>
-                    <tr>
-                      <td><%= show_dashboard_score score.score %></td>
-                      <td><%= score.description %></td>
-                      <td><%= show_dashboard_score_extras score %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-              <p>
-                <%= t(
-                  'view.dashboard.score_average.html',
-                  average: show_dashboard_score(enrollment.score_average),
-                  course: enrollment.course
-                ) %>
-              </p>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
+<div class="page-header">
+  <h1>
+    <%= t('view.dashboard.greetings.html', user: current_user.name,
+      institution: current_institution.name) %>
+  </h1>
 </div>
+<% if current_enrollments.empty? %>
+  <div class="alert alert-warning">
+    <strong>
+      <%= t('view.dashboard.empty_enrollments.html') %>
+    </strong>
+  </div>
+  <br />
+<% else %>
+  <% current_enrollments.each_slice(2) do |enrollments| %>
+    <div class="row">
+      <% enrollments.each do |enrollment| %>
+        <div class="col-md-6">
+          <% teach = enrollment.teach %>
+          <div class="teach-header">
+            <h3>
+              <%= link_to_if(can?(:read, teach), teach.course.to_s, teach) %>
+            </h3>
+            <%= show_teach_info teach %>
+          </div>
 
-<div class="alert">
+          <% if teach.description.present? %>
+            <%= markdown teach.description %>
+          <% end %>
+
+          <% if enrollment.scores.empty? && teach.description.blank? %>
+            <br />
+
+            <div class="alert alert-info">
+              <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>
+            </div>
+          <% elsif enrollment.scores.present? %>
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th><%= Score.human_attribute_name 'score' %></th>
+                  <th colspan="2"><%= Score.human_attribute_name 'description' %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% enrollment.scores.each do |score| %>
+                  <tr>
+                    <td><%= show_dashboard_score score.score %></td>
+                    <td><%= score.description %></td>
+                    <td><%= show_dashboard_score_extras score %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <p>
+              <%= t(
+                'view.dashboard.score_average.html',
+                average: show_dashboard_score(enrollment.score_average),
+                course: enrollment.course
+              ) %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="alert alert-warning">
   <%= t('view.dashboard.footer.html') %>
 </div>
 

@@ -5,28 +5,25 @@
   <%= render @commentable %>
 <% end %>
 
-<div class="row-fluid">
-  <div class="span12">
-    <div class="readonly-data">
-      <%= render 'comments/form' %>
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'comments/form' %>
 
-      <div id="comments">
-        <hr />
-        <h3 id="comments-header">
-          <%= Comment.model_name.human(count: 0) %>
-        </h3>
+    <div id="comments">
+      <hr />
+      <h3 id="comments-header">
+        <%= Comment.model_name.human(count: 0) %>
+      </h3>
 
-        <%= render @comments %>
-
-        <%= render 'comments/pagination', :@comments => @comments %>
-
-        <%= render @comment_anchor if @comment_anchor && !@comments.include?(@comment_anchor) %>
-      </div>
+      <%= render @comments %>
+      <%= render 'comments/pagination', :@comments => @comments %>
+      <%= render @comment_anchor if @comment_anchor && !@comments.include?(@comment_anchor) %>
     </div>
   </div>
 </div>
 
 <% if controller_name == 'comments' %>
+  <hr />
   <div class="form-actions">
     <%= link_to @content.to_s, [@content.teach, @content] if @content %>
   </div>

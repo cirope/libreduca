@@ -4,10 +4,10 @@
   tagging.build_tag unless tagging.tag
 %>
 <fieldset>
-  <div class="row-fluid">
+  <div class="row">
     <%= f.simple_fields_for :tag do |f_t| %>
-      <div class="span4">
-        <% field_classes = ['autocomplete_field', 'span10'] %>
+      <div class="col-md-5">
+        <% field_classes = ['autocomplete_field'] %>
         <%= f_t.input :name, label: false,
           placeholder: Tag.human_attribute_name('name'),
           input_html: {
@@ -26,7 +26,7 @@
           input_html: { class: "autocomplete_id tag_id_#{id}" }
         %>
       </div>
-      <div class="span4 color_chooser">
+      <div class="col-md-5 color_chooser">
         <div class="btn-group">
           <% Tag::CATEGORIES.each do |c| %>
             <div class="tag_color_chooser btn btn-<%= c == 'important' ? 'danger' : c %>
@@ -37,7 +37,7 @@
           <% end %>
         </div>
       </div>
-      <div class="span2">
+      <div class="col-md-2">
         <%= f_t.input :tagger_type, as: :hidden, input_html: { value: @taggable.class.to_s } %>
         <%= f_t.input :id, as: :hidden, input_html: { class: "autocomplete_id tag_id_#{id}" } %>
         <%= link_to_remove_nested_item(f) %>

@@ -1,4 +1,4 @@
-<%= simple_form_for([@forum.owner, @forum], defaults: { input_html: { class: 'span11' } }) do |f| %>
+<%= simple_form_for([@forum.owner, @forum]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -7,9 +7,11 @@
     <%= f.input :info, as: :string %>
   </div>
 
+  <hr />
+
   <div class="form-actions">
     <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, class: 'btn-primary' %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -1,111 +1,130 @@
 <%= render 'breadcrumb' %>
 
-<div class="readonly-data">
-  <h2><%= @course %></h2>
+<h2><%= @course %></h2>
 
-  <p>
-    <%= t(
-      'view.teaches.between.html',
-      start: l(@teach.start, format: :long),
-      finish: l(@teach.finish, format: :long)
-    ) %>
-  </p>
+<p>
+  <%= t(
+    'view.teaches.between.html',
+    start: l(@teach.start, format: :long),
+    finish: l(@teach.finish, format: :long)
+  ) %>
+</p>
 
-  <%= markdown @teach.description if @teach.description.present? %>
+<%= markdown @teach.description if @teach.description.present? %>
 
-  <% unless @teach.forums.empty? %>
-    <hr />
-    <h3><%= Forum.model_name.human(count: @teach.forums.size) %></h3>
-    <ul>
-      <% @teach.forums.each do |forum| %>
-        <li><%= link_to_if current_institution && can?(:read, forum), forum.to_s, [@teach, forum] %></li>
-      <% end %>
-    </ul>
-    <br />
-  <% end %>
-
-  <ul class="nav nav-tabs" data-remote="true">
-    <li class="active">
-      <%= link_to(
-        Teach.human_attribute_name('contents', count: 0),
-        '#contents_container', data: { toggle: 'tab' }
-      ) %>
-    </li>
-    <% unless current_user_is_student? %>
+<% unless @teach.forums.empty? %>
+  <hr />
+  <h3><%= Forum.model_name.human(count: @teach.forums.size) %></h3>
+  <ul>
+    <% @teach.forums.each do |forum| %>
       <li>
-        <%= link_to(
-          Teach.human_attribute_name('scores', count: 0),
-          '#scores_container', data: { 'toggle' => 'tab', 'remote-url' => show_scores_teach_path(@teach) }
-        ) %>
-      </li>
-      <li>
-        <%= link_to(
-          Teach.human_attribute_name('enrollments', count: 0),
-          '#enrollments_container', data: { 'toggle' => 'tab', 'remote-url' => show_enrollments_teach_path(@teach) }
-        ) %>
-      </li>
-      <li>
-        <%= link_to(
-          Teach.human_attribute_name('surveys', count: 0),
-          '#surveys_container', data: { 'toggle' => 'tab', 'remote-url' => teach_surveys_path(@teach) }
-        ) %>
-      </li>
-      <li>
-        <%= link_to(
-          t('view.teaches.tracking'),
-          '#tracking_container', data: { 'toggle' => 'tab', 'remote-url' => show_tracking_teach_path(@teach) }
+        <%= link_to_if(
+          current_institution && can?(:read, forum), forum.to_s, [@teach, forum]
         ) %>
       </li>
     <% end %>
   </ul>
+  <br />
+<% end %>
 
-  <div class="tab-content">
-    <div id="contents_container" class="tab-pane active">
-      <% if @teach.contents.empty?  %>
-        <div class="alert"><%= t('view.teaches.without_contents.html') %></div>
-      <% else %>
-        <ul>
-          <% @teach.contents.each do |content| %>
-            <li>
-              <%= link_to_if(
-                can?(:read, content), content, [@teach, content]
-              ) %>
-              <% if content.visited_by?(current_user) %>
-                <span class="visited iconic">&#x2714;</span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-    <% unless current_user_is_student? %>
-      <div id="scores_container" class="tab-pane">
-        <div class="alert"><%= t('label.loading') %></div>
-      </div>
+<ul class="nav nav-tabs" data-remote="true">
+  <li class="active">
+    <%= link_to(
+      Teach.human_attribute_name('contents', count: 0),
+      '#contents_container', data: { toggle: 'tab' }
+    ) %>
+  </li>
+  <% unless current_user_is_student? %>
+    <li>
+      <%= link_to(
+        Teach.human_attribute_name('scores', count: 0),
+        '#scores_container', data: {
+          'toggle' => 'tab', 'remote-url' => show_scores_teach_path(@teach)
+        }
+      ) %>
+    </li>
+    <li>
+      <%= link_to(
+        Teach.human_attribute_name('enrollments', count: 0),
+        '#enrollments_container', data: {
+          'toggle' => 'tab', 'remote-url' => show_enrollments_teach_path(@teach)
+        }
+      ) %>
+    </li>
+    <li>
+      <%= link_to(
+        Teach.human_attribute_name('surveys', count: 0),
+        '#surveys_container', data: {
+          'toggle' => 'tab', 'remote-url' => teach_surveys_path(@teach)
+        }
+      ) %>
+    </li>
+    <li>
+      <%= link_to(
+        t('view.teaches.tracking'),
+        '#tracking_container', data: {
+          'toggle' => 'tab', 'remote-url' => show_tracking_teach_path(@teach)
+        }
+      ) %>
+    </li>
+  <% end %>
+</ul>
 
-      <div id="enrollments_container" class="tab-pane">
-        <div class="alert"><%= t('label.loading') %></div>
+<div class="tab-content">
+  <div id="contents_container" class="tab-pane active">
+    <% if @teach.contents.empty?  %>
+      <div class="alert alert-warning">
+        <%= t('view.teaches.without_contents.html') %>
       </div>
-
-      <div id="surveys_container" class="tab-pane">
-        <div class="alert"><%= t('label.loading') %></div>
-      </div>
-
-      <div id="tracking_container" class="tab-pane">
-        <div class="alert"><%= t('label.loading') %></div>
-      </div>
+    <% else %>
+      <ul>
+        <% @teach.contents.each do |content| %>
+          <li>
+            <%= link_to_if(
+              can?(:read, content), content, [@teach, content]
+            ) %>
+            <% if content.visited_by?(current_user) %>
+              <span class="visited glyphicon glyphicon-check"></span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
   </div>
+  <% unless current_user_is_student? %>
+    <div id="scores_container" class="tab-pane">
+      <div class="alert alert-warning"><%= t('label.loading') %></div>
+    </div>
+
+    <div id="enrollments_container" class="tab-pane">
+      <div class="alert alert-warning"><%= t('label.loading') %></div>
+    </div>
+
+    <div id="surveys_container" class="tab-pane">
+      <div class="alert alert-warning"><%= t('label.loading') %></div>
+    </div>
+
+    <div id="tracking_container" class="tab-pane">
+      <div class="alert alert-warning"><%= t('label.loading') %></div>
+    </div>
+  <% end %>
 </div>
 
-<nav class="form-actions">
+<hr />
+
+<nav class="form-actions form-footer">
   <% if @course && can?(:read, @course) %>
     <div class="pull-right">
       <%= link_to t('label.list'), course_teaches_path(@course) %>
     </div>
   <% end %>
-  <%= link_to t('label.edit'), edit_teach_path(@teach), class: 'btn btn-primary' if can? :update, @teach %>
-  <%= link_to t('view.teaches.send_email_summary.html'), '#email_modal', class: 'btn', data: { toggle: 'modal' } if can? :send_email_summary, @teach %>
+  <%= link_to(
+    t('label.edit'), edit_teach_path(@teach), class: 'btn btn-primary'
+  ) if can? :update, @teach %>
+  <%= link_to(
+    t('view.teaches.send_email_summary.html'), '#email_modal',
+    class: 'btn btn-default', data: { toggle: 'modal' }
+  ) if can? :send_email_summary, @teach %>
 </nav>
 
 <% if can? :send_email_summary, @teach %>

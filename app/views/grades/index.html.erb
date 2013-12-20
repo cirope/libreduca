@@ -1,41 +1,36 @@
 <% if @grades.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <caption>
-          <h4>
-            <%= t(
-              'view.grades.from_institution.html',
-              count: @institution.grades.count,
-              institution: link_to(@institution.to_s, @institution)
-            ) %>
-          </h4>
-          <br />
-        </caption>
+  <table class="table table-condensed resource-list">
+    <caption>
+      <h4>
+        <%= t(
+          'view.grades.from_institution.html',
+          count: @institution.grades.count,
+          institution: link_to(@institution.to_s, @institution)
+        ) %>
+      </h4>
+    </caption>
 
-        <thead>
-          <tr>
-            <th><%= Grade.human_attribute_name 'name' %></th>
-            <th><%= Course.model_name.human(count: 0) %></th>
-            <th colspan="2"></th>
-          </tr>
-        </thead>
+    <thead>
+      <tr>
+        <th><%= Grade.human_attribute_name 'name' %></th>
+        <th><%= Course.model_name.human(count: 0) %></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @grades.each do |grade| %>
-            <tr>
-              <td><%= link_to grade.name, [@institution, grade] if can? :read, grade %></td>
-              <td><%= link_to_grade_courses(grade) if can? :read, Course %></td>
-              <td><%= link_to_edit edit_institution_grade_path(@institution, grade) if can? :update, grade %></td>
-              <td><%= link_to_destroy [@institution, grade] if can? :destroy, grade %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <tbody>
+      <% @grades.each do |grade| %>
+        <tr>
+          <td><%= link_to grade.name, [@institution, grade] if can? :read, grade %></td>
+          <td><%= link_to_grade_courses(grade) if can? :read, Course %></td>
+          <td><%= link_to_edit edit_institution_grade_path(@institution, grade) if can? :update, grade %></td>
+          <td><%= link_to_destroy [@institution, grade] if can? :destroy, grade %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= pagination_links(@grades) %>
 <% end %>
@@ -43,7 +38,7 @@
 <nav class="form-actions">
   <%= link_to(
     t('view.grades.new', default: :'label.new'),
-    new_institution_grade_path(@institution), class: 'btn btn-primary'
+    new_institution_grade_path(@institution), class: 'btn btn-default btn-primary'
     ) if can? :create, @institution.grades.build
   %>
 </nav>

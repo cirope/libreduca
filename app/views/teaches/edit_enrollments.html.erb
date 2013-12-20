@@ -1,8 +1,12 @@
-<%= simple_fields_for(@teach, defaults: { input_html: { class: 'span12' } }) do |f| %>
-  <% @teach.enrollments.build %>
-  <%= f.simple_fields_for :enrollments do |j_f| %>
-    <%= render partial: 'enrollment', locals: { f: j_f } %>
-  <% end %>
+<%= simple_fields_for(@teach) do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <% @teach.enrollments.build %>
+      <%= f.simple_fields_for :enrollments do |j_f| %>
+        <%= render partial: 'enrollment', locals: { f: j_f } %>
+      <% end %>
 
-  <%= link_to_add_fields t('view.teaches.new_enrollment'), f, :enrollments %>
+      <%= link_to_add_fields t('view.teaches.new_enrollment'), f, :enrollments %>
+    </div>
+  </div>
 <% end %>

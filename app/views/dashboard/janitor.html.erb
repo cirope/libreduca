@@ -8,9 +8,7 @@
 </div>
 <% if @grades.empty? %>
   <div class="alert alert-warning">
-    <h4 class="alert-heading">
-      <%= t('view.dashboard.empty_grades.html') %>
-    </h4>
+    <%= t('view.dashboard.empty_grades.html') %>
   </div>
   <br />
 <% else %>
@@ -22,10 +20,14 @@
 
           <div class="page-header">
             <h5>
-              <%= link_to_if can?(:read, Course), Course.model_name.human(count: grade.courses.size), grade_courses_path(grade) %>
+              <%= link_to_if(
+                can?(:read, Course), Course.model_name.human(count: grade.courses.size),
+                grade_courses_path(grade)
+              ) %>
               <% if can? :create, grade.courses.build %>
                 <span class="divider">|</span>
-                <%= link_to t('view.courses.new'), new_grade_course_path(grade), class: 'btn btn-sm' %>
+                <%= link_to t('view.courses.new'), new_grade_course_path(grade),
+                  class: 'btn btn-default btn-xs' %>
               <% end %>
             </h5>
           </div>
@@ -43,7 +45,7 @@
               <%= link_to(
                 t('view.dashboard.janitor.edit_grade'),
                 edit_institution_grade_path(grade.institution, grade),
-                class: 'btn btn-info'
+                class: 'btn btn-info btn-sm'
               ) %>
             <% end %>
           </div>

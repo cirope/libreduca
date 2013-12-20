@@ -1,69 +1,72 @@
 <%= render 'breadcrumb' %>
 
-<div class="readonly-data">
-  <h3><%= @content %></h3>
+<h3><%= @content %></h3>
 
-  <%= markdown @content.content if @content.content.present? %>
+<%= markdown @content.content if @content.content.present? %>
 
-  <%= content_next_and_prev_links %>
+<%= content_next_and_prev_links %>
 
-  <% unless content_has_no_relations? %>
-    <ul class="nav nav-tabs" data-remote="true">
-      <li class="active">
+<% unless content_has_no_relations? %>
+  <ul class="nav nav-tabs" data-remote="true">
+    <li class="active">
+      <%= link_to(
+        t('view.contents.activities'),
+        '#contents_container', data: { toggle: 'tab' }
+      ) %>
+    </li>
+    <% unless current_user_is_student? %>
+      <li>
         <%= link_to(
-          t('view.contents.activities'),
-          '#contents_container', data: { toggle: 'tab' }
+          t('view.presentations.homeworks'), '#presentations_container',
+          data: {
+            'toggle' => 'tab',
+            'remote-url' => content_presentations_path(@content)
+          }
         ) %>
       </li>
-      <% unless current_user_is_student? %>
-        <li>
-          <%= link_to(
-            t('view.presentations.homeworks'), '#presentations_container',
-            data: {
-              'toggle' => 'tab',
-              'remote-url' => content_presentations_path(@content)
-            }
-          ) %>
-        </li>
-        <li>
-          <%= link_to(
-            t('view.replies.surveys'), '#replies_container',
-            data: {
-              'toggle' => 'tab',
-              'remote-url' => content_surveys_path(@content)
-            }
-          ) %>
-        </li>
+      <li>
+        <%= link_to(
+          t('view.replies.surveys'), '#replies_container',
+          data: {
+            'toggle' => 'tab',
+            'remote-url' => content_surveys_path(@content)
+          }
+        ) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="tab-content">
+    <div id="contents_container" class="tab-pane active">
+      <% unless @content.documents.empty? %>
+        <%= render 'documents' %>
       <% end %>
-    </ul>
 
-    <div class="tab-content">
-      <div id="contents_container" class="tab-pane active">
-        <% unless @content.documents.empty? %>
-          <%= render 'documents' %>
-        <% end %>
+      <% if @content.surveys.present? && @teach.current? %>
+        <%= render 'surveys' %>
+      <% end %>
 
-        <% if @content.surveys.present? && @teach.current? %>
-          <%= render 'surveys' %>
-        <% end %>
-
-        <% if @content.homeworks.present? && @teach.current? %>
-          <%= render 'homeworks' %>
-        <% end %>
-      </div>
-
-      <% unless current_user_is_student? %>
-        <div id="presentations_container" class="tab-pane">
-          <div class="alert"><%= t('label.loading') %></div>
-        </div>
-        <div id="replies_container" class="tab-pane">
-          <div class="alert"><%= t('label.loading') %></div>
-        </div>
+      <% if @content.homeworks.present? && @teach.current? %>
+        <%= render 'homeworks' %>
       <% end %>
     </div>
-  <% end %>
-</div>
+
+    <% unless current_user_is_student? %>
+      <div id="presentations_container" class="tab-pane">
+        <div class="alert alert-warning"><%= t('label.loading') %></div>
+      </div>
+      <div id="replies_container" class="tab-pane">
+        <div class="alert alert-warning"><%= t('label.loading') %></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<hr />
 
 <div class="form-actions">
-  <%= link_to t('label.edit'), edit_teach_content_path(@teach, @content), class: 'btn btn-primary' if can? :update, @content %>
+  <%= link_to(
+    t('label.edit'), edit_teach_content_path(@teach, @content),
+    class: 'btn btn-primary'
+  ) if can? :update, @content %>
 </div>

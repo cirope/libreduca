@@ -2,42 +2,38 @@
   <% @empty_index_options = { owner: @owner } %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <caption>
-          <h4>
-            <%= t(
-              'view.forums.from_owner.html',
-              count: @forums.size,
-              owner: link_to(@owner.to_s, @owner)
-            ) %>
-          </h4>
-          <br />
-        </caption>
+  <table class="table table-condensed resource-list">
+    <caption>
+      <h4>
+        <%= t(
+          'view.forums.from_owner.html',
+          count: @forums.size,
+          owner: link_to(@owner.to_s, @owner)
+        ) %>
+      </h4>
+      <br />
+    </caption>
 
-        <thead>
-          <tr>
-            <th><%= Forum.human_attribute_name 'name' %></th>
-            <th><%= Forum.human_attribute_name 'user_id' %></th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
+    <thead>
+      <tr>
+        <th><%= Forum.human_attribute_name 'name' %></th>
+        <th><%= Forum.human_attribute_name 'user_id' %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @forums.each do |forum| %>
-            <tr>
-              <td><%= forum.name %></td>
-              <td><%= forum.user %></td>
-              <td><%= link_to_show [forum.owner, forum] %></td>
-              <td><%= link_to_edit edit_polymorphic_path([forum.owner, forum]) if can? :update, forum %></td>
-              <td><%= link_to_destroy [forum.owner, forum] if can? :destroy, forum %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <tbody>
+      <% @forums.each do |forum| %>
+        <tr>
+          <td><%= forum.name %></td>
+          <td><%= forum.user %></td>
+          <td><%= link_to_show [forum.owner, forum] %></td>
+          <td><%= link_to_edit edit_polymorphic_path([forum.owner, forum]) if can? :update, forum %></td>
+          <td><%= link_to_destroy [forum.owner, forum] if can? :destroy, forum %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= pagination_links(@forums) %>
 <% end %>

@@ -312,8 +312,8 @@
         html: 'Haga <strong>clic</strong> sobre <strong>%{users}</strong> para expandir el árbol'
       user_inverse_kinships:
         html:
-          one: '<p class="muted text-center"><small><span class="badge">Una</span> persona a cargo</small></p>'
-          other: '<p class="muted text-center"><small><span class="badge">%{count}</span> personas a cargo</small></p>'
+          one: '<p class="text-muted text-center"><small><span class="badge">Una</span> persona a cargo</small></p>'
+          other: '<p class="text-muted text-center"><small><span class="badge">%{count}</span> personas a cargo</small></p>'
     comments:
       index_title: 'Listado de comentarios'
       correctly_created: 'Comentario agregado correctamente.'
@@ -402,7 +402,7 @@
       invalid_comment: 'El comentario no se agregó, contenía errores'
       back_to_owner: 'Volver a %{owner}'
       created_by:
-        html: '<span class="muted">Creado hace %{distance_time} por <strong>%{user}</strong></span>'
+        html: '<span class="text-muted">Creado hace %{distance_time} por <strong>%{user}</strong></span>'
       from_owner:
         html:
           one: 'Foro de %{owner}'
@@ -579,7 +579,7 @@
       enter_scores: 'Cargar calificaciones'
       tracking: 'Seguimiento'
       send_email_summary:
-        html: '<span class="iconic">&#x2709;</span> Enviar calificaciones'
+        html: '<span class="glyphicon glyphicon-envelope"></span> Enviar calificaciones'
       between:
         html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
       email_enrollment_scores:

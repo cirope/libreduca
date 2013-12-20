@@ -2,10 +2,12 @@
 
 <%= content_for :form_actions do %>
   <% if can? :read, @course %>
-    <%= link_to t('label.show'), [@grade, @course] %> |
+    <%= link_to_show [@grade, @course] %> |
   <% end %>
 
-  <%= link_to t('label.list'), grade_courses_path(@grade) if can? :read, @course %>
+  <%= link_to(
+    t('label.list'), grade_courses_path(@grade)
+  ) if can? :read, @course %>
 <% end %>
 
 <%= render 'form' %>

@@ -4,7 +4,7 @@
 
 <% unless reply_rendered_inline? %>
   <div class="form-actions">
-    <%= link_to t('label.edit'), edit_question_reply_path(@question, @reply) if can? :update, @reply %> |
+    <%= link_to_edit edit_question_reply_path(@question, @reply) if can? :update, @reply %> |
     <%= link_to t('label.list'), question_replies_path(@question) %>
   </div>
 <% end %>

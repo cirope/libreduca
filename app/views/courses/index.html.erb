@@ -1,38 +1,34 @@
 <% if @courses.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <caption>
-          <h4>
-            <%= t(
-              'view.courses.from_grade.html',
-              count: @grade.courses.count,
-              grade: link_to(@grade.to_s, [@grade.institution, @grade]),
-              institution: link_to(@grade.institution.to_s, @grade.institution)
-            ) %></h4>
-          <br />
-        </caption>
-        <thead>
-          <tr>
-            <th><%= Course.human_attribute_name 'name' %></th>
-            <th colspan="2"></th>
-          </tr>
-        </thead>
+  <table class="table table-condensed resource-list">
+    <caption>
+      <h4>
+        <%= t(
+          'view.courses.from_grade.html',
+          count: @grade.courses.count,
+          grade: link_to(@grade.to_s, [@grade.institution, @grade]),
+          institution: link_to(@grade.institution.to_s, @grade.institution)
+        ) %>
+      </h4>
+    </caption>
+    <thead>
+      <tr>
+        <th><%= Course.human_attribute_name 'name' %></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @courses.each do |course| %>
-            <tr>
-              <td><%= link_to course.name, [@grade, course] %></td>
-              <td><%= link_to_edit edit_grade_course_path(@grade, course) if can? :update, course %></td>
-              <td><%= link_to_destroy [@grade, course] if can? :destroy, course %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= link_to course.name, [@grade, course] %></td>
+          <td><%= link_to_edit edit_grade_course_path(@grade, course) if can? :update, course %></td>
+          <td><%= link_to_destroy [@grade, course] if can? :destroy, course %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= pagination_links(@courses) %>
 <% end %>
@@ -40,7 +36,7 @@
 <nav class="form-actions">
   <%= link_to(
     t('view.courses.new', default: :'label.new'),
-    new_grade_course_path(@grade), class: 'btn btn-primary'
+    new_grade_course_path(@grade), class: 'btn btn-default btn-primary'
     ) if can? :create, @grade.courses.build
   %>
 </nav>

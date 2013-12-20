@@ -2,7 +2,7 @@
 
 <%= content_for :form_actions do %>
   <% if can? :read, @teach %>
-    <%= link_to t('label.show'), @teach %> |
+    <%= link_to_show @teach %> |
   <% end %>
   <% if can? :read, Teach %>
     <%= link_to t('label.list'), course_teaches_path(@course) %>

@@ -1,8 +1,8 @@
 <% if @comments.next_page %>
-<div id="pagination_container" class="alert alert-info text-center">
-  <small><%= page_entries_info(@comments) %></small>&nbsp;
-  <%= link_to t('view.comments.more_comments'),
-    polymorphic_path([@commentable, Comment], page: @comments.next_page),
-    remote: true, class: 'btn btn-small' %>
-</div>
+  <div id="pagination_container" class="alert alert-info text-center">
+    <small><%= page_entries_info(@comments) %></small>&nbsp;
+    <%= link_to t('view.comments.more_comments'),
+      polymorphic_path([@commentable, Comment], page: @comments.next_page),
+      remote: true, class: 'btn btn-default btn-sm' %>
+  </div>
 <% end %>
