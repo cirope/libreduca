@@ -23,17 +23,19 @@ gem 'newrelic_rpm'
 # Must be outside assets because a constant is used in the initializers
 gem 'jquery-fileupload-rails'
 
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'capistrano-rbenv'
-
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
 gem 'unicorn'
-gem 'unicorn-rails'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'unicorn-rails'
+end
 
 group :test do
   gem 'turn'
