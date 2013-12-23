@@ -31,8 +31,7 @@
             controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
           ) if can?(:read, Institution) && !current_institution %>
             <%= show_menu_link(
-            name: 'groups', path: groups_path,
-            controllers: ['groups']
+            name: 'groups', path: groups_path, controllers: ['groups']
           ) if can?(:read, Group) && current_institution %>
         </ul>
         <%= render 'shared/nav_search' %>

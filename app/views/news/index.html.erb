@@ -7,7 +7,7 @@
     <div class="row">
       <ul class="thumbnails">
         <% news_row.each do |news| %>
-          <li class="span6">
+          <li class="col-md-6">
             <div class="thumbnail">
               <div class="clearfix">
                 <% unless news.tags.empty? %>
@@ -23,7 +23,7 @@
                 <%= markdown news.description %>
               </div>
             </div>
-            <p class="muted">
+            <p class="text-muted">
               <span>
                 <%= l news.published_at.to_date, format: :long %> |
                 <%= link_to_comments(news, news_path(news, anchor: 'comments-header')) %>

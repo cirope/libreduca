@@ -1,7 +1,7 @@
 <% active = controller_name == 'news' && action_name == 'index' %>
-<div class="navbar">
-  <div class="navbar-inner">
-    <ul class="nav">
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+    <ul class="nav navbar-nav">
       <li <%= raw 'class="active"' if active && @news.current_page == 1 %>>
         <%= link_to(
           t('view.news.news', institution: current_institution.to_s),
@@ -15,23 +15,23 @@
       <% end %>
     </ul>
     <% unless user_signed_in? %>
-    <ul class="nav pull-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%= t('menu.actions.login') %>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li><%= render template: 'devise/sessions/new_miniform' %></li>
-        </ul>
-      </li>
-    </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <%= t('menu.actions.login') %>
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= render template: 'devise/sessions/new_miniform' %></li>
+          </ul>
+        </li>
+      </ul>
     <% end %>
   </div>
 </div>
 
 <% unless user_signed_in? %>
-<div class="alert alert-warning centered">
+<div class="alert alert-warning text-center">
   <span>
     Para ver imagenes y comentar haga click en <span class="badge">Ingresar</span>
   </span>

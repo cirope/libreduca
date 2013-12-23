@@ -1,8 +1,8 @@
-<div class="row-fluid">
-  <div class="span4 hidden-phone">
+<div class="row">
+  <div class="col-md-4 hidden-xs">
     &nbsp;
   </div>
-  <div class="public_form_container span4">
+  <div class="col-md-4">
     <h3>¿Olvidaste tu contraseña?</h3>
 
     <p>
@@ -10,16 +10,16 @@
       restablecerla
     </p>
 
-    <div class="row-fluid">
-      <div class="span12">
+    <div class="row">
+      <div class="col-md-12">
         <%= simple_form_for(resource, as: resource_name,
             url: password_path(resource_name), html: { method: :post }) do |f| %>
+
           <div class="form-inputs">
-            <%= f.input :email, input_html: { autofocus: true, class: 'span12' } %>
+            <%= f.input :email, input_html: { autofocus: true } %>
           </div>
 
           <div class="form-actions">
-            <%= render 'shared/hidden_submit', f: f %>
             <%= show_button_dropdown(
               link_to('Enviarme las instrucciones', '#', class: 'btn btn-primary submit'),
               devise_links_es

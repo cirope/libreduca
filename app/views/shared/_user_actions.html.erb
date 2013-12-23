@@ -11,7 +11,10 @@
       </li>
       <li class="divider"></li>
       <li>
-        <%= link_to t('navigation.logout'), destroy_user_session_path, data: { method: :delete } %>
+        <%= link_to(
+          t('navigation.logout'), destroy_user_session_path,
+          data: { method: :delete }
+        ) %>
       </li>
     </ul>
   </li>

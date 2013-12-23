@@ -1,9 +1,9 @@
 <%
   resource.welcome = true
-  span_class ||= 'span12'
+  span_class ||= 'col-md-12'
 %>
 
-  <h3 class="muted centered">Bienvenido</h3>
+  <h3 class="text-muted text-center">Bienvenido</h3>
   <p>
     Si es tu <strong>primera</strong> vez en Libreduca, ingresá debajo tu dirección de correo
     y te enviaremos instrucciones para establecer una contraseña.
@@ -13,8 +13,9 @@
   input_html: { class: span_class }, html: { id: 'welcome_new_user', method: :post }) do |f| %>
   <div class="form-inputs">
     <%= f.input :email, input_html: { autofocus: true, id: 'welcome_email', class: span_class } %>
+  </div>
 
-    <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
+  <div class="form-actions">
     <%= f.submit 'Enviarme las instrucciones', class: 'btn btn-primary' %>
   </div>
 <% end %>
