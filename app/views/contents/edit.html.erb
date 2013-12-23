@@ -1,7 +1,7 @@
 <%= render 'breadcrumb' %>
 
 <%= content_for :form_actions do %>
-  <%= link_to t('label.show'), [@teach, @content] %> |
+  <%= link_to_show [@teach, @content] %> |
   <%= link_to t('label.back'), @teach %>
 <% end %>
 

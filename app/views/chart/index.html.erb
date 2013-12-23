@@ -1,15 +1,13 @@
-<div class="readonly-data">
-  <div class="page-header">
-    <h2><%= @title %></h2>
-  </div>
-
-  <% if @users.empty? %>
-    <div class="alert">
-      <%= t('view.charts.empty_index') %>
-    </div>
-  <% else %>
-    <%= chart_users_row(@users) %>
-  <% end %>
+<div class="page-header">
+  <h2><%= @title %></h2>
 </div>
+
+<% if @users.empty? %>
+  <div class="alert alert-warning">
+    <%= t('view.charts.empty_index') %>
+  </div>
+<% else %>
+  <%= chart_users_row(@users) %>
+<% end %>
 
 <div class="form-actions"></div>

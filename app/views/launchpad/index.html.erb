@@ -1,16 +1,16 @@
 <% @institutions.each_slice(2) do |institutions| %>
   <div class="row">
-    <div class="span1"></div>
     <% institutions.each do |institution| %>
-      <div class="span5">
+      <div class="col-md-6">
         <div class="well">
-          <h3>
-            <%= link_to institution, dashboard_url(subdomain: institution.identification) %>
-          </h3>
+          <h2>
+            <%= link_to(
+              institution, dashboard_url(subdomain: institution.identification)
+            ) %>
+          </h2>
         </div>
       </div>
     <% end %>
-    <div class="span1"></div>
   </div>
 <% end %>
 

@@ -1,61 +1,67 @@
-<div class="readonly-data">
-  <div class="page-header">
-    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, institution: current_institution.name) %></h1>
-  </div>
-  <% if current_enrollments.empty? %>
-    <div class="alert">
-      <h4 class="alert-heading">
-        <%= t('view.dashboard.empty_enrollments.html') %>
-      </h4>
-    </div>
-    <br />
-  <% else %>
-    <% current_enrollments.each_slice(2) do |enrollments| %>
-      <div class="row-fluid">
-        <% enrollments.each do |enrollment| %>
-          <div class="span6">
-            <% enrollment.teach.tap do |teach| %>
-              <div class="teach-header">
-                <h3>
-                  <%= link_to_if(can?(:read, teach), teach.course.to_s, teach) %>
-                </h3>
-                <%= show_teach_info teach %>
-              </div>
-
-              <%= markdown teach.description if teach.description.present? %>
-            <% end %>
-
-            <% if enrollment.teach.scores.empty? %>
-              <div class="alert">
-                <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>
-              </div>
-            <% else %>
-              <div class="alert alert-info">
-                <%= t(
-                  'view.dashboard.score_average.html',
-                  average: show_dashboard_score(enrollment.teach.scores.weighted_average),
-                  course: enrollment.course
-                ) %>
-              </div>
-            <% end %>
-            <div class="form-actions">
-              <% if can? :edit, enrollment.teach %>
-                <%= link_to(
-                  t('view.dashboard.teacher.edit_teach'),
-                  edit_teach_path(enrollment.teach),
-                  class: 'btn btn-info'
-                ) %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
+<div class="page-header">
+  <h1>
+    <%= t(
+      'view.dashboard.greetings.html',
+      user: current_user.name,
+      institution: current_institution.name
+    ) %>
+  </h1>
 </div>
+<% if current_enrollments.empty? %>
+  <div class="alert alert-warning">
+    <%= t('view.dashboard.empty_enrollments.html') %>
+  </div>
+  <br />
+<% else %>
+  <% current_enrollments.each_slice(2) do |enrollments| %>
+    <div class="row">
+      <% enrollments.each do |enrollment| %>
+        <div class="col-md-12">
+          <% enrollment.teach.tap do |teach| %>
+            <div class="teach-header">
+              <h3>
+                <%= link_to_if(can?(:read, teach), teach.course.to_s, teach) %>
+              </h3>
+              <%= show_teach_info teach %>
+            </div>
+
+            <%= markdown teach.description if teach.description.present? %>
+          <% end %>
+
+          <% if enrollment.teach.scores.empty? %>
+            <div class="alert alert-warning">
+              <%= t('view.dashboard.empty_scores.html', course: enrollment.course) %>
+            </div>
+          <% else %>
+            <div class="alert alert-info">
+              <%= t(
+                'view.dashboard.score_average.html',
+                average: show_dashboard_score(enrollment.teach.scores.weighted_average),
+                course: enrollment.course
+              ) %>
+            </div>
+          <% end %>
+          <div class="form-actions">
+            <% if can? :edit, enrollment.teach %>
+              <%= link_to(
+                t('view.dashboard.teacher.edit_teach'),
+                edit_teach_path(enrollment.teach),
+                class: 'btn btn-info'
+              ) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<hr />
 
 <div class="form-actions">
   <% unless current_user.teaches.in_institution(current_institution).empty? %>
-    <%= link_to t('view.dashboard.teaches_history'), user_teaches_path(current_user) %>
+    <%= link_to(
+      t('view.dashboard.teaches_history'),user_teaches_path(current_user)
+    ) %>
   <% end %>
 </div>

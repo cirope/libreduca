@@ -1,57 +1,68 @@
-<div class="readonly-data">
-  <div class="page-header">
-    <h1><%= t('view.dashboard.greetings.html', user: current_user.name, institution: current_institution.name) %></h1>
+<div class="page-header">
+  <h1>
+    <%= t(
+      'view.dashboard.greetings.html',
+      user: current_user.name, institution: current_institution.name
+    ) %>
+  </h1>
+</div>
+<% if @grades.empty? %>
+  <div class="alert alert-warning">
+    <%= t('view.dashboard.empty_grades.html') %>
   </div>
-  <% if @grades.empty? %>
-    <div class="alert">
-      <h4 class="alert-heading">
-        <%= t('view.dashboard.empty_grades.html') %>
-      </h4>
-    </div>
-    <br />
-  <% else %>
-    <% @grades.each_slice(2) do |grades| %>
-      <div class="row-fluid">
-        <% grades.each do |grade| %>
-          <div class="span6">
-            <h3><%= link_to grade.to_s, [grade.institution, grade] %></h3>
+  <br />
+<% else %>
+  <% @grades.each_slice(2) do |grades| %>
+    <div class="row">
+      <% grades.each do |grade| %>
+        <div class="col-md-6">
+          <h3><%= link_to grade.to_s, [grade.institution, grade] %></h3>
 
-            <div class="page-header">
-              <h5>
-                <%= link_to_if can?(:read, Course), Course.model_name.human(count: grade.courses.size), grade_courses_path(grade) %>
-                <% if can? :create, grade.courses.build %>
-                  <span class="divider">|</span>
-                  <%= link_to t('view.courses.new'), new_grade_course_path(grade), class: 'btn btn-mini' %>
-                <% end %>
-              </h5>
-            </div>
-
-            <% unless grade.courses.reject!(&:new_record?).blank? %>
-              <ul>
-                <% grade.courses.reload.each do |course| %>
-                  <li><%= link_to_if can?(:read, course), course.to_s, [grade, course] %></li>
-                <% end %>
-              </ul>
-            <% end %>
-
-            <div class="form-actions">
-              <% if can? :update, grade %>
+          <div class="page-header">
+            <h5>
+              <%= link_to_if(
+                can?(:read, Course),
+                Course.model_name.human(count: grade.courses.size),
+                grade_courses_path(grade)
+              ) %>
+              <% if can? :create, grade.courses.build %>
+                <span class="divider">|</span>
                 <%= link_to(
-                  t('view.dashboard.janitor.edit_grade'),
-                  edit_institution_grade_path(grade.institution, grade),
-                  class: 'btn btn-info'
+                  t('view.courses.new'),
+                  new_grade_course_path(grade), class: 'btn btn-default btn-xs'
                 ) %>
               <% end %>
-            </div>
+            </h5>
           </div>
-        <% end %>
-      </div>
-    <% end %>
+
+          <% unless grade.courses.reject!(&:new_record?).blank? %>
+            <ul>
+              <% grade.courses.reload.each do |course| %>
+                <li><%= link_to_if can?(:read, course), course.to_s, [grade, course] %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <div class="form-actions">
+            <% if can? :update, grade %>
+              <%= link_to(
+                t('view.dashboard.janitor.edit_grade'),
+                edit_institution_grade_path(grade.institution, grade),
+                class: 'btn btn-info'
+              ) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</div>
+<% end %>
 
 <div class="form-actions">
   <% if can? :create, current_institution.grades.build %>
-    <%= link_to t('view.grades.new'), new_institution_grade_path(current_institution), class: 'btn btn-primary' %>
+    <%= link_to(
+      t('view.grades.new'), new_institution_grade_path(current_institution),
+      class: 'btn btn-primary'
+    ) %>
   <% end %>
 </div>

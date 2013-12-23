@@ -1,9 +1,7 @@
-<div class="readonly-data">
-  <div class="alert alert-warning">
-    <h4><%= Question.model_name.human(count: 1) %></h4>
-    <ul><li><%= @reply.question %></li></ul>
+<div class="alert alert-warning">
+  <h4><%= Question.model_name.human(count: 1) %></h4>
+  <ul><li><%= @reply.question %></li></ul>
 
-    <h4><%= Reply.model_name.human(count: 1) %></h4>
-    <ul><li><%= @reply.response.present? ? @reply.response : @reply.answer %></li></ul>
-  </div>
+  <h4><%= Reply.model_name.human(count: 1) %></h4>
+  <ul><li><%= @reply.response.present? ? @reply.response : @reply.answer %></li></ul>
 </div>

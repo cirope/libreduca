@@ -10,6 +10,6 @@ new Rule
         unless $(tabID).data('loaded')
           $(tabID).load($(event.target).data('remote-url')).data 'loaded', true
 
-    $(document).on 'show', '.nav-tabs[data-remote]', @map.remote_tab_function
+    $(document).on 'show.bs.tab', '.nav-tabs[data-remote]', @map.remote_tab_function
   unload: ->
-    $(document).off 'show', '.nav-tabs[data-remote]', @map.remote_tab_function
+    $(document).off 'show.bs.tab', '.nav-tabs[data-remote]', @map.remote_tab_function

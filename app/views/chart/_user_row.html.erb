@@ -5,7 +5,7 @@
     <% end %>
 
     <% users.each do |user| %>
-      <li class="span2">
+      <li class="col-md-2">
         <%= chart_user_description(user) %>
       </li>
     <% end %>
@@ -21,10 +21,10 @@
           <li data-target="#<%= carousel_id %>" data-slide-to="<%= i %>" <%= 'class="active"' if i == 0 %>></li>
           <%= content_for :user_carousel_inner do %>
             <div class="item<%= ' active' if i == 0 %>">
-              <ul class="thumbnails row-fuild">
-                <li class="span2">&nbsp;</li>
+              <ul class="thumbnails row">
+                <li class="col-md-2">&nbsp;</li>
                 <% s.each do |user| %>
-                  <li class="span2">
+                  <li class="col-md-2">
                     <%= chart_user_description(user) %>
                   </li>
                 <% end %>
@@ -46,8 +46,10 @@
 
 <div data-kinship-container="true">
   <% if @users.all? { |u| u.kinships_in_chart_count == 0 } %>
-    <div class="alert text-center">
-      <%= t('view.charts.root_users_hint.html', users: @users.select { |u| u.inverse_kinships_in_chart_count > 0 }.to_sentence) %>
+    <div class="alert alert-warning text-center">
+      <%= t('view.charts.root_users_hint.html',
+        users: @users.select { |u| u.inverse_kinships_in_chart_count > 0 }.to_sentence
+      ) %>
     </div>
   <% end %>
 </div>

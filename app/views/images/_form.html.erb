@@ -1,10 +1,10 @@
 <%= simple_form_for([@owner, @image].compact, remote: true) do |f| %>
   <%= f.error_notification %>
-  <div class="form-inputs row-fluid">
-    <div class="span4">
-      <%= f.input :name, input_html: { class: 'span11', autofocus: true, maxlength: 255 } %>
+  <div class="form-inputs row">
+    <div class="col-md-4">
+      <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
     </div>
-    <div class="span6">
+    <div class="col-md-6">
       <%= f.input :file, hint: image_file_identifier(@image), input_html: {
         data: {
           'fileupload' => true,
@@ -34,4 +34,3 @@
 
   <%= render 'shared/template_upload' %>
 <% end %>
-

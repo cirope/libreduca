@@ -122,8 +122,8 @@
     t('label.edit'), edit_teach_path(@teach), class: 'btn btn-primary'
   ) if can? :update, @teach %>
   <%= link_to(
-    t('view.teaches.send_email_summary.html'), '#email_modal',
-    class: 'btn btn-default', data: { toggle: 'modal' }
+    t('view.teaches.send_email_summary.html'), '#', class: 'btn btn-default',
+    data: { toggle: 'modal', target: '#email_modal' }
   ) if can? :send_email_summary, @teach %>
 </nav>
 

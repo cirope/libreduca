@@ -5,10 +5,8 @@
 
   <% if reply_rendered_inline? %>
     <%= link_to(
-      t('label.cancel'),
-      [@question, @reply],
-      class: 'btn btn-default btn-xs',
-      data: { remote: true }
+      t('label.cancel'), [@question, @reply],
+      class: 'btn btn-default btn-xs', data: { remote: true }
     ) if @reply.persisted? %>
   <% else %>
     <div class="form-actions">

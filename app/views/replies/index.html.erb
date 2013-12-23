@@ -1,34 +1,35 @@
 <%= render 'breadcrumb', :@teach => @survey.teach, :@content => @survey.content %>
 
-<div class="readonly-data">
-  <h3><%= @survey %></h3>
-  <p>
-    <%= User.model_name.human(count: 1) %>:
-    <%= @user %>
-  </p>
+<h3><%= @survey %></h3>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th><%= Question.model_name.human(count: 1) %></th>
-        <th><%= Reply.model_name.human(count: 1) %></th>
-        <th></th>
-      </tr>
-    </thead>
+<p>
+  <%= User.model_name.human(count: 1) %>:
+  <%= @user %>
+</p>
 
-    <tbody>
-      <% @replies.where(user_id: @user.id).each do |reply| %>
-      <tr>
-        <td><%= reply.question %></td>
-        <td><%= reply.response.present? ? reply.response : reply.answer %></td>
-        <td><%= link_to_comments(reply, reply_comments_path(reply)) if can? :read, reply %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th><%= Question.model_name.human(count: 1) %></th>
+      <th><%= Reply.model_name.human(count: 1) %></th>
+      <th></th>
+    </tr>
+  </thead>
 
-</div>
+  <tbody>
+    <% @replies.where(user_id: @user.id).each do |reply| %>
+    <tr>
+      <td><%= reply.question %></td>
+      <td><%= reply.response.present? ? reply.response : reply.answer %></td>
+      <td><%= link_to_comments(reply, reply_comments_path(reply)) if can? :read, reply %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div class="form-actions">
-  <%= link_to_if can?(:read, @survey.content), @survey.content.to_s, [@survey.teach, @survey.content] %>
+  <%= link_to_if(
+    can?(:read, @survey.content), @survey.content.to_s,
+    [@survey.teach, @survey.content]
+  ) %>
 </div>

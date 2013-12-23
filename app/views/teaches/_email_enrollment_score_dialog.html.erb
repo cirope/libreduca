@@ -1,25 +1,37 @@
 <% users = [user.to_s] + user.relatives.map(&:to_s) %>
-<div class="modal hide fade" id="email_modal_<%= user.id %>">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">&times;</a>
-    <h3>
-      <%= t('view.teaches.email_enrollment_scores.header.html', user: user.name) %>
-    </h3>
-  </div>
-  <div class="modal-body">
-    <p>
-      <%= t('view.teaches.email_enrollment_scores.body.html', user: user.name, users: users.to_sentence) %>
-    </p>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal"><%= t('label.close') %></a>
-    <%= link_to(
-      t('label.send'),
-      send_email_summary_user_enrollment_path(user, enrollment, format: :html),
-      class: 'btn btn-primary send_email_summary', method: :post, remote: true,
-      data: {
-        'loading-text' => t('label.sending'), 'complete-text' => t('label.sent')
-      }
-    ) %>
+<div class="modal fade" id="email_modal_<%= user.id %>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h3 class="modal-title">
+          <%= t('view.teaches.email_enrollment_scores.header.html', user: user.name) %>
+        </h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%= t(
+            'view.teaches.email_enrollment_scores.body.html',
+            user: user.name,
+            users: users.to_sentence
+          ) %>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <%= t('label.close') %>
+        </button>
+        <%= link_to(
+          t('label.send'),
+          send_email_summary_user_enrollment_path(user, enrollment, format: :html),
+          class: 'btn btn-primary send_email_summary', method: :post, remote: true,
+          data: {
+            'loading-text' => t('label.sending'), 'complete-text' => t('label.sent')
+          }
+        ) %>
+      </div>
+    </div>
   </div>
 </div>

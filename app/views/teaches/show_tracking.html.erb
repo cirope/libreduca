@@ -1,5 +1,7 @@
 <% if @teach.enrollments.only_students.empty? %>
-  <div class="alert"><%= t('view.teaches.without_entollments_in_show.html') %></div>
+  <div class="alert alert-warning">
+    <%= t('view.teaches.without_entollments_in_show.html') %>
+  </div>
 <% else %>
   <table class="table table-striped table-bordered table-hover table-condensed">
     <thead>
@@ -25,7 +27,7 @@
   <p>
     <%= link_to(
       t('label.download_with_format.html', file_format: 'CSV'),
-      show_tracking_teach_path(@teach, format: 'csv'), class: 'btn'
+      show_tracking_teach_path(@teach, format: 'csv'), class: 'btn btn-default'
     ) %>
   </p>
 <% end %>

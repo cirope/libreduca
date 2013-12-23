@@ -616,9 +616,9 @@
       without_contents:
         html: 'Sin contenido, para cargarlo seleccione <span class="label label-info">Editar</span>'
       without_entollments_in_edit:
-        html: 'Sin inscripciones, para enrolar alumnos vaya a la solapa <span class="label">Inscripciones</span>'
+        html: 'Sin inscripciones, para enrolar alumnos vaya a la solapa <span class="label label-default">Inscripciones</span>'
       without_entollments_in_show:
-        html: 'Sin inscripciones, para enrolar alumnos seleccione <span class="label label-info">Editar</span> y vaya a la solapa <span class="label">Inscripciones</span>'
+        html: 'Sin inscripciones, para enrolar alumnos seleccione <span class="label label-info">Editar</span> y vaya a la solapa <span class="label label-default">Inscripciones</span>'
       without_scores:
         html: 'Sin calificaciones, para cargar nuevas seleccione <span class="label label-info">Editar</span>'
     users:
