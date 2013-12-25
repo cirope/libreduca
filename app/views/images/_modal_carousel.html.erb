@@ -8,14 +8,26 @@
               <div class="item <%= idx == 0 ? 'active' : '' %>">
                 <%== image.to_html(:large) %>
                 <div class="carousel-caption">
-                  <p><%= image.name %></p>
+                  <h1><%= image.name %></h1>
                 </div>
               </div>
             <% end %>
           </div>
           <% if @images.count > 1 %>
-            <a class="carousel-control left" href="#carousel-show-images" data-slide="prev">&lsaquo;</a>
-            <a class="carousel-control right" href="#carousel-show-images" data-slide="next">&rsaquo;</a>
+            <ol class="carousel-indicators">
+              <% @images.each_with_index do |image, idx| %>
+                <li data-target="#carousel-show-images"
+                data-slide-to="<%= idx %>" <%== 'class="active"' if idx == 0 %>>
+                </li>
+              <% end %>
+            </ol>
+
+            <a class="left carousel-control" href="#carousel-show-images" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-show-images" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
           <% end %>
         </div>
       </div>

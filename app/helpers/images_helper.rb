@@ -29,7 +29,7 @@ module ImagesHelper
   def link_to_zoom(*args)
     options = args.extract_options!
 
-    link = content_tag('span', '&#xe04e;'.html_safe, class: 'iconic')
+    link = content_tag(:span, nil, class: 'glyphicon glyphicon-fullscreen')
     link << ' ' << t('label.zoom')
 
     options['title'] ||= t('label.zoom')

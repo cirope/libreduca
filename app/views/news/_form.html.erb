@@ -25,15 +25,15 @@
   </div>
 
   <% if @news.new_record? %>
-    <div class="form-actions">
+    <div class="form-actions form-footer">
       <div class="pull-right"><%= yield :form_actions %></div>
       <%= f.button :submit, class: 'btn btn-primary' %>
       <%= link_to t('view.images.new'), '#new_image_btn', id: 'new_image_btn', class: 'btn btn-primary' %>
     </div>
   <% else %>
     <hr />
-    <div class="form-inputs">
-      <%= f.button :submit, class: 'btn-primary' %>
+    <div class="form-inputs form-footer">
+      <%= f.button :submit, class: 'btn btn-primary' %>
     </div>
   <% end %>
 <% end %>

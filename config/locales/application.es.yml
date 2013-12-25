@@ -289,6 +289,7 @@
     teaches: 'Cursos'
     users: 'Usuarios'
     groups: 'Grupos'
+    news: 'Noticias'
 
   messages:
     confirmation: '¿Está seguro?'
@@ -504,7 +505,6 @@
         html: 'No se ha creado ninguna noticia hasta el momento.'
       new: 'Nueva noticia'
       new_tag: 'Agregar nueva etiqueta'
-      news: 'Noticias de %{institution}'
       previous_news: 'Noticias anteriores'
     presentations:
       index_title: 'Listado de entregas'

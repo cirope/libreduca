@@ -22,7 +22,9 @@
           <%= render 'shared/menu_dropdowns/enrollments' if current_enrollments.present? %>
           <%= show_menu_link(
             name: 'users', controllers: 'users', path: users_path
-          ) if can?(:read, User) && ((current_user.is?(:admin) && !current_institution) || (current_institution && current_user_is_janitor?)) %>
+          ) if can?(:read, User) &&
+           ((current_user.is?(:admin) && !current_institution) ||
+           (current_institution && current_user_is_janitor?)) %>
           <%= show_menu_link(
             name: 'regions', controllers: 'regions', path: regions_path
           ) if can?(:read, Region) && !current_institution %>
@@ -30,13 +32,18 @@
             name: 'institutions', path: institutions_path,
             controllers: ['institutions', 'grades', 'courses', 'teaches', 'scores']
           ) if can?(:read, Institution) && !current_institution %>
-            <%= show_menu_link(
+          <%= show_menu_link(
             name: 'groups', path: groups_path, controllers: ['groups']
           ) if can?(:read, Group) && current_institution %>
+          <%= show_menu_link(
+            name: 'news', path: news_index_path, controllers: ['news']
+          ) if can?(:read, News) && current_institution %>
         </ul>
         <%= render 'shared/nav_search' %>
         <%= render 'shared/user_actions' %>
       </div>
+    <% else %>
+      <%= render 'shared/news' %>
     <% end %>
   </div>
 </div>
