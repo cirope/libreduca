@@ -1,0 +1,28 @@
+<% id = "image-modal-#{Time.now.to_i}-#{image.object_id}" %>
+
+<%= link_to(
+  raw(image.to_html(:thumb)), "##{id}", data: { toggle: 'modal' }
+) %>
+
+<p class="text-muted">
+  <small><%= t('view.images.click_to_enlarge.html') %></small>
+</p>
+
+<div class="modal fade" id="<%= id %>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title"><%= image.to_s %></h3>
+      </div>
+      <div class="modal-body">
+        <%== image.to_html %>
+      </div>
+      <div class="modal-footer">
+        <%= link_to(
+          t('label.close'), '#', class: 'btn btn-default',
+          data: { dismiss: 'modal' }
+        ) %>
+      </div>
+    </div>
+  </div>
+</div>

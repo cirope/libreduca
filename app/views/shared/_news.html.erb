@@ -1,18 +1,7 @@
-<ul class="nav navbar-nav">
-  <li class="dropdown">
-    <%= link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do %>
-      <%= News.model_name.human(count: 0) %>
-      <b class="caret"></b>
-    <% end %>
-    <ul class="dropdown-menu">
-      <%= show_menu_link(
-        name: 'news', path: news_index_path, controllers: ['news']
-      ) if can?(:read, News) && current_institution %>
-      <% if current_institution.news.count > News.per_page %>
-        <li>
-          <%= link_to t('view.news.previous_news'), news_index_path(page: 2) %>
-        </li>
-      <% end %>
-    </ul>
-  </li>
-</ul>
+<div class="collapse navbar-collapse" role="navigation">
+  <ul class="nav navbar-nav">
+    <%= show_menu_link(
+      name: 'news', path: news_index_path, controllers: ['news']
+    ) if can?(:read, News) %>
+  </ul>
+</div>

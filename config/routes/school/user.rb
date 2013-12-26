@@ -2,10 +2,10 @@ resources :users do
   collection do
     get :edit_profile
     patch :update_profile
-    get :chart, to: 'chart#index'
+    get :find_by_email
   end
 
-  get :find_by_email, on: :collection
+  get :chart, to: 'chart#index', on: :member
 
   resources :jobs, only: [:create]
 

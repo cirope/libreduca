@@ -24,6 +24,8 @@
     <%= f.input :lock_version, as: :hidden %>
   </div>
 
+  <hr />
+
   <% if @news.new_record? %>
     <div class="form-actions form-footer">
       <div class="pull-right"><%= yield :form_actions %></div>
@@ -31,7 +33,6 @@
       <%= link_to t('view.images.new'), '#new_image_btn', id: 'new_image_btn', class: 'btn btn-primary' %>
     </div>
   <% else %>
-    <hr />
     <div class="form-inputs form-footer">
       <%= f.button :submit, class: 'btn btn-primary' %>
     </div>
@@ -39,13 +40,14 @@
 <% end %>
 
 <% if @news.persisted? %>
-  <hr />
   <%= render partial: 'images/image_show', collection: @news.images, as: :image %>
 
   <%= render template: 'images/new',
     locals: { :@image => @news.images.build, :@owner => @news } %>
 
-  <div class="form-actions">
+  <hr />
+
+  <div class="form-actions form-footer">
     <div class="pull-right"><%= yield :form_actions %></div>
   </div>
 <% end %>

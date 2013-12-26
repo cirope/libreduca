@@ -67,7 +67,4 @@
   <% if can? :create, User %>
     <%= link_to t('view.users.new'), new_user_path, class: 'btn btn-default' %>
   <% end %>
-  <% if can? :create, News %>
-    <%= link_to t('view.news.new'), new_news_path, class: 'btn btn-default' %>
-  <% end %>
 </div>

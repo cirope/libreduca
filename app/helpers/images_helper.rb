@@ -23,7 +23,7 @@ module ImagesHelper
       class: 'modal-footer'
     )
 
-    out << content_tag(:div, content, class: 'modal hide fade', id: id)
+    out << content_tag(:div, content, class: 'modal fade', id: id)
   end
 
   def link_to_zoom(*args)

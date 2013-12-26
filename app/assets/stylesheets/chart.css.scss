@@ -1,4 +1,11 @@
-#c_chart {
+#chart {
+  a.carousel-control {
+    &.left, &.right {
+      color: #000;
+      background-image: none;
+    }
+  }
+
   .users-row {
     white-space: nowrap;
 
@@ -7,7 +14,7 @@
       line-height: 10px;
     }
 
-    *[class*="span"] {
+    *[class*="col-md-"] {
       vertical-align: top;
       white-space: normal;
 

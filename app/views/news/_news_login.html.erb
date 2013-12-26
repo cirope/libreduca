@@ -1,0 +1,6 @@
+<% unless current_user %>
+  <div class="alert alert-warning text-center">
+    <%= t('view.news.news_login') %>
+    <%= link_to t('menu.actions.login'), new_user_session_path, class: 'alert-link' %>
+  </div>
+<% end %>

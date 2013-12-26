@@ -52,7 +52,7 @@ class Ability
   def public_rules(institution)
     can :read, Institution
     can :read, News
-    can :read, Tag, institution_id: institution.id
+    can :read, Tag, institution_id: institution.id if institution
   end
 
   def student_rules(user, institution)

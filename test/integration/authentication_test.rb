@@ -10,14 +10,17 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   test 'should be able to login and logout as admin' do
     login
 
-    click_link 'logout'
+    within '.navbar-collapse .navbar-right' do
+      find('a.dropdown-toggle').click
+      click_link I18n.t('navigation.logout')
+    end
 
     assert_equal new_user_session_path, current_path
 
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
 
-    within 'footer.alert' do
+    within '.alert' do
       assert page.has_content?(I18n.t('devise.sessions.signed_out'))
     end
   end
@@ -85,7 +88,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     assert_page_has_no_errors!
     assert page.has_css?('.alert')
 
-    within 'footer.alert' do
+    within '.alert' do
       assert page.has_content?(I18n.t('devise.failure.invalid'))
     end
   end

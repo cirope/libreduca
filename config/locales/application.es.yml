@@ -505,7 +505,7 @@
         html: 'No se ha creado ninguna noticia hasta el momento.'
       new: 'Nueva noticia'
       new_tag: 'Agregar nueva etiqueta'
-      previous_news: 'Noticias anteriores'
+      news_login: 'Para ver imágenes y comentar haga clic en'
     presentations:
       index_title: 'Listado de entregas'
       show_title: 'Detalle de entrega'

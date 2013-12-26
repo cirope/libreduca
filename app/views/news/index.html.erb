@@ -3,19 +3,14 @@
 <% if @news.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <% unless current_user %>
-    <div class="alert alert-warning text-center">
-      Para ver imágenes y comentar haga clic en
-      <%= link_to t('menu.actions.login'), new_user_session_path, class: 'alert-link' %>
-    </div>
-  <% end %>
+  <%= render 'news/news_login' %>
   <% @news.each_slice(columns) do |news_row| %>
     <div class="row">
       <% news_row.each do |news| %>
         <div class="col-md-6">
           <% unless news.tags.empty? %>
             <div class="clearfix">
-              <div class="pull-left badge badge-<%= @tag.try(:category) || news.taggings.first.tag.category %>">
+              <div class="pull-left label label-<%= @tag.try(:category) || news.taggings.first.tag.category %>">
                 <%= @tag || news.taggings.first.tag %>
               </div>
             </div>
@@ -24,7 +19,7 @@
             <%= link_to news.title, news_path(news) %>
           </h4>
           <div class="clearfix">
-            <% if user_signed_in? && !news.images.empty? %>
+            <% if current_user && !news.images.empty? %>
               <div class="pull-left img-news">
                 <%= link_to(
                   image_tag(news.images.first.file_url(:normal)), news_path(news)
@@ -42,9 +37,9 @@
       <% end %>
     </div>
   <% end %>
-  <% if @news.current_page > 1 %>
+  <div class="form-footer">
     <%= pagination_links(@news) %>
-  <% end %>
+  </div>
 <% end %>
 
 <div class="form-actions form-footer">

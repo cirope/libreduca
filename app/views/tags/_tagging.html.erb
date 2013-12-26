@@ -28,11 +28,11 @@
       </div>
       <div class="col-md-5 color_chooser">
         <div class="btn-group">
-          <% Tag::CATEGORIES.each do |c| %>
-            <div class="tag_color_chooser btn btn-<%= c == 'important' ? 'danger' : c %>
-              <%= 'selected' if tagging.tag.category == c %>">
-              <span class="iconic"><%= '&#x2713;'.html_safe %></span>
-              <%= f_t.radio_button :category, c %>
+          <% Tag::CATEGORIES.each do |category| %>
+            <div class="tag_color_chooser btn btn-<%= category %>
+              <%= 'selected' if tagging.tag.category == category %>">
+              <span class="glyphicon glyphicon-ok"></span>
+              <%= f_t.radio_button :category, category %>
             </div>
           <% end %>
         </div>

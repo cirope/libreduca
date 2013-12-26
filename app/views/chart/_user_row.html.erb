@@ -1,55 +1,59 @@
-<% if users.size < 6 %>
-  <ul class="thumbnails users-row">
-    <% if empty_rows > 0 %>
-      <li class="span<%= empty_rows %>">&nbsp;</li>
-    <% end %>
+<div id="chart">
+  <% if users.size < 6 %>
+    <div class="thumbnails users-row row">
+      <% if empty_rows > 0 %>
+        <div class="col-md-<%= empty_rows %>">&nbsp;</div>
+      <% end %>
 
-    <% users.each do |user| %>
-      <li class="col-md-2">
-        <%= chart_user_description(user) %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <div class="users-row">
-    <% sliced_users = users.each_slice(4).to_a %>
-    <% carousel_id = "users-carousel-#{Time.now.to_i}" %>
-    <div class="carousel slide" id="<%= carousel_id %>" data-interval="false">
-
-      <ol class="carousel-indicators hidden">
-        <% sliced_users.each_with_index do |s, i| %>
-          <li data-target="#<%= carousel_id %>" data-slide-to="<%= i %>" <%= 'class="active"' if i == 0 %>></li>
-          <%= content_for :user_carousel_inner do %>
-            <div class="item<%= ' active' if i == 0 %>">
-              <ul class="thumbnails row">
-                <li class="col-md-2">&nbsp;</li>
-                <% s.each do |user| %>
-                  <li class="col-md-2">
-                    <%= chart_user_description(user) %>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-        <% end %>
-      </ol>
-
-      <div class="carousel-inner">
-        <%= yield :user_carousel_inner %>
-      </div>
-
-      <a class="carousel-control left" href="#<%= carousel_id %>" data-slide="prev">&lsaquo;</a>
-      <a class="carousel-control right" href="#<%= carousel_id %>" data-slide="next">&rsaquo;</a>
+      <% users.each do |user| %>
+        <div class="col-md-2">
+          <%= chart_user_description(user) %>
+        </div>
+      <% end %>
     </div>
-  </div>
-<% end %>
+  <% else %>
+    <div class="users-row">
+      <% sliced_users = users.each_slice(4).to_a %>
+      <% carousel_id = "users-carousel-#{Time.now.to_i}" %>
+      <div class="carousel slide" id="<%= carousel_id %>" data-interval="false">
 
-<div data-kinship-container="true">
-  <% if @users.all? { |u| u.kinships_in_chart_count == 0 } %>
-    <div class="alert alert-warning text-center">
-      <%= t('view.charts.root_users_hint.html',
-        users: @users.select { |u| u.inverse_kinships_in_chart_count > 0 }.to_sentence
-      ) %>
+        <ol class="carousel-indicators hidden">
+          <% sliced_users.each_with_index do |s, i| %>
+            <li data-target="#<%= carousel_id %>" data-slide-to="<%= i %>" <%= 'class="active"' if i == 0 %>></li>
+            <%= content_for :user_carousel_inner do %>
+              <div class="item<%= ' active' if i == 0 %>">
+                <ul class="nav thumbnails">
+                  <li class="col-md-2">&nbsp;</li>
+                  <% s.each do |user| %>
+                    <li class="col-md-2">
+                      <%= chart_user_description(user) %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          <% end %>
+        </ol>
+
+        <div class="carousel-inner">
+          <%= yield :user_carousel_inner %>
+        </div>
+
+        <a class="left carousel-control" href="#<%= carousel_id %>" data-slide="prev">
+          <span class="glyphicon glyphicon-circle-arrow-left"></span>
+        </a>
+        <a class="right carousel-control" href="#<%= carousel_id %>" data-slide="next">
+          <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </a>
+      </div>
     </div>
   <% end %>
+
+  <div data-kinship-container="true">
+    <% if @users.all? { |u| u.kinships_in_chart_count == 0 } %>
+      <div class="alert alert-warning text-center">
+        <%= t('view.charts.root_users_hint.html', users: @users.select { |u| u.inverse_kinships_in_chart_count > 0 }.to_sentence) %>
+      </div>
+    <% end %>
+  </div>
 </div>

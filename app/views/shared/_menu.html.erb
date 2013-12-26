@@ -43,7 +43,7 @@
         <%= render 'shared/user_actions' %>
       </div>
     <% else %>
-      <%= render 'shared/news' %>
+      <%= render 'shared/news' if current_institution %>
     <% end %>
   </div>
 </div>

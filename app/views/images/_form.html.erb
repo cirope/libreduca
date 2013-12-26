@@ -14,7 +14,7 @@
         }
       } %>
 
-      <p id="image-file-error" class="text-error" style="display: none;">
+      <p id="image-file-error" class="text-danger" style="display: none;">
         <%= t('view.images.file_type_error') %>
       </p>
     </div>
@@ -23,10 +23,11 @@
   <div class="form-inputs">
     <%= f.input :file_cache, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, t('view.images.load') %>
+    <%= f.button :submit, t('view.images.load'), class: 'btn btn-default' %>
   </div>
 
   <% if controller_name == 'images' && !request.xhr? %>
+    <hr />
     <div class="form-actions">
       <%= link_to t('label.list'), images_path, title: t('label.list') %>
     </div>

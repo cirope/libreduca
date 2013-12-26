@@ -1,7 +1,7 @@
-<%= render 'navbar' %>
+<%= render 'news/news_login' %>
 <div class="row">
   <div class="col-md-12">
-    <div class="badge badge-link">
+    <div class="badge label-link">
       <%= link_to t('label.back'), news_index_path %>
     </div>
 
@@ -45,7 +45,7 @@
         locals: { :@comments => @news.comments.page(1), :@commentable => @news } %>
     <% end %>
 
-    <div class="badge badge-link">
+    <div class="badge label-link">
       <%= link_to t('label.back'), news_index_path %>
     </div>
   </div>
