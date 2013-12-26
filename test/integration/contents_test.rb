@@ -82,7 +82,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#documents_content fieldset')
 
     within '#documents_content fieldset' do
-      click_link '✘' # Destroy link
+      find("[data-dynamic-target=\".document\"]").click
     end
 
     assert page.has_no_css?('#documents_content fieldset')
@@ -101,7 +101,7 @@ class ContentsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#documents_content fieldset')
 
     within '#documents_content fieldset' do
-      click_link '✘' # Destroy link
+      find("[data-dynamic-target=\".document\"]").click
     end
 
     assert_no_difference 'Content.count' do

@@ -1,12 +1,9 @@
-<% span_class ||= 'col-md-12' %>
-
 <h3 class="text-muted text-center">Inicio de sesión</h3>
 
-<%= simple_form_for(resource, as: resource_name,
-  url: session_path(resource_name), input_html: { class: span_class }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
-    <%= f.input :email, input_html: { autofocus: true, class: span_class } %>
-    <%= f.input :password, input_html: { class: span_class } %>
+    <%= f.input :email, input_html: { autofocus: true } %>
+    <%= f.input :password %>
     <%= f.input :remember_me, as: :boolean, wrapper: :checkbox if devise_mapping.rememberable? %>
   </div>
 
@@ -14,8 +11,9 @@
     <%= f.submit 'Ingresar', class: 'btn btn-primary' %>
   </div>
 
+  <br />
+
   <%= link_to(
-    '¿Olvidaste tu contraseña?', new_password_path(resource_name),
-    id: 'reset-password'
+    '¿Olvidaste tu contraseña?', new_password_path(resource_name)
   ) %>
 <% end %>

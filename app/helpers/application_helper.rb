@@ -15,20 +15,6 @@ module ApplicationHelper
     )
   end
 
-  def show_button_dropdown(main_action, extra_actions = [], options = {})
-    if extra_actions.blank?
-      main_action
-    else
-      out = ''.html_safe
-
-      out << render(
-        partial: 'shared/button_dropdown', locals: {
-          main_action: main_action, extra_actions: extra_actions
-        }
-      )
-    end
-  end
-
   def copy_attribute_errors(from, to, form_builder)
     form_builder.object.errors[from].each do |message|
       form_builder.object.errors.add(to, message)

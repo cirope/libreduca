@@ -4,15 +4,13 @@
 
     <%= simple_form_for(resource, as: resource_name,
       url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+
       <div class="form-inputs">
         <%= f.input :email, input_html: { autofocus: true } %>
       </div>
 
       <div class="form-actions">
-        <%= show_button_dropdown(
-          link_to('Reenviar instrucciones', '#', class: 'btn btn-primary submit'),
-          devise_links_es
-        ) %>
+        <%= link_to 'Reenviar instrucciones', '#', class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>
