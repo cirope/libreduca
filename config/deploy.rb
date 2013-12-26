@@ -18,12 +18,5 @@ set :rbenv_ruby, '2.1.0'
 set :keep_releases, 5
 
 namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute 'service unicorn upgrade'
-    end
-  end
-
   after :finishing, 'deploy:cleanup'
 end
