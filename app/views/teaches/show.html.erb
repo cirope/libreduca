@@ -84,7 +84,7 @@
               can?(:read, content), content, [@teach, content]
             ) %>
             <% if content.visited_by?(current_user) %>
-              <span class="visited glyphicon glyphicon-check"></span>
+              <span class="text-success glyphicon glyphicon-ok"></span>
             <% end %>
           </li>
         <% end %>

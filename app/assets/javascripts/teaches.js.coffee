@@ -1,7 +1,8 @@
 new Rule
-  condition: -> $('#c_teaches').length
+  condition: -> $('#form-scores').length
   load: ->
     @map.replace_with_global_values ||= ->
+      alert 'sjhdsj'
       $($(this).data('target')).val($(this).val())
     @map.cancel_email_resubmit_function ||= ->
       $(this).removeAttr('href').removeAttr('data-remote').removeAttr('data-method')

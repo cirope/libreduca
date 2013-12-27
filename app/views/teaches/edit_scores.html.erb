@@ -1,32 +1,36 @@
-<%= simple_fields_for(@teach) do |f| %>
-  <% if @teach.enrollments.empty? %>
-    <div class="alert alert-warning">
-      <%= t('view.teaches.without_entollments_in_edit.html') %>
-    </div>
-  <% else %>
-    <div class="row">
-      <div class="col-md-6">&nbsp;</div>
-      <div class="col-md-2">
-        <%= text_field_tag(
-          'global_multiplier', nil,
-          id: 'global_multiplier',
-          placeholder: t('view.teaches.global_multiplier'),
-          data: { target: 'input.multiplier' }
-        ) %>
+<div id="form-scores">
+  <%= simple_fields_for(@teach) do |f| %>
+    <% if @teach.enrollments.empty? %>
+      <div class="alert alert-warning">
+        <%= t('view.teaches.without_entollments_in_edit.html') %>
       </div>
-      <div class="col-md-4">
-        <%= text_field_tag(
-          'global_description', nil,
-          id: 'global_description',
-          placeholder: t('view.teaches.global_description'),
-          data: { target: 'input.description' }
-        ) %>
+    <% else %>
+      <div class="row">
+        <div class="col-md-2 col-md-offset-6">
+          <%= text_field_tag(
+            'global_multiplier', nil,
+            id: 'global_multiplier',
+            placeholder: t('view.teaches.global_multiplier'),
+            class: 'form-control',
+            data: { target: 'input.multiplier' }
+          ) %>
+        </div>
+        <div class="col-md-4">
+          <%= text_field_tag(
+            'global_description', nil,
+            id: 'global_description',
+            class: 'form-control',
+            placeholder: t('view.teaches.global_description'),
+            data: { target: 'input.description' }
+          ) %>
+        </div>
       </div>
-    </div>
-    <div id="scores">
-      <%= f.simple_fields_for :scores, build_new_teach_scores(@teach) do |j_f| %>
-        <%= render partial: 'score', locals: { f: j_f } %>
-      <% end %>
-    </div>
+      <br />
+      <div id="scores">
+        <%= f.simple_fields_for :scores, build_new_teach_scores(@teach) do |j_f| %>
+          <%= render partial: 'score', locals: { f: j_f } %>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>

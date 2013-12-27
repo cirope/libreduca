@@ -1,7 +1,7 @@
 <fieldset>
   <%= f.simple_fields_for :replies, f.object.replies.build do |r_f| %>
     <%= r_f.input :response, label: false, input_html: {
-      disabled: true, class: 'span11', rows: 4, placeholder: Reply.human_attribute_name('response')
+      disabled: true, rows: 4, placeholder: Reply.human_attribute_name('response')
     } %>
   <% end %>
 </fieldset>

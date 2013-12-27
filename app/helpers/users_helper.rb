@@ -1,17 +1,15 @@
 module UsersHelper
   def show_user_roles_options(form)
-    options = User.valid_roles.map { |r| [r, t("view.users.roles.#{r}")] }
+    options = User.valid_roles.map { |r| [t("view.users.roles.#{r}"), r] }
 
-    form.collection_radio_buttons :role, options, :first, :last do |b|
-      content_tag(:label, b.radio_button + b.text, class: 'radio')
-    end
+    form.input :role, collection: options, as: :radio_buttons, label: false,
+      input_html: { class: nil }
   end
 
   def show_user_job_options(form)
     jobs = Job::TYPES.map { |t| [show_human_job_type(t), t] }.sort
 
-    form.input :job, label: false, collection: jobs, prompt: true,
-      input_html: { class: (current_institution ? 'span11' : 'span10') }
+    form.input :job, label: false, collection: jobs, prompt: true
   end
 
   def show_human_job_type(job)
@@ -21,8 +19,7 @@ module UsersHelper
   def show_user_kinship_options(form)
     kinships = Kinship::KINDS.map { |t| [show_human_kinship_type(t), t] }
 
-    form.input :kin, label: false, collection: kinships, prompt: true,
-      input_html: { class: 'span10' }
+    form.input :kin, label: false, collection: kinships, prompt: true
   end
 
   def show_human_kinship_type(kinship)
