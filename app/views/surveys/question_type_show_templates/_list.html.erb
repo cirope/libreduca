@@ -1,8 +1,16 @@
-<div class="form-inputs">
-  <select>
-    <% @question.answers.each do |answer| %>
-      <option><%= answer %></option>
-    <% end %>
-  </select>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-inputs">
+      <div class="form-group">
+        <div class="controls">
+          <select class="form-control">
+            <% @question.answers.each do |answer| %>
+              <option><%= answer %></option>
+          <% end %>
+          </select>
+        </div>
+      </div>
+    </div>
+    <%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>
+  </div>
 </div>
-<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>

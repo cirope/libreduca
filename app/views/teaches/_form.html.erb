@@ -1,4 +1,5 @@
-<%= simple_form_for((@teach.new_record? ? [@course, @teach] : @teach)) do |f| %>
+<%= simple_form_for((@teach.new_record? ? [@course, @teach] : @teach),
+  html: { id: 'form-teach' }) do |f| %>
   <div class="form-inputs">
     <div class="row">
       <div class="col-md-6">
