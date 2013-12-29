@@ -30,9 +30,9 @@ class RegionsTest < ActionDispatch::IntegrationTest
     end
 
     assert_page_has_no_errors!
-    assert page.has_css?('footer.alert')
+    assert page.has_css?('.alert-info')
 
-    within 'footer.alert' do
+    within '.alert-info' do
       assert page.has_content?(I18n.t('view.regions.correctly_created'))
     end
   end
@@ -45,7 +45,7 @@ class RegionsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#districts fieldset')
 
     within '#districts fieldset' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert page.has_no_css?('#districts fieldset')

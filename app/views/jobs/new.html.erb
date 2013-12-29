@@ -1,28 +1,27 @@
-<%= simple_form_for([@user, @job]) do |f| %>
 <% if user_not_in_institution? && editing_user? %>
   <div class="alert alert-info">
-    <%= t('view.users.add_to_institution.html', user: @user, institution: current_institution) %>
+    <%= t('view.users.add_to_institution.html', user: @user,
+      institution: current_institution
+    ) %>
   </div>
 <% end %>
 
 <div class="row">
   <div class="col-md-6">
-    <div class="row form-inputs">
-      <div class="col-md-12">
+    <%= simple_form_for([@user, @job]) do |f| %>
+      <div class="form-inputs">
         <h5><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h5>
-      </div>
 
-      <div class="row">
-        <div id="jobs" class="col-md-12">
+        <div id="jobs">
           <%= render partial: 'jobs/job', locals: { f: f } %>
         </div>
       </div>
-    </div>
+
+      <div class="form-actions">
+        <div class="pull-right"><%= yield :form_actions %></div>
+        <%= f.input :lock_version, as: :hidden %>
+        <%= f.button :submit, class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
 </div>
-<div class="form-actions">
-  <div class="pull-right"><%= yield :form_actions %></div>
-  <%= f.input :lock_version, as: :hidden %>
-  <%= f.button :submit, class: 'btn-primary' %>
-</div>
-<% end %>

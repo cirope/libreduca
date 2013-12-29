@@ -97,7 +97,7 @@
         <% if current_institution && can?(:create, @teach.forums.build) %>
           <span class="divider">|</span>
           <%= link_to(
-            t('view.forums.new'), new_teach_forum_path(@teach), class: 'btn btn-xs'
+            t('view.forums.new'), new_teach_forum_path(@teach), class: 'btn btn-default btn-xs'
           ) %>
         <% end %>
       </h3>

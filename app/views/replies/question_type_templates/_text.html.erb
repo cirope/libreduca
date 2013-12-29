@@ -1,7 +1,7 @@
 <div class="form-inputs">
   <%= f.input :response, label: false, input_html: {
-    placeholder: Reply.human_attribute_name('response'), rows: 4, class: 'span11', id: "reply_for_#{@question.object_id}"
+    placeholder: Reply.human_attribute_name('response'), rows: 4, id: "reply_for_#{@question.object_id}"
   } %>
 </div>
 <%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>
-<%= f.button :submit, class: 'btn-small' %>
+<%= f.button :submit, class: 'btn btn-default btn-small' %>

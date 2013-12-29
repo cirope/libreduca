@@ -34,12 +34,12 @@
   <% if @news.new_record? %>
     <div class="form-actions form-footer">
       <div class="pull-right"><%= yield :form_actions %></div>
-      <%= f.button :submit, class: 'btn btn-primary' %>
+      <%= f.button :submit, class: 'btn btn-primary news-submit' %>
       <%= link_to t('view.images.new'), '#new_image_btn', id: 'new_image_btn', class: 'btn btn-primary' %>
     </div>
   <% else %>
     <div class="form-inputs form-footer">
-      <%= f.button :submit, class: 'btn btn-primary' %>
+      <%= f.button :submit, class: 'btn-primary news-submit' %>
     </div>
   <% end %>
 <% end %>

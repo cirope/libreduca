@@ -1,5 +1,5 @@
 new Rule
-  condition: -> $('#c_users #user_email:not([data-disable-search="true"])').length
+  condition: -> $('#user_email:not([data-disable-search="true"])').length
   load: ->
     @map.replace_function ||= (event, data) ->
       $.get $(this).data('url'), q: $(this).val()

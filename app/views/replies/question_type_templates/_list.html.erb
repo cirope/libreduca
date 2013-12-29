@@ -1,6 +1,14 @@
-<div class="form-inputs">
-  <%= f.input :answer_id, label: false, collection: @question.answers, as: :select, input_html: {
-    data: { 'autosubmit-on-change' => true }
-  } %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-inputs">
+      <div class="form-group">
+        <div class="controls">
+          <%= f.input :answer_id, label: false, collection: @question.answers, as: :select, input_html: {
+            data: { 'autosubmit-on-change' => true }
+          } %>
+        </div>
+        <%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>
+      </div>
+    </div>
+  </div>
 </div>
-<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>

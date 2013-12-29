@@ -20,7 +20,7 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
     assert_difference 'News.count' do
       assert page.has_no_css?('.page-header h2.text-info')
 
-      find('.btn.btn-primary').click
+      find('.news-submit').click
 
       assert page.has_css?('.page-header h2.text-info')
     end
@@ -81,7 +81,7 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
       assert_difference 'Image.count', -1 do
 
         within 'div[id^=image]' do
-          click_link ''
+          find('.glyphicon-trash').click
 
           page.driver.browser.switch_to.alert.accept
         end
@@ -143,7 +143,7 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
         click_link(I18n.t('label.like'))
       end
 
-      assert page.has_css?("div[id=#{news.anchor_vote}] .btn.btn-mini.btn-success")
+      assert page.has_css?("div[id=#{news.anchor_vote}] .btn.btn-xs.btn-success")
     end
 
     assert_difference 'news.reload.votes_count', - 1 do
@@ -151,7 +151,7 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
         click_link(I18n.t('label.like'))
       end
 
-      assert page.has_no_css?("div[id=#{news.anchor_vote}] .btn.btn-mini.btn-success")
+      assert page.has_no_css?("div[id=#{news.anchor_vote}] .btn.btn-xs.btn-success")
     end
   end
 
@@ -159,7 +159,7 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
     news = Fabricate.build(:news)
     tag_build = Fabricate.build(:tag)
     tag_persisted = Fabricate(:tag, name: 'New tag',
-      institution_id: @institution.id, category: 'important'
+      institution_id: @institution.id, category: 'danger'
     )
 
     visit new_news_path
@@ -182,15 +182,15 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
       fill_in find('input[name$="[tag_attributes][name]"]')[:id], with: tag_persisted.name
     end
 
-    assert !find('#tags fieldset:nth-child(2) input[value="important"]', visible: false).checked?
+    assert !find('#tags fieldset:nth-child(2) input[value="danger"]', visible: false).checked?
 
     find('.ui-autocomplete li.ui-menu-item a', visible: false).click
 
-    assert find('#tags fieldset:nth-child(2) input[value="important"]', visible: false).checked?
+    assert find('#tags fieldset:nth-child(2) input[value="danger"]', visible: false).checked?
 
     assert_difference ['News.count', 'Tag.count'] do
       assert_difference 'Tagging.count', 2 do
-        find('.btn.btn-primary').click
+        find('.news-submit').click
       end
     end
   end
@@ -213,9 +213,8 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
     find('.ui-autocomplete li.ui-menu-item a').click
 
     assert_no_difference ['News.count', 'Tagging.count', 'Tag.count'] do
-      find('.btn.btn-primary').click
+      find('.news-submit').click
     end
-
   end
 
   test 'should delete tags' do
@@ -230,12 +229,12 @@ class NewsIntegrationTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#tags fieldset')
 
     within '#tags fieldset:nth-child(1)' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert_no_difference ['News.count', 'Tag.count'] do
       assert_difference 'Tagging.count', -1 do
-        find('.btn.btn-primary').click
+        find('.news-submit').click
       end
     end
   end

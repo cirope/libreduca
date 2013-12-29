@@ -52,7 +52,7 @@ class JobsTest < ActionDispatch::IntegrationTest
       find('.btn-primary').click
 
       assert page.has_no_css?('#new_job')
-      assert page.has_css?('.alert-error')
+      assert page.has_css?('.alert-danger')
     end
   end
 end

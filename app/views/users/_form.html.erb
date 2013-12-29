@@ -19,7 +19,7 @@
         <% end %>
 
         <%= f.input :avatar, hint: user_avatar_identifier(f.object) %>
-        <%= f.input :remove_avatar, as: :boolean, wrapper: :checkbox,
+        <%= f.input :remove_avatar, as: :boolean, label: false, inline_label: true,
           input_html: { class: nil } if @user.avatar? && @user.avatar_cache.blank? %>
         <%= f.input :avatar_cache, as: :hidden %>
 

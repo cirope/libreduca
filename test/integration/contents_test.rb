@@ -134,15 +134,15 @@ class ContentsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('form.new_reply')
 
     assert_difference 'Reply.count', Question::TYPES.size do
-      within('form.new_reply .control-group.radio_buttons') do
+      within('form.new_reply .form-group.radio_buttons') do
         first(:css, 'input[type="radio"]').click
       end
 
-      within('form.new_reply .control-group.select') do
+      within('form.new_reply .form-group.select') do
         select find('select option:nth-child(2)').text, from: find('select')[:id]
       end
 
-      within('form.new_reply .control-group.text') do
+      within('form.new_reply .form-group.text') do
         fill_in find('textarea')[:id], with: 'Some response'
       end
 
@@ -196,15 +196,15 @@ class ContentsTest < ActionDispatch::IntegrationTest
     assert page.has_css?('form.edit_reply')
 
     assert_no_difference 'Reply.count' do
-      within('form.edit_reply .control-group.radio_buttons') do
+      within('form.edit_reply .form-group.radio_buttons') do
         first(:css, 'input[type="radio"]').click
       end
 
-      within('form.edit_reply .control-group.select') do
+      within('form.edit_reply .form-group.select') do
         select find('select option:nth-child(2)').text, from: find('select')[:id]
       end
 
-      within('form.edit_reply .control-group.text') do
+      within('form.edit_reply .form-group.text') do
         fill_in find('textarea')[:id], with: 'Some updated response'
       end
 

@@ -83,7 +83,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#enrollments_container fieldset')
 
     within '#enrollments_container fieldset' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert page.has_no_css?('#enrollments_container fieldset')
@@ -101,7 +101,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#enrollments_container fieldset:nth-child(1)')
 
     within '#enrollments_container fieldset:nth-child(1)' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert_no_difference 'Teach.count' do
@@ -197,19 +197,18 @@ class TeachesTest < ActionDispatch::IntegrationTest
 
     click_link Teach.human_attribute_name('scores', count: 0)
 
-    assert page.has_css?("a[href=\"#email_modal_#{user.id}\"]")
+    assert page.has_css?("a[data-target=\"#email_modal_#{user.id}\"]")
 
-    first(:css, "a[href=\"#email_modal_#{user.id}\"]").click
-
-    synchronize { find("#email_modal_#{user.id}").visible? }
-    sleep 0.5 # For you Néstor... =) There is a bug in capybara and animations
+    first(:css, "a[data-target=\"#email_modal_#{user.id}\"]").click
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      assert page.has_no_css?('.modal .alert-success')
+      within '.modal' do
+        assert page.has_no_css?('.alert-success')
 
-      find("#email_modal_#{user.id}").click_link I18n.t('label.send')
+        find('.btn.btn-primary').click
 
-      assert page.has_css?('.modal .alert-success')
+        assert page.has_css?('.alert-success')
+      end
     end
   end
 
@@ -233,10 +232,7 @@ class TeachesTest < ActionDispatch::IntegrationTest
 
     visit teach_path(teach)
 
-    find('a[href="#email_modal"]').click
-
-    synchronize { find('#email_modal').visible? }
-    sleep 0.5 # For you Néstor... =) There is a bug in capybara and animations
+    find('.glyphicon-envelope').click
 
     assert_difference 'ActionMailer::Base.deliveries.size', 2 do
       assert page.has_no_css?('.modal .alert-success')
