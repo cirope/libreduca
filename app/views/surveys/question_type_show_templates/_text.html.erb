@@ -1,4 +1,14 @@
-<div class="form-inputs">
-  <%= content_tag :textarea, Reply.human_attribute_name('response'), disabled: true, rows: 4 %>
-</div>
 <%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-inputs">
+      <div class="form-group">
+        <div class="controls">
+          <div class="form-inputs">
+            <%= content_tag :textarea, Reply.human_attribute_name('response'), class: 'form-control', disabled: true, rows: 4 %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

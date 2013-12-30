@@ -3,11 +3,11 @@
     <% institutions.each do |institution| %>
       <div class="col-md-6">
         <div class="well">
-          <h2>
+          <h3>
             <%= link_to(
               institution, dashboard_url(subdomain: institution.identification)
             ) %>
-          </h2>
+          </h3>
         </div>
       </div>
     <% end %>

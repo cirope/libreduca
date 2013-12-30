@@ -258,6 +258,7 @@
     'yes': 'Si'
     'no': 'No'
     back: 'Volver'
+    back_to: 'Volver a %{place}'
     cancel: 'Cancelar'
     close: 'Cerrar'
     delete: 'Eliminar'

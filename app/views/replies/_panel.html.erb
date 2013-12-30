@@ -1,5 +1,5 @@
 <div id="reply_<%= @reply.id %>">
-  <%= @question %>
+  <p><%= @question %></p>
   <blockquote>
     <%= @reply.response.present? ? @reply.response : @reply.answer %>
     <% if reply_rendered_inline? && can?(:update, @reply) %>

@@ -21,10 +21,8 @@
       } %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-10" data-question-type-template>
-      <%= render "surveys/question_type_templates/#{f.object.question_type}", f: f %>
-    </div>
+  <div data-question-type-template>
+    <%= render "surveys/question_type_templates/#{f.object.question_type}", f: f %>
   </div>
   <br />
 </fieldset>

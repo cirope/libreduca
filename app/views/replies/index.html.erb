@@ -27,9 +27,11 @@
   </tbody>
 </table>
 
-<div class="form-actions">
+<hr />
+
+<nav class="form-actions">
   <%= link_to_if(
-    can?(:read, @survey.content), @survey.content.to_s,
+    can?(:read, @survey.content), t('label.back_to', place: @survey.content),
     [@survey.teach, @survey.content]
   ) %>
-</div>
+</nav>

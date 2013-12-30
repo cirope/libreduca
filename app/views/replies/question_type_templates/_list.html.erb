@@ -1,3 +1,4 @@
+<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>
 <div class="row">
   <div class="col-md-4">
     <div class="form-inputs">
@@ -7,7 +8,6 @@
             data: { 'autosubmit-on-change' => true }
           } %>
         </div>
-        <%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>
       </div>
     </div>
   </div>
