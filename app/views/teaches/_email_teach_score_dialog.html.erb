@@ -20,11 +20,9 @@
         </button>
         <%= link_to(
           t('label.send'),
-          send_email_summary_teach_path(teach, format: :html),
-          class: 'btn btn-primary send_email_summary', method: :post, remote: true,
-          data: {
-            'loading-text' => t('label.sending'), 'complete-text' => t('label.sent')
-          }
+          send_email_summary_teach_path(teach),
+          class: 'btn btn-primary', method: :post,
+          data: { remote: true, disable_with: t('label.sending') }
         ) %>
       </div>
     </div>

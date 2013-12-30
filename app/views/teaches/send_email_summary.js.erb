@@ -1,0 +1,7 @@
+modal = $('#email_modal');
+
+modal.find('.modal-body').html(
+  '<%= j render(template: 'teaches/send_email_summary', formats: [:html]) %>'
+);
+
+modal.find('.modal-footer .btn-primary').attr('disabled', 'disabled');

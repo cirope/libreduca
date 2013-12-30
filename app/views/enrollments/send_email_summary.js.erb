@@ -1,3 +1,7 @@
-$("#email_modal_<%= @user.id %> .modal-body").html(
+modal = $("#email_modal_<%= @user.id %>");
+
+modal.find('.modal-body').html(
   '<%= j render(template: 'enrollments/send_email_summary', formats: [:html]) %>'
 );
+
+modal.find('.modal-footer .btn-primary').attr('disabled', 'disabled');
