@@ -14,11 +14,10 @@ module DashboardHelper
             l(teach.finish, format: :long)
           ].join(' ').html_safe
         )
-      ].join('').html_safe
+      ].join('')
     )
 
-    show_info title: Teach.model_name.human, content: raw(content),
-      placement: 'left'
+    show_info title: Teach.model_name.human, content: content
   end
 
   def show_dashboard_score(score)
@@ -55,18 +54,18 @@ module DashboardHelper
       ].join('').html_safe
     )
 
-    show_info title: score.description, content: raw(content)
+    show_info title: score.description, content: content
   end
 
   def show_info(options = {})
     content_tag(
-      :span, '&#x2139;'.html_safe,
+      :span, nil,
       title: options[:title],
-      class: 'info iconic small label',
+      class: 'text-muted small glyphicon glyphicon-info-sign pull-right',
       data: {
-        'show-popover' => true,
-        'content' => options[:content],
-        'placement' => options[:placement] || 'top'
+        show_popover: true,
+        content: raw(options[:content]),
+        placement: options[:placement] || 'left'
       }
     )
   end

@@ -10,7 +10,7 @@ module DynamicFormHelper
       name, '#', class: 'btn btn-default btn-sm', title: name, data: {
         'id' => id,
         'dynamic-form-event' => 'addNestedItem',
-        'dynamic-template' => fields.gsub("\n", ""),
+        'dynamic-template' => fields.gsub("\n", ''),
         'show-tooltip' => true
       }
     )
