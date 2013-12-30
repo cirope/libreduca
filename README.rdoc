@@ -2,9 +2,9 @@
 
 Web gradebook to share notes, grades and comments between members in an educational community
 
-=== Build Status {<img src="https://secure.travis-ci.org/francocatena/libreduca.png"/>}[http://travis-ci.org/francocatena/libreduca]
+=== Build Status {<img src="https://secure.travis-ci.org/cirope/libreduca.png"/>}[http://travis-ci.org/cirope/libreduca]
 
-=== Dependency Status {<img src="https://gemnasium.com/francocatena/libreduca.png?travis"/>}[https://gemnasium.com/francocatena/libreduca]
+=== Dependency Status {<img src="https://gemnasium.com/cirope/libreduca.png?travis"/>}[https://gemnasium.com/cirope/libreduca]
 
 == (The MIT License)
 

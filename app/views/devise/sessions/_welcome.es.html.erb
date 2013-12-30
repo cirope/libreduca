@@ -1,18 +1,18 @@
 <% resource.welcome = true %>
 
-<h3 class="text-muted text-center">Bienvenido</h3>
-<p>
-  Si es tu <strong>primera</strong> vez en Libreduca, ingresá debajo tu dirección de correo
-  y te enviaremos instrucciones para establecer una contraseña.
+<h3 class="text-muted">¿Primera vez?</h3>
+<p class="text-muted">
+  Ingresá debajo tu dirección de correo y te enviaremos instrucciones para
+  establecer una contraseña
 </p>
 
 <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name),
   html: { id: 'welcome_new_user', method: :post }) do |f| %>
   <div class="form-inputs">
-    <%= f.input :email, input_html: { autofocus: true, id: 'welcome_email' } %>
+    <%= f.input :email, label: false, input_html: { class: 'input-sm', id: 'welcome_email' } %>
   </div>
 
   <div class="form-actions">
-    <%= f.submit 'Enviarme las instrucciones', class: 'btn btn-primary' %>
+    <%= f.submit 'Enviarme las instrucciones', class: 'btn btn-default btn-sm' %>
   </div>
 <% end %>

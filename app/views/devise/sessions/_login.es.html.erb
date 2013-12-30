@@ -1,5 +1,3 @@
-<h3 class="text-muted text-center">Inicio de sesión</h3>
-
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
     <%= f.input :email, input_html: { autofocus: true } %>
@@ -11,10 +9,4 @@
   <div class="form-actions">
     <%= f.submit 'Ingresar', class: 'btn btn-primary' %>
   </div>
-
-  <br />
-
-  <%= link_to(
-    '¿Olvidaste tu contraseña?', new_password_path(resource_name)
-  ) %>
 <% end %>

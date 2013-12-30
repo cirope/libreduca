@@ -2,7 +2,7 @@
 
 <h2><%= @course %></h2>
 
-<p>
+<p class="text-muted">
   <%= t(
     'view.teaches.between.html',
     start: l(@teach.start, format: :long),
@@ -13,18 +13,16 @@
 <%= markdown @teach.description if @teach.description.present? %>
 
 <% unless @teach.forums.empty? %>
-  <hr />
-  <h3><%= Forum.model_name.human(count: @teach.forums.size) %></h3>
-  <ul>
+  <ul class="list-unstyled">
     <% @teach.forums.each do |forum| %>
       <li>
+        <span class="glyphicon glyphicon-bullhorn"></span>
         <%= link_to_if(
           current_institution && can?(:read, forum), forum.to_s, [@teach, forum]
         ) %>
       </li>
     <% end %>
   </ul>
-  <br />
 <% end %>
 
 <ul class="nav nav-tabs" data-remote="true">
