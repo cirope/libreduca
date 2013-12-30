@@ -1,0 +1,3 @@
+$("#email_modal_<%= @user.id %> .modal-body").html(
+  '<%= j render(template: 'enrollments/send_email_summary', formats: [:html]) %>'
+);

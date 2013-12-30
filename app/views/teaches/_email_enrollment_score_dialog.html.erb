@@ -22,8 +22,7 @@
           <%= t('label.close') %>
         </button>
         <%= link_to(
-          t('label.send'),
-          send_email_summary_user_enrollment_path(user, enrollment, format: :html),
+          t('label.send'), send_email_summary_user_enrollment_path(user, enrollment),
           class: 'btn btn-primary send_email_summary', method: :post, remote: true,
           data: {
             'loading-text' => t('label.sending'), 'complete-text' => t('label.sent')

@@ -66,8 +66,6 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
       click_link I18n.t('navigation.logout')
     end
 
-    visit student_dashboard_path
-
     Capybara.app_host = "http://#{RESERVED_SUBDOMAINS.first}.lvh.me:54163"
 
     visit new_user_session_path
