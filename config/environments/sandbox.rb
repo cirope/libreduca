@@ -40,7 +40,7 @@ Libreduca::Application.configure do
   config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  # config.force_ssl = true
 
   # See everything in the log (default is :info)
   config.log_level = :info
@@ -59,7 +59,7 @@ Libreduca::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile += %w( *.svg *.eot *.woff *.ttf *.png *.gif application-ie.js )
+  config.assets.precompile += %w( *.svg *.eot *.woff *.ttf *.png *.gif )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

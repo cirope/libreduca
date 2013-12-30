@@ -11,7 +11,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'cancan', github: 'francocatena/cancan'
 gem 'role_model'
-gem 'paper_trail', '3.0.0.rc2'
+gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie'
@@ -23,17 +23,17 @@ gem 'newrelic_rpm'
 # Must be outside assets because a constant is used in the initializers
 gem 'jquery-fileupload-rails'
 
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'capistrano-rbenv', github: 'capistrano/rbenv'
-
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 
+gem 'unicorn'
+
 group :development do
-  gem 'unicorn'
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv', '~> 2.0'
   gem 'unicorn-rails'
 end
 
