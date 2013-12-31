@@ -1,7 +1,7 @@
 <% id = f.object.object_id %>
-<fieldset class="row-fluid kinship">
-  <div class="span5">
-    <% field_classes = ['autocomplete_field', 'span10'] %>
+<fieldset class="row kinship">
+  <div class="col-md-5">
+    <% field_classes = ['autocomplete_field'] %>
     <% copy_attribute_errors(:relative_id, :auto_user_name, f) %>
     <%= f.input :auto_user_name, label: false,
       placeholder: Kinship.human_attribute_name('relative_id'),
@@ -20,10 +20,10 @@
       input_html: { class: 'autocomplete_id', id: "auto_relative_id_#{id}" }
     %>
   </div>
-  <div class="span5">
+  <div class="col-md-5">
     <%= show_user_kinship_options(f) %>
   </div>
-  <div class="span2 nested-actions">
+  <div class="col-md-2 nested-actions">
     <%= f.input :id, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>
     <%= link_to_remove_nested_item(f) %>

@@ -1,0 +1,7 @@
+<div class="collapse navbar-collapse" role="navigation">
+  <ul class="nav navbar-nav">
+    <%= show_menu_link(
+      name: 'news', path: news_index_path, controllers: ['news']
+    ) if can?(:read, News) %>
+  </ul>
+</div>

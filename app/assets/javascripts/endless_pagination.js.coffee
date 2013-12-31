@@ -7,7 +7,9 @@ new Rule
 
       if url and atBottom
         $('.pagination-container').html(
-          $('<div class="alert"></div>').html($('#loading_caption').html())
+          $('<div class="alert alert-warning"></div>').html(
+            $('.loading-caption').html()
+          )
         )
 
         $.getScript(url, -> Inspector.instance().reload(); $(document).scroll())

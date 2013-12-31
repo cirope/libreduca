@@ -1,6 +1,4 @@
 'es':
-  app_name: 'Libreduca'
-
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'
@@ -260,6 +258,7 @@
     'yes': 'Si'
     'no': 'No'
     back: 'Volver'
+    back_to: 'Volver a %{place}'
     cancel: 'Cancelar'
     close: 'Cerrar'
     delete: 'Eliminar'
@@ -291,6 +290,7 @@
     teaches: 'Cursos'
     users: 'Usuarios'
     groups: 'Grupos'
+    news: 'Noticias'
 
   messages:
     confirmation: '¿Está seguro?'
@@ -306,7 +306,7 @@
         html: 'No hay ningún elemento por el momento'
       empty_search:
         title:
-          html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+          html: 'La búsqueda de <span class="label label-default">%{search}</span> no obtuvo ningún resultado.'
     charts:
       index_title: 'Organigrama'
       empty_index: 'No hay relaciones a graficar entre usuarios'
@@ -314,8 +314,8 @@
         html: 'Haga <strong>clic</strong> sobre <strong>%{users}</strong> para expandir el árbol'
       user_inverse_kinships:
         html:
-          one: '<p class="muted text-center"><small><span class="badge">Una</span> persona a cargo</small></p>'
-          other: '<p class="muted text-center"><small><span class="badge">%{count}</span> personas a cargo</small></p>'
+          one: '<p class="text-muted text-center"><small><span class="badge">Una</span> persona a cargo</small></p>'
+          other: '<p class="text-muted text-center"><small><span class="badge">%{count}</span> personas a cargo</small></p>'
     comments:
       index_title: 'Listado de comentarios'
       correctly_created: 'Comentario agregado correctamente.'
@@ -404,7 +404,7 @@
       invalid_comment: 'El comentario no se agregó, contenía errores'
       back_to_owner: 'Volver a %{owner}'
       created_by:
-        html: '<span class="muted">Creado hace %{distance_time} por <strong>%{user}</strong></span>'
+        html: '<span class="text-muted">Creado hace %{distance_time} por <strong>%{user}</strong></span>'
       from_owner:
         html:
           one: 'Foro de %{owner}'
@@ -506,8 +506,7 @@
         html: 'No se ha creado ninguna noticia hasta el momento.'
       new: 'Nueva noticia'
       new_tag: 'Agregar nueva etiqueta'
-      news: 'Noticias de %{institution}'
-      previous_news: 'Noticias anteriores'
+      news_login: 'Para ver imágenes y comentar haga clic en'
     presentations:
       index_title: 'Listado de entregas'
       show_title: 'Detalle de entrega'
@@ -581,7 +580,7 @@
       enter_scores: 'Cargar calificaciones'
       tracking: 'Seguimiento'
       send_email_summary:
-        html: '<span class="iconic">&#x2709;</span> Enviar calificaciones'
+        html: '<span class="glyphicon glyphicon-envelope"></span> Enviar calificaciones'
       between:
         html: 'Inicia el <strong>%{start}</strong> y finaliza el <strong>%{finish}</strong>'
       email_enrollment_scores:
@@ -618,9 +617,9 @@
       without_contents:
         html: 'Sin contenido, para cargarlo seleccione <span class="label label-info">Editar</span>'
       without_entollments_in_edit:
-        html: 'Sin inscripciones, para enrolar alumnos vaya a la solapa <span class="label">Inscripciones</span>'
+        html: 'Sin inscripciones, para enrolar alumnos vaya a la solapa <span class="label label-default">Inscripciones</span>'
       without_entollments_in_show:
-        html: 'Sin inscripciones, para enrolar alumnos seleccione <span class="label label-info">Editar</span> y vaya a la solapa <span class="label">Inscripciones</span>'
+        html: 'Sin inscripciones, para enrolar alumnos seleccione <span class="label label-info">Editar</span> y vaya a la solapa <span class="label label-default">Inscripciones</span>'
       without_scores:
         html: 'Sin calificaciones, para cargar nuevas seleccione <span class="label label-info">Editar</span>'
     users:

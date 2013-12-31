@@ -13,6 +13,7 @@ class News < ActiveRecord::Base
   attr_readonly :institution_id
 
   # Callbacks
+  after_initialize :set_current_time
   before_validation :remove_duplicates_tags, :set_institution_to_tags
 
   # Default order
@@ -35,9 +36,7 @@ class News < ActiveRecord::Base
     attributes['tag_attributes']['name'].blank?
   }
 
-  def initialize(attributes = {}, options = {})
-    super
-
+  def set_current_time
     self.published_at ||= Time.zone.now
   end
 

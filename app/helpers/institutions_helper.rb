@@ -1,10 +1,8 @@
 module InstitutionsHelper
   def institution_setting_input(form)
     form.input(
-      :value,
-      as: form.object.input_type,
-      label: t("view.institutions.settings.#{form.object.name}"),
-      wrapper: (form.object.input_type == :boolean ? :checkbox : :bootstrap),
+      :value, as: :boolean, label: false,
+      inline_label: t("view.institutions.settings.#{form.object.name}"),
       required: false
     )
   end

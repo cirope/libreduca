@@ -1,6 +1,6 @@
+<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>
 <div class="form-inputs">
   <%= f.input :answer_id, label: false, collection: @question.answers, as: :radio_buttons, input_html: {
     data: { 'autosubmit-on-change' => true }
   } %>
 </div>
-<%= render 'surveys/question_type_show_templates/hint' if @question.hint.present? %>

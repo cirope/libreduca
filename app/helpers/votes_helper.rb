@@ -2,9 +2,9 @@ module VotesHelper
   def link_to_like(vote, *args)
     options = args.extract_options!
 
-    options['class'] ||= 'btn btn-mini'
+    options['class'] ||= 'btn btn-default btn-xs'
 
-    text = content_tag(:span, '&#xe014;'.html_safe, class: 'iconic')
+    text = content_tag(:span, nil, class: 'glyphicon glyphicon-circle-arrow-up')
     link_text = text + " #{t('label.like')} (#{vote.votable.votes_count})"
 
     options['data-remote'] ||= true
@@ -18,9 +18,9 @@ module VotesHelper
   def link_to_dislike(vote, *args)
     options = args.extract_options!
 
-    options[:class] ||= 'btn btn-mini btn-success'
+    options[:class] ||= 'btn btn-success btn-xs'
 
-    text = content_tag(:span, '&#xe014;'.html_safe, class: 'iconic')
+    text = content_tag(:span, nil, class: 'glyphicon glyphicon-circle-arrow-down')
     link_text = text + " #{t('label.like')} (#{vote.votable.votes_count})"
 
     options['data-remote'] ||= true

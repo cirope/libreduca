@@ -9,14 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require twitter/bootstrap
- *= require body_padding
- *= require twitter/bootstrap-responsive
+ *= require bootstrap
+ *= require bootstrap-theme
+ *= require main
  *= require jquery/ui-custom
- *= require fonts
- *= require common
- *= require common-responsive
- *= require devise
+ *= require ie
  *= require chart
  *= require comments
  *= require contents

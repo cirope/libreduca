@@ -9,8 +9,7 @@ module UsersHelper
   def show_user_job_options(form)
     jobs = Job::TYPES.map { |t| [show_human_job_type(t), t] }.sort
 
-    form.input :job, label: false, collection: jobs, prompt: true,
-      input_html: { class: (current_institution ? 'span11' : 'span10') }
+    form.input :job, label: false, collection: jobs, prompt: true
   end
 
   def show_human_job_type(job)
@@ -20,8 +19,7 @@ module UsersHelper
   def show_user_kinship_options(form)
     kinships = Kinship::KINDS.map { |t| [show_human_kinship_type(t), t] }
 
-    form.input :kin, label: false, collection: kinships, prompt: true,
-      input_html: { class: 'span10' }
+    form.input :kin, label: false, collection: kinships, prompt: true
   end
 
   def show_human_kinship_type(kinship)
@@ -36,7 +34,7 @@ module UsersHelper
   end
 
   def show_user_default_avatar(version = :thumb)
-    content_tag(:span, '&#xe062;'.html_safe, class: "iconic well well-small avatar-#{version}")
+    content_tag(:span, nil, class: "glyphicon glyphicon-user avatar-#{version}")
   end
 
   def user_avatar_identifier(user)
@@ -50,13 +48,5 @@ module UsersHelper
     jobs << (user.jobs.detect(&:new_record?) || user.jobs.build) if jobs.empty?
 
     jobs
-  end
-
-  def user_not_in_institution?
-    @user.jobs.in_institution(current_institution).empty?
-  end
-
-  def editing_user?
-    controller.action_name == "find_by_email"
   end
 end

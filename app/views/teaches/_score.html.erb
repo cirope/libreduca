@@ -1,22 +1,22 @@
-<div class="row-fluid score">
-  <div class="span4">
+<div class="row score">
+  <div class="col-md-4">
     <strong><%= f.object.user %></strong>
     <%= f.input :user_id, as: :hidden %>
   </div>
-  <div class="span2">
+  <div class="col-md-2">
     <%= f.input :score, label: false, input_html: {
       min: 0, max: 100, placeholder: Score.human_attribute_name('score')
     } %>
   </div>
-  <div class="span2">
+  <div class="col-md-2">
     <%= f.input :multiplier, label: false, input_html: {
-      min: 0, max: 999.99, class: 'multiplier span10',
+      min: 0, max: 999.99, class: 'multiplier',
       placeholder: Score.human_attribute_name('multiplier')
     } %>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <%= f.input :description, label: false, input_html: {
-      maxlength: 255, class: 'description span10',
+      maxlength: 255, class: 'description',
       placeholder: Score.human_attribute_name('description')
     } %>
     <%= f.input :id, as: :hidden %>

@@ -1,4 +1,4 @@
-<%= simple_form_for([@teach, @content], defaults: { input_html: { class: 'span11' } }) do |f| %>
+<%= simple_form_for([@teach, @content]) do |f| %>
   <%= f.error_notification %>
   <%= f.object.errors.full_messages.join('; ') %>
 
@@ -10,23 +10,20 @@
       <li class="active">
         <%= link_to(
           Document.model_name.human(count: 0),
-          '#documents_content',
-          data: { toggle: 'tab' }
+          '#documents_content', data: { toggle: 'tab' }
         ) %>
       </li>
       <li>
         <%= link_to(
           Homework.model_name.human(count: 0),
-          '#homeworks_content',
-          data: { toggle: 'tab' }
+          '#homeworks_content', data: { toggle: 'tab' }
         ) %>
       </li>
       <% if show_content_survey? %>
         <li>
           <%= link_to(
             Survey.model_name.human(count: 0),
-            '#surveys_content',
-            data: { toggle: 'tab' }
+            '#surveys_content', data: { toggle: 'tab' }
           ) %>
         </li>
       <% end %>
@@ -52,7 +49,7 @@
       <% if show_content_survey? %>
         <div class="tab-pane" id="surveys_content">
           <% unless @content.surveys.empty? %>
-            <table class="table">
+            <table class="table table-condensed">
               <%= render 'surveys/survey_headers' %>
 
               <tbody>
@@ -65,17 +62,19 @@
           <%= link_to(
             t('view.contents.surveys.new'),
             new_content_survey_path(@content),
-            class: 'btn btn-small'
+            class: 'btn btn-default btn-sm'
           ) if can? :create, @content.surveys.build %>
         </div>
       <% end %>
     </div>
   </div>
 
-  <div class="form-actions">
+  <hr />
+
+  <div class="form-actions form-footer">
     <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, class: 'btn-primary' %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
 <%= render 'help/markdown_inline' %>

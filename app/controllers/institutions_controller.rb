@@ -96,7 +96,7 @@ class InstitutionsController < ApplicationController
     def institution_params
       params.require(:institution).permit(
         :name, :identification, :district_id, :lock_version,
-        settings_attributes: [:id, :name, :value]
+        settings_attributes: [:id, :name, :kind, :value]
       )
     end
 

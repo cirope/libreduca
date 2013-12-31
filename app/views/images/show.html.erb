@@ -1,32 +1,28 @@
-<div class="readonly-data">
-  <h2><%= @image %></h2>
+<h2><%= @image %></h2>
 
-  <h3><%= t('view.images.modal') %></h3>
+<h3><%= t('view.images.modal') %></h3>
 
-  <div>
-    <%= image_modal(@image) %>
-  </div>
-
-  <br />
-
-  <pre>
-<%= image_modal(@image).sub(' ', ' ') %>
-  </pre>
-
-  <h3><%= t('view.images.versions') %></h3>
-
-  <% [nil, :large, :normal, :thumb, :mini_thumb, :micro_thumb].each do |version| %>
-    <p>
-      <%== @image.to_html(version) %>
-    </p>
-
-    <pre>
-<%= @image.to_html(version) %>
-    </pre>
-  <% end %>
-
+<div>
+  <%= render 'modal', image: @image %>
 </div>
-<div class="form-actions">
-  <%= link_to t('label.edit'), edit_image_path(@image) if can? :update, @image %> |
+
+<br />
+
+<pre><%= render('modal', image: @image).gsub(/^\s+|\n|\r/, '') %></pre>
+
+<h3><%= t('view.images.versions') %></h3>
+
+<% [nil, :large, :normal, :thumb, :mini_thumb, :micro_thumb].each do |version| %>
+  <p>
+    <%== @image.to_html(version) %>
+  </p>
+
+  <pre><%= @image.to_html(version) %></pre>
+<% end %>
+
+<hr />
+
+<div class="form-actions form-footer">
+  <%= link_to_edit edit_image_path(@image) if can? :update, @image %> |
   <%= link_to t('label.list'), images_path %>
 </div>

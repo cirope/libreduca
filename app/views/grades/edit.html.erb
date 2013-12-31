@@ -2,7 +2,7 @@
 
 <%= content_for :form_actions do %>
   <% if can? :read, @grade %>
-    <%= link_to t('label.show'), [@institution, @grade] %> |
+    <%= link_to_show [@institution, @grade] %> |
   <% end %>
   <% if can? :read, Grade %>
     <%= link_to t('label.list'), institution_grades_path(@institution) %>

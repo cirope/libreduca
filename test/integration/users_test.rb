@@ -200,7 +200,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#jobs fieldset')
 
     within '#jobs fieldset' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert page.has_no_css?('#jobs fieldset')
@@ -214,7 +214,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#kinships fieldset')
 
     within '#kinships fieldset' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert page.has_no_css?('#kinships fieldset')
@@ -230,7 +230,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#jobs fieldset')
 
     within '#jobs fieldset' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert_no_difference 'User.count' do
@@ -250,7 +250,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#kinships fieldset')
 
     within '#kinships fieldset:nth-child(1)' do
-      click_link '✘' # Destroy link
+      find('.glyphicon-remove-circle').click
     end
 
     assert_no_difference 'User.count' do

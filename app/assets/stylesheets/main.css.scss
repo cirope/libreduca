@@ -1,0 +1,43 @@
+body {
+  padding-top: 70px;
+}
+
+.form-footer {
+  padding-bottom: 20px;
+}
+
+.loading-caption {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  width: 10em;
+  margin: 0em 0em 0em -5em;
+  padding: .25em 1em;
+  text-align: center;
+  line-height: 40px;
+  z-index: 1100;
+}
+
+.nav-tabs {
+  margin: 15px 0;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.pagination, .pager {
+  margin: 0;
+}
+
+.ui-autocomplete {
+  small {
+    display: block;
+    font-size: .75em;
+    color: #999999;
+  }
+}
+
+.ui-datepicker-trigger {
+  display: none;
+}

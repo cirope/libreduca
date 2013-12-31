@@ -1,5 +1,5 @@
-#c_surveys {
-  fieldset fieldset, fieldset .btn {
+*[data-controller="surveys"] {
+  fieldset, fieldset .btn {
     margin-left: 2em;
   }
 
@@ -9,9 +9,5 @@
 
   .nested-actions {
     margin-top: .5em;
-  }
-
-  .well.muted {
-    font-size: 85%;
   }
 }

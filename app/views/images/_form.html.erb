@@ -1,32 +1,33 @@
 <%= simple_form_for([@owner, @image].compact, remote: true) do |f| %>
   <%= f.error_notification %>
-  <div class="form-inputs row-fluid">
-    <div class="span4">
-      <%= f.input :name, input_html: { class: 'span11', autofocus: true, maxlength: 255 } %>
-    </div>
-    <div class="span6">
-      <%= f.input :file, hint: image_file_identifier(@image), input_html: {
-        data: {
-          'fileupload' => true,
-          'fileupload-types' => ['jpg', 'jpeg', 'png', 'gif'].to_json,
-          'fileupload-autosubmit' => true,
-          'fileupload-error-message' => "#image-file-error"
-        }
-      } %>
-
-      <p id="image-file-error" class="text-error" style="display: none;">
-        <%= t('view.images.file_type_error') %>
-      </p>
-    </div>
-  </div>
-
   <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :file, hint: image_file_identifier(@image), input_html: {
+          data: {
+            'fileupload' => true,
+            'fileupload-types' => ['jpg', 'jpeg', 'png', 'gif'].to_json,
+            'fileupload-autosubmit' => true,
+            'fileupload-error-message' => "#image-file-error"
+          }
+        } %>
+
+        <p id="image-file-error" class="text-danger" style="display: none;">
+          <%= t('view.images.file_type_error') %>
+        </p>
+      </div>
+    </div>
+
     <%= f.input :file_cache, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, t('view.images.load') %>
+    <%= f.button :submit, t('view.images.load'), class: 'btn-default' %>
   </div>
 
   <% if controller_name == 'images' && !request.xhr? %>
+    <hr />
     <div class="form-actions">
       <%= link_to t('label.list'), images_path, title: t('label.list') %>
     </div>
@@ -34,4 +35,3 @@
 
   <%= render 'shared/template_upload' %>
 <% end %>
-

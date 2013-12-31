@@ -1,7 +1,7 @@
 <%= render 'breadcrumb', :@teach => @content.teach if @content %>
 
 <%= content_for :form_actions do %>
-  <%= link_to t('label.show'), [@teach || @content, @survey] %> |
+  <%= link_to_show [@teach || @content, @survey] %> |
   <%= link_to t('label.list'), polymorphic_path([@teach || @content, Survey]) %>
 <% end %>
 

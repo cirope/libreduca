@@ -4,10 +4,9 @@
 
   <div class="form-inputs">
     <%= f.input :comment, label: false, input_html: {
-      rows: 2, class: 'span12',
-      placeholder: Comment.human_attribute_name('comment')
+      rows: 2, placeholder: Comment.human_attribute_name('comment')
     } %>
 
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-default' %>
   </div>
 <% end %>

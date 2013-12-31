@@ -1,25 +1,21 @@
 <% if @tags.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <thead>
-          <tr>
-            <th><%= Tag.human_attribute_name 'name' %></th>
-          </tr>
-        </thead>
+  <table class="table resource-list">
+    <thead>
+      <tr>
+        <th><%= Tag.human_attribute_name 'name' %></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @tags.each do |tag| %>
-            <tr>
-              <td><%= tag.name %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td><%= tag.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
 
 <% unless request.xhr? %>

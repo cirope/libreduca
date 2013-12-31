@@ -1,4 +1,4 @@
-<div id="<%= image.anchor %>" class="form-inputs">
+<div id="<%= image.anchor %>" class="form-inputs form-footer">
   <h5><%= image.name %></h5>
   <%== image.to_html(:thumb) %>
   <%= link_to_destroy image, remote: true if can? :destroy, image %>

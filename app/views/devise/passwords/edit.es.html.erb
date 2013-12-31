@@ -1,29 +1,22 @@
-<div class="row-fluid">
-  <div class="span4 hidden-phone">
-    &nbsp;
-  </div>
-  <div class="public_form_container span4">
-    <h3>Cambio de contraseña</h3>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="well">
+      <h3 class="text-muted">Cambio de contraseña</h3>
 
-    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-      <div class="row-fluid">
-        <div class="span12">
-          <div class="form-inputs">
-            <%= f.input :reset_password_token, as: :hidden %>
+      <%= simple_form_for(
+        resource, as: resource_name, url: password_path(resource_name),
+        html: { method: :put }) do |f| %>
 
-            <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true, class: 'span12' } %>
-            <%= f.input :password_confirmation, label: 'Confirmar contraseña', input_html: { class: 'span12' } %>
-          </div>
+        <div class="form-inputs">
+          <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true } %>
+          <%= f.input :password_confirmation, label: 'Confirmar contraseña' %>
+          <%= f.input :reset_password_token, as: :hidden %>
         </div>
-      </div>
 
-      <div class="form-actions">
-        <%= render 'shared/hidden_submit', f: f %>
-        <%= show_button_dropdown(
-          link_to('Cambiar mi contraseña', '#', class: 'btn btn-primary submit'),
-          devise_links_es
-        ) %>
-      </div>
-    <% end %>
+        <div class="form-actions">
+          <%= f.submit 'Cambiar mi contraseña', class: 'btn btn-default' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

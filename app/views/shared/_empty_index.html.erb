@@ -1,19 +1,15 @@
-<div class="row">
-  <div class="span10 offset1">
-    <div class="alert text-center">
-      <% if params[:q].blank? %>
-        <%= t(
-          "view.#{controller_name}.empty_index.html",
-          { default: :'view.generic.empty_index.html' }.merge(
-            @empty_index_options || {}
-          )
-        ) %>
-      <% else %>
-        <h4 class="alert-heading">
-          <%= t('view.generic.empty_search.title.html', search: h(params[:q])) %>
-        </h4>
-        <%= render 'shared/empty_search_suggestions' %>
-      <% end %>
-    </div>
-  </div>
+<div class="alert alert-warning">
+  <% if params[:q].blank? %>
+    <%= t(
+      "view.#{controller_name}.empty_index.html",
+      { default: :'view.generic.empty_index.html' }.merge(
+        @empty_index_options || {}
+      )
+    ) %>
+  <% else %>
+    <h4 class="alert-heading">
+      <%= t('view.generic.empty_search.title.html', search: h(params[:q])) %>
+    </h4>
+    <%= render 'shared/empty_search_suggestions' %>
+  <% end %>
 </div>

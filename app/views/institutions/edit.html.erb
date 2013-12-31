@@ -1,6 +1,6 @@
 <%= content_for :form_actions do %>
   <% if can? :read, @institution %>
-    <%= link_to t('label.show'), @institution %> |
+    <%= link_to_show @institution %> |
   <% end %>
   <% if can? :read, Institution %>
     <%= link_to t('label.list'), institutions_path %>

@@ -1,13 +1,13 @@
-<div class="row-fluid">
-  <div class="public_form_container span8 offset2">
-    <div class="row-fluid">
-      <div class="span6">
-        <%= render 'devise/sessions/login' %>
-      </div>
-      <div class="span6">
-        <%= render 'devise/sessions/welcome' %>
-      </div>
+<div class="row">
+  <div class="col-md-4 col-md-offset-2">
+    <div class="well">
+      <%= render 'devise/sessions/login' %>
     </div>
-    <div class="login_footer form-actions"></div>
+    <%= link_to(
+      '¿Olvidaste tu contraseña?', new_password_path(resource_name)
+    ) %>
+  </div>
+  <div class="col-md-4">
+    <%= render 'devise/sessions/welcome' %>
   </div>
 </div>

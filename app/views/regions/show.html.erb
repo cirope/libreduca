@@ -1,21 +1,27 @@
-<div class="readonly-data">
-  <h2><%= @region %></h2>
+<h2><%= @region %></h2>
 
-  <% unless @region.districts.empty? %>
-    <div class="page-header">
-      <h6><%= District.model_name.human(count: @region.districts.size) %></h6>
-    </div>
+<% unless @region.districts.empty? %>
+  <br />
+  <h6>
+    <strong>
+      <%= District.model_name.human(count: @region.districts.size) %>
+    </strong>
+  </h6>
 
-    <ul>
-      <% @region.districts.each do |district| %>
-        <li><%= district %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+  <ul>
+    <% @region.districts.each do |district| %>
+      <li><%= district %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<hr />
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_region_path(@region), class: 'btn btn-primary' if can? :update, @region %>
+  <%= link_to(
+    t('label.edit'), edit_region_path(@region), class: 'btn btn-primary'
+  ) if can? :update, @region %>
+
   <% if can? :read, Region %>
     <div class="pull-right">
       <%= link_to t('label.list'), regions_path %>

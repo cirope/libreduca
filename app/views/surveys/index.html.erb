@@ -1,23 +1,21 @@
-<div class="readonly-data">
-  <% if @surveys.empty? %>
-    <%= render 'shared/empty_index' %>
-  <% else %>
-    <table class="table">
-      <%= render 'survey_headers' %>
+<% if @surveys.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <table class="table table-condensed">
+    <%= render 'survey_headers' %>
 
-      <tbody>
-        <% (@teach || @content).surveys.each do |survey| %>
-          <%= render survey %>
-        <% end %>
-      </tbody>
-    </table>
+    <tbody>
+      <% (@teach || @content).surveys.each do |survey| %>
+        <%= render survey %>
+      <% end %>
+    </tbody>
+  </table>
 
-    <% if @teach %>
-      <%= link_to(
-        t('label.download_with_format.html', file_format: 'CSV'),
-        teach_surveys_path(@teach, format: :csv),
-        class: 'btn'
-      ) %>
-    <% end %>
+  <% if @teach %>
+    <%= link_to(
+      t('label.download_with_format.html', file_format: 'CSV'),
+      teach_surveys_path(@teach, format: :csv),
+      class: 'btn btn-default'
+    ) %>
   <% end %>
-</div>
+<% end %>

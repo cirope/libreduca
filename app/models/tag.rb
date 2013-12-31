@@ -1,7 +1,7 @@
 class Tag < ActiveRecord::Base
   has_paper_trail
 
-  CATEGORIES = ['default', 'success', 'warning', 'important', 'info', 'inverse']
+  CATEGORIES = ['default', 'primary', 'success', 'info', 'warning', 'danger']
 
   has_magick_columns name: :string, tagger_type: :string
 

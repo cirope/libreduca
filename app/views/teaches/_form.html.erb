@@ -1,15 +1,17 @@
-<%= simple_form_for((@teach.new_record? ? [@course, @teach] : @teach), defaults: { input_html: { class: 'span12' } }) do |f| %>
+<%= simple_form_for((@teach.new_record? ? [@course, @teach] : @teach),
+  html: { id: 'form-teach' }) do |f| %>
   <div class="form-inputs">
-    <div class="row-fluid">
-      <div class="span6">
-        <%= f.input :start, as: :date_picker, input_html: { autofocus: action_name == 'new' } %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :start, as: :date_picker,
+          input_html: { autofocus: action_name == 'new' } %>
       </div>
-      <div class="span6">
+      <div class="col-md-6">
         <%= f.input :finish, as: :date_picker %>
       </div>
     </div>
-    <div class="row-fluid">
-      <div class="span12">
+    <div class="row">
+      <div class="col-md-12">
         <%= f.input :description, input_html: { rows: 5 } %>
       </div>
     </div>
@@ -62,12 +64,12 @@
 
           <%= link_to(
             t('view.teaches.new_content'), new_teach_content_path(@teach),
-            class: 'btn btn-small'
+            class: 'btn btn-default btn-sm'
           ) if can? :create, @teach.contents.build%>
         </div>
 
         <div id="scores_container" class="tab-pane">
-          <div class="alert"><%= t('label.loading') %></div>
+          <div class="alert alert-warning"><%= t('label.loading') %></div>
         </div>
       <% end %>
 
@@ -75,34 +77,48 @@
         <% if @teach.new_record? %>
           <%= render template: 'teaches/edit_enrollments' %>
         <% else %>
-          <div class="alert"><%= t('label.loading') %></div>
+          <div class="alert alert-warning"><%= t('label.loading') %></div>
         <% end %>
       </div>
     </div>
 
     <% if @teach.persisted? && @teach.forums.empty? %>
       <hr />
-      <%= link_to t('view.forums.new'), new_teach_forum_path(@teach), class: 'btn btn-small btn-inverse' if current_institution && can?(:create, @teach.forums.build) %>
+      <%= link_to(
+        t('view.forums.new'), new_teach_forum_path(@teach),
+        class: 'btn btn-default btn-sm'
+      ) if current_institution && can?(:create, @teach.forums.build) %>
     <% elsif @teach.persisted? %>
       <h3>
-        <%= link_to_if current_institution && can?(:read, Forum), Forum.model_name.human(count: @teach.forums.size), teach_forums_path(@teach) %>
+        <%= link_to_if(
+          current_institution && can?(:read, Forum),
+          Forum.model_name.human(count: @teach.forums.size), teach_forums_path(@teach)
+        ) %>
         <% if current_institution && can?(:create, @teach.forums.build) %>
           <span class="divider">|</span>
-          <%= link_to t('view.forums.new'), new_teach_forum_path(@teach), class: 'btn btn-mini' %>
+          <%= link_to(
+            t('view.forums.new'), new_teach_forum_path(@teach), class: 'btn btn-default btn-xs'
+          ) %>
         <% end %>
       </h3>
 
       <ul>
         <% @teach.forums.reject(&:new_record?).each do |forum| %>
-          <li><%= link_to_if current_institution && can?(:read, forum), forum.to_s, [@teach, forum] %></li>
+          <li>
+            <%= link_to_if(
+              current_institution && can?(:read, forum), forum.to_s, [@teach, forum]
+            ) %>
+          </li>
         <% end %>
       </ul>
     <% end %>
   </div>
 
-  <div class="form-actions">
+  <hr />
+
+  <div class="form-actions form-footer">
     <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
-    <%= f.button :submit, class: 'btn-primary' %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>

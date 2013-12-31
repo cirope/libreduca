@@ -1,36 +1,33 @@
 <%= render 'breadcrumb', :@teach => @survey.teach, :@content => @survey.content %>
 
-<div class="readonly-data">
-  <div class="row-fluid">
-    <div class="span12">
-      <h3><%= @survey %></h3>
+<h3><%= @survey %></h3>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th><%= User.model_name.human(count: 1) %></th>
-            <th><%= Reply.model_name.human(count: 0) %></th>
-          </tr>
-        </thead>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th><%= User.model_name.human(count: 1) %></th>
+      <th><%= Reply.model_name.human(count: 0) %></th>
+    </tr>
+  </thead>
 
-        <tbody>
-          <% @survey.reply_users.uniq.each do |user| %>
-            <tr>
-              <td><%= user %></td>
-              <td>
-                <%= link_to(
-                  @survey.replies.where(user_id: user.id).count,
-                  survey_user_replies_path(@survey, user)
-                ) %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+  <tbody>
+    <% @survey.reply_users.uniq.each do |user| %>
+      <tr>
+        <td><%= user %></td>
+        <td>
+          <%= link_to(
+            @survey.replies.where(user_id: user.id).count,
+            survey_user_replies_path(@survey, user)
+          ) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<div class="form-actions">
-  <%= link_to_if can?(:read, @survey.content), @survey.content.to_s, [@survey.teach, @survey.content] %>
+<div class="form-actionsi form-footer">
+  <%= link_to_if(
+    can?(:read, @survey.content), @survey.content.to_s,
+    [@survey.teach, @survey.content]
+  ) %>
 </div>

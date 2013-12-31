@@ -1,11 +1,8 @@
-<ul class="breadcrumb">
+<ol class="breadcrumb">
   <li>
     <%= link_to_if can?(:read, @institution), @institution.to_s, @institution %>
-    <% unless @grade.new_record? %>
-      <span class="divider">/</span>
-    <% end %>
   </li>
   <% unless @grade.new_record? %>
     <li class="active"><%= @grade %></li>
   <% end %>
-</ul>
+</ol>

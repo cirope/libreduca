@@ -1,59 +1,59 @@
-<div class="readonly-data">
-  <%= render 'navbar' %>
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="badge badge-link">
-        <%= link_to t('label.back'), news_index_path %>
+<%= render 'news/news_login' %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="badge label-link">
+      <%= link_to t('label.back'), news_index_path %>
+    </div>
+
+    <div class="page-header page-header-sm">
+      <h2 class="text-info"><%= @news %></h2>
+      <%= markdown @news.description if @news.description.present? %>
+    </div>
+
+    <% if current_user && @news.images.present? %>
+      <div class="pull-left img-news launch-modal tag">
+        <a href="#modal-carousel" data-toggle="modal">
+          <%== @news.images.first.to_html(:normal) %>
+        </a>
+        <span class="badge zoom"><%= link_to_zoom '#modal-carousel' %></span>
+        <%= render 'images/modal_carousel', :@images => @news.images %>
       </div>
+    <% end %>
 
-      <div class="page-header">
-        <h2 class="text-info"><%= @news %></h2>
-        <%= markdown @news.description if @news.description.present? %>
-      </div>
-
-      <% if user_signed_in? && @news.images.present? %>
-        <div class="pull-left launch-modal tag">
-          <a href="#modal-carousel" data-toggle="modal">
-            <%== @news.images.first.to_html(:normal) %>
-          </a>
-          <span class="badge zoom"><%= link_to_zoom '#modal-carousel' %></span>
-          <%= render 'images/modal_carousel', :@images => @news.images %>
-        </div>
-      <% end %>
-
-      <p class="muted">
-        <span><%= l @news.published_at.to_date, format: :long %></span>
-        <% if user_signed_in? %>
-          <span>| <%= link_to_comments(@news, '#comments-header') %></span>
-        <% end %>
-      </p>
-      <%= markdown @news.body if @news.body.present? %>
-
-      <% unless @news.tags.empty? %>
-        <div class="news_info">
-          <strong><%= News.human_attribute_name 'tags', count: @news.tags.size %></strong>:
-          <%== show_tags_nav(@news) %>
-        </div>
-      <% end %>
-
+    <p class="text-muted">
+      <span><%= l @news.published_at.to_date, format: :long %></span>
       <% if user_signed_in? %>
-        <div class="news_info" id="<%= @news.anchor_vote %>">
-          <% vote = @news.voted_by(current_user) || @news.votes.build %>
-          <%= vote.new_record? ? link_to_like(vote) : link_to_dislike(vote) %>
-        </div>
-
-        <%= render template: 'comments/index',
-          locals: { :@comments => @news.comments.page(1), :@commentable => @news } %>
+        <span>| <%= link_to_comments(@news, '#comments-header') %></span>
       <% end %>
+    </p>
+    <%= markdown @news.body if @news.body.present? %>
 
-      <div class="badge badge-link">
-        <%= link_to t('label.back'), news_index_path %>
+    <% unless @news.tags.empty? %>
+      <div class="news_info">
+        <strong><%= News.human_attribute_name 'tags', count: @news.tags.size %></strong>:
+        <%== show_tags_nav(@news) %>
       </div>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <div class="news_info" id="<%= @news.anchor_vote %>">
+        <% vote = @news.voted_by(current_user) || @news.votes.build %>
+        <%= vote.new_record? ? link_to_like(vote) : link_to_dislike(vote) %>
+      </div>
+
+      <%= render template: 'comments/index',
+        locals: { :@comments => @news.comments.page(1), :@commentable => @news } %>
+    <% end %>
+
+    <div class="badge label-link">
+      <%= link_to t('label.back'), news_index_path %>
     </div>
   </div>
 </div>
 
-<div class="form-actions">
+<hr />
+
+<div class="form-actions form-footer">
   <%= link_to(
     t('label.edit'), edit_news_path(@news), class: 'btn btn-primary'
   ) if can? :update, @news %>

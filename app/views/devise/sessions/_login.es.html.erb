@@ -1,22 +1,12 @@
-<% span_class ||= 'span12' %>
-
-  <h3 class="muted text-center">Inicio de sesión</h3>
-
-<%= simple_form_for(resource, as: resource_name,
-  url: session_path(resource_name), input_html: { class: span_class }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
-    <%= f.input :email, input_html: { autofocus: true, class: span_class } %>
-    <%= f.input :password, input_html: { class: span_class } %>
-    <%= f.input :remember_me, as: :boolean, wrapper: :checkbox if devise_mapping.rememberable? %>
-
-    <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
-    <%= f.submit 'Ingresar', class: 'btn btn-primary' %>
+    <%= f.input :email, input_html: { autofocus: true } %>
+    <%= f.input :password %>
+    <%= f.input :remember_me, as: :boolean, label: false,
+      inline_label: true if devise_mapping.rememberable? %>
   </div>
 
-<div class="readonly-data">
-  <%= link_to(
-    '¿Olvidaste tu contraseña?', new_password_path(resource_name),
-    id: 'reset-password'
-  ) %>
-</div>
+  <div class="form-actions">
+    <%= f.submit 'Ingresar', class: 'btn btn-primary' %>
+  </div>
 <% end %>

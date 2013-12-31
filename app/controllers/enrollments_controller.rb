@@ -15,6 +15,7 @@ class EnrollmentsController < ApplicationController
     respond_to do |format|
       format.html # send_email_summary.html.erb
       format.json { render json: @enrollment }
+      format.js
     end
   end
 end

@@ -2,8 +2,10 @@
   <script id="template-upload" type="text/x-tmpl">
     <div class="upload">
       <h5>{%=o.name%}</h5>
-      <div class="progress progress-striped active">
-        <div class="bar" style="width: 0%"></div>
+      <div class="progress progress-striped">
+        <div class="progress-bar progress-bar-info active">
+          <div class="bar" style="width: 0%"></div>
+        </div>
       </div>
       <div class="message" style="display: none;">
         <small class="text-info"><%= t('plugin.jquery_file_upload.please_wait.html') %></small>

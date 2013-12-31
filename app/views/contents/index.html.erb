@@ -1,39 +1,35 @@
 <% if @contents.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <caption>
-          <h4>
-            <%= t(
-              'view.contents.from_teach.html',
-              count: @teach.contents.count,
-              teach: link_to(@teach.to_s, @teach)
-            ) %></h4>
-          <br />
-        </caption>
+  <table class="table table-condensed resource-list">
+    <caption>
+      <h4>
+        <%= t(
+          'view.contents.from_teach.html',
+          count: @teach.contents.count,
+          teach: link_to(@teach.to_s, @teach)
+        ) %>
+    </h4>
+    </caption>
 
-        <thead>
-          <tr>
-            <th><%= Content.human_attribute_name 'title' %></th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
+    <thead>
+      <tr>
+        <th><%= Content.human_attribute_name 'title' %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @contents.each do |content| %>
-            <tr>
-              <td><%= content.title %></td>
-              <td><%= link_to_show [@teach, content] %></td>
-              <td><%= link_to_edit edit_teach_content_path(@teach, content) if can? :update, content %></td>
-              <td><%= link_to_destroy [@teach, content] if can? :destroy, content %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <tbody>
+      <% @contents.each do |content| %>
+        <tr>
+          <td><%= content.title %></td>
+          <td><%= link_to_show [@teach, content] %></td>
+          <td><%= link_to_edit edit_teach_content_path(@teach, content) if can? :update, content %></td>
+          <td><%= link_to_destroy [@teach, content] if can? :destroy, content %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= pagination_links(@contents) %>
 <% end %>

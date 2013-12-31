@@ -15,7 +15,7 @@ module SurveysHelper
     form.input(
       :question_type, collection: options, as: :select, label: false, include_blank: false,
       input_html: {
-        class: 'span11', data: {
+        data: {
           'question-type-templates' => question_type_templates_in_json(form)
         }
       }

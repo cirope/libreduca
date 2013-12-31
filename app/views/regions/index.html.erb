@@ -1,27 +1,23 @@
 <% if @regions.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <thead>
-          <tr>
-            <th><%= Region.human_attribute_name 'name' %></th>
-            <th colspan="2"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @regions.each do |region| %>
-            <tr>
-              <td><%= link_to_if can?(:read, region), region.name, region, title: t('label.show') %></td>
-              <td><%= link_to_edit edit_region_path(region) if can? :update, region %></td>
-              <td><%= link_to_destroy region if can? :destroy, region %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <table class="table table-condensed resource-list">
+    <thead>
+      <tr>
+        <th><%= Region.human_attribute_name 'name' %></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @regions.each do |region| %>
+        <tr>
+          <td><%= link_to_if can?(:read, region), region.name, region, title: t('label.show') %></td>
+          <td><%= link_to_edit edit_region_path(region) if can? :update, region %></td>
+          <td><%= link_to_destroy region if can? :destroy, region %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= pagination_links(@regions) %>
 <% end %>

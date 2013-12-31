@@ -1,55 +1,48 @@
 <% columns = 2 %>
+
 <% if @news.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="readonly-data">
-    <%= render 'navbar' %>
-    <% @news.each_slice(columns) do |news_row| %>
-      <div class="row-fluid">
-        <ul class="thumbnails">
-          <% news_row.each do |news| %>
-            <li class="span6">
-              <div class="thumbnail">
-                <div class="clearfix">
-                  <% unless news.tags.empty? %>
-                  <div class="pull-left badge badge-<%= @tag.try(:category) || news.taggings.first.tag.category %>">
-                    <%= @tag || news.taggings.first.tag %>
-                  </div>
-                  <% end %>
-                </div>
-                <div class="caption">
-                  <h4 class="text-info">
-                    <%= link_to news.title, news_path(news) %>
-                  </h4>
-                  <%= markdown news.description %>
-                </div>
+  <%= render 'news/news_login' %>
+  <% @news.each_slice(columns) do |news_row| %>
+    <div class="row">
+      <% news_row.each do |news| %>
+        <div class="col-md-6">
+          <% unless news.tags.empty? %>
+            <div class="clearfix">
+              <div class="pull-left label label-<%= @tag.try(:category) || news.taggings.first.tag.category %>">
+                <%= @tag || news.taggings.first.tag %>
               </div>
-              <p class="muted">
-                <span>
-                  <%= l news.published_at.to_date, format: :long %> |
-                  <%= link_to_comments(news, news_path(news, anchor: 'comments-header')) %>
-                </span>
-              </p>
-              <% if user_signed_in? && !news.images.empty? %>
-              <div>
+            </div>
+          <% end %>
+          <h4 class="text-info">
+            <%= link_to news.title, news_path(news) %>
+          </h4>
+          <div class="clearfix">
+            <% if current_user && !news.images.empty? %>
+              <div class="pull-left img-news">
                 <%= link_to(
                   image_tag(news.images.first.file_url(:normal)), news_path(news)
                 ) %>
               </div>
-              <% end %>
-              <hr />
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <% if @news.current_page > 1 %>
-      <%= pagination_links(@news) %>
-    <% end %>
+            <% end %>
+            <%= markdown news.description %>
+          </div>
+          <div class="text-muted">
+            <%= l news.published_at.to_date, format: :long %> |
+            <%= link_to_comments(news, news_path(news, anchor: 'comments-header')) %>
+          </div>
+          <hr />
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="form-footer">
+    <%= pagination_links(@news) %>
   </div>
 <% end %>
 
-<div class="form-actions">
+<div class="form-actions form-footer">
   <%= link_to(
     t('view.news.new'), new_news_path, class: 'btn btn-primary'
   ) if can? :create, News %>

@@ -18,7 +18,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_page_has_no_errors!
 
-    find('#reset-password').click
+    click_link I18n.t('sessions.new.forgot_password')
 
     assert page.has_css?('.email')
     assert_equal new_user_password_path, current_path
@@ -27,7 +27,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: user.email
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      find('.btn-primary.submit').click
+      find('.btn-default').click
     end
 
     assert_equal new_user_session_path, current_path
@@ -43,7 +43,10 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
   test 'should be able to login and logout' do
     login
 
-    click_link 'logout'
+    within '.navbar-collapse .navbar-right' do
+      find('a.dropdown-toggle').click
+      click_link I18n.t('navigation.logout')
+    end
 
     assert_equal new_user_session_path, current_path
 
@@ -58,9 +61,10 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
   test 'should be redirected to subdomain' do
     login_into_institution
 
-    click_link 'logout'
-
-    visit student_dashboard_path
+    within '.navbar-collapse .navbar-right' do
+      find('a.dropdown-toggle').click
+      click_link I18n.t('navigation.logout')
+    end
 
     Capybara.app_host = "http://#{RESERVED_SUBDOMAINS.first}.lvh.me:54163"
 
@@ -97,7 +101,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     assert_equal student_dashboard_path, current_path
   end
 
-  test 'should login via _menu dropdown_' do
+  test 'should login via news' do
 
     institution = Fabricate(:institution)
     Fabricate(:news, institution_id: institution.id)
@@ -112,15 +116,15 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_page_has_no_errors!
 
-    within '.content .navbar' do
-      click_link 'Ingresar'
+    click_link 'Ingresar'
 
-      within '#login' do
-        fill_in 'user_email', with: user.email
-        fill_in 'user_password', with: '123456'
+    assert page.has_css?('#user_email')
 
-        find('.btn.btn-primary').click
-      end
+    within '#new_user' do
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: '123456'
+
+      find('.btn.btn-primary').click
     end
 
     assert page.has_css?('.alert.alert-info')

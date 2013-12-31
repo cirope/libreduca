@@ -1,32 +1,31 @@
-<div class="row-fluid">
-  <div class="span4 hidden-phone">
-    &nbsp;
-  </div>
-  <div class="public_form_container span4">
-    <h3>¿Olvidaste tu contraseña?</h3>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="well">
+      <h3>¿Olvidaste tu contraseña?</h3>
 
-    <p>
-      Ingresa debajo tu dirección de correo y te enviaremos instrucciones para
-      restablecerla
-    </p>
+      <p class="text-muted">
+        Ingresa debajo tu dirección de correo y te enviaremos instrucciones para
+        restablecerla
+      </p>
 
-    <div class="row-fluid">
-      <div class="span12">
-        <%= simple_form_for(resource, as: resource_name,
-            url: password_path(resource_name), html: { method: :post }) do |f| %>
-          <div class="form-inputs">
-            <%= f.input :email, input_html: { autofocus: true, class: 'span12' } %>
-          </div>
+      <%= simple_form_for(resource, as: resource_name,
+          url: password_path(resource_name), html: { method: :post }) do |f| %>
 
-          <div class="form-actions">
-            <%= render 'shared/hidden_submit', f: f %>
-            <%= show_button_dropdown(
-              link_to('Enviarme las instrucciones', '#', class: 'btn btn-primary submit'),
-              devise_links_es
-            ) %>
-          </div>
-        <% end %>
-      </div>
+        <div class="form-inputs">
+          <%= f.input :email, label: false, input_html: { autofocus: true } %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit(
+            t('password_resets.new.send_instructions'), class: 'btn btn-default'
+          ) %>
+        </div>
+      <% end %>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <p><%= link_to t('label.back'), root_path %></p>
   </div>
 </div>

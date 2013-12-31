@@ -1,0 +1,52 @@
+es:
+  app_name: 'Libreduca'
+
+  messages:
+    confirmation: '¿Está seguro?'
+    not_authorized: 'Debe ingresar para ver el contenido'
+
+  navigation:
+    destroy: 'Eliminar'
+    edit: 'Editar'
+    index: 'Listado'
+    loading: 'Cargando...'
+    logout: 'Salir'
+    show: 'Ver'
+    back: 'Volver'
+
+  sessions:
+    new:
+      title: 'Ingreso'
+      log_in: 'Ingresar'
+      email: 'Correo'
+      password: 'Contraseña'
+      remember_me: 'Recordarme'
+      forgot_password: '¿Olvidaste tu contraseña?'
+    create:
+      invalid: 'Tu correo y/o contraseña no están bien =('
+      logged_in: 'Bienvenido'
+    destroy:
+      logged_out: 'Hasta la próxima'
+
+  password_resets:
+    edit:
+      title: 'Cambiar contraseña'
+      update: 'Actualizar contraseña'
+    update:
+      success: 'Contraseña cambiada correctamente'
+      expired: 'El enlace ha expirado, pida de nuevo las instrucciones'
+    new:
+      title: 'Restablecer contraseña'
+      email: 'Correo'
+      send_instructions: 'Enviar instrucciones'
+      back: 'Volver'
+    create:
+      success: 'Se enviaron instrucciones a tu correo para restablecer la contraseña'
+      not_found: 'El correo que ingresaste no está registrado, verifica que no esté mal escrito'
+
+  profiles:
+    edit:
+      title: 'Mis datos'
+      submit: 'Actualizar mis datos'
+    update:
+      success: 'Tus datos se actualizaron correctamente'

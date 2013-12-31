@@ -61,7 +61,7 @@ class GroupsTest < ActionDispatch::IntegrationTest
 
     visit edit_group_path(group)
 
-    find('a.btn.btn-small').click
+    find('a.btn.btn-sm').click
 
     # Must be removed before the next search, forcing the new "creation"
     page.execute_script("$('.ui-autocomplete').html('')")
@@ -124,7 +124,9 @@ class GroupsTest < ActionDispatch::IntegrationTest
     assert_difference('Group.count', -1) do
       assert page.has_no_css?('.alert-info')
 
-      find('div a[data-original-title="Eliminar"]').click
+      within '.table' do
+        find('a[title="Eliminar"]').click
+      end
 
       page.driver.browser.switch_to.alert.accept
 

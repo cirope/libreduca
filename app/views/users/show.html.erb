@@ -1,93 +1,93 @@
-<div class="readonly-data">
-  <div class="row-fluid">
-    <div class="span9">
-      <h2><%= @user %></h2>
+<div class="row">
+  <div class="col-md-9">
+    <h2><%= @user %></h2>
 
+    <p>
+      <%= mail_to @user.email %>
+    </p>
+
+    <% if @user.role %>
       <p>
-        <%= mail_to @user.email %>
+        <%= User.human_attribute_name 'roles', count: 1 %>:
+        <strong><%= t("view.users.roles.#{@user.role}") %></strong>
       </p>
+    <% end %>
 
-      <% if @user.role %>
-        <p>
-          <%= User.human_attribute_name 'roles', count: 1 %>:
-          <strong><%= t("view.users.roles.#{@user.role}") %></strong>
-        </p>
-      <% end %>
+    <% unless @user.jobs.empty? %>
+      <h3><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h3>
+      <ul>
+        <% @user.jobs.each do |job| %>
+          <li>
+            <%= t(
+              'view.users.job_role.html',
+              institution: link_to_if(can?(:read, job.institution), job.institution.name, job.institution),
+              role: show_human_job_type(job.job)
+            ) %>
+            <% if job.description.present? %>
+              <small class="text-muted">(<%= job.description %>)</small>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
 
-      <% unless @user.jobs.empty? %>
-        <h3><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h3>
-        <ul>
-          <% @user.jobs.each do |job| %>
-            <li>
-              <%= t(
-                'view.users.job_role.html',
-                institution: link_to_if(can?(:read, job.institution), job.institution.name, job.institution),
-                role: show_human_job_type(job.job)
-              ) %>
-              <% if job.description.present? %>
-                <small class="muted">(<%= job.description %>)</small>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-
-      <% unless @user.kinships.empty? %>
-        <%= content_for :kinships do %>
-          <% @user.kinships.each do |kinship| %>
-            <li>
-              <%= t(
-                'view.users.kinship.html',
-                relative: link_to_if(can?(:read, kinship.relative), kinship.relative.to_s, kinship.relative),
-                kin: show_human_kinship_type(kinship.kin).downcase
-              ) %>
-            </li>
-          <% end %>
+    <% unless @user.kinships.empty? %>
+      <%= content_for :kinships do %>
+        <% @user.kinships.each do |kinship| %>
+          <li>
+            <%= t(
+              'view.users.kinship.html',
+              relative: link_to_if(can?(:read, kinship.relative), kinship.relative.to_s, kinship.relative),
+              kin: show_human_kinship_type(kinship.kin).downcase
+            ) %>
+          </li>
         <% end %>
       <% end %>
+    <% end %>
 
-      <% unless @user.inverse_kinships.empty? %>
-        <%= content_for :kinships do %>
-          <% @user.inverse_kinships.each do |inverse_kinship| %>
-            <li>
-              <%= t(
-                'view.users.inverse_kinship.html',
-                user: link_to_if(can?(:read, inverse_kinship.user), inverse_kinship.user.to_s, inverse_kinship.user),
-                kin: show_human_kinship_type(inverse_kinship.kin).downcase
-              ) %>
-            </li>
-          <% end %>
+    <% unless @user.inverse_kinships.empty? %>
+      <%= content_for :kinships do %>
+        <% @user.inverse_kinships.each do |inverse_kinship| %>
+          <li>
+            <%= t(
+              'view.users.inverse_kinship.html',
+              user: link_to_if(can?(:read, inverse_kinship.user), inverse_kinship.user.to_s, inverse_kinship.user),
+              kin: show_human_kinship_type(inverse_kinship.kin).downcase
+            ) %>
+          </li>
         <% end %>
       <% end %>
+    <% end %>
 
-      <% if @user.kinships.present? || @user.inverse_kinships.present? %>
-        <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size + @user.inverse_kinships.size %></h3>
-        <ul>
-          <%= yield :kinships %>
-        </ul>
-      <% end %>
+    <% if @user.kinships.present? || @user.inverse_kinships.present? %>
+      <h3><%= User.human_attribute_name 'kinships', count: @user.kinships.size + @user.inverse_kinships.size %></h3>
+      <ul>
+        <%= yield :kinships %>
+      </ul>
+    <% end %>
 
-      <% unless @user.memberships.empty? %>
-        <h3><%= Group.model_name.human count: @user.groups.size %></h3>
-        <ul>
-          <% @user.memberships.each do |membership| %>
-            <li>
-              <%= t(
-                'view.users.memberships.html',
-                group: link_to_if(can?(:read, membership.group), membership.group.name, edit_group_path(membership.group_id)),
-              ) %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-    <div class="span3">
-      <%= show_user_avatar(@user) if @user.avatar? %>
-    </div>
+    <% unless @user.memberships.empty? %>
+      <h3><%= Group.model_name.human count: @user.groups.size %></h3>
+      <ul>
+        <% @user.memberships.each do |membership| %>
+          <li>
+            <%= t(
+              'view.users.memberships.html',
+              group: link_to_if(can?(:read, membership.group), membership.group.name, edit_group_path(membership.group_id)),
+            ) %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <%= show_user_avatar(@user) if @user.avatar? %>
   </div>
 </div>
 
-<nav class="form-actions">
+<hr />
+
+<nav class="form-actions form-footer">
   <% if can? :read, User %>
     <div class="pull-right">
       <%= link_to t('label.list'), users_path %>
@@ -95,6 +95,6 @@
   <% end %>
   <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn btn-primary' if can? :edit, @user %>
   <% if can? :create, User %>
-    <%= link_to t('view.users.new'), new_user_path, class: 'btn' %>
+    <%= link_to t('view.users.new'), new_user_path, class: 'btn btn-default' %>
   <% end %>
 </nav>

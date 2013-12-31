@@ -1,30 +1,42 @@
 <%= render 'breadcrumb' %>
 
-<div class="readonly-data">
-  <h2><%= @course %></h2>
+<h2><%= @course %></h2>
 
-  <% if @course.teaches.empty? %>
-    <%= link_to t('view.teaches.new'), new_course_teach_path(@course), class: 'btn btn-mini btn-inverse' if can? :create, @course.teaches.build %>
-  <% else %>
-    <h3>
-      <%= link_to_if can?(:read, Teach), Teach.model_name.human(count: @course.teaches.size), course_teaches_path(@course) %>
-      <% if can? :create, @course.teaches.build %>
-        <span class="divider">|</span>
-        <%= link_to t('view.teaches.new'), new_course_teach_path(@course), class: 'btn btn-mini' %>
-      <% end %>
-    </h3>
+<% if @course.teaches.empty? %>
+  <%= link_to(
+    t('view.teaches.new'), new_course_teach_path(@course),
+    class: 'btn btn-default btn-xs'
+  ) if can? :create, @course.teaches.build %>
+<% else %>
+  <h3>
+    <%= link_to_if(
+      can?(:read, Teach), Teach.model_name.human(count: @course.teaches.size),
+      course_teaches_path(@course)
+    ) %>
+    <% if can? :create, @course.teaches.build %>
+      <span class="divider">|</span>
+      <%= link_to(
+        t('view.teaches.new'), new_course_teach_path(@course),
+        class: 'btn btn-default btn-xs'
+      ) %>
+    <% end %>
+  </h3>
 
-    <ul>
-      <% @course.teaches.reject!(&:new_record?).each do |teach| %>
-        <li><%= link_to_if can?(:read, teach), teach.to_s, teach %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+  <ul>
+    <% @course.teaches.reject!(&:new_record?).each do |teach| %>
+      <li><%= link_to_if can?(:read, teach), teach.to_s, teach %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<hr />
 
 <nav class="form-actions">
   <% if can? :update, @course %>
-    <%= link_to t('label.edit'), edit_grade_course_path(@grade, @course), class: 'btn btn-primary' %>
+    <%= link_to(
+      t('label.edit'), edit_grade_course_path(@grade, @course),
+      class: 'btn btn-primary'
+    ) %>
   <% end %>
   <% if can? :read, @course %>
     <div class="pull-right">

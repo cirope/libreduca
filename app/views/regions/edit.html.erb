@@ -1,6 +1,6 @@
 <%= content_for :form_actions do %>
   <% if can? :read, @region %>
-    <%= link_to t('label.show'), @region %> |
+    <%= link_to_show @region %> |
   <% end %>
   <% if can? :read, Region %>
     <%= link_to t('label.list'), regions_path %>
