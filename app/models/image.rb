@@ -46,7 +46,7 @@ class Image < ActiveRecord::Base
       src: get_version(version).url,
       alt: self.to_s,
       title: self.to_s,
-      class: 'img-rounded'
+      class: 'img-rounded img-responsive'
     }
 
     attributes[:width], attributes[:height] = self.dimensions(version)
