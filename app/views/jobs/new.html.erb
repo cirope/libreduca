@@ -1,10 +1,8 @@
-<% if user_not_in_institution? && editing_user? %>
-  <div class="alert alert-info">
-    <%= t('view.users.add_to_institution.html', user: @user,
-      institution: current_institution
-    ) %>
-  </div>
-<% end %>
+<div class="alert alert-info">
+  <%= t('view.users.add_to_institution.html', user: @user,
+    institution: current_institution
+  ) %>
+</div>
 
 <div class="row">
   <div class="col-md-6">

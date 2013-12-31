@@ -255,12 +255,11 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should find the user by email' do
-    institution = login_into_institution
+    login_into_institution
 
-    get :find_by_email, q: @user.email, format: 'js'
-    assert_response :success
+    get :find_by_email, email: @user.email, format: 'js'
 
-    assert_template 'users/edit'
+    assert_match edit_user_url(@user), @response.body
   end
 
   test 'should find the user by email with job' do
@@ -268,16 +267,16 @@ class UsersControllerTest < ActionController::TestCase
     another_user = Fabricate(:user)
     job = Fabricate(:job, institution_id: institution.id)
 
-    get :find_by_email, q: another_user.email, format: 'js'
-    assert_response :success
+    get :find_by_email, email: another_user.email, format: 'js'
 
-    assert_template 'jobs/_job'
+    assert_match new_user_job_url(another_user), @response.body
   end
 
   test 'should not find the user by email' do
-    institution = login_into_institution
+    login_into_institution
 
-    get :find_by_email, q: '', format: 'html'
+    get :find_by_email, email: '', format: 'js'
+
     assert_response :success
   end
 

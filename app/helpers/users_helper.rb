@@ -49,12 +49,4 @@ module UsersHelper
 
     jobs
   end
-
-  def user_not_in_institution?
-    @user.jobs.in_institution(current_institution).empty?
-  end
-
-  def editing_user?
-    controller.action_name == "find_by_email"
-  end
 end

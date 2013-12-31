@@ -7,7 +7,7 @@ resources :users do
 
   get :chart, to: 'chart#index', on: :member
 
-  resources :jobs, only: [:create]
+  resources :jobs, only: [:new, :create]
 
   resources :teaches, only: [:index]
 end

@@ -1,4 +1,4 @@
-<%= simple_form_for @user, data: { form_user: true } do |f| %>
+<%= simple_form_for(@user) do |f| %>
   <%= f.error_notification %>
 
   <div class="row">
@@ -13,7 +13,7 @@
         <%= f.input :name, input_html: { maxlength: 255 } %>
         <%= f.input :lastname, input_html: { maxlength: 255 } %>
 
-        <% if @user.new_record? %>
+        <% if ['new', 'create'].include?(action_name) %>
           <%= f.input :password, required: true, input_html: { maxlength: 255 } %>
           <%= f.input :password_confirmation, input_html: { maxlength: 255 } %>
         <% end %>

@@ -111,18 +111,17 @@ class UsersController < ApplicationController
   end
 
   def find_by_email
-    @user = User.find_by(email: params[:email].strip.downcase)
+    @user = User.find_by(email: params[:email].to_s.strip.downcase)
 
     respond_to do |format|
       if @user.present?
         if @user.has_job_in?(current_institution)
-          format.js { render template: 'users/edit' }
+          format.js { redirect_via_turbolinks_to edit_user_url(@user) }
         else
-          format.js { @job = @user.jobs.build }
+          format.js { redirect_via_turbolinks_to new_user_job_url(@user) }
         end
       else
-        @user = User.new(email: params[:email])
-        format.js { render template: 'users/new' }
+        format.js { head :ok }
       end
     end
   end
