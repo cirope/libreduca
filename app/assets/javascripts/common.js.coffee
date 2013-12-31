@@ -13,8 +13,6 @@ new Rule
   unload: -> clearTimeout timer for i, timer of @map.timers
 
 jQuery ($) ->
-  $(document).on 'click', 'a.submit', -> $(this).closest('form').submit(); false
-
   $(document).ajaxStart ->
     $('.loading-caption').removeClass('hidden')
   .ajaxStop ->
@@ -22,7 +20,6 @@ jQuery ($) ->
 
   $(document).on 'submit', 'form', ->
     $(this).find('input[type="submit"], input[name="utf8"]').attr 'disabled', true
-    $(this).find('a.submit').removeClass('submit').addClass('disabled')
     $(this).find('.dropdown-toggle').addClass('disabled')
 
   Inspector.instance().load()
