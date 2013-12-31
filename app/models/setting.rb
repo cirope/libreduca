@@ -3,9 +3,6 @@ class Setting < ActiveRecord::Base
 
   has_paper_trail
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :value, :kind
-
   # Defaul order
   default_scope -> { order("#{table_name}.created_at ASC") }
 

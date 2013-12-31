@@ -1,7 +1,5 @@
 class Visit < ActiveRecord::Base
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :user
-
+  # Attribute restrictions
   attr_readonly :user_id, :visited_id, :visited_type
 
   # Callbacks

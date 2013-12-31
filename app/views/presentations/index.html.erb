@@ -11,6 +11,7 @@
         <thead>
           <tr>
             <th><%= User.model_name.human %></th>
+            <th class="hidden-md"><%= Presentation.human_attribute_name 'created_at' %></th>
             <th><%= Presentation.human_attribute_name 'file' %></th>
             <th></th>
             <th></th>
@@ -21,6 +22,7 @@
           <% presentations.each do |presentation| %>
             <tr>
               <td><%= presentation.user %></td>
+              <td class="hidden-md"><%= l presentation.created_at, format: :shorter %></td>
               <td><%= link_to presentation.file.file.identifier, presentation.file.url %></td>
               <td>
                 <%= link_to_comments(

@@ -5,9 +5,6 @@ class Comment < ActiveRecord::Base
 
   self.per_page = 5
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible 
-
   # Write once attributes
   attr_readonly :user_id
 

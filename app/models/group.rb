@@ -3,9 +3,6 @@ class Group < ActiveRecord::Base
 
   has_magick_columns name: :string
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible 
-
   attr_accessor :enrollable_type
 
   # Validations
