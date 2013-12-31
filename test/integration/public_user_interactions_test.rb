@@ -27,7 +27,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: user.email
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      find('.btn-primary').click
+      find('.btn-default').click
     end
 
     assert_equal new_user_session_path, current_path
