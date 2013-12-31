@@ -6,7 +6,6 @@ class Ability
 
     user ? user_rules(user, institution) : public_rules(institution)
 
-    alias_action :find_by_email, to: :read
     alias_action :find_user_or_group, to: :read
   end
 
@@ -110,6 +109,7 @@ class Ability
     can :update, User do |user|
       user.jobs.in_institution(institution).exists?
     end
+    can :find_by_email, User
     can :manage, Presentation # TODO: check for proper access
     can :manage, News, institution_id: institution.id
     can :manage, Group, institution_id: institution.id

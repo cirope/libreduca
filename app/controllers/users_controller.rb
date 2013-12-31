@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   check_authorization
   load_and_authorize_resource through: :current_institution, shallow: true,
     except: [:find_by_email]
+  authorize_resource only: [:find_by_email]
 
   # GET /users
   def index
@@ -110,7 +111,7 @@ class UsersController < ApplicationController
   end
 
   def find_by_email
-    @user = User.find_by email: params[:q].strip.downcase
+    @user = User.find_by(email: params[:email].strip.downcase)
 
     respond_to do |format|
       if @user.present?
@@ -120,7 +121,8 @@ class UsersController < ApplicationController
           format.js { @job = @user.jobs.build }
         end
       else
-        format.html { head :ok }
+        @user = User.new(email: params[:email])
+        format.js { render template: 'users/new' }
       end
     end
   end
