@@ -24,10 +24,6 @@ class ApplicationController < ActionController::Base
     redirect_to default_url, *args
   end
 
-  def not_found
-    redirect_to root_url
-  end
-
   private
 
   # Overwriting the sign_out redirect path method

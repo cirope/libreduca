@@ -16,7 +16,6 @@ class NewsControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:news)
     assert_equal news_index_url, session[:user_return_to]
-    assert_select '#unexpected_error', false
     assert_template 'news/index', layout: 'layouts/application'
   end
 
@@ -26,7 +25,6 @@ class NewsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:news)
-    assert_select '#unexpected_error', false
     assert_template 'news/index'
   end
 
@@ -36,7 +34,6 @@ class NewsControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_not_nil assigns(:news)
-    assert_select '#unexpected_error', false
     assert_template 'news/new'
   end
 
@@ -56,7 +53,6 @@ class NewsControllerTest < ActionController::TestCase
     get :show, id: @news
     assert_response :success
     assert_not_nil assigns(:news)
-    assert_select '#unexpected_error', false
     assert_template "news/show", layout: 'layouts/application'
   end
 
@@ -66,7 +62,6 @@ class NewsControllerTest < ActionController::TestCase
     get :show, id: @news
     assert_response :success
     assert_not_nil assigns(:news)
-    assert_select '#unexpected_error', false
     assert_template 'news/show'
   end
 
@@ -76,7 +71,6 @@ class NewsControllerTest < ActionController::TestCase
     get :edit, id: @news
     assert_response :success
     assert_not_nil assigns(:news)
-    assert_select '#unexpected_error', false
     assert_template 'news/edit'
   end
 

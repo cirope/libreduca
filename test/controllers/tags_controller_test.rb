@@ -24,7 +24,6 @@ class TagsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:tags).size
     assert assigns(:tags).all? { |t| t.to_s =~ /filtered_index/ }
     assert_not_equal assigns(:tags).size, Tag.count
-    assert_select '#unexpected_error', false
     assert_template 'tags/index'
   end
 

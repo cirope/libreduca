@@ -14,7 +14,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
     end
 
     assert_response :success
-    assert_select '#unexpected_error', false
     assert_template 'enrollments/send_email_summary'
   end
 end

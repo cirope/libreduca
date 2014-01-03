@@ -14,7 +14,6 @@ class PresentationsControllerTest < ActionController::TestCase
     get :index, content_id: @content, homework_id: @homework
     assert_response :success
     assert_not_nil assigns(:presentations)
-    assert_select '#unexpected_error', false
     assert_template 'presentations/index'
   end
 
@@ -22,7 +21,6 @@ class PresentationsControllerTest < ActionController::TestCase
     get :new, content_id: @content, homework_id: @homework
     assert_response :success
     assert_not_nil assigns(:presentation)
-    assert_select '#unexpected_error', false
     assert_template 'presentations/new'
   end
 
@@ -57,7 +55,6 @@ class PresentationsControllerTest < ActionController::TestCase
     get :show, content_id: @content, homework_id: @homework, id: @presentation
     assert_response :success
     assert_not_nil assigns(:presentation)
-    assert_select '#unexpected_error', false
     assert_template 'presentations/show'
   end
 

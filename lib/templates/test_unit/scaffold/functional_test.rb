@@ -13,7 +13,6 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:<%= table_name %>)
-    assert_select '#unexpected_error', false
     assert_template "<%= table_name %>/index"
   end
 
@@ -21,7 +20,6 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_not_nil assigns(:<%= singular_table_name %>)
-    assert_select '#unexpected_error', false
     assert_template "<%= table_name %>/new"
   end
 
@@ -37,7 +35,6 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
     get :show, id: <%= "@#{singular_table_name}" %>
     assert_response :success
     assert_not_nil assigns(:<%= singular_table_name %>)
-    assert_select '#unexpected_error', false
     assert_template "<%= table_name %>/show"
   end
 
@@ -45,7 +42,6 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
     get :edit, id: <%= "@#{singular_table_name}" %>
     assert_response :success
     assert_not_nil assigns(:<%= singular_table_name %>)
-    assert_select '#unexpected_error', false
     assert_template "<%= table_name %>/edit"
   end
 

@@ -12,7 +12,6 @@ class ContentsControllerTest < ActionController::TestCase
     get :index, teach_id: @teach.to_param
     assert_response :success
     assert_not_nil assigns(:contents)
-    assert_select '#unexpected_error', false
     assert_template 'contents/index'
   end
 
@@ -29,7 +28,6 @@ class ContentsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:contents).size
     assert assigns(:contents).all? { |c| c.to_s =~ /filtered_index/ }
     assert_not_equal assigns(:contents).size, @teach.contents.count
-    assert_select '#unexpected_error', false
     assert_template 'contents/index'
   end
 
@@ -37,7 +35,6 @@ class ContentsControllerTest < ActionController::TestCase
     get :new, teach_id: @teach.to_param
     assert_response :success
     assert_not_nil assigns(:content)
-    assert_select '#unexpected_error', false, @response.body
     assert_template 'contents/new'
   end
 
@@ -64,7 +61,6 @@ class ContentsControllerTest < ActionController::TestCase
     get :show, teach_id: @teach.to_param, id: @content
     assert_response :success
     assert_not_nil assigns(:content)
-    assert_select '#unexpected_error', false
     assert_template 'contents/show'
   end
 
@@ -72,7 +68,6 @@ class ContentsControllerTest < ActionController::TestCase
     get :edit, teach_id: @teach.to_param, id: @content
     assert_response :success
     assert_not_nil assigns(:content)
-    assert_select '#unexpected_error', false
     assert_template 'contents/edit'
   end
 

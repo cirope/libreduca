@@ -35,7 +35,6 @@
 //= require courses
 //= require dashboard
 //= require enrollments
-//= require errors
 //= require forums
 //= require grades
 //= require images

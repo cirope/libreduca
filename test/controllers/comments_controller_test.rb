@@ -19,7 +19,6 @@ class CommentsControllerTest < ActionController::TestCase
     get :index, presentation_id: presentation
     assert_response :success
     assert_not_nil assigns(:comments)
-    assert_select '#unexpected_error', false
     assert_template 'comments/index'
   end
 

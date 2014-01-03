@@ -38,6 +38,4 @@ Libreduca::Application.routes.draw do
   end
 
   root to: 'router#index'
-
-  draw :common, :'404'
 end

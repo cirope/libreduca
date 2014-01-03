@@ -12,7 +12,6 @@ class GradesControllerTest < ActionController::TestCase
     get :index, institution_id: @institution.to_param
     assert_response :success
     assert_not_nil assigns(:grades)
-    assert_select '#unexpected_error', false
     assert_template 'grades/index'
   end
 
@@ -29,7 +28,6 @@ class GradesControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:grades).size
     assert assigns(:grades).all? { |g| g.to_s =~ /filtered_index/ }
     assert_not_equal assigns(:grades).size, @institution.grades.count
-    assert_select '#unexpected_error', false
     assert_template 'grades/index'
   end
 
@@ -37,7 +35,6 @@ class GradesControllerTest < ActionController::TestCase
     get :new, institution_id: @institution.to_param
     assert_response :success
     assert_not_nil assigns(:grade)
-    assert_select '#unexpected_error', false
     assert_template 'grades/new'
   end
 
@@ -54,7 +51,6 @@ class GradesControllerTest < ActionController::TestCase
     get :show, institution_id: @institution.to_param, id: @grade
     assert_response :success
     assert_not_nil assigns(:grade)
-    assert_select '#unexpected_error', false
     assert_template 'grades/show'
   end
 
@@ -62,7 +58,6 @@ class GradesControllerTest < ActionController::TestCase
     get :edit, institution_id: @institution.to_param, id: @grade
     assert_response :success
     assert_not_nil assigns(:grade)
-    assert_select '#unexpected_error', false
     assert_template 'grades/edit'
   end
 

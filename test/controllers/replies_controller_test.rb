@@ -12,7 +12,6 @@ class RepliesControllerTest < ActionController::TestCase
     get :index, survey_id: Fabricate(:survey).id, user_id: Fabricate(:user).id
     assert_response :success
     assert_not_nil assigns(:replies)
-    assert_select '#unexpected_error', false
     assert_template 'replies/index'
   end
 
@@ -20,7 +19,6 @@ class RepliesControllerTest < ActionController::TestCase
     get :new, question_id: @question
     assert_response :success
     assert_not_nil assigns(:reply)
-    assert_select '#unexpected_error', false, @response.body
     assert_template 'replies/new'
   end
 
@@ -36,7 +34,6 @@ class RepliesControllerTest < ActionController::TestCase
     get :show, id: @reply, question_id: @question
     assert_response :success
     assert_not_nil assigns(:reply)
-    assert_select '#unexpected_error', false
     assert_template 'replies/show'
   end
 
@@ -44,7 +41,6 @@ class RepliesControllerTest < ActionController::TestCase
     get :edit, id: @reply, question_id: @question
     assert_response :success
     assert_not_nil assigns(:reply)
-    assert_select '#unexpected_error', false, @response.body
     assert_template 'replies/edit'
   end
 

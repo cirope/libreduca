@@ -11,7 +11,6 @@ class RegionsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:regions)
-    assert_select '#unexpected_error', false
     assert_template 'regions/index'
   end
 
@@ -28,7 +27,6 @@ class RegionsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:regions).size
     assert assigns(:regions).all? { |r| r.to_s =~ /filtered_index/ }
     assert_not_equal assigns(:regions).size, Region.count
-    assert_select '#unexpected_error', false
     assert_template 'regions/index'
   end
 
@@ -36,7 +34,6 @@ class RegionsControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_not_nil assigns(:region)
-    assert_select '#unexpected_error', false
     assert_template 'regions/new'
   end
 
@@ -64,7 +61,6 @@ class RegionsControllerTest < ActionController::TestCase
     get :show, id: @region
     assert_response :success
     assert_not_nil assigns(:region)
-    assert_select '#unexpected_error', false
     assert_template 'regions/show'
   end
 
@@ -72,7 +68,6 @@ class RegionsControllerTest < ActionController::TestCase
     get :edit, id: @region
     assert_response :success
     assert_not_nil assigns(:region)
-    assert_select '#unexpected_error', false
     assert_template 'regions/edit'
   end
 

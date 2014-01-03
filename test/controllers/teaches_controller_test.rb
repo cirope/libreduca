@@ -12,7 +12,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :index, course_id: @course.to_param
     assert_response :success
     assert_not_nil assigns(:teaches)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/index'
   end
 
@@ -20,7 +19,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :new, course_id: @course.to_param
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/new'
   end
 
@@ -37,7 +35,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :show, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/show'
   end
 
@@ -45,7 +42,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :edit, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/edit'
   end
 
@@ -71,7 +67,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :show_scores, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/show_scores'
   end
 
@@ -79,7 +74,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :show_enrollments, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/show_enrollments'
   end
 
@@ -89,7 +83,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :show_tracking, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/show_tracking'
   end
 
@@ -99,7 +92,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :show_tracking, course_id: @course.to_param, id: @teach, format: :csv
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/show_tracking'
     assert_equal 3, CSV.parse(@response.body).reject(&:empty?).size
   end
@@ -108,7 +100,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :edit_scores, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/edit_scores'
   end
 
@@ -116,7 +107,6 @@ class TeachesControllerTest < ActionController::TestCase
     get :edit_enrollments, course_id: @course.to_param, id: @teach
     assert_response :success
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'teaches/edit_enrollments'
   end
 
@@ -130,7 +120,6 @@ class TeachesControllerTest < ActionController::TestCase
     end
 
     assert_response :success
-    assert_select '#unexpected_error', false
     assert_template 'teaches/send_email_summary'
   end
 end

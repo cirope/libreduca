@@ -11,7 +11,6 @@ class InstitutionsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:institutions)
-    assert_select '#unexpected_error', false
     assert_template 'institutions/index'
   end
 
@@ -24,7 +23,6 @@ class InstitutionsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:institutions).size
     assert assigns(:institutions).all? { |s| s.inspect =~ /filtered_index/ }
     assert_not_equal assigns(:institutions).size, Institution.count
-    assert_select '#unexpected_error', false
     assert_template 'institutions/index'
   end
 
@@ -51,7 +49,6 @@ class InstitutionsControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_not_nil assigns(:institution)
-    assert_select '#unexpected_error', false
     assert_template 'institutions/new'
   end
 
@@ -67,7 +64,6 @@ class InstitutionsControllerTest < ActionController::TestCase
     get :show, id: @institution
     assert_response :success
     assert_not_nil assigns(:institution)
-    assert_select '#unexpected_error', false
     assert_template 'institutions/show'
   end
 
@@ -75,7 +71,6 @@ class InstitutionsControllerTest < ActionController::TestCase
     get :edit, id: @institution
     assert_response :success
     assert_not_nil assigns(:institution)
-    assert_select '#unexpected_error', false
     assert_template 'institutions/edit'
   end
 

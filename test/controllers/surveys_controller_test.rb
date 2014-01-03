@@ -15,7 +15,6 @@ class SurveysControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:surveys)
     assert_not_nil assigns(:teach)
-    assert_select '#unexpected_error', false
     assert_template 'surveys/index'
   end
 
@@ -24,7 +23,6 @@ class SurveysControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:surveys)
     assert_not_nil assigns(:content)
-    assert_select '#unexpected_error', false
     assert_template 'surveys/index'
   end
 
@@ -40,7 +38,6 @@ class SurveysControllerTest < ActionController::TestCase
     get :new, content_id: @content
     assert_response :success
     assert_not_nil assigns(:survey)
-    assert_select '#unexpected_error', false
     assert_template 'surveys/new'
   end
 
@@ -63,7 +60,6 @@ class SurveysControllerTest < ActionController::TestCase
     get :show, content_id: @content, id: @survey
     assert_response :success
     assert_not_nil assigns(:survey)
-    assert_select '#unexpected_error', false
     assert_template 'surveys/show'
   end
 
@@ -79,7 +75,6 @@ class SurveysControllerTest < ActionController::TestCase
     get :edit, content_id: @content, id: @survey
     assert_response :success
     assert_not_nil assigns(:survey)
-    assert_select '#unexpected_error', false
     assert_template 'surveys/edit'
   end
 

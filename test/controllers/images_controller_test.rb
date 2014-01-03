@@ -17,7 +17,6 @@ class ImagesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:images)
-    assert_select '#unexpected_error', false
     assert_template 'images/index'
   end
 
@@ -25,7 +24,6 @@ class ImagesControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_not_nil assigns(:image)
-    assert_select '#unexpected_error', false
     assert_template 'images/new'
   end
 
@@ -54,7 +52,6 @@ class ImagesControllerTest < ActionController::TestCase
     get :show, id: @image
     assert_response :success
     assert_not_nil assigns(:image)
-    assert_select '#unexpected_error', false
     assert_template 'images/show'
   end
 
@@ -62,7 +59,6 @@ class ImagesControllerTest < ActionController::TestCase
     get :edit, id: @image
     assert_response :success
     assert_not_nil assigns(:image)
-    assert_select '#unexpected_error', false
     assert_template 'images/edit'
   end
 

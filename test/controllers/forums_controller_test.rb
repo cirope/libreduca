@@ -20,7 +20,6 @@ class ForumsControllerTest < ActionController::TestCase
     get :index, institution_id: @owner.to_param
     assert_response :success
     assert_not_nil assigns(:forums)
-    assert_select '#unexpected_error', false
     assert_template 'forums/index'
   end
 
@@ -37,7 +36,6 @@ class ForumsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:forums).size
     assert assigns(:forums).all? { |g| g.to_s =~ /filtered_index/ }
     assert_not_equal assigns(:forums).size, @owner.forums.count
-    assert_select '#unexpected_error', false
     assert_template 'forums/index'
   end
 
@@ -45,7 +43,6 @@ class ForumsControllerTest < ActionController::TestCase
     get :new, institution_id: @owner.to_param
     assert_response :success
     assert_not_nil assigns(:forum)
-    assert_select '#unexpected_error', false
     assert_template 'forums/new'
   end
 
@@ -63,7 +60,6 @@ class ForumsControllerTest < ActionController::TestCase
     get :show, institution_id: @owner.to_param, id: @forum
     assert_response :success
     assert_not_nil assigns(:forum)
-    assert_select '#unexpected_error', false
     assert_template 'forums/show'
   end
 
@@ -71,7 +67,6 @@ class ForumsControllerTest < ActionController::TestCase
     get :edit, institution_id: @owner.to_param, id: @forum
     assert_response :success
     assert_not_nil assigns(:forum)
-    assert_select '#unexpected_error', false
     assert_template 'forums/edit'
   end
 
