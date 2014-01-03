@@ -7,7 +7,7 @@
       )
     ) %>
   <% else %>
-    <h4 class="alert-heading">
+    <h4>
       <%= t('view.generic.empty_search.title.html', search: h(params[:q])) %>
     </h4>
     <%= render 'shared/empty_search_suggestions' %>
