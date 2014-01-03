@@ -9,7 +9,7 @@
       </p>
 
       <%= simple_form_for(resource, as: resource_name,
-          url: password_path(resource_name), html: { method: :post }) do |f| %>
+        url: password_path(resource_name), html: { method: :post }) do |f| %>
 
         <div class="form-inputs">
           <%= f.input :email, label: false, input_html: { autofocus: true } %>
@@ -22,10 +22,6 @@
         </div>
       <% end %>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <p><%= link_to t('label.back'), root_path %></p>
+    <%= link_to t('label.back'), root_path %>
   </div>
 </div>
