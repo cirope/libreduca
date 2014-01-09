@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
+    <h2 class="text-center">Cambio de contraseña</h2>
+    <br />
     <div class="well">
-      <h3 class="text-muted">Cambio de contraseña</h3>
-
       <%= simple_form_for(
         resource, as: resource_name, url: password_path(resource_name),
         html: { method: :put }) do |f| %>
