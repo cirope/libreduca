@@ -3,8 +3,8 @@ module Users
     extend ActiveSupport::Concern
 
     included do
-      devise :database_authenticatable, :recoverable, :rememberable, :trackable,
-        :validatable
+      devise :database_authenticatable, :async, :recoverable, :rememberable,
+        :trackable, :validatable
     end
 
     module ClassMethods
