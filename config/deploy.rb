@@ -18,5 +18,6 @@ set :rbenv_ruby, '2.1.0'
 set :keep_releases, 5
 
 namespace :deploy do
-  after :finishing, 'deploy:cleanup'
+  after :publishing, :restart
+  after :finishing,  'deploy:cleanup'
 end
