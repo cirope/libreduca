@@ -64,7 +64,7 @@ class GroupsTest < ActionDispatch::IntegrationTest
     find('a.btn.btn-sm').click
 
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').html('')")
+    page.execute_script("$('.ui-autocomplete').empty()")
 
     within "#edit_group_#{group.id} fieldset" do
       fill_in find('input[name$="[auto_user_name]"]')[:id], with: "#{user.name} #{user.lastname}"

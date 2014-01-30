@@ -42,6 +42,7 @@ group :test do
   gem 'turn'
   gem 'selenium-webdriver'
   gem 'capybara', require: false
+  gem 'database_cleaner'
   gem 'fabrication'
   gem 'faker'
   gem 'timecop'

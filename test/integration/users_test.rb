@@ -41,7 +41,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#jobs fieldset:nth-child(2)')
 
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').html('')")
+    page.execute_script("$('.ui-autocomplete').empty()")
 
     institution = Fabricate(:institution)
 
@@ -101,7 +101,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#kinships fieldset:nth-child(2)')
 
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').html('')")
+    page.execute_script("$('.ui-autocomplete').empty()")
 
     relative = Fabricate(:user)
 
@@ -174,7 +174,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_no_css?('#user_role_admin')
 
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').html('')")
+    page.execute_script("$('.ui-autocomplete').empty()")
 
     within '#jobs fieldset' do
       select I18n.t("view.jobs.types.#{Job::TYPES.first}"),
