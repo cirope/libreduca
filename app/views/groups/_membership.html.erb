@@ -2,13 +2,11 @@
 <fieldset class="row">
   <div class="col-md-10">
     <% if f.object.new_record? %>
-      <% field_classes = ['autocomplete_field'] %>
       <% copy_attribute_errors(:user_id, :auto_user_name, f) %>
       <%= f.input :auto_user_name, label: false,
         placeholder: Group.human_attribute_name('user_id'),
         input_html: {
           id: "auto_user_#{id}",
-          class: field_classes.join(' '),
           value: f.object.user.try(:label),
           autofocus: true,
           data: {
@@ -17,9 +15,7 @@
           }
         }
       %>
-      <%= f.input :user_id, as: :hidden,
-        input_html: { class: 'autocomplete_id', id: "auto_user_id_#{id}" }
-      %>
+      <%= f.input :user_id, as: :hidden, input_html: { id: "auto_user_id_#{id}" } %>
     <% else %>
       <p><%= f.object.user.label %></p>
     <% end %>

@@ -1,14 +1,12 @@
 <% id = f.object.object_id %>
 <fieldset class="row kinship">
   <div class="col-md-5">
-    <% field_classes = ['autocomplete_field'] %>
     <% copy_attribute_errors(:relative_id, :auto_user_name, f) %>
     <%= f.input :auto_user_name, label: false,
       placeholder: Kinship.human_attribute_name('relative_id'),
       input_html: {
         id: "auto_user_#{id}",
         autofocus: true,
-        class: field_classes.join(' '),
         value: f.object.relative.try(:label),
         data: {
           'autocomplete-url' => users_path(format: :json),
@@ -16,9 +14,7 @@
         }
       }
     %>
-    <%= f.input :relative_id, as: :hidden,
-      input_html: { class: 'autocomplete_id', id: "auto_relative_id_#{id}" }
-    %>
+    <%= f.input :relative_id, as: :hidden, input_html: { id: "auto_relative_id_#{id}" } %>
   </div>
   <div class="col-md-5">
     <%= show_user_kinship_options(f) %>

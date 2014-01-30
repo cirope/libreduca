@@ -7,14 +7,12 @@
   <div class="row">
     <%= f.simple_fields_for :tag do |f_t| %>
       <div class="col-md-4">
-        <% field_classes = ['autocomplete_field'] %>
         <%= f_t.input :name, label: false,
           placeholder: Tag.human_attribute_name('name'),
           input_html: {
             id: "auto_tag_name_#{id}",
             value: tagging.tag.name,
             autofocus: true,
-            class: field_classes.join(' '),
             data: {
               'autocomplete-url' => tags_path(format: :json, type: @taggable.class.to_s),
               'autocomplete-id-target' => ".tag_id_#{id}",
@@ -22,9 +20,7 @@
             }
           }
         %>
-        <%= f.input :tag_id, as: :hidden,
-          input_html: { class: "autocomplete_id tag_id_#{id}" }
-        %>
+        <%= f.input :tag_id, as: :hidden, input_html: { class: "tag_id_#{id}" } %>
       </div>
       <div class="col-md-4 color_chooser">
         <div class="btn-group">
@@ -39,7 +35,7 @@
       </div>
       <div class="col-md-4">
         <%= f_t.input :tagger_type, as: :hidden, input_html: { value: @taggable.class.to_s } %>
-        <%= f_t.input :id, as: :hidden, input_html: { class: "autocomplete_id tag_id_#{id}" } %>
+        <%= f_t.input :id, as: :hidden, input_html: { class: "tag_id_#{id}" } %>
         <%= link_to_remove_nested_item(f) %>
       </div>
     <% end %>

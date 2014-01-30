@@ -2,13 +2,11 @@
 <fieldset class="row">
   <div class="col-md-10">
     <% if f.object.new_record? %>
-      <% field_classes = ['autocomplete_field'] %>
       <% copy_attribute_errors(:enrollable_id, :auto_enrollable_name, f) %>
       <%= f.input :auto_enrollable_name, label: false,
         placeholder: Enrollment.human_attribute_name('user_id'),
         input_html: {
           id: "auto_enrollable_#{id}",
-          class: field_classes.join(' '),
           value: f.object.try(:label),
           autofocus: true,
           data: {
@@ -17,11 +15,8 @@
           }
         }
       %>
-      <%= f.input :enrollable_id, as: :hidden,
-        input_html: { class: 'autocomplete_id', id: "auto_enrollable_id_#{id}" }
-      %>
-      <%= f.input :enrollable_type, as: :hidden,
-        input_html: { class: 'autocomplete_id', id: "auto_enrollable_type", value: "User" }
+      <%= f.input :enrollable_id, as: :hidden, input_html: { id: "auto_enrollable_id_#{id}" } %>
+      <%= f.input :enrollable_type, as: :hidden, input_html: { id: "auto_enrollable_type_#{id}", value: "User" }
       %>
     <% else %>
       <p><%= f.object.enrollable.label %></p>

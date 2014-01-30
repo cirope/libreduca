@@ -6,13 +6,11 @@
   <div class="row">
     <% unless current_institution %>
       <div class="col-md-5">
-        <% field_classes = ['autocomplete_field'] %>
         <% copy_attribute_errors(:institution_id, :auto_institution_name, f) %>
         <%= f.input :auto_institution_name, label: false,
           placeholder: Job.human_attribute_name('institution_id'),
           input_html: {
             id: "auto_institution_#{id}",
-            class: field_classes.join(' '),
             value: f.object.institution.try(:label),
             autofocus: true,
             data: {
@@ -21,9 +19,7 @@
             }
           }
         %>
-        <%= f.input :institution_id, as: :hidden,
-          input_html: { class: 'autocomplete_id', id: "auto_institution_id_#{id}" }
-        %>
+        <%= f.input :institution_id, as: :hidden, input_html: { id: "auto_institution_id_#{id}" } %>
       </div>
     <% end %>
     <div class="<%= current_institution ? 'col-md-10' : 'col-md-5' %>">

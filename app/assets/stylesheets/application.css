@@ -12,7 +12,8 @@
  *= require bootstrap
  *= require bootstrap-theme
  *= require main
- *= require jquery/ui-custom
+ *= require jquery-ui
+ *= require jquery-ui-theme
  *= require ie
  *= require chart
  *= require comments
