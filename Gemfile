@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.3'
+gem 'rails', '~> 4.0.5'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -10,7 +10,7 @@ gem 'will_paginate'
 gem 'simple_form'
 gem 'devise'
 gem 'devise-async'
-gem 'cancan', github: 'francocatena/cancan'
+gem 'cancancan'
 gem 'role_model'
 gem 'paper_trail'
 gem 'magick_columns'

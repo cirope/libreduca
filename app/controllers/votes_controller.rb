@@ -45,10 +45,6 @@ class VotesController < ApplicationController
 
   private
 
-    def vote_params
-      params.require(:vote).permit(:lock_version)
-    end
-
     def set_votable
       @votable = @news || @comment
     end
