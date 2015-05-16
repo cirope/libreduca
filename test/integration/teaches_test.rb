@@ -13,11 +13,11 @@ class TeachesTest < ActionDispatch::IntegrationTest
 
     find('#teach_start').click
 
+    synchronize { find('.ui-datepicker-calendar').visible? }
+
     within '.ui-datepicker-calendar' do
       find('a.ui-state-default.ui-state-highlight').click
     end
-
-    synchronize { find('.ui-datepicker-calendar').visible? }
 
     find('#teach_finish').click
 

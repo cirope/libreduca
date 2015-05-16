@@ -55,7 +55,7 @@ class Image < ActiveRecord::Base
   end
 
   def dimensions(version = nil)
-    MiniMagick::Image.open(get_version(version).path)['dimensions']
+    MiniMagick::Image.open(get_version(version).path)[:dimensions]
   end
 
   def recreate_versions

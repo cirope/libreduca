@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.5'
+gem 'rails', '~> 4.0.13'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -15,7 +15,7 @@ gem 'role_model'
 gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
-gem 'roadie'
+gem 'roadie-rails'
 gem 'redcarpet'
 gem 'carrierwave'
 gem 'mini_magick'

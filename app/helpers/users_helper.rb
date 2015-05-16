@@ -28,7 +28,7 @@ module UsersHelper
 
   def show_user_avatar(user, version = :thumb)
     avatar = user.avatar.send(version)
-    dimensions = MiniMagick::Image.open(avatar.path)['dimensions']
+    dimensions = MiniMagick::Image.open(avatar.path)[:dimensions]
 
     image_tag avatar.url, size: dimensions.join('x'), alt: user, class: 'avatar img-rounded'
   end

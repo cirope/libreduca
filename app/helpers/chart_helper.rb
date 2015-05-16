@@ -32,7 +32,7 @@ module ChartHelper
   end
 
   def user_micro_avatar(user)
-    dimensions = MiniMagick::Image.open(user.avatar.micro_thumb.path)['dimensions']
+    dimensions = MiniMagick::Image.open(user.avatar.micro_thumb.path)[:dimensions]
 
     image_tag user.avatar.micro_thumb.url, size: dimensions.join('x')
   end
