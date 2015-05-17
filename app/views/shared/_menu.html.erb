@@ -12,8 +12,8 @@
       <%= link_to t('app_name'), root_url, class: 'navbar-brand' %>
     </div>
 
-    <% if current_user %>
-      <div class="collapse navbar-collapse" role="navigation">
+    <div class="collapse navbar-collapse" role="navigation">
+      <% if current_user %>
         <ul class="nav navbar-nav">
           <%= render 'shared/menu_dropdowns/institutions' if current_user.institutions.count > 1 %>
           <%= show_menu_link(
@@ -41,9 +41,10 @@
         </ul>
         <%= render 'shared/nav_search' %>
         <%= render 'shared/user_actions' %>
-      </div>
-    <% else %>
-      <%= render 'shared/news' if current_institution %>
-    <% end %>
+      <% else %>
+        <%= render 'shared/news' if current_institution %>
+        <%= render 'shared/brand' %>
+      <% end %>
+    </div>
   </div>
 </div>
