@@ -10,14 +10,16 @@ set :deploy_via, :remote_cache
 set :scm, :git
 
 set :linked_files, %w{config/app_config.yml}
-set :linked_dirs, %w{log private public/system}
+set :linked_dirs, %w{log private public/system tmp/pids}
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.1.1'
+set :rbenv_ruby, '2.3.1'
 
 set :keep_releases, 5
 
 namespace :deploy do
   after :publishing, :restart
-  after :finishing,  'deploy:cleanup'
+  after :finishing,  :cleanup
 end
+
+after  'deploy:published', 'sidekiq:restart'
