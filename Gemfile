@@ -36,6 +36,10 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'unicorn-rails'
+
+  # Support for ed25519 ssh keys
+  gem 'rbnacl', '< 5.0' # TODO: check net-ssh dependency to _unleash_
+  gem 'bcrypt_pbkdf'
 end
 
 group :test do
