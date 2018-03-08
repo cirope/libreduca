@@ -13,7 +13,7 @@ set :linked_files, %w{config/app_config.yml}
 set :linked_dirs, %w{log private public/system tmp/pids}
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.3.1'
+set :rbenv_ruby, '2.3.6'
 
 set :keep_releases, 5
 
