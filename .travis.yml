@@ -8,5 +8,4 @@ before_script:
   - 'cp config/app_config.travis.yml config/app_config.yml'
   - "psql -c 'create database libreduca_test;' -U postgres"
   - 'bundle exec rake db:migrate'
-  - 'export DISPLAY=:99.0'
-  - 'sh -e /etc/init.d/xvfb start'
+script: bundle exec rake test:{units,functionals}
