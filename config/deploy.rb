@@ -14,6 +14,7 @@ set :linked_dirs, %w{log private public/system tmp/pids}
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.6'
+set :rbenv_path, "/home/#{fetch(:user)}/.rbenv"
 
 set :keep_releases, 5
 
