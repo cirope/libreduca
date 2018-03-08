@@ -1,9 +1,13 @@
 language: ruby
+cache: bundler
+sudo: false
 rvm:
   - 2.3.6
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq nodejs imagemagick
+addons:
+  apt:
+    packages:
+      - nodejs
+      - imagemagick
 before_script:
   - 'cp config/app_config.travis.yml config/app_config.yml'
   - "psql -c 'create database libreduca_test;' -U postgres"
