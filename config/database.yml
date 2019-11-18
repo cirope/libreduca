@@ -1,6 +1,8 @@
 common: &common
   adapter: postgresql
   encoding: unicode
+  host: localhost
+  port: 5432
   pool: 5
   username: <%= ENV['TRAVIS'] ? 'postgres' : 'libreduca' %>
   password: <%= ENV['TRAVIS'] ? '' : 'libreduca' %>
