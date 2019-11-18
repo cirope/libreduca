@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4.0.13'
 
-gem 'pg'
+gem 'pg', '< 1.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
