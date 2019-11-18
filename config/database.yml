@@ -17,7 +17,6 @@ test:
 
 production:
   database: libreduca_production
-  min_messages: warning
   <<: *common
 
 sandbox:
