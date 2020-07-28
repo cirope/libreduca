@@ -100,7 +100,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (2.1.0)
+    json (2.3.1)
     kgio (2.9.3)
     magick_columns (0.0.4)
       rails (>= 3.2)
