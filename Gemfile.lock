@@ -144,7 +144,7 @@ GEM
     rake (13.0.1)
     rbnacl (4.0.2)
       ffi
-    redcarpet (3.2.3)
+    redcarpet (3.5.1)
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
